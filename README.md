@@ -1,4 +1,4 @@
-# RCareWorld
+# RCareWorld 1.0
 Here is the code for RCareWorld 1.0 version. The project is under active development now. We will keep maintaining the code and model assets.
 
 # Components
