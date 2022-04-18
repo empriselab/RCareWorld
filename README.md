@@ -6,3 +6,13 @@ Here is the code for RCareWorld 1.0 version. The project is under active develop
 Users can use this module to generate URDF files for SMPL-X model, and plan motion of human limbs.
 ## CareHomes
 Users can use this tool to perform home modification on Matterport dataset.
+
+
+# Train
+python train.py --algo tqc --env KinovaDressing-v1
+
+# Test
+python enjoy.py --algo tqc --env KinovaDressing-v1 -f logs/ -n 1000
+
+# Record Video
+python -m utils.record_video --algo tqc --env KinovaDressing-v1 -f logs/ -n 1000
