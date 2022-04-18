@@ -7,12 +7,10 @@ Users can use this module to generate URDF files for SMPL-X model, and plan moti
 ## CareHomes
 Users can use this tool to perform home modification on Matterport dataset.
 
-
-# Train
+## Experiments
+### Train
 python train.py --algo tqc --env KinovaDressing-v1
-
-# Test
+### Test
 python enjoy.py --algo tqc --env KinovaDressing-v1 -f logs/ -n 1000
-
-# Record Video
+### Record Video
 python -m utils.record_video --algo tqc --env KinovaDressing-v1 -f logs/ -n 1000
