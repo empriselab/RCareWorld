@@ -7,10 +7,9 @@ Users can use this module to generate URDF files for SMPL-X model, and plan moti
 ## CareHomes
 Users can use this tool to perform home modification on Matterport dataset.
 
-## Unity Side
+## RFUniverse Dependency
 We use [RFUniverse](https://wenqiangx.github.io/robotflowproject/project/rfuniverse/) to construct Unity side and to communicate with Python side. 
-Since RFUnivese has not been made public, please reach out to Cathy (ry273@cornell.edu) to get Unity code.
-
+Since RFUnivese has not been made public, please reach out to Cathy (ry273@cornell.edu) to get code for RFUniverse.
 
 ## Experiments
 ### Train
