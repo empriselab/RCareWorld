@@ -9,8 +9,8 @@ Users can use this tool to perform home modification on Matterport dataset.
 
 ## Experiments
 ### Train
-python train.py --algo tqc --env KinovaDressing-v1
+run `python train.py --algo tqc --env KinovaDressing-v1`
 ### Test
-python enjoy.py --algo tqc --env KinovaDressing-v1 -f logs/ -n 1000
+run `python enjoy.py --algo tqc --env KinovaDressing-v1 -f logs/ -n 1000`
 ### Record Video
-python -m utils.record_video --algo tqc --env KinovaDressing-v1 -f logs/ -n 1000
+run `python -m utils.record_video --algo tqc --env KinovaDressing-v1 -f logs/ -n 1000`
