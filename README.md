@@ -7,3 +7,5 @@
 - Discuss in the forum https://github.com/empriselab/RCareWorld/discussions
 - Watch our presentation https://www.youtube.com/watch?v=mNy1cloWrP0
 
+# New
+- 02/13/2023 We are currently doing a round of internal testing of the code base. The public release is around the corner!
