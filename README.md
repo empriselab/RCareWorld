@@ -4,7 +4,7 @@
 
 This codebase is currently under **active development**. 
 
-We recommend you to start using it after we make an official announcement on **early April** after we test it thoroughly. 
+We recommend you to start using it after we make an official announcement in **early April** after we test it thoroughly. 
 
 - Check the website https://emprise.cs.cornell.edu/rcareworld/
 - Check the tutorials https://tinyurl.com/rcare-doc
