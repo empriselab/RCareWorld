@@ -2,7 +2,7 @@
 
 # Here is the code for RCareWorld V1.0 🦾
 
-This codebase is currently under **active development**. 
+This codebase is currently under **active development**. We are still in the middle of adding/modifying part of the codebase.
 
 We recommend you to start using it after we make an official announcement in **early April** after we test it thoroughly. 
 
