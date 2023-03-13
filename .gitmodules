@@ -1,0 +1,3 @@
+[submodule "pyrfuniverse_rcare"]
+	path = pyrfuniverse_rcare
+	url = https://github.com/YoruCathy/pyrfuniverse_rcare
