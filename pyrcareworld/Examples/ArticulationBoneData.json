@@ -1,0 +1,2807 @@
+{
+  "Pelvis": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "Spine1": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 20.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "Spine2": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 20.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "Spine3": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftShoulder": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftUpperArm": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftLowerArm": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftHand": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightShoulder": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightUpperArm": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightLowerArm": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightHand": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftUpperLeg": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftLowerLeg": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftFoot": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftToes": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightUpperLeg": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightLowerLeg": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightFoot": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightToes": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "Neck": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "Head": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftEye": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightEye": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "Jaw": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftThumb1": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftThumb2": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftThumb3": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftIndex1": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftIndex2": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftIndex3": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftMiddle1": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftMiddle2": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftMiddle3": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftRing1": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftRing2": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftRing3": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftPinky1": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftPinky2": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "LeftPinky3": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightThumb1": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightThumb2": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightThumb3": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightIndex1": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightIndex2": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightIndex3": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightMiddle1": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightMiddle2": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightMiddle3": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightRing1": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightRing2": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightRing3": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightPinky1": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightPinky2": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  },
+  "RightPinky3": {
+    "mass": 1.0,
+    "linearDamping": 0.05,
+    "angularDamping": 0.05,
+    "jointFriction": 0.05,
+    "anchorPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "anchorRotation": [
+      0.0,
+      0.0,
+      0.7071068,
+      0.7071068
+    ],
+    "JointType": 2,
+    "linearLockX": 2,
+    "linearLockY": 2,
+    "linearLockZ": 2,
+    "swingYLock": 2,
+    "swingZLock": 2,
+    "twistLock": 1,
+    "xDrive": {
+      "lowerLimit": -30.0,
+      "upperLimit": 30.0,
+      "stiffness": 100000.0,
+      "damping": 9000.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "yDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    },
+    "zDrive": {
+      "lowerLimit": 0.0,
+      "upperLimit": 0.0,
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "forceLimit": 3.40282347E+38,
+      "target": 0.0,
+      "targetVelocity": 0.0
+    }
+  }
+}
