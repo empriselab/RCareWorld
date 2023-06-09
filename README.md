@@ -1,11 +1,6 @@
 ![alt text](rcareworld.png)
 
-# Here is the code for RCareWorld V1.0 🦾
-
-This codebase is currently under **active development**. We are still in the middle of adding/modifying part of the codebase.
-
-We recommend you to start using it after we make an official announcement in **early June** after we test it thoroughly. 
-
+# Here is the code for RCareWorld V0.1.0 🦾
 - Check the website https://emprise.cs.cornell.edu/rcareworld/
 - Check the tutorials https://tinyurl.com/rcare-doc-010
 - Check the APIs https://tinyurl.com/rcare-doc
