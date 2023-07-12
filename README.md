@@ -1,6 +1,6 @@
 ![alt text](rcareworld.png)
 
-# Here is the code for RCareWorld V0.1.0 🦾
+# Here is the code for RCareWorld V1.1.0 🦾
 - Check the website https://emprise.cs.cornell.edu/rcareworld/
 - Check the documentation and tutorials https://tinyurl.com/rcare-doc-010
 - Discuss in the forum https://github.com/empriselab/RCareWorld/discussions
