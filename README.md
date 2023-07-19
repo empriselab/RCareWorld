@@ -1,7 +1,9 @@
 ![alt text](rcareworld.png)
 
-# Here is the code for RCareWorld V1.1.0 🦾
+# Here is the code for RCareWorld V1.0.0 🦾
 - Check the website https://emprise.cs.cornell.edu/rcareworld/
-- Check the documentation and tutorials https://tinyurl.com/rcare-doc-010
+- Check the documentation and tutorials
+  - Full install https://www.notion.so/Full-install-RCareWorld-All-you-need-to-know-c5432d938f9545299f2b268373ec8abc?pvs=4
+  - Minimum install https://www.notion.so/Prebuilt-RCareWorld-All-you-need-to-know-8081cfe25ac4446784f463bc25152dc8?pvs=4
 - Discuss in the forum https://github.com/empriselab/RCareWorld/discussions
 - Watch our presentation https://www.youtube.com/watch?v=mNy1cloWrP0
