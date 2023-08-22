@@ -24,7 +24,7 @@ setup(
         "pybullet",
         "gym==0.21.0",
         # "stable-baselines3"
-        "opencv-python"
+        "opencv-python",
     ],
     python_requires=">=3.6.1",
 )

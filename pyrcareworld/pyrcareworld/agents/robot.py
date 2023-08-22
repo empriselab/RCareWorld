@@ -1,4 +1,3 @@
-from abc import ABC
 import os
 import pathlib
 from pyrcareworld.objects import RCareWorldBaseObject
@@ -7,20 +6,22 @@ from pyrfuniverse.utils.stretch_controller import RFUniverseStretchController
 from pyrfuniverse.utils.controller import RFUniverseController
 from pyrfuniverse.utils.jaco_controller import RFUniverseJacoController
 from pyrfuniverse.utils.ur5_controller import RFUniverseUR5Controller
-import pyrfuniverse
 import pyrfuniverse.utils.rfuniverse_utility as utility
 
+
 class Robot(RCareWorldBaseObject):
-    """
-    This class is for robots in RCareWorld, including robot arms and mobile manipulators.
-    """
-    def __init__(self, env, id:int, gripper_id:list, robot_name:str, urdf_path=None,  base_pose:list = [0,0,0], base_orientation:list = [-0.707107, 0.0, 0.0, -0.707107], is_in_scene:bool = False):
-        super().__init__(
-            env=env,
-            id=id,
-            name=robot_name,
-            is_in_scene=is_in_scene
-        )
+    def __init__(
+        self,
+        env,
+        id: int,
+        gripper_id: list,
+        robot_name: str,
+        urdf_path: str = None,
+        base_pose: list = [0, 0, 0],
+        base_orientation: list = [-0.707107, 0.0, 0.0, -0.707107],
+        is_in_scene: bool = False,
+    ):
+        super().__init__(env=env, id=id, name=robot_name, is_in_scene=is_in_scene)
         """
         Initialization function.
         @param env: The environment object
@@ -28,8 +29,6 @@ class Robot(RCareWorldBaseObject):
         @param gripper_id:  A list of IDs of the grippers. For bimanual manipulator there might be two grippers, so this is a list.
         @param hand_camera: Whether there is a camera on the hand
         """
-        self.env = env
-        self.robot_id = id
         self.gripper_id = gripper_id
         self.hand_camera = False
         self.is_mobile = False
@@ -38,192 +37,315 @@ class Robot(RCareWorldBaseObject):
         self.base_orientation = base_orientation
 
         self.robot_name = robot_name
-        self.robot_type = robot_name.split('-')[0]
+        self.robot_type = robot_name.split("-")[0]
 
         self.robot_type_dict = {
-            'franka': '',
-            'kinova_gen3_6dof':'',
-            'kinova_gen3_7dof':'kinova_gen3/GEN3_URDF_V12.urdf',
-            'jaco_6dof':'',
-            'jaco_7dof':'Jaco/j2s7s300_gym.urdf',
-            'stretch':'',
-            'ur5':'',
+            "franka": "Franka/panda.urdf",
+            "kinova_gen3_6dof": "",
+            "kinova_gen3_7dof": "kinova_gen3/GEN3_URDF_V12.urdf",
+            "jaco_7dof": "Jaco/j2s7s300_gym.urdf",
+            "stretch": "Stretch/stretch_uncalibrated.urdf",
+            "ur5": "UR5/ur5_robot.urdf",
         }
-        self.urdf_path_prefix = os.path.join(pathlib.Path(__file__).parent.resolve(), 'URDF/')
+        self.urdf_path_prefix = os.path.join(
+            pathlib.Path(__file__).parent.resolve(), "URDF/"
+        )
         if self.robot_type in self.robot_type_dict.keys():
-            urdf_path = os.path.join(self.urdf_path_prefix, self.robot_type_dict[self.robot_type])
-            robot_prefix= self.robot_type.split('_')[0]
-            if robot_prefix == 'kinova':
+            urdf_path = os.path.join(
+                self.urdf_path_prefix, self.robot_type_dict[self.robot_type]
+            )
+            robot_prefix = self.robot_type.split("_")[0]
+            if robot_prefix == "kinova":
                 self.ik_controller = RFUniverseKinovaController(
                     robot_urdf=urdf_path,
-                    base_pos= self.base_pose,
-                    base_orn= self.base_orientation
+                    base_pos=self.base_pose,
+                    base_orn=self.base_orientation,
                 )
-            elif robot_prefix == 'jaco':
+            elif robot_prefix == "jaco":
                 self.ik_controller = RFUniverseJacoController(
                     robot_urdf=urdf_path,
-                    base_pos= self.base_pose,
-                    base_orn= self.base_orientation
+                    base_pos=self.base_pose,
+                    base_orn=self.base_orientation,
                 )
-            elif robot_prefix == 'stretch':
+            elif robot_prefix == "stretch":
                 self.ik_controller = RFUniverseStretchController(
                     robot_urdf=urdf_path,
-                    base_pos= self.base_pose,
-                    base_orn= self.base_orientation
+                    base_pos=self.base_pose,
+                    base_orn=self.base_orientation,
                 )
-            elif robot_prefix == 'franka':
+            elif robot_prefix == "franka":
                 self.ik_controller = RFUniverseController(
                     robot_urdf=urdf_path,
-                    base_pos= self.base_pose,
-                    base_orn= self.base_orientation
+                    base_pos=self.base_pose,
+                    base_orn=self.base_orientation,
                 )
-            elif robot_prefix == 'ur5':
+            elif robot_prefix == "ur5":
                 self.ik_controller = RFUniverseUR5Controller(
                     robot_urdf=urdf_path,
-                    base_pos= self.base_pose,
-                    base_orn= self.base_orientation
+                    base_pos=self.base_pose,
+                    base_orn=self.base_orientation,
                 )
-        elif self.robot_type not in self.robot_type_dict.keys() and self.robot_type is None:
-            print("Robot type not available directly. Please make sure the input matches the supported robot types, or load your robot with URDF in Unity editor and specify urdf path")
+        elif (
+            self.robot_type not in self.robot_type_dict.keys()
+            and self.robot_type is None
+        ):
+            print(
+                "Robot type not available directly. Please make sure the input matches the supported robot types, or load your robot with URDF in Unity editor and specify urdf path"
+            )
         else:
             # self.ik_controller = RFUniverseController(
             #     robot_urdf=urdf_path
             # )
             print("BioIK Only")
 
-    def getNumJoints(self) -> int:
+    def getInfo(self):
+        """
+        Get the information of this robot.
+        @return: A dictionary containing the information of this robot
+        """
+        return {"id": self.id, "name": self.robot_name, "gripper_id": self.gripper_id}
+
+    def getNumJoints(self):
         """
         Return number of movable joints
         @return: number of movable joints
         """
-        num_joints = self.env.instance_channel.data[self.robot_id]["number_of_moveable_joints"]
+        num_joints = self.env.instance_channel.data[self.id]["number_of_movable_joints"]
         return num_joints
 
-    def getInfoRaw(self) -> dict:
+    def getRobotState(self) -> dict:
         """
-        Return states
-        @Cathy: I don't like the keys here!
-        @return:
-        Keys:
-        number_of_joints: int, number of movable joints
-        positions: list3 of global position
-        rotations: list3 of global rotation, euler angle
-        quaternion: list4 of global rotation, quaternion
-        Local_positions: list3 of local position
-        Local_rotations: list3 of local rotation, euler angle
-        Local_quaternion: list4 of local quarternion, quaternion
-        velocities: list3 of velocity
-        number_of_moveable_joints: int
-        joint_positions: list of float, joint positions
-        joint_velocities: list of float, joint velocities
-        all_stable: bool, whether all parts are stable
-        move_done: bool, whether move is finished TODO: check if this is working
-        rotate_done: bool, whether rotation is finished TODO: check if this is working
-        gravity_forces: list of float
-        coriolis_centrifugal_forces: list of float
-        drive_forces: list of float
+        Returns a dictionary containing detailed information about the robot's current status.
+        The information includes:
+        - Robot name
+        - Position, rotation, and quaternion for both global and local frames
+        - Local to world transformation matrix
+        - Number of joints and their respective positions and rotations
+        - Local positions and rotations of the joints
+        - Velocities of the joints and robot
+        - Joint positions and velocities for the movablejoints
+        - Stability and movement status of the robot
+
+        Returns:
+            dict: A dictionary containing the robot's current status, with keys such as 'name',
+                  'position', 'rotation', 'quaternion', 'local_position', 'local_rotation',
+                  'local_quaternion', 'local_to_world_matrix', 'number_of_joints', 'positions',
+                  'rotations', 'local_positions', 'local_rotations', 'velocities',
+                  'number_of_movable_joints', 'joint_positions', 'joint_velocities',
+                  'all_stable', 'move_done', 'rotate_done'.
         """
-        info =  self.env.instance_channel.data[self.robot_id]
+        info = self.env.instance_channel.data[self.id]
         return info
 
-    def getRawInfoGripper(self):
+    def getJointStates(self, joint_id: int) -> dict:
         """
-        Get raw info for gripper.
-        @return:
-        dict with the same keywords but for the gripper
-        """
-        info = self.env.instance_channel.data[self.gripper_id]
-        return info
-    def isMoveDone(self) -> bool:
-        """
+        Returns a dictionary containing detailed information about the robot's current status.
+        The information includes:
+        - Joint position
+        - Joint velocity
+        - Joint force
 
-        @return:
-        """
-        move_done = not self.env.instance_channel.data[self.robot_id]['all_stable']
-        return move_done
+        Args:
+            joint_id (int): The ID of the joint to get the state of.
 
-    def getInfoParsed(self):
+        Returns:
+            dict: A dictionary containing the joint's current status, with keys such as 'joint_position',
+                    'joint_velocity', 'joint_force'.
         """
-
-        @return:
-        number_of_joints: int, number of joints
-        positions: list3 of global position
-        rotations: list3 of global rotation, euler angle
-        quaternion: list4 of global rotation, quaternion
-        Local_positions: list3 of local position
-        Local_rotations: list3 of local rotation, euler angle
-        Local_quaternion: list4 of local quarternion, quaternion
-        velocities: list3 of velocity
-        number_of_moveable_joints: int
-        joint_positions: list of float, joint rotations
-        joint_velocities: list of float, joint velocities
-        all_stable: bool, whether all parts are stable
-        move_done: bool, whether move is finished TODO: check if this is working
-        rotate_done: bool, whether rotation is finished TODO: check if this is working
-        gravity_forces: list of float
-        coriolis_centrifugal_forces: list of float
-        drive_forces: list of float
-        """
+        assert (
+            joint_id
+            < self.env.instance_channel.data[id]["number_of_movable_joints"]
+            is True
+        ), "Joint ID should be less than the number of movable joints"
         info = {}
-        raw_info = self.env.instance_channel.data[self.robot_id]
-        # print(raw_info)
-        # raw_number_of_joints = raw_info["number_of_joints"]
-        info["num_joints"] = raw_info["number_of_joints"]
-        info["base_pos"] = raw_info["positions"]
-        info["base_rot"] = raw_info["rotations"]
-        info["base_quat"] = raw_info["quaternion"]
-        info["base_local_pos"] = raw_info["Local_positions"]
-        info["base_local_rot"] = raw_info["Local_rotations"]
-        info["base_local_quat"] = raw_info["Local_quaternion"]
-        info["base_vel"] = raw_info["velocities"]
-        info["num_joints_movable"] = raw_info["number_of_moveable_joints"]
-        info["joint_poses"] = raw_info["joint_positions"]
-        info["joint_vels"] = raw_info["joint_velocities"]
-        info["all_stable"] = raw_info["all_stable"]
-        info["move_done"] = raw_info["move_done"]
-        info["rotate_done"] = raw_info["rotate_done"]
-        # info["gravity_forces"] = raw_info["gravity_forces"]
-        # info["coriolis_centrifugal_forces"] = raw_info["coriolis_centrifugal_forces"]
-        # info["drive_forces"] = raw_info["drive_forces"]
-
+        robot_info = self.getRobotState()
+        info["joint_positions"] = robot_info["joint_positions"][joint_id]
+        info["joint_velocity"] = robot_info["joint_velocities"][joint_id]
+        if "drive_forces" in robot_info.keys():
+            info["joint_forces"] = robot_info["drive_forces"][joint_id]
         return info
 
-    def getInfoParsedGripper(self):
+    def getJointPositions(self) -> list:
         """
-        Get parsed information but is for gripper
-        @return: Dict with the same keywords as getInfoParsed
+        Returns a list containing the positions of all the joints.
+
+        Returns:
+            list: A list containing the positions of all the joints.
         """
-        info = {}
-        raw_info = self.env.instance_channel.data[self.gripper_id]
-        # print(raw_info)
-        # raw_number_of_joints = raw_info["number_of_joints"]
-        info["num_joints"] = raw_info["number_of_joints"]
-        info["base_pos"] = raw_info["positions"]
-        info["base_rot"] = raw_info["rotations"]
-        info["base_quat"] = raw_info["quaternion"]
-        info["base_local_pos"] = raw_info["Local_positions"]
-        info["base_local_rot"] = raw_info["Local_rotations"]
-        info["base_local_quat"] = raw_info["Local_quaternion"]
-        info["base_vel"] = raw_info["velocities"]
-        info["num_joints_movable"] = raw_info["number_of_moveable_joints"]
-        info["joint_poses"] = raw_info["joint_positions"]
-        info["joint_vels"] = raw_info["joint_velocities"]
-        info["all_stable"] = raw_info["all_stable"]
-        info["move_done"] = raw_info["move_done"]
-        info["rotate_done"] = raw_info["rotate_done"]
-        return info
+        robot_info = self.getRobotState()
+        return robot_info["joint_positions"]
 
+    def getJointVelocities(self) -> list:
+        """
+        Returns a list containing the velocities of all the joints.
 
-    def getJointStates(self, joint_id):
-        assert joint_id<self.env.instance_channel.data[id]["number_of_moveable_joints"] is True, "Joint ID should be less than the number of movable joints"
-        info = {}
-        robot_info = self.getInfoParsed()
-        info["joint_pose"] = robot_info["joint_poses"][joint_id]
-        info["joint_vel"] = robot_info["joint_vels"][joint_id]
-        info["joint_force"] = robot_info["drive_forces"][joint_id]
-        return info
+        Returns:
+            list: A list containing the velocities of all the joints.
+        """
+        robot_info = self.getRobotState()
+        return robot_info["joint_velocities"]
 
-    def setJointPositions(self, joint_positions:list, speed_scales=None) -> None:
+    def getJointForces(self):
+        """
+        Returns a list containing the forces of all the joints.
+
+        Returns:
+            list: A list containing the forces of all the joints.
+        """
+        joint_dynamics_forces = self.env.instance_channel.set_action(
+            "GetJointInverseDynamicsForce", id=self.id
+        )
+        self.env._step()
+        robot_info = self.getRobotState()
+        return (
+            robot_info["drive_forces"],
+            robot_info["gravity_forces"],
+            robot_info["coriolis_forces"],
+        )
+
+    def getJointAccelerations(self):
+        """
+        Returns a list containing the accelerations of all the joints.
+
+        Returns:
+            list: A list containing the accelerations of all the joints.
+        """
+        joint_acccelerations = self.env.instance_channel.set_action(
+            "GetJointAccelerations", id=self.id
+        )
+        return joint_acccelerations
+
+    def getJointPositionByID(self, joint_id: int) -> float:
+        """
+        Returns the current position of the joint.
+
+        Args:
+            joint_id (int): The ID of the joint to get the position of.
+
+        Returns:
+            float: The position of the joint.
+        """
+        assert (
+            joint_id
+            < self.env.instance_channel.data[self.id]["number_of_movable_joints"]
+            is True
+        ), "Joint ID should be less than the number of movable joints"
+        robot_info = self.getRobotState()
+        return robot_info["joint_positions"][joint_id]
+
+    def getJointVelocityByID(self, joint_id: int) -> float:
+        """
+        Returns the current velocity of the joint.
+
+        Args:
+            joint_id (int): The ID of the joint to get the velocity of.
+
+        Returns:
+            float: The velocity of the joint.
+        """
+        assert (
+            joint_id
+            < self.env.instance_channel.data[self.id]["number_of_movable_joints"]
+            is True
+        ), "Joint ID should be less than the number of movable joints"
+        robot_info = self.getRobotState()
+        return robot_info["joint_velocities"][joint_id]
+
+    def getJointForceByID(self, joint_id: int):
+        """
+        Returns the current force of the joint.
+
+        Args:
+            joint_id (int): The ID of the joint to get the force of.
+
+        Returns:
+            float: The force of the joint.
+        """
+        print("Joint ID {}".format(joint_id))
+        print(
+            "Number of movable joints: {}".format(
+                self.env.instance_channel.data[self.id]["number_of_movable_joints"]
+            )
+        )
+        assert int(joint_id) < int(
+            self.env.instance_channel.data[self.id]["number_of_movable_joints"]
+        ), "Joint ID should be less than the number of movable joints"
+        joint_dynamics_forces = self.env.instance_channel.set_action(
+            "GetJointInverseDynamicsForce", id=self.id
+        )
+        self.env._step()
+
+        robot_info = self.getRobotState()
+
+        return (
+            robot_info["drive_forces"][joint_id],
+            robot_info["gravity_forces"][joint_id],
+            robot_info["coriolis_centrifugal_forces"][joint_id],
+        )
+
+    def getJointAccelerationByID(self, joint_id: int):
+        """
+        Returns the current acceleration of the joint.
+
+        Args:
+            joint_id (int): The ID of the joint to get the acceleration of.
+
+        Returns:
+            float: The acceleration of the joint.
+        """
+        assert (
+            joint_id
+            < self.env.instance_channel.data[self.id]["number_of_movable_joints"]
+            is True
+        ), "Joint ID should be less than the number of movable joints"
+
+        joint_acccelerations = self.env.instance_channel.set_action(
+            "GetJointAccelerations", id=self.id
+        )
+        return joint_acccelerations[joint_id]
+
+    def getGripperPosition(self) -> list:
+        """
+        Returns the current position of the gripper.
+
+        Returns:
+            list: The position of the gripper.
+        """
+        if len(self.gripper_id) == 1:
+            # print(self.env.instance_channel.data[self.gripper_id[0]])
+            return self.env.instance_channel.data[self.gripper_id[0]]["position"]
+
+    def getGripperRotation(self) -> list:
+        """
+        Returns the current rotation of the gripper.
+
+        Returns:
+            list: The rotation of the gripper.
+        """
+        if len(self.gripper_id) == 1:
+            return self.env.instance_channel.data[self.gripper_id[0]]["rotation"]
+
+    def getGripperVelocity(self) -> list:
+        """
+        Returns the current velocity of the gripper.
+
+        Returns:
+            list: The velocity of the gripper.
+        """
+        if len(self.gripper_id) == 1:
+            return self.env.instance_channel.data[self.gripper_id[0]]["velocities"][0]
+
+    def getGripperGraspPointPosition(self) -> list:
+        """
+        Returns the current position of the gripper grasp point.
+        """
+        if len(self.gripper_id) == 1:
+            gripper_data = self.env.instance_channel.data[self.gripper_id[0]]
+            positions = gripper_data["positions"]
+            grasp_point_position = positions[-1]
+            return grasp_point_position
+
+    def setJointPositions(self, joint_positions: list, speed_scales=None) -> None:
         """
         @param joint_positions: list of joint positions, starting from base, in degree TODO need check
         @param speed_scales: A list inferring each joint's speed scale.
@@ -231,112 +353,64 @@ class Robot(RCareWorldBaseObject):
         """
         if speed_scales is not None:
             self.env.instance_channel.set_action(
-                'SetJointPosition',
-                id = self.robot_id,
+                "SetJointPosition",
+                id=self.id,
                 joint_positions=list(joint_positions),
-                speed_scales=list(speed_scales)
+                speed_scales=list(speed_scales),
             )
         if speed_scales is None:
             self.env.instance_channel.set_action(
-                'SetJointPosition',
-                id=self.robot_id,
+                "SetJointPosition",
+                id=self.id,
                 joint_positions=list(joint_positions),
             )
 
-    def setJointPositionsDirectly(self, joint_positions:list) -> None:
+    def setJointPositionsDirectly(self, joint_positions: list) -> None:
         """
         @param joint_positions: list of joint positions, starting from base, in degree TODO need check
         @return: does not return anything
         """
         self.env.instance_channel.set_action(
-            'SetJointPosition',
-            id = self.robot_id,
-            joint_positions = joint_positions
+            "SetJointPosition", id=self.id, joint_positions=joint_positions
         )
 
-    def setJointPositionsContinue(self, joint_positions: list, interval:int, time_joint_positions:int)->None:
+    def setJointPositionsContinue(
+        self, joint_positions: list, interval: int, time_joint_positions: int
+    ) -> None:
         """
         @param joint_positions: list of joint positions, starting from base, in degree TODO need check
         @return:
         """
         self.env.instance_channel.set_action(
-            'SetJointPositionContinue',
-            id=self.robot_id,
-            interval = interval,
-            time_joint_positions = time_joint_positions
+            "SetJointPositionContinue",
+            id=self.id,
+            interval=interval,
+            time_joint_positions=time_joint_positions,
         )
 
-    def setJointVelocities(self, joint_velocities:list)->None:
-        """
-        @param joint_velocities:
-        @return:
-        """
-        self.env.instance_channel.set_action(
-            'SetJointVelocity',
-            id = self.robot_id,
-            joint_velocitys = joint_velocities
-        )
-
-    def setJointForces(self, joint_forces:list)->None:
+    def setJointForces(self, joint_forces: list) -> None:
         """
 
         @param joint_forces:
         @return:
         """
         self.env.instance_channel.set_action(
-            'AddJointForce',
-            id = self.robot_id,
-            joint_forces = joint_forces
+            "AddJointForce", id=self.id, joint_forces=joint_forces
         )
 
-    def setJointTorques(self, joint_torques:list)->None:
+    def setJointTorques(self, joint_torques: list) -> None:
         """
 
         @param joint_torques:
         @return:
         """
         self.env.instance_channel.set_action(
-            'AddJointForce',
-            id=self.robot_id,
-            joint_forces=joint_torques
+            "AddJointForce", id=self.id, joint_forces=joint_torques
         )
 
-    def getJointInverseDynamicsForces(self)->dict:
-        """
-
-        @return: A dictionary
-        Keys: M(q)q_dd + C(q, q_d)q_d + G(q) + J(q)*f_ext = Tau
-        drive_forces: Tau
-        TODO: add other force items
-        """
-        joint_dynamics_forces = self.env.instance_channel.set_action(
-            'GetJointInverseDynamicsForce',
-            id=self.robot_id
-        )
-        self.env._step()
-        info = self.getInfoRaw()
-        gravity_forces = info['gravity_forces']
-        coriolis_centrifugal_forces = info['coriolis_centrifugal_forces']
-        drive_forces = info['drive_forces']
-
-        forces = {}
-        forces['gravity_force'] = gravity_forces
-        forces['coriolis_force'] = coriolis_centrifugal_forces
-        forces['drive_force'] = drive_forces
-        return forces
-
-    def setImmovable(self)->None:
-        """
-
-        @return:
-        """
-        self.env.instance_channel.set_action(
-            'SetImmovable',
-            id = self.robot_id
-        )
-
-
-    def setJointForcesAtPositions(self, joint_forces: list, force_positions: list) -> None:
+    def setJointForcesAtPositions(
+        self, joint_forces: list, force_positions: list
+    ) -> None:
         """
 
         @param jiont_forces:
@@ -344,122 +418,78 @@ class Robot(RCareWorldBaseObject):
         @return:
         """
         self.env.instance_channel.set_action(
-            'AddJointForceAtPosition',
-            id=self.robot_id,
-            joint_forces = joint_forces,
-            forces_position = force_positions
+            "AddJointForceAtPosition",
+            id=self.id,
+            joint_forces=joint_forces,
+            forces_position=force_positions,
         )
 
+    def setImmovable(self) -> None:
+        """
 
-    def moveForward(self, distance: float, speed: float) -> None:
-        assert self.is_mobile is True, 'This method is only for mobile manipulators.'
-        self.env.instance_channel.set_action(
-            'MoveForward',
-            id=self.robot_id,
-            distance=distance,
-            speed=speed
-        )
+        @return:
+        """
+        self.env.instance_channel.set_action("SetImmovable", id=self.id)
 
-    def moveBackward(self, distance: float, speed: float) -> None:
-        assert self.is_mobile is True, 'This method is only for mobile manipulators.'
-        self.env.instance_channel.set_action(
-            'MoveBack',
-            id=self.robot_id,
-            distance=distance,
-            speed=speed
-        )
-
-    def turnLeft(self, angle: float, speed: float) -> None:
-        assert self.is_mobile is True, 'This method is only for mobile manipulators.'
-        self.env.instance_channel.set_action(
-            'TurnLeft',
-            id=self.robot_id,
-            angle=angle,
-            speed=speed
-        )
-
-    def turnRight(self, angle: float, speed: float) -> None:
-        assert self.is_mobile is True, 'This method is only for mobile manipulators.'
-        self.env.instance_channel.set_action(
-            'TurnRight',
-            id=self.robot_id,
-            angle=angle,
-            speed=speed
-        )
-
-    def moveTo(self, targetPose:list, targetRot = None) -> None:
-        if targetRot is not None:
-            joint_positions = self.ik_controller.calculate_ik_recursive(targetPose, targetRot)
+    def moveTo(self, targetPose: list, targetRot=None) -> None:
+        if targetRot != None:
+            joint_positions = self.ik_controller.calculate_ik_recursive(
+                targetPose, targetRot
+            )
         else:
             joint_positions = self.ik_controller.calculate_ik_recursive(targetPose)
         self.setJointPositions(joint_positions)
         self.env._step()
-        # print(self.isMoveDone())
-        # while self.isMoveDone() is False:
-        #     self.env._step()
 
-    def directlyMoveTo(self, targetPose:list, targetRot:list = None) -> None:
+    def directlyMoveTo(self, targetPose: list, targetRot: list = None) -> None:
         if targetRot is not None:
-            joint_positions = self.ik_controller.calculate_ik_recursive(targetPose, targetRot)
+            joint_positions = self.ik_controller.calculate_ik_recursive(
+                targetPose, targetRot
+            )
         else:
             joint_positions = self.ik_controller.calculate_ik_recursive(targetPose)
         self.setJointPositionsDirectly(joint_positions)
         self.env._step()
 
-    def reset(self) -> None:
-        self.ik_controller.reset()
+    def SetBioIKTargetOffset(self, IKTargetOffset: list) -> None:
+        pass
 
-    def getGripperPosition(self) -> list:
-        if len(self.gripper_id)==1:
-            # print(self.env.instance_channel.data[self.gripper_id[0]])
-            return self.env.instance_channel.data[self.gripper_id[0]]['position']
-
-    def getGripperVelocity(self) -> list:
-        if len(self.gripper_id) == 1:
-            return self.env.instance_channel.data[self.gripper_id[0]]['velocities'][0]
-
-    def getJointAccelerations(self) -> list:
-        joint_acccelerations = self.env.instance_channel.set_action(
-            "GetJointAccelerations",
-            id = self.robot_id
-        )
-        return joint_acccelerations
-
-    def load(self) -> None:
-        self.env.asset_channel.set_action(
-            'InstanceObject',
-            id=self.robot_id,
-            name=self.robot_name
-        )
-        self.env._step()
-
-    def BioIKMove(self, targetPose:list, duration:float, relative:bool) -> None:
+    def BioIKMove(self, targetPose: list, duration: float, relative: bool) -> None:
         self.env.instance_channel.set_action(
-            'IKTargetDoMove',
-            id=self.robot_id,
+            "IKTargetDoMove",
+            id=self.id,
             position=targetPose,
             duration=duration,
-            relative=relative
+            relative=relative,
         )
         self.env._step()
-        while not self.env.instance_channel.data[self.robot_id]['move_done']:
+        while not self.env.instance_channel.data[self.id]["move_done"]:
             self.env._step()
 
-    def BioIKRotateQua(self, taregetEuler:list, duration:float, relative:bool) -> None:
+    def BioIKRotateQua(
+        self, taregetEuler: list, duration: float, relative: bool
+    ) -> None:
         self.env.instance_channel.set_action(
-            'IKTargetDoRotateQuaternion',
-            id=self.robot_id,
+            "IKTargetDoRotateQuaternion",
+            id=self.id,
             quaternion=utility.UnityEularToQuaternion(taregetEuler),
             duration=duration,
-            relative=relative
+            relative=relative,
         )
         self.env._step()
-        while not self.env.instance_channel.data[self.robot_id]['move_done'] or not self.env.instance_channel.data[self.robot_id]['rotate_done']:
+        while (
+            not self.env.instance_channel.data[self.id]["move_done"]
+            or not self.env.instance_channel.data[self.id]["rotate_done"]
+        ):
             self.env._step()
 
+    def GripperOpen(self) -> None:
+        self.env.instance_channel.set_action("GripperOpen", id=self.gripper_id[0])
+        self.env._step()
 
-if __name__ == '__main__':
-    print(os.path.join(pathlib.Path(__file__).parent.resolve(), 'URDF/'))
+    def GripperClose(self) -> None:
+        self.env.instance_channel.set_action("GripperClose", id=self.gripper_id[0])
+        self.env._step()
 
-
-
+    def reset(self) -> None:
+        self.ik_controller.reset()

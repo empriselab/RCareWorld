@@ -1,10 +1,8 @@
 from pyrcareworld.envs import RCareWorld
 
 env = RCareWorld()
-env.create_object(id = 12345, name = 'Cube', is_in_scene=False)
-cube = env.get_object(12345)
-env.create_object(id = 67890, name = 'Sphere', is_in_scene=True)
-ball = env.get_object(67890)
+cube = env.create_object(id=12345, name="Cube", is_in_scene=False)
+ball = env.create_object(id=67890, name="Sphere", is_in_scene=True)
 cube.load()
 cube.setTransform([0, 0, 0])
 env.stepSeveralSteps(5)
@@ -18,7 +16,7 @@ env.stepSeveralSteps(10)
 new_cube.destroy()
 
 for i in range(60):
-    cube.setTransform(rotation = [0, 0, 0+i])
+    cube.setTransform(rotation=[0, 0, 0 + i])
     env.stepSeveralSteps(1)
 
 cube.setParent(ball)
