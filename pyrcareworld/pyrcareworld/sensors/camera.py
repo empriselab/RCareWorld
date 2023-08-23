@@ -8,7 +8,7 @@ except ImportError:
     print("This feature requires open3d, please install with `pip install open3d`")
     raise
 
-import pyrfuniverse.utils.depth_processor as dp
+import pyrcareworld.utils.depth_processor as dp
 
 
 class Camera(RCareWorldBaseObject):

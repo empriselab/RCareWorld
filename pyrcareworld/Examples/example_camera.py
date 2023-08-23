@@ -1,6 +1,6 @@
 from pyrcareworld.envs import RCareWorld
 import numpy as np
-import pyrfuniverse.utils.depth_processor as dp
+import pyrcareworld.utils.depth_processor as dp
 import open3d as o3d
 import cv2
 

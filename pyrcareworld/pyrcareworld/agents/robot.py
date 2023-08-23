@@ -1,12 +1,12 @@
 import os
 import pathlib
 from pyrcareworld.objects import RCareWorldBaseObject
-from pyrfuniverse.utils.kinova_controller import RFUniverseKinovaController
-from pyrfuniverse.utils.stretch_controller import RFUniverseStretchController
-from pyrfuniverse.utils.controller import RFUniverseController
-from pyrfuniverse.utils.jaco_controller import RFUniverseJacoController
-from pyrfuniverse.utils.ur5_controller import RFUniverseUR5Controller
-import pyrfuniverse.utils.rfuniverse_utility as utility
+from pyrcareworld.utils.kinova_controller import RCareWorldKinovaController
+from pyrcareworld.utils.stretch_controller import RCareWorldStretchController
+from pyrcareworld.utils.controller import RCareWorldController
+from pyrcareworld.utils.jaco_controller import RCareWorldJacoController
+from pyrcareworld.utils.ur5_controller import RCareWorldUR5Controller
+import pyrcareworld.utils.utility as utility
 
 
 class Robot(RCareWorldBaseObject):
@@ -56,31 +56,31 @@ class Robot(RCareWorldBaseObject):
             )
             robot_prefix = self.robot_type.split("_")[0]
             if robot_prefix == "kinova":
-                self.ik_controller = RFUniverseKinovaController(
+                self.ik_controller = RCareWorldKinovaController(
                     robot_urdf=urdf_path,
                     base_pos=self.base_pose,
                     base_orn=self.base_orientation,
                 )
             elif robot_prefix == "jaco":
-                self.ik_controller = RFUniverseJacoController(
+                self.ik_controller = RCareWorldJacoController(
                     robot_urdf=urdf_path,
                     base_pos=self.base_pose,
                     base_orn=self.base_orientation,
                 )
             elif robot_prefix == "stretch":
-                self.ik_controller = RFUniverseStretchController(
+                self.ik_controller = RCareWorldStretchController(
                     robot_urdf=urdf_path,
                     base_pos=self.base_pose,
                     base_orn=self.base_orientation,
                 )
             elif robot_prefix == "franka":
-                self.ik_controller = RFUniverseController(
+                self.ik_controller = RCareWorldController(
                     robot_urdf=urdf_path,
                     base_pos=self.base_pose,
                     base_orn=self.base_orientation,
                 )
             elif robot_prefix == "ur5":
-                self.ik_controller = RFUniverseUR5Controller(
+                self.ik_controller = RCareWorldUR5Controller(
                     robot_urdf=urdf_path,
                     base_pos=self.base_pose,
                     base_orn=self.base_orientation,
@@ -93,7 +93,7 @@ class Robot(RCareWorldBaseObject):
                 "Robot type not available directly. Please make sure the input matches the supported robot types, or load your robot with URDF in Unity editor and specify urdf path"
             )
         else:
-            # self.ik_controller = RFUniverseController(
+            # self.ik_controller = RCareWorldController(
             #     robot_urdf=urdf_path
             # )
             print("BioIK Only")
