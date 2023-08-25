@@ -7,3 +7,4 @@
   - [Minimum install](https://sunny-building-1e7.notion.site/Prebuilt-RCareWorld-All-you-need-to-know-8081cfe25ac4446784f463bc25152dc8?pvs=4)
 - Discuss in the forum https://github.com/empriselab/RCareWorld/discussions
 - Watch our presentation https://www.youtube.com/watch?v=mNy1cloWrP0
+- Online OH calendar https://calendar.google.com/calendar/u/1?cid=Y18yODM5NTEwZDJjMjViOGQ1Njc4ZjAxNmI0NjYxYjQ5NDNhMjI1MTg1Y2Q4MGE1MGFhN2QwMDMyMDhkZjE5NWNmQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20
