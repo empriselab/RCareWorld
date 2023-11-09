@@ -205,16 +205,16 @@ def AddJointForce(kwargs: dict) -> OutgoingMessage:
     utility.CheckKwargs(kwargs, compulsory_params)
 
     msg = OutgoingMessage()
-    joint_positions = kwargs["joint_positions"]
-    num_joints = len(joint_positions)
+    joint_forces = kwargs["joint_forces"]
+    num_joints = len(joint_forces)
 
     msg.write_int32(kwargs["id"])
     msg.write_string("AddJointForce")
     msg.write_int32(num_joints)
     for i in range(num_joints):
-        msg.write_float32(joint_positions[i][0])
-        msg.write_float32(joint_positions[i][1])
-        msg.write_float32(joint_positions[i][2])
+        msg.write_float32(joint_forces[i][0])
+        msg.write_float32(joint_forces[i][1])
+        msg.write_float32(joint_forces[i][2])
 
     return msg
 
@@ -225,17 +225,17 @@ def AddJointForceAtPosition(kwargs: dict) -> OutgoingMessage:
     utility.CheckKwargs(kwargs, compulsory_params)
 
     msg = OutgoingMessage()
-    joint_positions = kwargs["joint_forces"]
+    joint_forces = kwargs["joint_forces"]
     forces_position = kwargs["forces_position"]
-    num_joints = len(joint_positions)
+    num_joints = len(joint_forces)
 
     msg.write_int32(kwargs["id"])
     msg.write_string("AddJointForceAtPosition")
     msg.write_int32(num_joints)
     for i in range(num_joints):
-        msg.write_float32(joint_positions[i][0])
-        msg.write_float32(joint_positions[i][1])
-        msg.write_float32(joint_positions[i][2])
+        msg.write_float32(joint_forces[i][0])
+        msg.write_float32(joint_forces[i][1])
+        msg.write_float32(joint_forces[i][2])
         msg.write_float32(forces_position[i][0])
         msg.write_float32(forces_position[i][1])
         msg.write_float32(forces_position[i][2])
