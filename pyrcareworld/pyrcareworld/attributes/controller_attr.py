@@ -253,7 +253,7 @@ def AddJointTorque(kwargs: dict) -> OutgoingMessage:
     num_joints = len(joint_torque)
 
     msg.write_int32(kwargs["id"])
-    msg.write_string("AddJointTorque")
+    msg.write_string("AddRelativeTorque")
     msg.write_int32(num_joints)
     for i in range(num_joints):
         msg.write_float32(joint_torque[i][0])
