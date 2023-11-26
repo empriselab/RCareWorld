@@ -200,7 +200,7 @@ class Robot(RCareWorldBaseObject):
         return (
             robot_info["drive_forces"],
             robot_info["gravity_forces"],
-            robot_info["coriolis_forces"],
+            robot_info["coriolis_centrifugal_forces"],
         )
 
     def getJointAccelerations(self):
