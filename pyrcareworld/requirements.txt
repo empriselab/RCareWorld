@@ -11,3 +11,4 @@ opencv-python
 opencv-contrib-python
 open3d
 pandas
+setuptools==65.5.0
