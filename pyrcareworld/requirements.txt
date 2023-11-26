@@ -1,4 +1,6 @@
 cloudpickle==2.2.1
+wheel==0.38.4
+setuptools==65.5.0
 grpcio==1.51.1
 gym==0.21.0
 numpy==1.24.2
