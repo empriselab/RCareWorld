@@ -439,7 +439,6 @@ class Robot(RCareWorldBaseObject):
         else:
             joint_positions = self.ik_controller.calculate_ik_recursive(targetPose)
         self.setJointPositions(joint_positions)
-        self.env._step()
 
     def directlyMoveTo(self, targetPose: list, targetRot: list = None) -> None:
         if targetRot is not None:
@@ -449,7 +448,6 @@ class Robot(RCareWorldBaseObject):
         else:
             joint_positions = self.ik_controller.calculate_ik_recursive(targetPose)
         self.setJointPositionsDirectly(joint_positions)
-        self.env._step()
 
     def SetBioIKTargetOffset(self, IKTargetOffset: list) -> None:
         pass
