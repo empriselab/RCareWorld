@@ -406,7 +406,7 @@ class Robot(RCareWorldBaseObject):
         @return:
         """
         self.env.instance_channel.set_action(
-            "AddJointForce", id=self.id, joint_forces=joint_torques
+            "AddJointTorque", id=self.id, joint_torques=joint_torques
         )
 
     def setJointForcesAtPositions(
