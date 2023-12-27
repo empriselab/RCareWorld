@@ -29,7 +29,7 @@ class RCareWorldController:
 
     def __init__(
         self,
-        robot_name,
+        robot_name="franka",
         robot_urdf=None,
         base_pos=np.array([0, 0, 0]),
         base_orn=[-0.707107, 0.0, 0.0, 0.707107],

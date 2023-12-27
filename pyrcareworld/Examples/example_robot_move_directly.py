@@ -1,16 +1,23 @@
 from pyrcareworld.envs import RCareWorld
 
 env = RCareWorld()
-robot = env.create_robot(
-    id=315893,
-    gripper_list=["3158930"],
-    robot_name="kinova_gen3_7dof-robotiq85",
-    base_pos=[0, 0, 1],
+franka = env.create_robot(
+    id=965874, gripper_list=["9658740"], robot_name="franka-panda", base_pos=[0, 0, 0]
 )
-cube = env.create_object(id=315867, name="Cube", is_in_scene=True)
 
+# target = env.create_object(id=197454, name="Cube", is_in_scene=True)
+# position = target.getPosition()
+# print(position)
+# franka.directlyMoveTo(position)
+# for i in range(20):
+#     env._step()
 while True:
-    position = cube.getPosition()
-    print(position)
-    robot.directlyMoveTo(position)
+    # position = target.getPosition()
+    # print(position)
+    # franka.directlyMoveTo(position)
+    j = franka.getJointPositions()
+    print(j)
+    # for i in range(20):
+    # env._step()
+    franka.setJointPositionsDirectly(j)
     env._step()

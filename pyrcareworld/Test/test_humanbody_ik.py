@@ -1,9 +1,9 @@
 from pyrcareworld.envs.base_env import RCareWorldBaseEnv
 
-env = RCareWorldBaseEnv(scene_file="HumanBodyIK.json")
+env = RCareWorldBaseEnv()
 env._step()
 
-humanbody_id = 168242
+humanbody_id = 2444
 
 for index in range(5):
     env.instance_channel.set_action(
@@ -18,6 +18,7 @@ for index in range(5):
     env._step()
     while not env.instance_channel.data[humanbody_id]["move_done"]:
         env._step()
+        print("moving")
     env.instance_channel.set_action(
         "HumanIKTargetDoMove",
         id=humanbody_id,
