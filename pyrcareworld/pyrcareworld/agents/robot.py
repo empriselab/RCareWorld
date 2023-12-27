@@ -195,8 +195,9 @@ class Robot(RCareWorldBaseObject):
         joint_dynamics_forces = self.env.instance_channel.set_action(
             "GetJointInverseDynamicsForce", id=self.id
         )
-        self.env._step()
+        # self.env._step()
         robot_info = self.getRobotState()
+        # print(robot_info.keys())
         return (
             robot_info["drive_forces"],
             robot_info["gravity_forces"],
@@ -273,7 +274,7 @@ class Robot(RCareWorldBaseObject):
         joint_dynamics_forces = self.env.instance_channel.set_action(
             "GetJointInverseDynamicsForce", id=self.id
         )
-        self.env._step()
+        # self.env._step()
 
         robot_info = self.getRobotState()
 
@@ -371,7 +372,7 @@ class Robot(RCareWorldBaseObject):
         @return: does not return anything
         """
         self.env.instance_channel.set_action(
-            "SetJointPosition", id=self.id, joint_positions=joint_positions
+            "SetJointPositionDirectly", id=self.id, joint_positions=joint_positions
         )
 
     def setJointPositionsContinue(
@@ -405,7 +406,7 @@ class Robot(RCareWorldBaseObject):
         @return:
         """
         self.env.instance_channel.set_action(
-            "AddJointTorque", id=self.id, joint_torques=joint_torques
+            "AddJointForce", id=self.id, joint_forces=joint_torques
         )
 
     def setJointForcesAtPositions(
@@ -439,6 +440,7 @@ class Robot(RCareWorldBaseObject):
         else:
             joint_positions = self.ik_controller.calculate_ik_recursive(targetPose)
         self.setJointPositions(joint_positions)
+        # self.env._step()
 
     def directlyMoveTo(self, targetPose: list, targetRot: list = None) -> None:
         if targetRot is not None:
@@ -448,6 +450,7 @@ class Robot(RCareWorldBaseObject):
         else:
             joint_positions = self.ik_controller.calculate_ik_recursive(targetPose)
         self.setJointPositionsDirectly(joint_positions)
+        # self.env._step()
 
     def SetBioIKTargetOffset(self, IKTargetOffset: list) -> None:
         pass
@@ -460,9 +463,10 @@ class Robot(RCareWorldBaseObject):
             duration=duration,
             relative=relative,
         )
-        self.env._step()
+        # self.env._step()
         while not self.env.instance_channel.data[self.id]["move_done"]:
             self.env._step()
+            pass
 
     def BioIKRotateQua(
         self, taregetEuler: list, duration: float, relative: bool
@@ -474,7 +478,7 @@ class Robot(RCareWorldBaseObject):
             duration=duration,
             relative=relative,
         )
-        self.env._step()
+        # self.env._step()
         while (
             not self.env.instance_channel.data[self.id]["move_done"]
             or not self.env.instance_channel.data[self.id]["rotate_done"]
@@ -483,11 +487,11 @@ class Robot(RCareWorldBaseObject):
 
     def GripperOpen(self) -> None:
         self.env.instance_channel.set_action("GripperOpen", id=self.gripper_id[0])
-        self.env._step()
+        # self.env._step()
 
     def GripperClose(self) -> None:
         self.env.instance_channel.set_action("GripperClose", id=self.gripper_id[0])
-        self.env._step()
+        # self.env._step()
 
     def reset(self) -> None:
         self.ik_controller.reset()

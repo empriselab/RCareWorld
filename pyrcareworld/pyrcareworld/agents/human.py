@@ -274,3 +274,11 @@ class Human(RCareWorldBaseObject):
         self.env.instance_channel.set_action(
             "SaveArticulationBoneData", id=self.id, path=path
         )
+    
+    def enableSoftBody(self):
+        """
+        TODO: enable soft body
+        """
+        self.env.instance_channel.set_action(
+            "EnableSoftBody", id=self.id
+        )
