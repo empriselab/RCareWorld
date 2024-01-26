@@ -10,6 +10,8 @@
 - Online OH calendar https://calendar.google.com/calendar/u/1?cid=Y18yODM5NTEwZDJjMjViOGQ1Njc4ZjAxNmI0NjYxYjQ5NDNhMjI1MTg1Y2Q4MGE1MGFhN2QwMDMyMDhkZjE5NWNmQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20
 And book additional time slots: https://calendly.com/ruolinye
 
-# RCareWorld now available on pypi
+# RCareWorld now available on pypi and docker
 https://pypi.org/project/pyrcareworld/1.0.0/
 Run `pip install pyrcareworld==1.0.0` to install from pypi
+
+https://hub.docker.com/repository/docker/cathyye2000/rcareworld/general The docker image for Python environment. Documents coming soon
