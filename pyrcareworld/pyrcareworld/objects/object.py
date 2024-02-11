@@ -30,7 +30,6 @@ class RCareWorldBaseObject(ABC):
         ), "The object is already in the scene, no need to load again."
 
         self.env.asset_channel.set_action("InstanceObject", id=self.id, name=self.name)
-        self.env._step()
         if position is not None:
             self.env.instance_channel.set_action(
                 "SetTransform", id=self.id, position=position, rotation=rotation
@@ -39,10 +38,8 @@ class RCareWorldBaseObject(ABC):
             self.env.instance_channel.set_action(
                 "SetTransform", id=self.id, position=[0, 0, 0], rotation=rotation
             )
-        self.env._step()
 
         self.is_in_scene = True
-        self.env._step()
 
     def destroy(self):
         """
@@ -50,7 +47,6 @@ class RCareWorldBaseObject(ABC):
         """
         self.env.instance_channel.set_action("Destroy", id=self.id)
         self.is_in_scene = False
-        self.env._step()
 
     def copy(self, copy_id: int):
         """
@@ -127,7 +123,6 @@ class RCareWorldBaseObject(ABC):
             self.env.instance_channel.set_action(
                 "SetTransform", id=self.id, rotation=rotation, is_world=is_world
             )
-        self.env._step()
 
     def getThisObjectState(self):
         """
@@ -143,7 +138,7 @@ class RCareWorldBaseObject(ABC):
         """
         Get the  xyz position of this object. It is in world frame, in right hand system.
         """
-        self.env._step()
+
         info = self.env.instance_channel.data[self.id]
         position = info["position"]
         return position
@@ -211,7 +206,6 @@ class RCareWorldBaseObject(ABC):
         Activate or deactivate this object.
         """
         self.env.instance_channel.set_action("SetActive", id=self.id, active=active)
-        self.env._step()
 
     def setParent(self, parent):
         """
@@ -224,7 +218,6 @@ class RCareWorldBaseObject(ABC):
         self.env.instance_channel.set_action(
             "SetParent", id=self.id, parent_id=parent_id, parent_name=parent_name
         )
-        self.env._step()
 
     def setParentByID(self, parent_id):
         """
@@ -233,7 +226,6 @@ class RCareWorldBaseObject(ABC):
         self.env.instance_channel.set_action(
             "SetParent", id=self.id, parent_id=parent_id, parent_name="Parent"
         )
-        self.env._step()
 
     def unsetParent(self):
         """
@@ -242,11 +234,9 @@ class RCareWorldBaseObject(ABC):
         self.env.instance_channel.set_action(
             "SetParent", id=self.id, parent_id=-1, parent_name=""
         )
-        self.env._step()
 
     def setLayer(self, layer: int):
         self.env.instance_channel.set_action("SetLayer", id=self.id, layer=layer)
-        self.env._step()
 
     def setRotationQuaternion(self, quaternion, is_world: bool = True) -> None:
         self.env.instance_channel.set_action(
@@ -255,4 +245,3 @@ class RCareWorldBaseObject(ABC):
             quaternion=quaternion,
             is_world=is_world,
         )
-        self.env._step()

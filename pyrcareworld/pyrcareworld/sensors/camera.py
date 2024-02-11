@@ -50,7 +50,6 @@ class Camera(RCareWorldBaseObject):
         self.env.instance_channel.set_action(
             "GetRGB", id=self.id, intrinsic_matrix=self.intrinsic_matrix
         )
-        self.env._step()
         self.is_initialized.append("rgb_intrinsic")
 
     def initializeRGB(self):
@@ -67,7 +66,6 @@ class Camera(RCareWorldBaseObject):
                 "GetRGB", id=self.id, width=self.width, height=self.height
             )
             self.is_initialized.append("rgb_wh")
-        self.env._step()
 
     def getRGB(self):
         """
@@ -87,7 +85,6 @@ class Camera(RCareWorldBaseObject):
             id=self.id,
             intrinsic_matrix=self.intrinsic_matrix,
         )
-        self.env._step()
         self.is_initialized.append("depth_intrinsic")
 
     def initializeDepthEXR(self):
@@ -108,7 +105,6 @@ class Camera(RCareWorldBaseObject):
                 "GetDepthEXR", id=self.id, width=self.width, height=self.height
             )
             self.is_initialized.append("depth_wh")
-        self.env._step()
 
     def getDepthEXR(self):
         """
@@ -124,7 +120,6 @@ class Camera(RCareWorldBaseObject):
         self.env.instance_channel.set_action(
             "GetNormal", id=self.id, intrinsic_matrix=self.intrinsic_matrix
         )
-        self.env._step()
         self.is_initialized.append("normal_intrinsic")
 
     def initializeNormal(self):
@@ -145,7 +140,6 @@ class Camera(RCareWorldBaseObject):
                 "GetNormal", id=self.id, width=self.width, height=self.height
             )
             self.is_initialized.append("normal_wh")
-        self.env._step()
 
     def getNormal(self):
         """
@@ -161,7 +155,6 @@ class Camera(RCareWorldBaseObject):
         self.env.instance_channel.set_action(
             "GetID", id=self.id, intrinsic_matrix=self.intrinsic_matrix
         )
-        self.env._step()
         self.is_initialized.append("instance_intrinsic")
 
     def initializeInstanceMask(self, w, h, fov=None):
@@ -178,7 +171,6 @@ class Camera(RCareWorldBaseObject):
                 "GetID", id=self.id, width=self.width, height=self.height
             )
             self.is_initialized.append("instance_wh")
-        self.env._step()
 
     def getInstanceMask(self):
         """
@@ -196,7 +188,6 @@ class Camera(RCareWorldBaseObject):
         self.env.instance_channel.set_action(
             "GetAmodalMask", id=self.id, intrinsic_matrix=self.intrinsic_matrix
         )
-        self.env._step()
         self.is_initialized.append("amodal_intrinsic")
 
     def initializeAmodalMask(self, w, h, fov=None):
@@ -217,7 +208,6 @@ class Camera(RCareWorldBaseObject):
                 "GetAmodalMask", id=self.id, width=self.width, height=self.height
             )
             self.is_initialized.append("amodal_wh")
-        self.env._step()
 
     def getAmodalMask(self):
         """
@@ -239,7 +229,6 @@ class Camera(RCareWorldBaseObject):
             main_intrinsic_matrix=self.intrinsic_matrix,
             ir_intrinsic_matrix=ir_intrinsic_matrix,
         )
-        self.env._step()
         self.is_initialized.append("active_intrinsic")
 
     def getActiveDepth(self):
