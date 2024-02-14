@@ -98,111 +98,88 @@ class Camera(RCareWorldBaseObject):
         depth = np.frombuffer(depth, dtype=np.float32)
         reshaped_image_depth = depth.reshape(self.height, self.width)
         return reshaped_image_depth
-
-    def initializeNormalWithIntrinsic(self):
+    
+    def getNormal(self, mode = "wh"):
         """
-        Initialize the camera for surface normals with the intrinsic matrix
+        Initialize the camera for surface normals with width, height, and fov, or intrinsic matrix
+        mode = "fov" or "intrinsic" or "wh"
         """
-        self.env.instance_channel.set_action(
-            "GetNormal", id=self.id, intrinsic_matrix=self.intrinsic_matrix
-        )
-        self.is_initialized.append("normal_intrinsic")
-
-    def initializeNormal(self):
-        """
-        Initialize the camera for surface normals with width, height, and fov
-        """
-        if self.fov is not None:
+        assert mode in ["fov", "intrinsic", "wh"], "mode should be 'fov' or 'intrinsic' or 'wh'"
+        if mode == "fov":
             self.env.instance_channel.set_action(
-                "GetNormal",
-                id=self.id,
-                width=self.width,
-                height=self.height,
-                fov=self.fov,
+                "GetNormal", id=self.id, width=self.width, height=self.height, fov=self.fov
             )
             self.is_initialized.append("normal_fov")
-        else:
+        elif mode == "wh":
             self.env.instance_channel.set_action(
                 "GetNormal", id=self.id, width=self.width, height=self.height
             )
             self.is_initialized.append("normal_wh")
-
-    def getNormal(self):
-        """
-        Returns the surface normals as a numpy array
-        """
+        elif mode == "intrinsic":
+            self.env.instance_channel.set_action(
+                "GetNormal", id=self.id, intrinsic_matrix=self.intrinsic_matrix
+            )
+            self.is_initialized.append("normal_intrinsic")
+        self.env._step()
         normal = self.env.instance_channel.data[self.id]["normal"]
-        return normal
-
-    def initializeInstanceMaskWithIntrinsic(self):
+        normal = np.frombuffer(normal, dtype=np.uint8)
+        reshaped_image_normal = normal.reshape(self.height, self.width, 3)
+        return reshaped_image_normal
+    
+    def getInstanceMask(self, mode = "wh"):
         """
-        Initialize the camera for instance masks with the intrinsic matrix
+        Initialize the camera for instance masks with width, height, and fov, or intrinsic matrix
+        mode = "fov" or "intrinsic" or "wh"
         """
-        self.env.instance_channel.set_action(
-            "GetID", id=self.id, intrinsic_matrix=self.intrinsic_matrix
-        )
-        self.is_initialized.append("instance_intrinsic")
-
-    def initializeInstanceMask(self, w, h, fov=None):
-        """
-        Initialize the camera for instance masks with width, height, and fov
-        """
-        if fov is not None:
+        assert mode in ["fov", "intrinsic", "wh"], "mode should be 'fov' or 'intrinsic' or 'wh'"
+        if mode == "fov":
             self.env.instance_channel.set_action(
                 "GetID", id=self.id, width=self.width, height=self.height, fov=self.fov
             )
             self.is_initialized.append("instance_fov")
-        else:
+        elif mode == "wh":
             self.env.instance_channel.set_action(
                 "GetID", id=self.id, width=self.width, height=self.height
             )
             self.is_initialized.append("instance_wh")
-
-    def getInstanceMask(self):
-        """
-        Returns the instance mask as a numpy array
-        """
+        elif mode == "intrinsic":
+            self.env.instance_channel.set_action(
+                "GetID", id=self.id, intrinsic_matrix=self.intrinsic_matrix
+            )
+            self.is_initialized.append("instance_intrinsic")
+        self.env._step()
         image_id = self.env.instance_channel.data[self.id]["id_map"]
         image_id = np.frombuffer(image_id, dtype=np.uint8)
-        image_id = cv2.imdecode(image_id, cv2.IMREAD_COLOR)
-        return image_id
-
-    def initializeAmodalMaskWithIntrinsic(self):
+        reshaped_image_id = image_id.reshape(self.height, self.width, 3)
+        return reshaped_image_id
+    
+    def getAmodalInstanceMask(self, mode = "wh"):
         """
-        Initialize the camera for amodal masks with the intrinsic matrix
+        Initialize the camera for amodal instance masks with width, height, and fov, or intrinsic matrix
+        mode = "fov" or "intrinsic" or "wh"
         """
-        self.env.instance_channel.set_action(
-            "GetAmodalMask", id=self.id, intrinsic_matrix=self.intrinsic_matrix
-        )
-        self.is_initialized.append("amodal_intrinsic")
-
-    def initializeAmodalMask(self, fov=None):
-        """
-        Initialize the camera for amodal masks with width, height, and fov
-        """
-        if fov is not None:
+        assert mode in ["fov", "intrinsic", "wh"], "mode should be 'fov' or 'intrinsic' or 'wh'"
+        if mode == "fov":
             self.env.instance_channel.set_action(
-                "GetAmodalMask",
-                id=self.id,
-                width=self.width,
-                height=self.height,
-                fov=self.fov,
+                "GetAmodalMask", id=self.id, width=self.width, height=self.height, fov=self.fov
             )
-            self.is_initialized.append("amodal_fov")
-        else:
+            self.is_initialized.append("amodal_instance_fov")
+        elif mode == "wh":
             self.env.instance_channel.set_action(
                 "GetAmodalMask", id=self.id, width=self.width, height=self.height
             )
-            self.is_initialized.append("amodal_wh")
-
-    def getAmodalMask(self):
-        """
-        Returns the amodal mask as a numpy array
-        """
+            self.is_initialized.append("amodal_instance_wh")
+        elif mode == "intrinsic":
+            self.env.instance_channel.set_action(
+                "GetAmodalMask", id=self.id, intrinsic_matrix=self.intrinsic_matrix
+            )
+            self.is_initialized.append("amodal_instance_intrinsic")
+        self.env._step()
         image_id = self.env.instance_channel.data[self.id]["amodal_mask"]
         image_id = np.frombuffer(image_id, dtype=np.uint8)
-        image_id = cv2.imdecode(image_id, cv2.IMREAD_COLOR)
-        return image_id
+        reshaped_image_id = image_id.reshape(self.height, self.width, 4)
+        return reshaped_image_id
+
 
     def initializeActiveDepthWithIntrinsic(self, ir_intrinsic_matrix):
         """
