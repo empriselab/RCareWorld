@@ -153,32 +153,33 @@ class Camera(RCareWorldBaseObject):
         reshaped_image_id = image_id.reshape(self.height, self.width, 3)
         return reshaped_image_id
     
-    def getAmodalInstanceMask(self, mode = "wh"):
-        """
-        Initialize the camera for amodal instance masks with width, height, and fov, or intrinsic matrix
-        mode = "fov" or "intrinsic" or "wh"
-        """
-        assert mode in ["fov", "intrinsic", "wh"], "mode should be 'fov' or 'intrinsic' or 'wh'"
-        if mode == "fov":
-            self.env.instance_channel.set_action(
-                "GetAmodalMask", id=self.id, width=self.width, height=self.height, fov=self.fov
-            )
-            self.is_initialized.append("amodal_instance_fov")
-        elif mode == "wh":
-            self.env.instance_channel.set_action(
-                "GetAmodalMask", id=self.id, width=self.width, height=self.height
-            )
-            self.is_initialized.append("amodal_instance_wh")
-        elif mode == "intrinsic":
-            self.env.instance_channel.set_action(
-                "GetAmodalMask", id=self.id, intrinsic_matrix=self.intrinsic_matrix
-            )
-            self.is_initialized.append("amodal_instance_intrinsic")
-        self.env._step()
-        image_id = self.env.instance_channel.data[self.id]["amodal_mask"]
-        image_id = np.frombuffer(image_id, dtype=np.uint8)
-        reshaped_image_id = image_id.reshape(self.height, self.width, 4)
-        return reshaped_image_id
+    # def getAmodalInstanceMask(self, mode = "wh"):
+    #     """
+    #     Initialize the camera for amodal instance masks with width, height, and fov, or intrinsic matrix
+    #     mode = "fov" or "intrinsic" or "wh"
+    #     """
+    #     assert mode in ["fov", "intrinsic", "wh"], "mode should be 'fov' or 'intrinsic' or 'wh'"
+    #     if mode == "fov":
+    #         self.env.instance_channel.set_action(
+    #             "GetAmodalMask", id=self.id, width=self.width, height=self.height, fov=self.fov
+    #         )
+    #         self.is_initialized.append("amodal_instance_fov")
+    #     elif mode == "wh":
+    #         self.env.instance_channel.set_action(
+    #             "GetAmodalMask", id=self.id, width=self.width, height=self.height
+    #         )
+    #         self.is_initialized.append("amodal_instance_wh")
+    #     elif mode == "intrinsic":
+    #         self.env.instance_channel.set_action(
+    #             "GetAmodalMask", id=self.id, intrinsic_matrix=self.intrinsic_matrix
+    #         )
+    #         self.is_initialized.append("amodal_instance_intrinsic")
+    #     self.env._step()
+    #     image_id = self.env.instance_channel.data[self.id]["amodal_mask"]
+    #     image_id = np.frombuffer(image_id, dtype=np.uint8)
+    #     reshaped_image_id = image_id.reshape(self.height, self.width, 3)
+    #     return reshaped_image_id
+
 
 
     def initializeActiveDepthWithIntrinsic(self, ir_intrinsic_matrix):
