@@ -72,41 +72,28 @@ class Camera(RCareWorldBaseObject):
         reshaped_image_rgb = np.flipud(reshaped_image_rgb)[:, :, ::-1]
         return reshaped_image_rgb
 
-
-    def initializeDepthEXRWithIntrinsic(self):
+    def getDepthEXR(self, mode = "wh"):
         """
-        Initialize the camera for depth images with the intrinsic matrix
+        Initialize the camera for depth images in EXR format with width, height, and fov, or intrinsic matrix
+        mode = "fov" or "intrinsic" or "wh"
         """
-        self.env.instance_channel.set_action(
-            "GetDepthEXR",
-            id=self.id,
-            intrinsic_matrix=self.intrinsic_matrix,
-        )
-        self.is_initialized.append("depth_intrinsic")
-
-    def initializeDepthEXR(self):
-        """
-        Initialize the camera for depth images with width, height, and fov
-        """
-        if self.fov is not None:
+        assert mode in ["fov", "intrinsic", "wh"], "mode should be 'fov' or 'intrinsic' or 'wh'"
+        if mode == "fov":
             self.env.instance_channel.set_action(
-                "GetDepthEXR",
-                id=self.id,
-                width=self.width,
-                height=self.height,
-                fov=self.fov,
+                "GetDepthEXR", id=self.id, width=self.width, height=self.height, fov=self.fov
             )
             self.is_initialized.append("depth_fov")
-        else:
+        elif mode == "wh":
             self.env.instance_channel.set_action(
                 "GetDepthEXR", id=self.id, width=self.width, height=self.height
             )
             self.is_initialized.append("depth_wh")
-
-    def getDepthEXR(self):
-        """
-        Returns the depth image as a numpy array
-        """
+        elif mode == "intrinsic":
+            self.env.instance_channel.set_action(
+                "GetDepthEXR", id=self.id, intrinsic_matrix=self.intrinsic_matrix
+            )
+            self.is_initialized.append("depth_intrinsic")
+        self.env._step()
         depth = self.env.instance_channel.data[self.id]["depth_exr"]
         depth = np.frombuffer(depth, dtype=np.float32)
         reshaped_image_depth = depth.reshape(self.height, self.width)
