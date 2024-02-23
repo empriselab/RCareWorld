@@ -40,7 +40,7 @@ class InstanceChannel(RFUniverseChannel):
                         self.send_message(msg)
         except AttributeError:
             print(
-                "There is no action called '%s' or this function has bug, please fix it."
+                "There is no action called '%s' or this function has a bug, please fix it."
                 % action
             )
             exit(-1)
