@@ -165,19 +165,15 @@ _UNITYRLINITIALIZATIONOUTPUTPROTO = _descriptor.Descriptor(
     serialized_end=477,
 )
 
-_UNITYRLINITIALIZATIONOUTPUTPROTO.fields_by_name[
-    "brain_parameters"
-].message_type = (
+_UNITYRLINITIALIZATIONOUTPUTPROTO.fields_by_name["brain_parameters"].message_type = (
     pyrcareworld_dot_communicator__objects_dot_brain__parameters__pb2._BRAINPARAMETERSPROTO
 )
-_UNITYRLINITIALIZATIONOUTPUTPROTO.fields_by_name[
-    "capabilities"
-].message_type = (
+_UNITYRLINITIALIZATIONOUTPUTPROTO.fields_by_name["capabilities"].message_type = (
     pyrcareworld_dot_communicator__objects_dot_capabilities__pb2._UNITYRLCAPABILITIESPROTO
 )
-DESCRIPTOR.message_types_by_name[
-    "UnityRLInitializationOutputProto"
-] = _UNITYRLINITIALIZATIONOUTPUTPROTO
+DESCRIPTOR.message_types_by_name["UnityRLInitializationOutputProto"] = (
+    _UNITYRLINITIALIZATIONOUTPUTPROTO
+)
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 UnityRLInitializationOutputProto = _reflection.GeneratedProtocolMessageType(
@@ -185,7 +181,7 @@ UnityRLInitializationOutputProto = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     dict(
         DESCRIPTOR=_UNITYRLINITIALIZATIONOUTPUTPROTO,
-        __module__="pyrcareworld.communicator_objects.unity_rl_initialization_output_pb2"
+        __module__="pyrcareworld.communicator_objects.unity_rl_initialization_output_pb2",
         # @@protoc_insertion_point(class_scope:communicator_objects.UnityRLInitializationOutputProto)
     ),
 )

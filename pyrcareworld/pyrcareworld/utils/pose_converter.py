@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class CoordinateSystemConverter():
+class CoordinateSystemConverter:
     """
 
     Coordinate System Converter class.
@@ -21,9 +21,18 @@ class CoordinateSystemConverter():
                         "-left"/"-right"/"-up"/"-down"/"-forward"/"-back"/
                         "-l"/"-r"/"-u"/"-d"/"-f"/"-b"]
     """
-    def __init__(self, cs1_direction=["right", "up", "forward"], cs2_direction=["right", "up", "forward"]):
-        self.cs1_dir, self.cs1_axis, self.cs1_sign, self.cs1_system = self._preprocessing(cs1_direction)
-        self.cs2_dir, self.cs2_axis, self.cs2_sign, self.cs2_system = self._preprocessing(cs2_direction)
+
+    def __init__(
+        self,
+        cs1_direction=["right", "up", "forward"],
+        cs2_direction=["right", "up", "forward"],
+    ):
+        self.cs1_dir, self.cs1_axis, self.cs1_sign, self.cs1_system = (
+            self._preprocessing(cs1_direction)
+        )
+        self.cs2_dir, self.cs2_axis, self.cs2_sign, self.cs2_system = (
+            self._preprocessing(cs2_direction)
+        )
         self.cs1_to_cs2_map = [
             self.cs1_axis[self.cs2_dir[0]],
             self.cs1_axis[self.cs2_dir[1]],
@@ -47,10 +56,12 @@ class CoordinateSystemConverter():
             self.cs1_sign[self.cs1_dir[2]] * self.cs2_sign[self.cs1_dir[2]],
         ]
 
-        self.cs1_left_or_right = self.cs1_sign['right'] * self.cs1_sign['up'] * self.cs1_sign['forward']
-        self.cs2_left_or_right = self.cs2_sign['right'] * self.cs2_sign['up'] * self.cs2_sign['forward']
-
-
+        self.cs1_left_or_right = (
+            self.cs1_sign["right"] * self.cs1_sign["up"] * self.cs1_sign["forward"]
+        )
+        self.cs2_left_or_right = (
+            self.cs2_sign["right"] * self.cs2_sign["up"] * self.cs2_sign["forward"]
+        )
 
     def _preprocessing(self, direction):
         dir = ["", "", ""]
@@ -65,31 +76,31 @@ class CoordinateSystemConverter():
                 sign["right"] = 1
                 direction_in_left[i] = [1, 0, 0]
 
-            elif direction[i] in ["up",  "u",  "-d",  "-down"]:
+            elif direction[i] in ["up", "u", "-d", "-down"]:
                 dir[i] = "up"
                 axis["up"] = i
                 sign["up"] = 1
                 direction_in_left[i] = [0, 1, 0]
 
-            elif direction[i] in ["forward",  "f",  "-b",  "-back"]:
+            elif direction[i] in ["forward", "f", "-b", "-back"]:
                 dir[i] = "forward"
                 axis["forward"] = i
                 sign["forward"] = 1
                 direction_in_left[i] = [0, 0, 1]
 
-            elif direction[i] in ["-right",  "-r",  "l",  "left"]:
+            elif direction[i] in ["-right", "-r", "l", "left"]:
                 dir[i] = "right"
                 axis["right"] = i
                 sign["right"] = -1
                 direction_in_left[i] = [-1, 0, 0]
 
-            elif direction[i] in ["-up",  "-u",  "d",  "down"]:
+            elif direction[i] in ["-up", "-u", "d", "down"]:
                 dir[i] = "up"
                 axis["up"] = i
                 sign["up"] = -1
                 direction_in_left[i] = [0, -1, 0]
 
-            elif direction[i] in ["-forward",  "-f",  "b",  "back"]:
+            elif direction[i] in ["-forward", "-f", "b", "back"]:
                 dir[i] = "forward"
                 axis["forward"] = i
                 sign["forward"] = -1
@@ -97,8 +108,6 @@ class CoordinateSystemConverter():
 
             else:
                 raise f"{direction[i]} is Unrecognized axis"
-
-
 
         z = self._cross(direction_in_left[0], direction_in_left[1])
         if z == direction_in_left[2]:
@@ -109,15 +118,14 @@ class CoordinateSystemConverter():
 
         return dir, axis, sign, system
 
-
-
     def _cross(self, lhs: list, rhs: list) -> list:
-        return [lhs[1] * rhs[2] - lhs[2] * rhs[1], lhs[2] * rhs[0] - lhs[0] * rhs[2], lhs[0] * rhs[1] - lhs[1] * rhs[0]]
-
-
+        return [
+            lhs[1] * rhs[2] - lhs[2] * rhs[1],
+            lhs[2] * rhs[0] - lhs[0] * rhs[2],
+            lhs[0] * rhs[1] - lhs[1] * rhs[0],
+        ]
 
     def cs1_pos_to_cs2_pos(self, pos: list) -> list:
-
         """
         Convert position form Coordinate System 1 to Coordinate System 2.
         Args:
@@ -136,10 +144,7 @@ class CoordinateSystemConverter():
 
         return [x, y, z]
 
-
-
     def cs2_pos_to_cs1_pos(self, pos: list) -> list:
-
         """
         Convert position form Coordinate System 2 to Coordinate System 1.
 
@@ -161,10 +166,7 @@ class CoordinateSystemConverter():
 
         return [x, y, z]
 
-
-
     def cs1_quat_to_cs2_quat(self, quat: list) -> list:
-
         """
         Convert quaternion form Coordinate System 1 to Coordinate System 2.
 
@@ -185,10 +187,7 @@ class CoordinateSystemConverter():
 
         return [x, y, z, w]
 
-
-
     def cs2_quat_to_cs1_quat(self, quat: list) -> list:
-
         """
         Convert quaternion form Coordinate System 2 to Coordinate System 1.
         Args:
@@ -208,10 +207,7 @@ class CoordinateSystemConverter():
 
         return [x, y, z, w]
 
-
-
     def cs1_scale_to_cs2_scale(self, scale: list) -> list:
-
         """
         Convert scale form Coordinate System 1 to Coordinate System 2.
 
@@ -229,10 +225,7 @@ class CoordinateSystemConverter():
 
         return [x, y, z]
 
-
-
     def cs2_scale_to_cs1_scale(self, scale: list) -> list:
-
         """
         Convert scale form Coordinate System 2 to Coordinate System 1.
 
@@ -250,10 +243,7 @@ class CoordinateSystemConverter():
 
         return [x, y, z]
 
-
-
     def cs1_matrix_to_cs2_matrix(self, matrix) -> np.ndarray:
-
         """
         Convert rotation matrix form Coordinate System 1 to Coordinate System 2.
         Args:
@@ -269,10 +259,7 @@ class CoordinateSystemConverter():
         quaternion = self.cs1_quat_to_cs2_quat(quaternion)
         return self.quat_to_matrix(quaternion)
 
-
-
     def cs2_matrix_to_cs1_matrix(self, matrix) -> np.ndarray:
-
         """
         Convert rotation matrix form Coordinate System 2 to Coordinate System 1.
 
@@ -289,32 +276,41 @@ class CoordinateSystemConverter():
 
         return self.quat_to_matrix(quaternion)
 
-
-
-    def quat_to_matrix(self, quat=[0,0,0,1]) -> np.ndarray:
+    def quat_to_matrix(self, quat=[0, 0, 0, 1]) -> np.ndarray:
         """
         Convert quaternion to rotation matrix.
         Args:
             quat: List of length 4, representing quaternion in [x, y, z, w] order.
-            
+
         Return:
             np.ndarray: shape[3,3], rotation matrix.
         """
-        return np.array([
-            [1 - 2 * (quat[1] ** 2 + quat[2] ** 2), 2 * (quat[0] * quat[1] - quat[2] * quat[3]), 2 * (quat[0] * quat[2] + quat[1] * quat[3])],
-            [2 * (quat[0] * quat[1] + quat[2] * quat[3]), 1 - 2 * (quat[0] ** 2 + quat[2] ** 2), 2 * (quat[1] * quat[2] - quat[0] * quat[3])],
-            [2 * (quat[0] * quat[2] - quat[1] * quat[3]), 2 * (quat[1] * quat[2] + quat[0] * quat[3]), 1 - 2 * (quat[0] ** 2 + quat[1] ** 2)]
-
-        ])
-
-
+        return np.array(
+            [
+                [
+                    1 - 2 * (quat[1] ** 2 + quat[2] ** 2),
+                    2 * (quat[0] * quat[1] - quat[2] * quat[3]),
+                    2 * (quat[0] * quat[2] + quat[1] * quat[3]),
+                ],
+                [
+                    2 * (quat[0] * quat[1] + quat[2] * quat[3]),
+                    1 - 2 * (quat[0] ** 2 + quat[2] ** 2),
+                    2 * (quat[1] * quat[2] - quat[0] * quat[3]),
+                ],
+                [
+                    2 * (quat[0] * quat[2] - quat[1] * quat[3]),
+                    2 * (quat[1] * quat[2] + quat[0] * quat[3]),
+                    1 - 2 * (quat[0] ** 2 + quat[1] ** 2),
+                ],
+            ]
+        )
 
     def matrix_to_quat(self, matrix) -> list:
         """
         Convert rotation matrix to quaternion.
         Args:
             matrix: list or np.ndarray shape[3,3], rotation matrix.
-            
+
         Return:
             list: List of length 4, representing quaternion in [x, y, z, w] order.
         """

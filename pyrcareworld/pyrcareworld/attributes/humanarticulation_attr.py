@@ -146,6 +146,7 @@ def SaveArticulationBoneData(kwargs: dict) -> OutgoingMessage:
 
     return msg
 
+
 def SetJointLimits(kwargs: dict) -> OutgoingMessage:
     """
     Set joint limits for a specific bone in an ArticulationBody. Will apply to the joint connecting that bone to the previous bone in the hierarchy.
@@ -157,8 +158,8 @@ def SetJointLimits(kwargs: dict) -> OutgoingMessage:
             lower_limit: The lower limit of the joint.
             upper_limit: The upper limit of the joint.
         Optional:
-            axis: The axis of the joint to set the limits for: {"X", "Y", or "Z"}. 
-            
+            axis: The axis of the joint to set the limits for: {"X", "Y", or "Z"}.
+
             If not specified, sets all limits (often fine since most joints only have 1 free axis).
     """
     compulsory_params = ["id", "bone_name", "lower_limit", "upper_limit"]

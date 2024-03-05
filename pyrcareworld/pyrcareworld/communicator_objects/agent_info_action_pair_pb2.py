@@ -93,14 +93,10 @@ _AGENTINFOACTIONPAIRPROTO = _descriptor.Descriptor(
     serialized_end=340,
 )
 
-_AGENTINFOACTIONPAIRPROTO.fields_by_name[
-    "agent_info"
-].message_type = (
+_AGENTINFOACTIONPAIRPROTO.fields_by_name["agent_info"].message_type = (
     pyrcareworld_dot_communicator__objects_dot_agent__info__pb2._AGENTINFOPROTO
 )
-_AGENTINFOACTIONPAIRPROTO.fields_by_name[
-    "action_info"
-].message_type = (
+_AGENTINFOACTIONPAIRPROTO.fields_by_name["action_info"].message_type = (
     pyrcareworld_dot_communicator__objects_dot_agent__action__pb2._AGENTACTIONPROTO
 )
 DESCRIPTOR.message_types_by_name["AgentInfoActionPairProto"] = _AGENTINFOACTIONPAIRPROTO
@@ -111,7 +107,7 @@ AgentInfoActionPairProto = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     dict(
         DESCRIPTOR=_AGENTINFOACTIONPAIRPROTO,
-        __module__="pyrcareworld.communicator_objects.agent_info_action_pair_pb2"
+        __module__="pyrcareworld.communicator_objects.agent_info_action_pair_pb2",
         # @@protoc_insertion_point(class_scope:communicator_objects.AgentInfoActionPairProto)
     ),
 )

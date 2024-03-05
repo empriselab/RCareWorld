@@ -12,7 +12,7 @@ except ImportError:
     print("This feature requires open3d, please install with `pip install open3d`")
     raise
 
-from pyrcareworld.envs.base_env import RCareWorldBaseEnv
+from pyrcareworld.envs.rcareworld_env import RCareWorldBaseEnv
 
 
 def get_grasp_pose(file: str, points_count, scale: float = 1):

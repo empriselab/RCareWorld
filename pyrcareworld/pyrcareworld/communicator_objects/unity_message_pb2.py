@@ -115,17 +115,13 @@ _UNITYMESSAGEPROTO = _descriptor.Descriptor(
     serialized_end=427,
 )
 
-_UNITYMESSAGEPROTO.fields_by_name[
-    "header"
-].message_type = pyrcareworld_dot_communicator__objects_dot_header__pb2._HEADERPROTO
-_UNITYMESSAGEPROTO.fields_by_name[
-    "unity_output"
-].message_type = (
+_UNITYMESSAGEPROTO.fields_by_name["header"].message_type = (
+    pyrcareworld_dot_communicator__objects_dot_header__pb2._HEADERPROTO
+)
+_UNITYMESSAGEPROTO.fields_by_name["unity_output"].message_type = (
     pyrcareworld_dot_communicator__objects_dot_unity__output__pb2._UNITYOUTPUTPROTO
 )
-_UNITYMESSAGEPROTO.fields_by_name[
-    "unity_input"
-].message_type = (
+_UNITYMESSAGEPROTO.fields_by_name["unity_input"].message_type = (
     pyrcareworld_dot_communicator__objects_dot_unity__input__pb2._UNITYINPUTPROTO
 )
 DESCRIPTOR.message_types_by_name["UnityMessageProto"] = _UNITYMESSAGEPROTO
@@ -136,7 +132,7 @@ UnityMessageProto = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     dict(
         DESCRIPTOR=_UNITYMESSAGEPROTO,
-        __module__="pyrcareworld.communicator_objects.unity_message_pb2"
+        __module__="pyrcareworld.communicator_objects.unity_message_pb2",
         # @@protoc_insertion_point(class_scope:communicator_objects.UnityMessageProto)
     ),
 )

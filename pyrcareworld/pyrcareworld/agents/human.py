@@ -1,6 +1,7 @@
 from pyrcareworld.objects import RCareWorldBaseObject
 from typing import Optional
 
+
 class Human(RCareWorldBaseObject):
     """
     Humans in RCareWorld
@@ -88,7 +89,13 @@ class Human(RCareWorldBaseObject):
             bone_position_z=position[2],
         )
 
-    def setJointLimits(self, joint_name: str, lower_limit: float, upper_limit: float, axis: Optional[str] = None):
+    def setJointLimits(
+        self,
+        joint_name: str,
+        lower_limit: float,
+        upper_limit: float,
+        axis: Optional[str] = None,
+    ):
         """
         Sets the joint limits for this human object in Unity.
 
@@ -100,7 +107,7 @@ class Human(RCareWorldBaseObject):
         """
         if joint_name not in self.name_list:
             raise ValueError("The joint name is not in the list")
-        
+
         if (axis in ["X", "Y", "Z"]) is False:
             self.env.instance_channel.set_action(
                 "SetJointLimits",
@@ -190,11 +197,9 @@ class Human(RCareWorldBaseObject):
         self.env.instance_channel.set_action(
             "SaveArticulationBoneData", id=self.id, path=path
         )
-    
+
     def enableSoftBody(self):
         """
         TODO: enable soft body
         """
-        self.env.instance_channel.set_action(
-            "EnableSoftBody", id=self.id
-        )
+        self.env.instance_channel.set_action("EnableSoftBody", id=self.id)
