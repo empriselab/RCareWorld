@@ -444,12 +444,12 @@ _TRAININGBEHAVIORINITIALIZED = _descriptor.Descriptor(
     serialized_end=734,
 )
 
-DESCRIPTOR.message_types_by_name[
-    "TrainingEnvironmentInitialized"
-] = _TRAININGENVIRONMENTINITIALIZED
-DESCRIPTOR.message_types_by_name[
-    "TrainingBehaviorInitialized"
-] = _TRAININGBEHAVIORINITIALIZED
+DESCRIPTOR.message_types_by_name["TrainingEnvironmentInitialized"] = (
+    _TRAININGENVIRONMENTINITIALIZED
+)
+DESCRIPTOR.message_types_by_name["TrainingBehaviorInitialized"] = (
+    _TRAININGBEHAVIORINITIALIZED
+)
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 TrainingEnvironmentInitialized = _reflection.GeneratedProtocolMessageType(
@@ -457,7 +457,7 @@ TrainingEnvironmentInitialized = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     dict(
         DESCRIPTOR=_TRAININGENVIRONMENTINITIALIZED,
-        __module__="pyrcareworld.communicator_objects.training_analytics_pb2"
+        __module__="pyrcareworld.communicator_objects.training_analytics_pb2",
         # @@protoc_insertion_point(class_scope:communicator_objects.TrainingEnvironmentInitialized)
     ),
 )
@@ -468,7 +468,7 @@ TrainingBehaviorInitialized = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     dict(
         DESCRIPTOR=_TRAININGBEHAVIORINITIALIZED,
-        __module__="pyrcareworld.communicator_objects.training_analytics_pb2"
+        __module__="pyrcareworld.communicator_objects.training_analytics_pb2",
         # @@protoc_insertion_point(class_scope:communicator_objects.TrainingBehaviorInitialized)
     ),
 )

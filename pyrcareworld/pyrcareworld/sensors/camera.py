@@ -43,12 +43,16 @@ class Camera(RCareWorldBaseObject):
         info["fov"] = fov
         return info
 
-    def getRGB(self, mode = "wh"):
+    def getRGB(self, mode="wh"):
         """
         Initialize the camera for RGB images with width, height, and fov, or intrinsic matrix
         mode = "fov" or "intrinsic" or "wh"
         """
-        assert mode in ["fov", "intrinsic", "wh"], "mode should be 'fov' or 'intrinsic' or 'wh'"
+        assert mode in [
+            "fov",
+            "intrinsic",
+            "wh",
+        ], "mode should be 'fov' or 'intrinsic' or 'wh'"
         if mode == "fov":
             self.env.instance_channel.set_action(
                 "GetRGB", id=self.id, width=self.width, height=self.height, fov=self.fov
@@ -72,15 +76,23 @@ class Camera(RCareWorldBaseObject):
         reshaped_image_rgb = np.flipud(reshaped_image_rgb)[:, :, ::-1]
         return reshaped_image_rgb
 
-    def getDepthEXR(self, mode = "wh"):
+    def getDepthEXR(self, mode="wh"):
         """
         Initialize the camera for depth images in EXR format with width, height, and fov, or intrinsic matrix
         mode = "fov" or "intrinsic" or "wh"
         """
-        assert mode in ["fov", "intrinsic", "wh"], "mode should be 'fov' or 'intrinsic' or 'wh'"
+        assert mode in [
+            "fov",
+            "intrinsic",
+            "wh",
+        ], "mode should be 'fov' or 'intrinsic' or 'wh'"
         if mode == "fov":
             self.env.instance_channel.set_action(
-                "GetDepthEXR", id=self.id, width=self.width, height=self.height, fov=self.fov
+                "GetDepthEXR",
+                id=self.id,
+                width=self.width,
+                height=self.height,
+                fov=self.fov,
             )
             self.is_initialized.append("depth_fov")
         elif mode == "wh":
@@ -98,16 +110,24 @@ class Camera(RCareWorldBaseObject):
         depth = np.frombuffer(depth, dtype=np.float32)
         reshaped_image_depth = depth.reshape(self.height, self.width)
         return reshaped_image_depth
-    
-    def getNormal(self, mode = "wh"):
+
+    def getNormal(self, mode="wh"):
         """
         Initialize the camera for surface normals with width, height, and fov, or intrinsic matrix
         mode = "fov" or "intrinsic" or "wh"
         """
-        assert mode in ["fov", "intrinsic", "wh"], "mode should be 'fov' or 'intrinsic' or 'wh'"
+        assert mode in [
+            "fov",
+            "intrinsic",
+            "wh",
+        ], "mode should be 'fov' or 'intrinsic' or 'wh'"
         if mode == "fov":
             self.env.instance_channel.set_action(
-                "GetNormal", id=self.id, width=self.width, height=self.height, fov=self.fov
+                "GetNormal",
+                id=self.id,
+                width=self.width,
+                height=self.height,
+                fov=self.fov,
             )
             self.is_initialized.append("normal_fov")
         elif mode == "wh":
@@ -125,13 +145,17 @@ class Camera(RCareWorldBaseObject):
         normal = np.frombuffer(normal, dtype=np.uint8)
         reshaped_image_normal = normal.reshape(self.height, self.width, 3)
         return reshaped_image_normal
-    
-    def getInstanceMask(self, mode = "wh"):
+
+    def getInstanceMask(self, mode="wh"):
         """
         Initialize the camera for instance masks with width, height, and fov, or intrinsic matrix
         mode = "fov" or "intrinsic" or "wh"
         """
-        assert mode in ["fov", "intrinsic", "wh"], "mode should be 'fov' or 'intrinsic' or 'wh'"
+        assert mode in [
+            "fov",
+            "intrinsic",
+            "wh",
+        ], "mode should be 'fov' or 'intrinsic' or 'wh'"
         if mode == "fov":
             self.env.instance_channel.set_action(
                 "GetID", id=self.id, width=self.width, height=self.height, fov=self.fov
@@ -152,7 +176,7 @@ class Camera(RCareWorldBaseObject):
         image_id = np.frombuffer(image_id, dtype=np.uint8)
         reshaped_image_id = image_id.reshape(self.height, self.width, 3)
         return reshaped_image_id
-    
+
     # def getAmodalInstanceMask(self, mode = "wh"):
     #     """
     #     Initialize the camera for amodal instance masks with width, height, and fov, or intrinsic matrix
@@ -179,8 +203,6 @@ class Camera(RCareWorldBaseObject):
     #     image_id = np.frombuffer(image_id, dtype=np.uint8)
     #     reshaped_image_id = image_id.reshape(self.height, self.width, 3)
     #     return reshaped_image_id
-
-
 
     def initializeActiveDepthWithIntrinsic(self, ir_intrinsic_matrix):
         """

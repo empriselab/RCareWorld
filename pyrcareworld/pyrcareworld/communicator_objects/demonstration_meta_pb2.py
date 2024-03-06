@@ -143,7 +143,7 @@ DemonstrationMetaProto = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     dict(
         DESCRIPTOR=_DEMONSTRATIONMETAPROTO,
-        __module__="pyrcareworld.communicator_objects.demonstration_meta_pb2"
+        __module__="pyrcareworld.communicator_objects.demonstration_meta_pb2",
         # @@protoc_insertion_point(class_scope:communicator_objects.DemonstrationMetaProto)
     ),
 )

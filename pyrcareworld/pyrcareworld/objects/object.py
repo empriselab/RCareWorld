@@ -20,7 +20,7 @@ class RCareWorldBaseObject(ABC):
         self.name = name
         self.copy_ids = []
 
-    def load(self, position=None, rotation=[0,0,0]) -> None:
+    def load(self, position=None, rotation=[0, 0, 0]) -> None:
         """
         Load object into the Scene in Unity
         The object need to be an addressbale file and not in scene.

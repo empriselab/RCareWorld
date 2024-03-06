@@ -1,4 +1,4 @@
-from pyrcareworld.envs.base_env import RCareWorldBaseEnv
+from pyrcareworld.envs.rcareworld_env import RCareWorldBaseEnv
 import pyrcareworld.utils.utility as utility
 import os
 
