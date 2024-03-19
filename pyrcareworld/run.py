@@ -11,7 +11,6 @@ def create_environment(
     user_input: bool = False,
     record: bool = False,
 ):
-
     """
     This function creates an instance of the specified environment class
     and then runs its 'demo_env' method.

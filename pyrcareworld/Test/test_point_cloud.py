@@ -1,4 +1,4 @@
-from pyrcareworld.envs.base_env import RCareWorldBaseEnv
+from pyrcareworld.envs.rcareworld_env import RCareWorldBaseEnv
 import pyrcareworld.utils.depth_processor as dp
 import numpy as np
 

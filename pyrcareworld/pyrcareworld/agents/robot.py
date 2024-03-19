@@ -438,7 +438,6 @@ class Robot(RCareWorldBaseObject):
             joint_positions = self.ik_controller.calculate_ik_recursive(targetPose)
         self.setJointPositions(joint_positions)
 
-
     def directlyMoveTo(self, targetPose: list, targetRot: list = None) -> None:
         if targetRot is not None:
             joint_positions = self.ik_controller.calculate_ik_recursive(
@@ -480,7 +479,6 @@ class Robot(RCareWorldBaseObject):
 
     def GripperOpen(self) -> None:
         self.env.instance_channel.set_action("GripperOpen", id=self.gripper_id[0])
-
 
     def GripperClose(self) -> None:
         self.env.instance_channel.set_action("GripperClose", id=self.gripper_id[0])

@@ -19,7 +19,7 @@ def GetData(kwargs: dict) -> OutgoingMessage:
     compulsory_params = ["id"]
     optional_params = []
     utility.CheckKwargs(kwargs, compulsory_params)
-    msg = OutgoingMessage() 
+    msg = OutgoingMessage()
 
     msg.write_int32(kwargs["id"])
     msg.write_string("GetData")

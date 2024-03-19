@@ -93,14 +93,10 @@ _UNITYINPUTPROTO = _descriptor.Descriptor(
     serialized_end=369,
 )
 
-_UNITYINPUTPROTO.fields_by_name[
-    "rl_input"
-].message_type = (
+_UNITYINPUTPROTO.fields_by_name["rl_input"].message_type = (
     pyrcareworld_dot_communicator__objects_dot_unity__rl__input__pb2._UNITYRLINPUTPROTO
 )
-_UNITYINPUTPROTO.fields_by_name[
-    "rl_initialization_input"
-].message_type = (
+_UNITYINPUTPROTO.fields_by_name["rl_initialization_input"].message_type = (
     pyrcareworld_dot_communicator__objects_dot_unity__rl__initialization__input__pb2._UNITYRLINITIALIZATIONINPUTPROTO
 )
 DESCRIPTOR.message_types_by_name["UnityInputProto"] = _UNITYINPUTPROTO
@@ -111,7 +107,7 @@ UnityInputProto = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     dict(
         DESCRIPTOR=_UNITYINPUTPROTO,
-        __module__="pyrcareworld.communicator_objects.unity_input_pb2"
+        __module__="pyrcareworld.communicator_objects.unity_input_pb2",
         # @@protoc_insertion_point(class_scope:communicator_objects.UnityInputProto)
     ),
 )

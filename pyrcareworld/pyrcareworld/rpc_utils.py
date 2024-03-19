@@ -40,11 +40,11 @@ def behavior_spec_from_proto(
                 name=obs.name,
                 shape=tuple(obs.shape),
                 observation_type=ObservationType(obs.observation_type),
-                dimension_property=tuple(
-                    DimensionProperty(dim) for dim in obs.dimension_properties
-                )
-                if len(obs.dimension_properties) > 0
-                else (DimensionProperty.UNSPECIFIED,) * len(obs.shape),
+                dimension_property=(
+                    tuple(DimensionProperty(dim) for dim in obs.dimension_properties)
+                    if len(obs.dimension_properties) > 0
+                    else (DimensionProperty.UNSPECIFIED,) * len(obs.shape)
+                ),
             )
         )
 

@@ -287,22 +287,22 @@ _OBSERVATIONPROTO = _descriptor.Descriptor(
 
 _OBSERVATIONPROTO_FLOATDATA.containing_type = _OBSERVATIONPROTO
 _OBSERVATIONPROTO.fields_by_name["compression_type"].enum_type = _COMPRESSIONTYPEPROTO
-_OBSERVATIONPROTO.fields_by_name[
-    "float_data"
-].message_type = _OBSERVATIONPROTO_FLOATDATA
+_OBSERVATIONPROTO.fields_by_name["float_data"].message_type = (
+    _OBSERVATIONPROTO_FLOATDATA
+)
 _OBSERVATIONPROTO.fields_by_name["observation_type"].enum_type = _OBSERVATIONTYPEPROTO
 _OBSERVATIONPROTO.oneofs_by_name["observation_data"].fields.append(
     _OBSERVATIONPROTO.fields_by_name["compressed_data"]
 )
-_OBSERVATIONPROTO.fields_by_name[
-    "compressed_data"
-].containing_oneof = _OBSERVATIONPROTO.oneofs_by_name["observation_data"]
+_OBSERVATIONPROTO.fields_by_name["compressed_data"].containing_oneof = (
+    _OBSERVATIONPROTO.oneofs_by_name["observation_data"]
+)
 _OBSERVATIONPROTO.oneofs_by_name["observation_data"].fields.append(
     _OBSERVATIONPROTO.fields_by_name["float_data"]
 )
-_OBSERVATIONPROTO.fields_by_name[
-    "float_data"
-].containing_oneof = _OBSERVATIONPROTO.oneofs_by_name["observation_data"]
+_OBSERVATIONPROTO.fields_by_name["float_data"].containing_oneof = (
+    _OBSERVATIONPROTO.oneofs_by_name["observation_data"]
+)
 DESCRIPTOR.message_types_by_name["ObservationProto"] = _OBSERVATIONPROTO
 DESCRIPTOR.enum_types_by_name["CompressionTypeProto"] = _COMPRESSIONTYPEPROTO
 DESCRIPTOR.enum_types_by_name["ObservationTypeProto"] = _OBSERVATIONTYPEPROTO
@@ -317,12 +317,12 @@ ObservationProto = _reflection.GeneratedProtocolMessageType(
             (_message.Message,),
             dict(
                 DESCRIPTOR=_OBSERVATIONPROTO_FLOATDATA,
-                __module__="pyrcareworld.communicator_objects.observation_pb2"
+                __module__="pyrcareworld.communicator_objects.observation_pb2",
                 # @@protoc_insertion_point(class_scope:communicator_objects.ObservationProto.FloatData)
             ),
         ),
         DESCRIPTOR=_OBSERVATIONPROTO,
-        __module__="pyrcareworld.communicator_objects.observation_pb2"
+        __module__="pyrcareworld.communicator_objects.observation_pb2",
         # @@protoc_insertion_point(class_scope:communicator_objects.ObservationProto)
     ),
 )

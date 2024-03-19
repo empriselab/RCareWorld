@@ -161,7 +161,7 @@ EngineConfigurationProto = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     dict(
         DESCRIPTOR=_ENGINECONFIGURATIONPROTO,
-        __module__="pyrcareworld.communicator_objects.engine_configuration_pb2"
+        __module__="pyrcareworld.communicator_objects.engine_configuration_pb2",
         # @@protoc_insertion_point(class_scope:communicator_objects.EngineConfigurationProto)
     ),
 )

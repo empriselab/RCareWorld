@@ -1,5 +1,5 @@
 import random
-from pyrcareworld.envs.base_env import RCareWorldBaseEnv
+from pyrcareworld.envs.rcareworld_env import RCareWorldBaseEnv
 
 env = RCareWorldBaseEnv(assets=["flexivArm_ag95"])
 

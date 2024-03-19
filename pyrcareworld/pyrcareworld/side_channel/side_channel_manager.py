@@ -21,7 +21,7 @@ class SideChannelManager:
             try:
                 channel_id = uuid.UUID(bytes_le=bytes(data[offset : offset + 16]))
                 offset += 16
-                message_len, = struct.unpack_from("<i", data, offset)
+                (message_len,) = struct.unpack_from("<i", data, offset)
                 offset = offset + 4
                 message_data = data[offset : offset + message_len]
                 offset = offset + message_len
@@ -63,7 +63,7 @@ class SideChannelManager:
 
     @staticmethod
     def _get_side_channels_dict(
-        side_channels: Optional[List[SideChannel]]
+        side_channels: Optional[List[SideChannel]],
     ) -> Dict[uuid.UUID, SideChannel]:
         """
         Converts a list of side channels into a dictionary of channel_id to SideChannel
@@ -72,7 +72,7 @@ class SideChannelManager:
         side_channels_dict: Dict[uuid.UUID, SideChannel] = {}
 
         # Print side channel id in use
-        print('Side channel id in use:')
+        print("Side channel id in use:")
         for _sc in side_channels:
             print(_sc.channel_id)
 

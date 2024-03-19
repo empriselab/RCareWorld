@@ -93,14 +93,10 @@ _UNITYOUTPUTPROTO = _descriptor.Descriptor(
     serialized_end=377,
 )
 
-_UNITYOUTPUTPROTO.fields_by_name[
-    "rl_output"
-].message_type = (
+_UNITYOUTPUTPROTO.fields_by_name["rl_output"].message_type = (
     pyrcareworld_dot_communicator__objects_dot_unity__rl__output__pb2._UNITYRLOUTPUTPROTO
 )
-_UNITYOUTPUTPROTO.fields_by_name[
-    "rl_initialization_output"
-].message_type = (
+_UNITYOUTPUTPROTO.fields_by_name["rl_initialization_output"].message_type = (
     pyrcareworld_dot_communicator__objects_dot_unity__rl__initialization__output__pb2._UNITYRLINITIALIZATIONOUTPUTPROTO
 )
 DESCRIPTOR.message_types_by_name["UnityOutputProto"] = _UNITYOUTPUTPROTO
@@ -111,7 +107,7 @@ UnityOutputProto = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     dict(
         DESCRIPTOR=_UNITYOUTPUTPROTO,
-        __module__="pyrcareworld.communicator_objects.unity_output_pb2"
+        __module__="pyrcareworld.communicator_objects.unity_output_pb2",
         # @@protoc_insertion_point(class_scope:communicator_objects.UnityOutputProto)
     ),
 )

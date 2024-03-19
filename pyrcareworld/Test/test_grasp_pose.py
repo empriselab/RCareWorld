@@ -5,7 +5,7 @@ try:
 except ImportError:
     print("This feature requires pandas, please install with `pip install pandas`")
     raise
-from pyrcareworld.envs.base_env import RCareWorldBaseEnv
+from pyrcareworld.envs.rcareworld_env import RCareWorldBaseEnv
 
 mesh_path = "../Mesh/drink1/drink1.obj"
 pose_path = "../Mesh/drink1/grasps_rfu.csv"

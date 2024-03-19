@@ -1,4 +1,4 @@
-from pyrcareworld.envs.base_env import RCareWorldBaseEnv
+from pyrcareworld.envs.rcareworld_env import RCareWorldBaseEnv
 from pyrcareworld.side_channel.side_channel import (
     IncomingMessage,
     OutgoingMessage,

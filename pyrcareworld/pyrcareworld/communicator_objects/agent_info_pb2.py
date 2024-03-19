@@ -197,9 +197,7 @@ _AGENTINFOPROTO = _descriptor.Descriptor(
     serialized_end=379,
 )
 
-_AGENTINFOPROTO.fields_by_name[
-    "observations"
-].message_type = (
+_AGENTINFOPROTO.fields_by_name["observations"].message_type = (
     pyrcareworld_dot_communicator__objects_dot_observation__pb2._OBSERVATIONPROTO
 )
 DESCRIPTOR.message_types_by_name["AgentInfoProto"] = _AGENTINFOPROTO
@@ -210,7 +208,7 @@ AgentInfoProto = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     dict(
         DESCRIPTOR=_AGENTINFOPROTO,
-        __module__="pyrcareworld.communicator_objects.agent_info_pb2"
+        __module__="pyrcareworld.communicator_objects.agent_info_pb2",
         # @@protoc_insertion_point(class_scope:communicator_objects.AgentInfoProto)
     ),
 )

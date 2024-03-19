@@ -125,14 +125,12 @@ _UNITYRLINITIALIZATIONINPUTPROTO = _descriptor.Descriptor(
     serialized_end=323,
 )
 
-_UNITYRLINITIALIZATIONINPUTPROTO.fields_by_name[
-    "capabilities"
-].message_type = (
+_UNITYRLINITIALIZATIONINPUTPROTO.fields_by_name["capabilities"].message_type = (
     pyrcareworld_dot_communicator__objects_dot_capabilities__pb2._UNITYRLCAPABILITIESPROTO
 )
-DESCRIPTOR.message_types_by_name[
-    "UnityRLInitializationInputProto"
-] = _UNITYRLINITIALIZATIONINPUTPROTO
+DESCRIPTOR.message_types_by_name["UnityRLInitializationInputProto"] = (
+    _UNITYRLINITIALIZATIONINPUTPROTO
+)
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 UnityRLInitializationInputProto = _reflection.GeneratedProtocolMessageType(
@@ -140,7 +138,7 @@ UnityRLInitializationInputProto = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     dict(
         DESCRIPTOR=_UNITYRLINITIALIZATIONINPUTPROTO,
-        __module__="pyrcareworld.communicator_objects.unity_rl_initialization_input_pb2"
+        __module__="pyrcareworld.communicator_objects.unity_rl_initialization_input_pb2",
         # @@protoc_insertion_point(class_scope:communicator_objects.UnityRLInitializationInputProto)
     ),
 )

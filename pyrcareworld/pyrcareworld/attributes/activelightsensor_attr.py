@@ -49,27 +49,27 @@ def parse_message(msg: IncomingMessage) -> dict:
                 [0.0, 0.0, 0.0, 1.0],
             ]
         )
-        this_object_data[
-            "active_depth"
-        ] = active_depth.calc_main_depth_from_left_right_ir(
-            image_left,
-            image_right,
-            left_extrinsic_matrix,
-            right_extrinsic_matrix,
-            main_extrinsic_matrix,
-            ir_intrinsic_matrix,
-            ir_intrinsic_matrix,
-            main_intrinsic_matrix,
-            lr_consistency=False,
-            main_cam_size=(
-                main_intrinsic_matrix[0, 2] * 2,
-                main_intrinsic_matrix[1, 2] * 2,
-            ),
-            ndisp=128,
-            use_census=True,
-            register_depth=True,
-            census_wsize=7,
-            use_noise=False,
+        this_object_data["active_depth"] = (
+            active_depth.calc_main_depth_from_left_right_ir(
+                image_left,
+                image_right,
+                left_extrinsic_matrix,
+                right_extrinsic_matrix,
+                main_extrinsic_matrix,
+                ir_intrinsic_matrix,
+                ir_intrinsic_matrix,
+                main_intrinsic_matrix,
+                lr_consistency=False,
+                main_cam_size=(
+                    main_intrinsic_matrix[0, 2] * 2,
+                    main_intrinsic_matrix[1, 2] * 2,
+                ),
+                ndisp=128,
+                use_census=True,
+                register_depth=True,
+                census_wsize=7,
+                use_noise=False,
+            )
         )
         this_object_data["active_depth"][this_object_data["active_depth"] > 8.0] = 0
         this_object_data["active_depth"][this_object_data["active_depth"] < 0.1] = 0
