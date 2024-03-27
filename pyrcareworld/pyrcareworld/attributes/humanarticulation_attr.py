@@ -145,3 +145,35 @@ def SaveArticulationBoneData(kwargs: dict) -> OutgoingMessage:
     msg.write_string(kwargs["path"])
 
     return msg
+
+def SetJointLimits(kwargs: dict) -> OutgoingMessage:
+    """
+    Set joint limits for a specific bone in an ArticulationBody. Will apply to the joint connecting that bone to the previous bone in the hierarchy.
+
+    Args:
+        Compulsory:
+            id: The id of the ArticulationBody object.
+            bone_name: The name of the bone to select a joint for.
+            lower_limit: The lower limit of the joint.
+            upper_limit: The upper limit of the joint.
+        Optional:
+            axis: The axis of the joint to set the limits for: {"X", "Y", or "Z"}. 
+            
+            If not specified, sets all limits (often fine since most joints only have 1 free axis).
+    """
+    compulsory_params = ["id", "bone_name", "lower_limit", "upper_limit"]
+    optional_params = ["axis"]
+    utility.CheckKwargs(kwargs, compulsory_params)
+
+    msg = OutgoingMessage()
+
+    msg.write_int32(kwargs["id"])
+    msg.write_string("SetJointLimits")
+    msg.write_string(kwargs["bone_name"])
+    msg.write_float32(kwargs["lower_limit"])
+    msg.write_float32(kwargs["upper_limit"])
+    msg.write_bool("axis" in kwargs)
+    if "axis" in kwargs:
+        msg.write_string(kwargs["axis"])
+
+    return msg
