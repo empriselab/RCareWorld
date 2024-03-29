@@ -12,6 +12,6 @@ bed = env.create_bed(
     is_in_scene=True,
 )
 
-bed.setActuationAngle(10,20)
+bed.setActuationAngle(15, 40)
 while True:
     env._step()

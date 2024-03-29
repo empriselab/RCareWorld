@@ -1,6 +1,7 @@
 from .object import RCareWorldBaseObject
 import numpy as np
 
+
 class RCareWorldBed(RCareWorldBaseObject):
     """
     A hospital bed in RCareWorld
@@ -9,18 +10,21 @@ class RCareWorldBed(RCareWorldBaseObject):
     def __init__(self, env, id: int, name: str, is_in_scene: bool = False):
         super().__init__(env=env, id=id, name=name, is_in_scene=is_in_scene)
 
-    def setActuationAngle(self, angle, duration) -> None:
+    def setActuationAngle(self, angle, duration=25) -> None:
         """
         @param angle
         @return:
         """
-        assert 0 < angle and angle <180
+        assert 0 < angle and angle < 180
         x_rot, rot, z_rot = self.getLocalRotation()
-        angles = np.linspace((rot+360)%360,360-angle,num=duration)
+        angles = np.linspace((rot + 360), 360 - angle, num=duration)
         for i in range(len(angles)):
             self.env.instance_channel.set_action(
-                "SetTransform", id=self.id, position=self.getLocalPosition(), rotation=[x_rot, angles[i], z_rot],is_world=False
+                "SetTransform",
+                id=self.id,
+                position=self.getLocalPosition(),
+                rotation=[x_rot, angles[i], z_rot],
+                is_world=False,
             )
 
             self.env.step()
-
