@@ -16,6 +16,7 @@ import os
 from pyrcareworld.agents import Robot
 from pyrcareworld.agents import Human
 from pyrcareworld.objects import RCareWorldBaseObject
+from pyrcareworld.objects import RCareWorldBed
 from pyrcareworld.sensors import Camera
 from pyrcareworld.sensors import Skin
 
@@ -350,6 +351,21 @@ class RCareWorld(RCareWorldBaseEnv):
         this_human = self.human_dict[id]
         return this_human
 
+    def create_bed(self, id: int, name: str, is_in_scene: bool):
+        """create bed
+
+        Args:
+            id (int): id for the bed
+            name (str): name for bed
+            is_in_scene (bool): whether the bed is in the scene
+
+        Returns:
+            The bed class
+        """
+        self.object_dict[id] = RCareWorldBed(self, id, name, is_in_scene)
+        bed = self.object_dict[id]
+        return bed
+    
     def create_skin(self, id: int, name: str, is_in_scene: bool):
         """create skin
 
