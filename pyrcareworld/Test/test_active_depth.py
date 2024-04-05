@@ -8,7 +8,7 @@ except ImportError:
     raise
 import pyrcareworld.utils.utility as utility
 import pyrcareworld.utils.depth_processor as dp
-from pyrcareworld.envs.base_env import RCareWorldBaseEnv
+from pyrcareworld.envs.rcareworld_env import RCareWorldBaseEnv
 
 env = RCareWorldBaseEnv(scene_file="ActiveDepth.json")
 

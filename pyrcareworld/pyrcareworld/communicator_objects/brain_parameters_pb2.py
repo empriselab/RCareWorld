@@ -269,7 +269,7 @@ ActionSpecProto = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     dict(
         DESCRIPTOR=_ACTIONSPECPROTO,
-        __module__="pyrcareworld.communicator_objects.brain_parameters_pb2"
+        __module__="pyrcareworld.communicator_objects.brain_parameters_pb2",
         # @@protoc_insertion_point(class_scope:communicator_objects.ActionSpecProto)
     ),
 )
@@ -280,7 +280,7 @@ BrainParametersProto = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     dict(
         DESCRIPTOR=_BRAINPARAMETERSPROTO,
-        __module__="pyrcareworld.communicator_objects.brain_parameters_pb2"
+        __module__="pyrcareworld.communicator_objects.brain_parameters_pb2",
         # @@protoc_insertion_point(class_scope:communicator_objects.BrainParametersProto)
     ),
 )

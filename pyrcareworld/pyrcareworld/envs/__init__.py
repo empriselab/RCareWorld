@@ -1,1 +1,1 @@
-from .base_env import RCareWorld, RCareWorldGymWrapper
+from .rcareworld_env import RCareWorld, RCareWorldGymWrapper
