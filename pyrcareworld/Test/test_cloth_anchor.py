@@ -1,4 +1,4 @@
-from pyrcareworld.envs.base_env import RCareWorld
+from pyrcareworld.envs.rcareworld_env import RCareWorld
 
 # Script to test cloth anchoring.
 if __name__ == "__main__":
