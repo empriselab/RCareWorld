@@ -44,9 +44,9 @@ _CUSTOMRESETPARAMETERSPROTO = _descriptor.Descriptor(
     serialized_end=117,
 )
 
-DESCRIPTOR.message_types_by_name[
-    "CustomResetParametersProto"
-] = _CUSTOMRESETPARAMETERSPROTO
+DESCRIPTOR.message_types_by_name["CustomResetParametersProto"] = (
+    _CUSTOMRESETPARAMETERSPROTO
+)
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 CustomResetParametersProto = _reflection.GeneratedProtocolMessageType(
@@ -54,7 +54,7 @@ CustomResetParametersProto = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     dict(
         DESCRIPTOR=_CUSTOMRESETPARAMETERSPROTO,
-        __module__="pyrcareworld.communicator_objects.custom_reset_parameters_pb2"
+        __module__="pyrcareworld.communicator_objects.custom_reset_parameters_pb2",
         # @@protoc_insertion_point(class_scope:communicator_objects.CustomResetParametersProto)
     ),
 )

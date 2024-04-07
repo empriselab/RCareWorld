@@ -1,6 +1,7 @@
 from abc import ABC
 
 import pyrcareworld
+from pyrcareworld.agents.cloth import Cloth
 from pyrcareworld.environment import UnityEnvironment
 from pyrcareworld.side_channel.environment_parameters_channel import (
     EnvironmentParametersChannel,
@@ -274,6 +275,7 @@ class RCareWorld(RCareWorldBaseEnv):
         )
         self.robot_dict = {}
         self.object_dict = {}
+        self.cloth_dict = {}
         self.camera_dict = {}
         self.human_dict = {}
         self.lighting_dict = {}
@@ -334,7 +336,7 @@ class RCareWorld(RCareWorldBaseEnv):
         this_object = self.object_dict[id]
         return this_object
 
-    def create_human(self, id: int, name: str, is_in_scene: bool):
+    def create_human(self, id: int, name: str, is_in_scene: bool) -> Human:
         """create human
 
         Args:
@@ -348,6 +350,22 @@ class RCareWorld(RCareWorldBaseEnv):
         self.human_dict[id] = Human(self, id, name, is_in_scene)
         this_human = self.human_dict[id]
         return this_human
+
+    def create_cloth(self, id: int, name: str, is_in_scene: bool) -> Cloth:
+        """
+        Creates a cloth object in the scene.
+
+        Args:
+            id: Int. The ID of the cloth object.
+            name: Str. The name of the cloth object.
+            is_in_scene: Bool. Whether the cloth object is in the scene.
+
+        Returns:
+            The cloth Object.
+        """
+        self.cloth_dict[id] = Cloth(self, id, name, is_in_scene)
+        this_cloth = self.cloth_dict[id]
+        return this_cloth
 
     def create_skin(self, id: int, name: str, is_in_scene: bool):
         """create skin

@@ -208,22 +208,20 @@ _UNITYRLINPUTPROTO = _descriptor.Descriptor(
     serialized_end=566,
 )
 
-_UNITYRLINPUTPROTO_LISTAGENTACTIONPROTO.fields_by_name[
-    "value"
-].message_type = (
+_UNITYRLINPUTPROTO_LISTAGENTACTIONPROTO.fields_by_name["value"].message_type = (
     pyrcareworld_dot_communicator__objects_dot_agent__action__pb2._AGENTACTIONPROTO
 )
 _UNITYRLINPUTPROTO_LISTAGENTACTIONPROTO.containing_type = _UNITYRLINPUTPROTO
-_UNITYRLINPUTPROTO_AGENTACTIONSENTRY.fields_by_name[
-    "value"
-].message_type = _UNITYRLINPUTPROTO_LISTAGENTACTIONPROTO
+_UNITYRLINPUTPROTO_AGENTACTIONSENTRY.fields_by_name["value"].message_type = (
+    _UNITYRLINPUTPROTO_LISTAGENTACTIONPROTO
+)
 _UNITYRLINPUTPROTO_AGENTACTIONSENTRY.containing_type = _UNITYRLINPUTPROTO
-_UNITYRLINPUTPROTO.fields_by_name[
-    "agent_actions"
-].message_type = _UNITYRLINPUTPROTO_AGENTACTIONSENTRY
-_UNITYRLINPUTPROTO.fields_by_name[
-    "command"
-].enum_type = pyrcareworld_dot_communicator__objects_dot_command__pb2._COMMANDPROTO
+_UNITYRLINPUTPROTO.fields_by_name["agent_actions"].message_type = (
+    _UNITYRLINPUTPROTO_AGENTACTIONSENTRY
+)
+_UNITYRLINPUTPROTO.fields_by_name["command"].enum_type = (
+    pyrcareworld_dot_communicator__objects_dot_command__pb2._COMMANDPROTO
+)
 DESCRIPTOR.message_types_by_name["UnityRLInputProto"] = _UNITYRLINPUTPROTO
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -236,7 +234,7 @@ UnityRLInputProto = _reflection.GeneratedProtocolMessageType(
             (_message.Message,),
             dict(
                 DESCRIPTOR=_UNITYRLINPUTPROTO_LISTAGENTACTIONPROTO,
-                __module__="pyrcareworld.communicator_objects.unity_rl_input_pb2"
+                __module__="pyrcareworld.communicator_objects.unity_rl_input_pb2",
                 # @@protoc_insertion_point(class_scope:communicator_objects.UnityRLInputProto.ListAgentActionProto)
             ),
         ),
@@ -245,12 +243,12 @@ UnityRLInputProto = _reflection.GeneratedProtocolMessageType(
             (_message.Message,),
             dict(
                 DESCRIPTOR=_UNITYRLINPUTPROTO_AGENTACTIONSENTRY,
-                __module__="pyrcareworld.communicator_objects.unity_rl_input_pb2"
+                __module__="pyrcareworld.communicator_objects.unity_rl_input_pb2",
                 # @@protoc_insertion_point(class_scope:communicator_objects.UnityRLInputProto.AgentActionsEntry)
             ),
         ),
         DESCRIPTOR=_UNITYRLINPUTPROTO,
-        __module__="pyrcareworld.communicator_objects.unity_rl_input_pb2"
+        __module__="pyrcareworld.communicator_objects.unity_rl_input_pb2",
         # @@protoc_insertion_point(class_scope:communicator_objects.UnityRLInputProto)
     ),
 )
