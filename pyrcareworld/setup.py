@@ -22,8 +22,6 @@ setup(
         "protobuf==3.19.0",
         "pyyaml>=3.1.0",
         "pybullet",
-        "gym==0.21.0",
-        # "stable-baselines3"
         "opencv-python",
     ],
     python_requires=">=3.6.1",
