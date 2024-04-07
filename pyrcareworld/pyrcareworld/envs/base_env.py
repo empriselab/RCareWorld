@@ -1,5 +1,3 @@
-from gym.utils import seeding
-
 from abc import ABC
 
 import pyrcareworld
@@ -10,7 +8,8 @@ from pyrcareworld.side_channel.environment_parameters_channel import (
 from pyrcareworld.rfuniverse_channel import AssetChannel
 from pyrcareworld.rfuniverse_channel import InstanceChannel
 from pyrcareworld.rfuniverse_channel import DebugChannel
-import gym
+import gymnasium as gym
+from gymnasium.utils import seeding
 import os
 
 from pyrcareworld.agents import Robot
@@ -232,29 +231,29 @@ class RCareWorldGymWrapper(RCareWorldBaseEnv, gym.Env):
         RCareWorldBaseEnv.close(self)
 
 
-class RCareWorldGymGoalWrapper(gym.GoalEnv, RCareWorldBaseEnv):
-    def __init__(
-        self,
-        executable_file: str = None,
-        scene_file: str = None,
-        custom_channels: list = [],
-        assets: list = [],
-        **kwargs
-    ):
-        RCareWorldBaseEnv.__init__(
-            self,
-            executable_file=executable_file,
-            scene_file=scene_file,
-            custom_channels=custom_channels,
-            assets=assets,
-            **kwargs,
-        )
+# class RCareWorldGymGoalWrapper(gym.GoalEnv, RCareWorldBaseEnv):
+#     def __init__(
+#         self,
+#         executable_file: str = None,
+#         scene_file: str = None,
+#         custom_channels: list = [],
+#         assets: list = [],
+#         **kwargs
+#     ):
+#         RCareWorldBaseEnv.__init__(
+#             self,
+#             executable_file=executable_file,
+#             scene_file=scene_file,
+#             custom_channels=custom_channels,
+#             assets=assets,
+#             **kwargs,
+#         )
 
-    def reset(self):
-        gym.GoalEnv.reset(self)
+#     def reset(self):
+#         gym.GoalEnv.reset(self)
 
-    def close(self):
-        RCareWorldBaseEnv.close(self)
+#     def close(self):
+#         RCareWorldBaseEnv.close(self)
 
 
 class RCareWorld(RCareWorldBaseEnv):
