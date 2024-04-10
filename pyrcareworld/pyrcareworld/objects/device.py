@@ -17,7 +17,8 @@ class RCareWorldBed(RCareWorldBaseObject):
         """
         assert 0 < angle and angle < 180
         x_rot, rot, z_rot = self.getLocalRotation()
-        angles = np.linspace((rot + 360), 360 - angle, num=duration)
+        rot = 360 if rot == 0 else rot
+        angles = np.linspace(rot, 360 - angle, num=duration)
         for i in range(len(angles)):
             self.env.instance_channel.set_action(
                 "SetTransform",
@@ -26,5 +27,8 @@ class RCareWorldBed(RCareWorldBaseObject):
                 rotation=[x_rot, angles[i], z_rot],
                 is_world=False,
             )
-
             self.env.step()
+
+    def getCurrentAngle(self):
+        rot = self.getLocalRotation()[1]
+        return 0 if rot == 0 else 360 - rot
