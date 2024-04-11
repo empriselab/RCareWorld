@@ -290,7 +290,7 @@ class RCareWorld(RCareWorldBaseEnv):
         urdf_path: str = None,
         base_pos: list = [0, 0, 0],
         base_orn=[-0.707107, -0.707107, -0.707107, 0.707107],
-    ) -> None:
+    ) -> Robot:
         """
         Create a robot in the scene
         :param id: robot id
