@@ -16,6 +16,8 @@ if __name__ == "__main__":
         base_pos=[0, 0, 0],
     )
 
+    # Note: We use a General Gripper Script on the robot to get the GripperClose() and GripperOpen() functions to have visual effect.
+
     # ...
     for i in range(200):
         env.step()
