@@ -365,7 +365,7 @@ class RCareWorld(RCareWorldBaseEnv):
         self.object_dict[id] = RCareWorldBed(self, id, name, is_in_scene)
         bed = self.object_dict[id]
         return bed
-    
+
     def create_skin(self, id: int, name: str, is_in_scene: bool):
         """create skin
 
