@@ -6,31 +6,32 @@ from pyrcareworld.side_channel.side_channel import (
 import pyrcareworld.utils.utility as utility
 
 
-# 消息解析示例
+# Message parsing example
 def parse_message(msg: IncomingMessage) -> dict:
-    # 先完成所继承的基类的数据读取
+    # First, read the data inherited from the base class
     this_object_data = attr.base_attr.parse_message(msg)
-    # 按顺序读取数据
-    # 此处读取顺序对应Unity的CustomAttr脚本CollectData函数中的写入顺序
+    # Read data in order
+    # The order of reading here corresponds to the writing order in the CollectData function of Unity's CustomAttr script
     this_object_data["custom_message"] = msg.read_string()
     return this_object_data
 
 
-# 新增接口示例
+# New interface example
 def CustomMessage(kwargs: dict) -> OutgoingMessage:
-    # 必要参数
+    # Mandatory parameters
     compulsory_params = ["id", "message"]
-    # 非必要参数
+    # Optional parameters
     optional_params = []
-    # 参数检查
+    # Parameter check
     utility.CheckKwargs(kwargs, compulsory_params)
 
     msg = OutgoingMessage()
-    # 第一个写入的数据必须是ID
+    # The first data must be ID
     msg.write_int32(kwargs["id"])
-    # 第二个写入的数据必须是消息类型 此处CustomMessage对应Unity新增Attr脚本AnalysisMsg函数switch的一个分支
+    # The second data must be message type. 
+    # Here, CustomMessage correspond to one branch of 'switch' in AnalysingMsg function from Unity's new Attr script
     msg.write_string("CustomMessage")
-    # 按顺序写入数据
+    # Write data in order
     msg.write_string(kwargs["message"])
 
     return msg

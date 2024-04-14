@@ -5,33 +5,33 @@ from pyrcareworld.side_channel.side_channel import (
 import pyrcareworld.utils.utility as utility
 
 
-# 消息解析
+# Message parsing
 def parse_message(msg: IncomingMessage, msg_type: str) -> dict:
     this_data = {}
-    # 根据头字符串添加自己的分支
-    # 此处CustomMessage对应Unity中AssetManagerExt脚本CustomMessage接口函数中写入的第一个头字符串
+    # Add your own branch based on the header string
+    # CustomMessage corresponds to the first header string in the CustomMessage interface function of Unity's AssetManagerExt script
     if msg_type == "CustomMessage":
-        # 按顺序读取数据
-        # 此处读取顺序对应Unity中使用SendMetaDataToPython前写入顺序
+        # Read data in order
+        #  The reading order corresponds to the writing order before using SendMetaDataToPython in Unity
         data = msg.read_string()
         this_data["custom_message"] = data
-    # 将数据写入到data中返回
+    # write data into this_data and return
     return this_data
 
 
-# 新增接口示例
+# Adding new interface example
 def CustomMessage(kwargs: dict) -> OutgoingMessage:
-    # 必要参数
+    # Mandatory parameters
     compulsory_params = ["message"]
-    # 非必要参数
+    # Optional parameters
     optional_params = []
-    # 参数检查
+    # Parameters check
     utility.CheckKwargs(kwargs, compulsory_params)
 
     msg = OutgoingMessage()
-    # 第一个写入的数据必须是消息类型
-    # 此处CustomMessage对应Unity中AssetManagerExt脚本AnalysisMsg函数switch的CustomMessage分支
+    # First data to be written must be message type
+    # CustomMessage corresponds to the CustomMessage branch of the switch in the AnalysisMsg function of the AssetManagerExt script in Unity
     msg.write_string("CustomMessage")
-    # 按顺序写入自己想要发送的数据
+    # Write the data to be sent in order
     msg.write_string(kwargs["message"])
     return msg

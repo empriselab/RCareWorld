@@ -21,7 +21,7 @@ def parse_message(msg: IncomingMessage) -> dict:
     return this_object_data
 
 
-# 新增接口示例
+# Adding new interface example
 def StartGraspSim(kwargs: dict) -> OutgoingMessage:
     compulsory_params = [
         "id",
