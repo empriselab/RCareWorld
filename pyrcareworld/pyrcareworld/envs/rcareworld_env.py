@@ -290,7 +290,7 @@ class RCareWorld(RCareWorldBaseEnv):
         urdf_path: str = None,
         base_pos: list = [0, 0, 0],
         base_orn=[-0.707107, -0.707107, -0.707107, 0.707107],
-    ) -> None:
+    ) -> Robot:
         """
         Create a robot in the scene
         :param id: robot id
@@ -321,7 +321,9 @@ class RCareWorld(RCareWorldBaseEnv):
         this_robot = self.robot_dict[id]
         return this_robot
 
-    def create_object(self, id: int, name: str, is_in_scene: bool):
+    def create_object(
+        self, id: int, name: str, is_in_scene: bool
+    ) -> RCareWorldBaseObject:
         """create object
 
         Args:
@@ -367,7 +369,7 @@ class RCareWorld(RCareWorldBaseEnv):
         this_cloth = self.cloth_dict[id]
         return this_cloth
 
-    def create_skin(self, id: int, name: str, is_in_scene: bool):
+    def create_skin(self, id: int, name: str, is_in_scene: bool) -> Skin:
         """create skin
 
         Args:
@@ -390,7 +392,7 @@ class RCareWorld(RCareWorldBaseEnv):
         height: int = 480,
         fov: float = 60,
         is_in_scene: bool = False,
-    ):
+    ) -> Camera:
         """create camera
 
         Args:

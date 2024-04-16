@@ -29,3 +29,17 @@ class Cloth(RCareWorldBaseObject):
             id=self.id,
             particle_group_name=particle_group_name,
         )
+
+    def initializeParticlePositions(self, mappings: dict):
+        """
+        Sends a message containing a mapping from particle indices to their initial positions. Particles will teleport to this position when this function is called.
+
+        Args:
+            mappings (dict): A mapping from particle indices to their initial positions. Each position is a list of floats with at least 3 elements, corresponding to [x, y, z].
+        """
+        self.env.instance_channel.set_action(
+            "InitializeParticlePositions",
+            id=self.id,
+            particle_indices=mappings.keys(),
+            positions=mappings.values(),
+        )
