@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="stretch_tool_tablet_12in">
+  <link
+    name="link_DW3_tablet_12in">
+    <inertial>
+      <origin
+        xyz="-0.12836 0.013917 0.05618"
+        rpy="0 0 0" />
+      <mass
+        value="0.31101" />
+      <inertia
+        ixx="0.00082988"
+        ixy="-3.7223E-19"
+        ixz="1.8529E-18"
+        iyy="0.0024176"
+        iyz="1.7591E-18"
+        izz="0.0015902" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./meshes/link_DW3_tablet_12in.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./meshes/link_DW3_tablet_12in_collision.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_DW3_tablet_12in"
+    type="fixed">
+    <origin
+      xyz="0.1282 -0.057512 0.046711"
+      rpy="-1.5708 0 0" />
+    <parent
+      link="link_wrist_roll" />
+    <child
+      link="link_DW3_tablet_12in" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

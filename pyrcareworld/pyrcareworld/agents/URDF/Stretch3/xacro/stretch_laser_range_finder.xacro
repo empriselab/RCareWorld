@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="stretch_laser_range_finder">
+  
+  <link
+    name="laser">
+    <inertial>
+      <origin
+        xyz="0.011979 -0.000523 -0.01998"
+        rpy="0 0 0" />
+      <mass
+        value="0.216007" />
+      <inertia
+        ixx="9.5E-05"
+        ixy="2E-06"
+        ixz="-1.9E-05"
+        iyy="0.000184"
+        iyz="-1E-06"
+        izz="0.000216" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./meshes/laser.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.250980392156863 0.250980392156863 0.250980392156863 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./meshes/laser_collision.STL" />
+      </geometry>
+    </collision>
+  </link>
+  
+  <joint
+    name="joint_laser"
+    type="fixed">
+    <origin
+      xyz="0.004 0 0.1664"
+      rpy="0 0 3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="laser" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+</robot>
