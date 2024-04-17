@@ -7,7 +7,30 @@ import pyrcareworld.utils.utility as utility
 
 
 def parse_message(msg: IncomingMessage) -> dict:
+    """
+    Fetches the same information as a base_attr, but with the additional
+    `"particle_groups"` key. You can do `dict["particle_groups"][particle_group_name]` to get the list of positions, which are each represented as a 3-length list.
+
+    Returns:
+        dict: The same information as base_attr, but with the additional
+        `"particle_groups"` key.
+    """
     this_object_data = attr.base_attr.parse_message(msg)
+    count = msg.read_int32()
+    this_object_data["particle_groups"] = {}
+    for _ in range(count):
+        # First is the particle group name.
+        name = msg.read_string()
+        # Finally is the xs list, then the ys list, then the zs list.
+        xs = msg.read_float32_list()
+        ys = msg.read_float32_list()
+        zs = msg.read_float32_list()
+
+        # Make a couple of lists
+        positions = [[x, y, z] for x, y, z in zip(xs, ys, zs)]
+
+        this_object_data["particle_groups"][name] = positions
+
     return this_object_data
 
 
