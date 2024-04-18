@@ -25,7 +25,6 @@ if __name__ == "__main__":
         data = env.instance_channel.data[100]
         positions = data["particle_groups"]["hole"]
         average_position = [sum(x) / len(x) for x in zip(*positions)]
-        print("Average position of the cloth hole is: ", average_position)
 
         # Set the cube to this average position in the world.
         cube.setTransform(position=average_position)
