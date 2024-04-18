@@ -43,3 +43,14 @@ class Cloth(RCareWorldBaseObject):
             particle_indices=mappings.keys(),
             positions=mappings.values(),
         )
+
+    def fetchParticlePositions(self, particle_group_name: str):
+        """
+        Fetches the positions of all particles in the specified particle group
+        in the next frame's collect data.
+        """
+        self.env.instance_channel.set_action(
+            "FetchParticlePositions",
+            id=self.id,
+            particle_group_name=particle_group_name,
+        )

@@ -71,3 +71,20 @@ def InitializeParticlePositions(kwargs: dict) -> OutgoingMessage:
     msg.write_float32_list(zs)
 
     return msg
+
+
+def FetchParticlePositions(kwargs: dict) -> OutgoingMessage:
+    """
+    Sends a message containing a request to fetch the current positions of all particles in the cloth actor for the specified particle group.
+    """
+    compulsory_params = ["id", "particle_group_name"]
+    utility.CheckKwargs(kwargs, compulsory_params)
+
+    msg = OutgoingMessage()
+
+    msg.write_int32(kwargs["id"])
+    msg.write_string("FetchParticlePositions")
+
+    msg.write_string(kwargs["particle_group_name"])
+
+    return msg
