@@ -70,11 +70,12 @@ class Robot(RCareWorldBaseObject):
                     base_orn=self.base_orientation,
                 )
             elif robot_prefix == "stretch3":
-                self.ik_controller = RCareWorldStretch3Controller(
-                    robot_urdf=urdf_path,
-                    base_pos=self.base_pose,
-                    base_orn=self.base_orientation,
-                )
+                # self.ik_controller = RCareWorldStretch3Controller(
+                #     robot_urdf=urdf_path,
+                #     base_pos=self.base_pose,
+                #     base_orn=self.base_orientation,
+                # )
+                pass
             elif robot_prefix == "stretch":
                 self.ik_controller = RCareWorldStretchController(
                     robot_urdf=urdf_path,
@@ -458,7 +459,7 @@ class Robot(RCareWorldBaseObject):
     def SetBioIKTargetOffset(self, IKTargetOffset: list) -> None:
         pass
 
-    def BioIKMove(self, targetPose: list, duration: float, relative: bool) -> None:
+    def BioIKMove(self, targetPose: list, duration: float=3.0, relative: bool=False) -> None:
         self.env.instance_channel.set_action(
             "IKTargetDoMove",
             id=self.id,

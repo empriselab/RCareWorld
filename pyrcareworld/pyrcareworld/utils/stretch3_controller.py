@@ -20,7 +20,7 @@ class RCareWorldStretch3Controller:
         base_pos=np.array([0, 0, 0]),
         base_orn=[-0.707107, 0.0, 0.0, 0.707107],
         init_joint_positions=[0] * 14,
-        render=True,
+        render=False,
     ):
         if render:
             p.connect(p.GUI)  # For debug mode
@@ -66,7 +66,7 @@ class RCareWorldStretch3Controller:
                 jointType == self.bullet_client.JOINT_REVOLUTE
                 or jointType == self.bullet_client.JOINT_PRISMATIC
             ):
-                print(j, jointName)
+                # print(j, jointName)
                 self.movable_joint_ids.append(j)
                 if jointType == self.bullet_client.JOINT_REVOLUTE:
                     self.revolute_idx.append(joint_position_idx)
@@ -114,6 +114,7 @@ class RCareWorldStretch3Controller:
                 [math.pi / 2.0, 0.0, 0.0]
             )
 
+        # print(unity_eef_pos)
         eef_pos = self.get_bullet_pos_from_unity(unity_eef_pos)
 
         joint_positions = self.bullet_client.calculateInverseKinematics(
