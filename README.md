@@ -26,7 +26,8 @@ Reference https://git-scm.com/download/linux
 ### Mac
 Follow https://www.youtube.com/watch?v=Mf3l8z6oxQ0 for git installation on Mac.
 
-Installation for git-lfs can be found here: https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage
+### Git Large File Storage
+Installation for git-lfs on all OS systems can be found here: https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage
 
 ## Cloning the Hackathon Repo
 
