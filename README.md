@@ -6,9 +6,29 @@
 We support Windows, Linux (Tested on Ubuntu), and MacOS. You need to make sure git and git-lfs are installed on your system. You should use Git Bash if you have it (else Powershell) for windows, 
 and use bash for Linux and MacOS.
 
+# Installing Requirements
+
+You can skip this step if you already have git and git-lfs installed on your system.
+
+## Windows
+Follow https://www.youtube.com/watch?v=JgOs70Y7jew for git installation on Windows.
+
+## Linux
+### Fedora: 
+Use `sudo dnf install git-all`
+### Debian-Based Distribution (Ubuntu)
+Use `sudo apt install git-all`
+### Other options
+Reference https://git-scm.com/download/linux
+
+## Mac
+Follow https://www.youtube.com/watch?v=Mf3l8z6oxQ0 for git installation on Mac.
+
+Installation for git-lfs can be found here: https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage
+
 # Clone this repo
 
-Open up Terminal, Git Bash, or Powershell on your computer.
+Open up Terminal, Git Bash, or Powershell depending on the Operating System your computer is using.
 
 If you have ssh key setup on github use:
 `git clone git@github.com:empriselab/RCareWorld.git`
@@ -42,6 +62,7 @@ Example commands:
 `./install/Windows/install_pyrcareworld.bat`
 
 Note on Windows you may need to install Microsoft Visual C++ 14.0 or greater using Visual Studio Installer.
+If you are confused as to how to do this, reference this tutorial: https://www.youtube.com/watch?v=yBvxsw6OOw4
 
 ## Ubuntu
 Run `install/Ubuntu/install_conda.sh`, and then run `install/Ubuntu/install_pyrcareworld.sh`.
