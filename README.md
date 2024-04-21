@@ -53,7 +53,7 @@ You should expect to see `Linux.zip`, `Mac.zip`, and `Windows.zip` under `hackat
 
 # Install guide
 
-If you are preceeding immediately after the "Clone this repo" step, navigate back to the RCareWorld directory.
+If you are preceeding immediately after the "Cloning the Hackathon Repo" step, navigate back to the RCareWorld directory.
 Example commands: `cd ~/RCareWorld`
 
 If you already have anaconda installed our your system, skip installing `install_conda`. 
