@@ -17,7 +17,7 @@ Checkout to the hackathon branch:
 
 Next, `git lfs pull`.
 
-You should expect to see `Linux.zip`, `Mac.zip`, and `Windows.zip` under `hackathon_demo/TestInstall` folder. Unzip the one that matches your system.
+You should expect to see `Linux.zip`, `Mac.zip`, and `Windows.zip` under `hackathon_demo/Build/TestInstall` folder. Unzip the one that matches your system.
 
 
 # Install guide
