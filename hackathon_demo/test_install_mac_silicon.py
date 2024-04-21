@@ -3,9 +3,9 @@ import os
 
 """
 Make sure you have run the following commands in the terminal before running this script:
-`arch -x64 bash` if your shell is bash
+`arch -x86_64 bash` if your shell is bash
 or 
-`arch -x64 zsh` if your shell is zsh
+`arch -x86_64 zsh` if your shell is zsh
 """
 # run the bash command 'xattr -c Build/TestInstall/Mac/loadObject.app'
 os.system('xattr -c Build/TestInstall/Mac/loadObject.app')
