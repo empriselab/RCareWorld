@@ -16,14 +16,14 @@ You can skip this step if you already have git and git-lfs installed on your sys
 Follow https://www.youtube.com/watch?v=JgOs70Y7jew for git installation on Windows.
 
 ### Linux
-#### Fedora: 
+#### Fedora 
 Use `sudo dnf install git-all`
 #### Debian-Based Distribution (Ubuntu)
 Use `sudo apt install git-all`
 #### Other options
 Reference https://git-scm.com/download/linux
 
-#### Mac
+### Mac
 Follow https://www.youtube.com/watch?v=Mf3l8z6oxQ0 for git installation on Mac.
 
 Installation for git-lfs can be found here: https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage
