@@ -6,27 +6,29 @@
 We support Windows, Linux (Tested on Ubuntu), and MacOS. You need to make sure git and git-lfs are installed on your system. You should use Git Bash if you have it (else Powershell) for windows, 
 and use bash for Linux and MacOS.
 
-# Installing Requirements
+# Pre-Installation Guide
+
+## Installing Git and Git Large File Storage
 
 You can skip this step if you already have git and git-lfs installed on your system.
 
-## Windows
+### Windows
 Follow https://www.youtube.com/watch?v=JgOs70Y7jew for git installation on Windows.
 
-## Linux
-### Fedora: 
+### Linux
+#### Fedora: 
 Use `sudo dnf install git-all`
-### Debian-Based Distribution (Ubuntu)
+#### Debian-Based Distribution (Ubuntu)
 Use `sudo apt install git-all`
-### Other options
+#### Other options
 Reference https://git-scm.com/download/linux
 
-## Mac
+#### Mac
 Follow https://www.youtube.com/watch?v=Mf3l8z6oxQ0 for git installation on Mac.
 
 Installation for git-lfs can be found here: https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage
 
-# Clone this repo
+## Cloning the Hackathon Repo
 
 Open up Terminal, Git Bash, or Powershell depending on the Operating System your computer is using.
 
