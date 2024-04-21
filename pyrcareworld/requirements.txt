@@ -1,6 +1,6 @@
 cloudpickle==2.2.1
 grpcio==1.51.1
-# gym==0.21.0
+gymnasium==0.29.1
 numpy==1.24.2
 open3d==0.16.0
 opencv-contrib-python==4.5.4.60

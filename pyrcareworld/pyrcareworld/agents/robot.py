@@ -3,6 +3,7 @@ import pathlib
 from pyrcareworld.objects import RCareWorldBaseObject
 from pyrcareworld.utils.kinova_controller import RCareWorldKinovaController
 from pyrcareworld.utils.stretch_controller import RCareWorldStretchController
+from pyrcareworld.utils.stretch3_controller import RCareWorldStretch3Controller
 from pyrcareworld.utils.controller import RCareWorldController
 from pyrcareworld.utils.jaco_controller import RCareWorldJacoController
 from pyrcareworld.utils.ur5_controller import RCareWorldUR5Controller
@@ -45,6 +46,7 @@ class Robot(RCareWorldBaseObject):
             "kinova_gen3_7dof": "kinova_gen3/GEN3_URDF_V12.urdf",
             "jaco_7dof": "Jaco/j2s7s300_gym.urdf",
             "stretch": "Stretch/stretch_uncalibrated.urdf",
+            "stretch3": "Stretch3/stretch_description_SE3_eoa_wrist_dw3_tool_sg3.urdf",
             "ur5": "UR5/ur5_robot.urdf",
         }
         self.urdf_path_prefix = os.path.join(
@@ -63,6 +65,12 @@ class Robot(RCareWorldBaseObject):
                 )
             elif robot_prefix == "jaco":
                 self.ik_controller = RCareWorldJacoController(
+                    robot_urdf=urdf_path,
+                    base_pos=self.base_pose,
+                    base_orn=self.base_orientation,
+                )
+            elif robot_prefix == "stretch3":
+                self.ik_controller = RCareWorldStretch3Controller(
                     robot_urdf=urdf_path,
                     base_pos=self.base_pose,
                     base_orn=self.base_orientation,
