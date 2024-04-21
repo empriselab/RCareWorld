@@ -23,11 +23,18 @@ You should expect to see `Linux.zip`, `Mac.zip`, and `Windows.zip` under `hackat
 # Install guide
 ## Windows
 Run `install/Windows/install_conda.bat`, and then run `install/Windows/install_pyrcareworld.bat`.
+
+Example commands:
+`./install/Windows/install_pyrcareworld.bat`
+
 ## Ubuntu
 Run `install/Ubuntu/install_conda.sh`, and then run `install/Ubuntu/install_pyrcareworld.sh`.
 
 Example commands:
-`bash  install/Ubuntu/install_pyrcareworld.sh`
+`bash install/Ubuntu/install_pyrcareworld.sh`
 
 ## Mac
 Run `install/Mac/install_conda.sh`, and then run `install/Mac/install_pyrcareworld.sh`.
+
+Example commands:
+`bash install/Mac/install_pyrcareworld.sh`
