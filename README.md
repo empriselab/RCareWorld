@@ -4,7 +4,9 @@
 - Check the website https://emprise.cs.cornell.edu/rcareworld/
 
 We support Windows, Linux (Tested on Ubuntu), and MacOS. You need to make sure git and git-lfs are installed on your system. You should use Git Bash if you have it (else Powershell) for windows, 
-and use bash for Linux and MacOS.
+and use bash for Linux and MacOS. 
+
+Please make sure your computer has enough (at least 5GB) free space before starting.
 
 # Pre-Installation Guide
 
