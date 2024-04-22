@@ -78,3 +78,24 @@ Run `install/Mac/install_conda.sh`, and then run `install/Mac/install_pyrcarewor
 
 Example commands:
 `bash install/Mac/install_pyrcareworld.sh`. 
+
+# Testing Installation
+Inside the `hackathon_demo` folder, you will find four files titled `test_install_linux.py`, `test_install_mac.py`, `test_install_mac_silicon.py`, and `test_install_windows.py`. In order to run installation, use the following command: 
+
+## Windows
+Run `python test_install_windows.py`
+
+## Linux
+Run `python test_install_linux.py`
+
+## Mac
+### Intel
+Run `test_install_mac.py`
+### Apple Silicon
+Run `test_install_mac_silicon.py`
+### Don't know if Intel or Apple Silicon
+It is necessary that you run the correct test. If you do not know whether you have Apple Silicon or Intel, please reference this site https://www.sweetwater.com/sweetcare/articles/intel-based-mac-or-mac-with-apple-silicon/
+
+## Test Result
+If you have correctly installed based on the installation guide, then a Unity window should open up and the resulting image should appear.
+![alt text](Test_Install_Image.py)
