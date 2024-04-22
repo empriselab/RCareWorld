@@ -51,7 +51,7 @@ Then navigate to `TestInstall` folder which is in `hackathon_demo` folder.
 
 You should expect to see `Linux.zip`, `Mac.zip`, and `Windows.zip` under `hackathon_demo/Build/TestInstall` folder. Unzip the one that matches your system.
 
-# Install guide
+# Install Guide
 
 If you are preceeding immediately after the "Cloning the Hackathon Repo" step, navigate back to the RCareWorld directory.
 Example commands: `cd ~/RCareWorld`
