@@ -27,7 +27,7 @@ Reference https://git-scm.com/download/linux
 Follow https://www.youtube.com/watch?v=Mf3l8z6oxQ0 for git installation on Mac.
 
 ### Git Large File Storage
-Installation for git-lfs on all OS systems can be found here: https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage
+Installation for git-lfs on all OS systems can be found here: https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage.
 
 ## Cloning the Hackathon Repo
 
@@ -65,7 +65,7 @@ Example commands:
 `./install/Windows/install_pyrcareworld.bat`
 
 Note on Windows you may need to install Microsoft Visual C++ 14.0 or greater using Visual Studio Installer.
-If you are confused as to how to do this, reference this tutorial: https://www.youtube.com/watch?v=yBvxsw6OOw4
+If you are confused as to how to do this, reference this tutorial: https://www.youtube.com/watch?v=yBvxsw6OOw4.
 
 ## Ubuntu
 Run `install/Ubuntu/install_conda.sh`, and then run `install/Ubuntu/install_pyrcareworld.sh`.
@@ -80,21 +80,25 @@ Example commands:
 `bash install/Mac/install_pyrcareworld.sh`. 
 
 # Testing Installation
-Inside the `hackathon_demo` folder, you will find four files titled `test_install_linux.py`, `test_install_mac.py`, `test_install_mac_silicon.py`, and `test_install_windows.py`. In order to run installation, use the following command: 
+Navigate to the `RCareWorld` folder and then to the `hackathon_demo` folder.
+
+Inside the `hackathon_demo` folder, you will find four files titled `test_install_linux.py`, `test_install_mac.py`, `test_install_mac_silicon.py`, and `test_install_windows.py`. In order to test installation, use the following commands: 
+
+First activate the conda environment: `conda activate rcareworld`.
 
 ## Windows
-Run `python test_install_windows.py`
+Run `python test_install_windows.py`.
 
 ## Linux
-Run `python test_install_linux.py`
+Run `python test_install_linux.py`.
 
 ## Mac
 ### Intel
-Run `test_install_mac.py`
+Run `python test_install_mac.py`.
 ### Apple Silicon
-Run `test_install_mac_silicon.py`
+Run `python test_install_mac_silicon.py`.
 ### Don't know if Intel or Apple Silicon
-It is necessary that you run the correct test. If you do not know whether you have Apple Silicon or Intel, please reference this site https://www.sweetwater.com/sweetcare/articles/intel-based-mac-or-mac-with-apple-silicon/
+It is necessary that you run the correct test. If you do not know whether you have Apple Silicon or Intel, please reference this site https://www.sweetwater.com/sweetcare/articles/intel-based-mac-or-mac-with-apple-silicon/.
 
 ## Test Result
 If you have correctly installed based on the installation guide, then a Unity window should open up and the resulting image should appear.
