@@ -6,6 +6,7 @@ import pyrcareworld.attributes.controller_attr
 import pyrcareworld.attributes.gameobject_attr
 import pyrcareworld.attributes.rigidbody_attr
 import pyrcareworld.attributes.cloth_attr
+import pyrcareworld.attributes.sponge_attr
 import pyrcareworld.attributes.humanbody_attr
 import pyrcareworld.attributes.graspsim_attr
 import pyrcareworld.attributes.pointcloud_attr
@@ -23,6 +24,7 @@ __all__ = [
     "gameobject_attr",
     "rigidbody_attr",
     "cloth_attr",
+    "sponge_attr",
     "humanbody_attr",
     "graspsim_attr",
     "pointcloud_attr",
