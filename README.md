@@ -98,4 +98,4 @@ It is necessary that you run the correct test. If you do not know whether you ha
 
 ## Test Result
 If you have correctly installed based on the installation guide, then a Unity window should open up and the resulting image should appear.
-![alt text](Test_Install_Image.py)
+![alt text](Test_Install_Image.png)
