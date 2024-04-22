@@ -4,7 +4,9 @@ import random
 
 # Script to test bed bathing in hackathon.
 if __name__ == "__main__":
-    env = RCareWorld()
+    env = RCareWorld(
+        executable_file="/home/cathy/Workspace/RCareUnity/Build/Bathing/Ubuntu/bathing_ubuntu.x86_64"
+    )
 
     # A collection of all force readings over all steps.
     all_nonzero_forces = []
