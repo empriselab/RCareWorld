@@ -17,7 +17,6 @@ class Robot(RCareWorldBaseObject):
         id: int,
         gripper_id: list,
         robot_name: str,
-        urdf_path: str = None,
         base_pose: list = [0, 0, 0],
         base_orientation: list = [-0.707107, 0.0, 0.0, -0.707107],
         is_in_scene: bool = False,
@@ -28,11 +27,12 @@ class Robot(RCareWorldBaseObject):
         @param env: The environment object
         @param id: ID of this robot
         @param gripper_id:  A list of IDs of the grippers. For bimanual manipulator there might be two grippers, so this is a list.
-        @param hand_camera: Whether there is a camera on the hand
+        @param robot_name: The name of the robot. The format is "robot_type-gripper_name". For example, "kinova_gen3_7dof-robotiq85". 
+        @param base_pose: The initial position of the robot. Match with the position of the robot in the Unity scene.
+        @param base_orientation: The initial orientation of the robot. Match with the orientation of the robot in the Unity scene.
+        @param is_in_scene: A boolean value indicating whether the robot is in the scene or not. If it is not in the scene, you will need to load the robot into the scene.
         """
         self.gripper_id = gripper_id
-        self.hand_camera = False
-        self.is_mobile = False
 
         self.base_pose = base_pose
         self.base_orientation = base_orientation
@@ -69,13 +69,6 @@ class Robot(RCareWorldBaseObject):
                     base_pos=self.base_pose,
                     base_orn=self.base_orientation,
                 )
-            elif robot_prefix == "stretch3":
-                # self.ik_controller = RCareWorldStretch3Controller(
-                #     robot_urdf=urdf_path,
-                #     base_pos=self.base_pose,
-                #     base_orn=self.base_orientation,
-                # )
-                pass
             elif robot_prefix == "stretch":
                 self.ik_controller = RCareWorldStretchController(
                     robot_urdf=urdf_path,
@@ -106,6 +99,7 @@ class Robot(RCareWorldBaseObject):
             #     robot_urdf=urdf_path
             # )
             print("BioIK Only")
+            self.ik_controller = "BioIK"
 
     def getInfo(self):
         """
@@ -439,6 +433,10 @@ class Robot(RCareWorldBaseObject):
         self.env.instance_channel.set_action("SetImmovable", id=self.id)
 
     def moveTo(self, targetPose: list, targetRot=None) -> None:
+        if self.ik_controller == "BioIK":
+            self.BioIKMove(targetPose)
+            if targetRot != None:
+                self.BioIKRotateQua(targetRot)  
         if targetRot != None:
             joint_positions = self.ik_controller.calculate_ik_recursive(
                 targetPose, targetRot
@@ -471,7 +469,7 @@ class Robot(RCareWorldBaseObject):
             self.env._step()
 
     def BioIKRotateQua(
-        self, taregetEuler: list, duration: float, relative: bool
+        self, taregetEuler: list, duration: float=3.0, relative: bool=False
     ) -> None:
         self.env.instance_channel.set_action(
             "IKTargetDoRotateQuaternion",
