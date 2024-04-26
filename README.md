@@ -2,6 +2,7 @@
 
 # Here is the code for RCareWorld V1.0.0 🦾
 - Check the website https://emprise.cs.cornell.edu/rcareworld/
+- Auto-generated APIs https://emprise.cs.cornell.edu/rcareworld-doc/
 
 We support Windows, Linux (Tested on Ubuntu), and MacOS. You need to make sure git and git-lfs are installed on your system. You should use Git Bash if you have it (else Powershell) for windows, 
 and use bash for Linux and MacOS. 

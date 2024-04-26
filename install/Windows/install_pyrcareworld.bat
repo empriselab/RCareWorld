@@ -1,7 +1,6 @@
 @echo off
 REM Activate Conda environment
 CALL %USERPROFILE%\miniconda3\Scripts\activate.bat
-CALL conda activate rcareworld
 
 REM Create a new Conda environment
 CALL conda create -y --name rcareworld python=3.8 pip
