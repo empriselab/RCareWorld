@@ -1,0 +1,49 @@
+name: Generate Documents with pdoc
+
+on:
+  push:
+    branches:
+      - main
+      - hackathon
+
+jobs:
+  setup-python:
+    name: Setup 3.10
+    runs-on: ubuntu-22.04
+    permissions:                # Job-level permissions configuration starts here
+        contents: write           # 'write' access to repository contents
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+            fetch-depth: 0  # Ensures history is available for pushing changes
+    
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+            python-version: '3.10'  # Set this to your Python version
+        
+      - name: install-rcareworld
+        run: |
+            cd ./pyrcareworld
+            pip install -r requirements.txt
+            pip install -e .
+            cd ../
+
+      - name: Install pdoc
+        run: |
+            pip install pdoc3
+            pdoc --html --output-dir docs pyrcareworld
+
+      - name: Commit Documentation
+        run: |
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Actions"
+            git add docs/*
+            git commit -m "Update documentation" || echo "No changes to commit"
+
+      - name: Push Changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            branch: ${{ github.ref }}
