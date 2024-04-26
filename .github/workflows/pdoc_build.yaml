@@ -8,7 +8,7 @@ on:
 
 jobs:
   setup-python:
-    name: Setup 3.10
+    name: Generate Documentations
     runs-on: ubuntu-22.04
     permissions:                # Job-level permissions configuration starts here
         contents: write           # 'write' access to repository contents
@@ -33,7 +33,7 @@ jobs:
       - name: Install pdoc
         run: |
             pip install pdoc3
-            pdoc --html --output-dir docs pyrcareworld
+            pdoc --skip-errors --html pyrcareworld -o docs
 
       - name: Commit Documentation
         run: |
