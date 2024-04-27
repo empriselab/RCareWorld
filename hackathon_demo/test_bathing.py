@@ -4,27 +4,45 @@ import random
 
 # Script to test bed bathing in hackathon.
 if __name__ == "__main__":
+    # connect with the Unity environment
+    # Change the path to the Unity executable file
     env = RCareWorld(
-        executable_file="/home/cathy/Workspace/RCareUnity/Build/Bathing/Ubuntu/bathing_ubuntu.x86_64"
+        executable_file="<YOurPathHere>"
     )
 
     # A collection of all force readings over all steps.
     all_nonzero_forces = []
 
-    # robot = env.create_robot(
-    #     id=12345, gripper_list=["123450"], robot_name="stretch3", base_pos=[0, 0, 0]
-    # )
+    # Create a robot and a target object
+    # Control the robot arm
+    robot = env.create_robot(
+        id=123456, gripper_list=[123456], robot_name="stretch3", base_pos=[0, 0, 0]
+    )
+    # Control the robot base
+    robot_base = env.create_robot(id = 12346, robot_name = 'mobile_base', base_pos = [0, 0, 1])
+    # The red cuba in the environment
     target = env.create_object(id=2333, name="Cube", is_in_scene=True)
+    # Move the robot to the target object
     for i in range(10):
+        position = target.getPosition()
+        # print(position)
+        robot.BioIKMove(position)
+        env.step()
+    # Move the robot base, don't move faster than this
+    for i in range(100):
+        position = robot_base.getRobotState()["position"]
+        position[2]+=0.004
+        print(position)
+        robot_base.setTransform(position)
         env.step()
     while True:
         position = target.getPosition()
         rotation = target.getRotation()
-        # robot.directlyMoveTo(position)
+        robot.directlyMoveTo(position)
 
-        # All new forces, assumed to be non-zero by Unity.
+        # force on the sponge
         forces = env.instance_channel.data[509]["forces"]
-        # New proportion, or None if not updated.
+        # painted area
         prop = env.instance_channel.data[509]["proportion"]
         msg = ""
         if len(forces) > 0:
