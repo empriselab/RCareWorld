@@ -31,6 +31,15 @@ def parse_message(msg: IncomingMessage) -> dict:
 
         this_object_data["particle_groups"][name] = positions
 
+    has_forces = msg.read_bool()
+    this_object_data["forces"] = []
+
+    if has_forces:
+        x = msg.read_float32()
+        y = msg.read_float32()
+        z = msg.read_float32()
+        this_object_data["forces"] = [x, y, z]
+
     return this_object_data
 
 
