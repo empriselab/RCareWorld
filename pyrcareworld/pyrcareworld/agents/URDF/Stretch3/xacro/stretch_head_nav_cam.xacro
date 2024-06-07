@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="stretch_respeaker">
+
+  <link
+    name="link_head_nav_cam">
+    <inertial>
+      <origin
+        xyz="-0.000242485173502102 -6.9219046065605E-05 -0.0139988115298306"
+        rpy="0 0 0" />
+      <mass
+        value="0.028346169831483" />
+      <inertia
+        ixx="4.03820640553667E-06"
+        ixy="-4.29737468694014E-25"
+        ixz="-3.42669828325649E-22"
+        iyy="4.03772087509678E-06"
+        iyz="-2.25687766186513E-21"
+        izz="5.37818026653469E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./meshes/link_SE3_head_nav_cam.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./meshes/link_SE3_head_nav_cam_collision.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_head_nav_cam"
+    type="fixed">
+    <origin
+      xyz="0.0402000000000069 -0.0411729746231231 -0.0245785717313561"
+      rpy="0 1.5707963267949 0" />
+    <parent
+      link="link_head_tilt" />
+    <child
+      link="link_head_nav_cam" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  
+</robot>
+
+  
+

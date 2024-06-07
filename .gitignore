@@ -5,10 +5,10 @@
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
+/[Dd]oc/
+/[Dd]ocs/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
