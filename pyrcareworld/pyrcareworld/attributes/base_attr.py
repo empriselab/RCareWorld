@@ -19,7 +19,6 @@ def parse_message(msg: IncomingMessage) -> dict:
         this_object_data["result_local_point"] = msg.read_float32_list()
     if msg.read_bool() is True:
         this_object_data["result_world_point"] = msg.read_float32_list()
-    # print(this_object_data)
     return this_object_data
 
 

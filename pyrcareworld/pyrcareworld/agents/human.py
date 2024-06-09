@@ -68,16 +68,42 @@ class Human(RCareWorldBaseObject):
         ]
 
     def setBasePosition(self, position: list):
+        """
+        Sets the base position for this human object in Unity
+
+        Args:
+            position: A list of floats representing the position coordinates for the object, in the form [x, y, z]
+
+        Returns: does not return anything
+        """
         self.env.instance_channel.set_action(
             "SetTransform", id=self.id, position=position
         )
 
+
     def setRootRotation(self, rotation: list):
+        """
+        Sets the root rotation for this human object in Unity
+
+        Args:
+           rotation: A list of floats [x, y, z] representing the Euler angles for the new rotation coordinates for the human object in degrees
+
+        Returns: does not return anything
+        """
         self.env.instance_channel.set_action(
             "SetTransform", id=self.id, rotation=rotation
         )
 
     def setJointRotationByName(self, joint_name: str, position: list):
+        """
+        Sets a specified joint on the human object to a certain rotation. Raises a ValueError if the joint is not recognized.
+
+        Args:
+        joint_name: a string representing a joint that is to be rotated. Must be in name_list.
+        position: a list of floats in the form of [x, y, z] which represent a certain orientation as Euler's angles in degrees.
+
+        Returns: does not return anything
+        """
         if joint_name not in self.name_list:
             raise ValueError("The joint name is not in the list")
         self.env.instance_channel.set_action(
@@ -88,6 +114,7 @@ class Human(RCareWorldBaseObject):
             bone_position_y=position[1],
             bone_position_z=position[2],
         )
+
 
     def setJointLimits(
         self,
@@ -127,6 +154,16 @@ class Human(RCareWorldBaseObject):
             )
 
     def setJointRotationByNameDirectly(self, joint_name: str, position: list):
+        """
+        Sets a joint on the human object to a certain rotational orientation
+
+        Args:
+        joint_name: The name of the joint (or bone).
+        position: The desired rotational position of the joint
+
+        Returns: does not return anything
+        """
+
         if joint_name not in self.name_list:
             raise ValueError("The joint name is not in the list")
         self.env.instance_channel.set_action(
@@ -139,67 +176,136 @@ class Human(RCareWorldBaseObject):
         )
 
     def getJointStateByName(self, joint_name: str):
+        """
+        Returns the current state of a joint when given the name of the joint
+
+        Args:
+        joint_name: The name of the joint (or bone)
+
+        Returns: the joint's state
+        """
         if joint_name not in self.name_list:
             raise ValueError("The joint name is not in the list")
-        # print(self.env.instance_channel.data)
         joint_states = self.env.instance_channel.data[self.id][joint_name]
         return joint_states
 
     def getJointPositionByName(self, joint_name: str):
         """
-        Position in the world coordinate
+        Returns the position of the joint in the world coordinate when given the name of the joint
+
+        Args:
+            joint_name: the name of the joint (or bone)
+
+        Returns: The position of the joint
         """
         joint_states = self.getJointStateByName(joint_name)
         return joint_states["position"]
 
     def getJointGlobalRotationByName(self, joint_name: str):
         """
-        Euler angles in degrees
+        Returns the rotational orientation of the joint as Euler angles in degrees when given the name of the joint
+
+        Args:
+            joint_name: the name of the joint (or bone)
+
+        Returns: The rotational position of the joint as Euler angles in degrees
         """
         joint_states = self.getJointStateByName(joint_name)
         return joint_states["rotation"]
 
     def getJointQuaternionByName(self, joint_name: str):
         """
-        Quaternion
+        Returns the position of the joint in quaternions when given the name of the joint
+
+        Args:
+            joint_name: the name of the joint (or bone)
+
+        Returns: The position of the joint in quaternions
         """
         joint_states = self.getJointStateByName(joint_name)
         return joint_states["quaternion"]
 
     def getJointLocalRotationByName(self, joint_name: str):
+        """
+        Returns the local rotational orientation of the joint when given the name of the joint
+
+        Args:
+            joint_name: the name of the joint (or bone)
+
+        Returns: The local rotational orientation of the joint
+        """
         joint_states = self.getJointStateByName(joint_name)
         return joint_states["local_rotation"]
 
     def getJointLocalQuaternionByName(self, joint_name: str):
         """
-        Quaternion
+        Returns the local position of the joint in quaternions when given the name of the joint
+
+        Args:
+            joint_name: the name of the joint (or bone)
+
+        Returns: The local position of the joint in quaternions
         """
         joint_states = self.getJointStateByName(joint_name)
         return joint_states["local_quaternion"]
 
     def getJointVelocityByName(self, joint_name: str):
+        """
+        Returns the current velocity of a given joint
+
+        Args:
+            joint_name: the name of the joint (or bone)
+
+        Returns: The current velocity of the joint
+        """
         joint_states = self.getJointStateByName(joint_name)
         return joint_states["velocity"]
 
     def getJointRotationByName(self, joint_name: str):
+        """
+        Returns the current rotational orientation of a given joint
+
+        Args:
+            joint_name: the name of the joint (or bone)
+
+        Returns: The current rotational orientation of the joint
+        """
         joint_states = self.getJointStateByName(joint_name)
         return joint_states["joint_position"]
 
     def getJointAccelerationByName(self, joint_name: str):
+        """
+        Returns the current acceleration of a given joint
+
+        Args:
+            joint_name: the name of the joint (or bone)
+
+        Returns: The current acceleration of the joint
+        """
         joint_states = self.getJointStateByName(joint_name)
         return joint_states["acceleration"]
 
     def getJointForceByName(self, joint_name: str):
+        """
+        Returns the current force acting on a given joint
+
+        Args:
+            joint_name: the name of the joint (or bone)
+
+        Returns: The current force on the joint
+        """
         joint_states = self.getJointStateByName(joint_name)
         return joint_states["joint_force"]
 
     def saveArticulationBoneData(self, path: str):
+        """
+        Saves the articulation bone data of an instance by sending a "SaveArticulationBoneData" action to the instance channel with the specified file path.
+
+        Args:
+            path: The file path where the articulation bone data will be saved.
+
+        Returns: does not return anything
+        """
         self.env.instance_channel.set_action(
             "SaveArticulationBoneData", id=self.id, path=path
         )
-
-    def enableSoftBody(self):
-        """
-        TODO: enable soft body
-        """
-        self.env.instance_channel.set_action("EnableSoftBody", id=self.id)
