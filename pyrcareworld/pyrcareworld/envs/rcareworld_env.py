@@ -2,6 +2,7 @@ from abc import ABC
 
 import pyrcareworld
 from pyrcareworld.agents.cloth import Cloth
+from pyrcareworld.agents.rope import Rope
 from pyrcareworld.environment import UnityEnvironment
 from pyrcareworld.side_channel.environment_parameters_channel import (
     EnvironmentParametersChannel,
@@ -274,6 +275,7 @@ class RCareWorld(RCareWorldBaseEnv):
             **kwargs,
         )
         self.robot_dict = {}
+        self.rope_dict = {}
         self.object_dict = {}
         self.cloth_dict = {}
         self.camera_dict = {}
@@ -368,6 +370,22 @@ class RCareWorld(RCareWorldBaseEnv):
         self.cloth_dict[id] = Cloth(self, id, name, is_in_scene)
         this_cloth = self.cloth_dict[id]
         return this_cloth
+    
+    def create_rope(self, id: int, name: str, is_in_scene: bool) -> Cloth:
+        """
+        Creates a rope object in the scene.
+
+        Args:
+            id: Int. The ID of the rope object.
+            name: Str. The name of the rope object.
+            is_in_scene: Bool. Whether the rope object is in the scene.
+
+        Returns:
+            The rope Object.
+        """
+        self.rope_dict[id] = Rope(self, id, name, is_in_scene)
+        this_rope = self.rope_dict[id]
+        return this_rope
 
     def create_skin(self, id: int, name: str, is_in_scene: bool) -> Skin:
         """create skin

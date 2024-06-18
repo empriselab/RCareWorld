@@ -15,6 +15,7 @@ import pyrcareworld.attributes.rcarecontroller_attr
 import pyrcareworld.attributes.humanarticulation_attr
 import pyrcareworld.attributes.tactilesensor_attr
 import pyrcareworld.attributes.cloth_score_attr
+import pyrcareworld.attributes.rope_attr
 
 __all__ = [
     "base_attr",
@@ -33,5 +34,6 @@ __all__ = [
     "rcarecontroller_attr",
     "humanarticulation_attr",
     "tactilesensor_attr",
-    "cloth_score_attr"
+    "cloth_score_attr",
+    "rope_attr"
 ]
