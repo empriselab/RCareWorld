@@ -7,7 +7,7 @@ if __name__ == "__main__":
     # connect with the Unity environment
     # Change the path to the Unity executable file
     env = RCareWorld(
-        executable_file="<YOurPathHere>"
+        executable_file="<YourPathHere>"
     )
 
     # A collection of all force readings over all steps.
