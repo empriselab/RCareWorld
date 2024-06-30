@@ -1,5 +1,5 @@
 # Version of the library that will be used to upload to pypi
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 import os.path
 import json
