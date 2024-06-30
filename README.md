@@ -1,14 +1,59 @@
 ![alt text](rcareworld.png)
-# Here is the code for RCareWorld V1.1.0 🦾
+# Here is the code for RCareWorld PhyRoboCare Challenge 🦾
 - Check the website https://emprise.cs.cornell.edu/rcareworld/
-- Check the documentation and tutorials
-  - [Full Install](https://sunny-building-1e7.notion.site/Full-install-RCareWorld-All-you-need-to-know-c5432d938f9545299f2b268373ec8abc?pvs=4)
-  - [Minimum install](https://sunny-building-1e7.notion.site/Prebuilt-RCareWorld-All-you-need-to-know-8081cfe25ac4446784f463bc25152dc8?pvs=4)
+- Auto-generated APIs https://emprise.cs.cornell.edu/rcareworld-doc/
 - Discuss in the forum https://github.com/empriselab/RCareWorld/discussions
 - Watch our presentation https://www.youtube.com/watch?v=mNy1cloWrP0
 
-# RCareWorld now available on pypi and docker
-https://pypi.org/project/pyrcareworld/1.1.0/
-Run `pip install pyrcareworld==1.1.0` to install from pypi
 
-https://hub.docker.com/repository/docker/cathyye2000/rcareworld/general The docker image for Python environment. 
+# Hardware requirements
+We support Windows and Linux (Tested on Ubuntu). We do not guarantee it works on MacOS. You need to make sure git and git-lfs are installed on your system. You should use Git Bash if you have it (else Powershell) for windows, 
+and use bash for Linux and MacOS. We highly recommend using Ubuntu 20.04 system.
+
+Please make sure your computer has at least 5GB free space before starting.
+
+
+
+# Pre-Installation Guide
+
+## Installing Git and Git Large File Storage
+
+You can skip this step if you already have *git* and *git-lfs* installed on your system.
+
+Installation for git-lfs: https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage.
+## Installing Conda
+Follow the [conda install guidance](https://docs.anaconda.com/miniconda/miniconda-install/) to install conda.
+
+## Cloning the Repo
+- Clone the repo:  If you have ssh key setup on github use: `git clone git@github.com:empriselab/RCareWorld.git` otherwise, `git clone https://github.com/empriselab/RCareWorld.git`
+
+- Checkout to the competition branch and pull the large files: Navigate to the `RCareWorld` repository using the cd command. Example command: `cd RCareWorld`. Checkout to the branch for this competition (this step might take a while since it contains large files): `git checkout challenge-internal` Next, run `git lfs pull`.
+
+- Unzip the executables: Navigate to the `demo/Build` folder. You should expect to see `Linux.zip`, `Mac.zip`, and `Windows.zip` under `demo/Build/TestInstall` folder. Unzip the one that matches your system. 
+
+# Install Guide
+If you are preceeding immediately after the "Cloning the Repo" step, navigate back to the RCareWorld directory.
+
+- Navigate to `RCareWorld` folder: Example command: `cd ~/RCareWorld` (this command may vary depends on where your RCareWorld folder is).
+- Install `pyrcareworld` module: 
+  - Ubuntu: `bash install/Ubuntu/install_pyrcareworld.sh`.
+  - Windows: `./install/Windows/install_pyrcareworld.bat`. Note on Windows you may need to install Microsoft Visual C++ 14.0 or greater using Visual Studio Installer. If you are confused as to how to do this, reference this tutorial: https://www.youtube.com/watch?v=yBvxsw6OOw4.
+  - MacOS: `bash install/Mac/install_pyrcareworld.sh`.
+
+
+# Testing Installation
+Navigate to the `RCareWorld` folder and then to the `hackathon_demo` folder.
+
+Inside the `hackathon_demo` folder, you will find four files titled `test_install_linux.py`, `test_install_mac.py`, `test_install_mac_silicon.py`, and `test_install_windows.py`. In order to test installation, use the following commands: 
+
+First activate the conda environment: `conda activate rcareworld`.
+
+Run `python test_install_<system_name>.py`, replace <system_name> with `linux`, `windows`, `mac`, or `mac_silicon`. If you are using mac silicon, make sure you have run the following commands in the terminal before running this script:
+`arch -x86_64 bash` if your shell is bash
+or 
+`arch -x86_64 zsh` if your shell is zsh.
+
+
+If you have correctly installed based on the installation guide, then a Unity window should open up and the resulting image should appear.
+![alt text](./Test_Install_Image.png)
+
