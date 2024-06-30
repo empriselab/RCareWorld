@@ -1,5 +1,5 @@
 #!/usr/bin/env bash -l
-source ~/miniconda3/etc/profile.d/conda.sh
+eval "$(conda shell.bash hook)"
 conda create -y --name rcareworld python=3.8 pip
 source activate rcareworld
 cd pyrcareworld
