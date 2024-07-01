@@ -32,7 +32,7 @@ Follow the [conda install guidance](https://docs.anaconda.com/miniconda/minicond
 - Unzip the executables: Navigate to the `demo/Build` folder. You should expect to see `Linux.zip`, `Mac.zip`, and `Windows.zip` under `demo/Build/TestInstall` folder. Unzip the one that matches your system. 
 
 # Install Guide
-If you are preceeding immediately after the "Cloning the Repo" step, navigate back to the RCareWorld directory.
+If you are proceeding immediately after the "Cloning the Repo" step, navigate back to the RCareWorld directory.
 
 - Navigate to `RCareWorld` folder: Example command: `cd ~/RCareWorld` (this command may vary depends on where your RCareWorld folder is).
 - Install `pyrcareworld` module: 
@@ -42,9 +42,9 @@ If you are preceeding immediately after the "Cloning the Repo" step, navigate ba
 
 
 # Testing Installation
-Navigate to the `RCareWorld` folder and then to the `hackathon_demo` folder.
+Navigate to the `RCareWorld` folder and then to the `demo` folder.
 
-Inside the `hackathon_demo` folder, you will find four files titled `test_install_linux.py`, `test_install_mac.py`, `test_install_mac_silicon.py`, and `test_install_windows.py`. In order to test installation, use the following commands: 
+Inside the `demo` folder, you will find four files titled `test_install_linux.py`, `test_install_mac.py`, `test_install_mac_silicon.py`, and `test_install_windows.py`. In order to test installation, use the following commands: 
 
 First activate the conda environment: `conda activate rcareworld`.
 
