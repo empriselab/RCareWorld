@@ -7,10 +7,10 @@
 
 
 # Hardware requirements
-We support Windows and Linux (Tested on Ubuntu). We do not guarantee it works on MacOS. You need to make sure git and git-lfs are installed on your system. You should use Git Bash if you have it (else Powershell) for windows, 
-and use bash for Linux and MacOS. We highly recommend using Ubuntu 20.04 system.
+We support Windows and Linux (Tested on Ubuntu). We do not guarantee it works on MacOS. You need to make sure git and git-lfs are installed on your system. You should use Git Bash if you have it (else Powershell) for Windows, 
+and use bash for Linux and MacOS. 
 
-Please make sure your computer has at least 5GB free space before starting.
+We highly recommend using Ubuntu 20.04 system which will be used for evaluation. Please make sure your computer has at least 10GB free space before starting.
 
 
 
@@ -25,7 +25,7 @@ Installation for git-lfs: https://docs.github.com/en/repositories/working-with-f
 Follow the [conda install guidance](https://docs.anaconda.com/miniconda/miniconda-install/) to install conda.
 
 ## Cloning the Repo
-- Clone the repo:  If you have ssh key setup on github use: `git clone git@github.com:empriselab/RCareWorld.git` otherwise, `git clone https://github.com/empriselab/RCareWorld.git`
+- Clone the repo:  If you have ssh key setup on GitHub use: `git clone git@github.com:empriselab/RCareWorld.git` otherwise, `git clone https://github.com/empriselab/RCareWorld.git`
 
 - Checkout to the competition branch and pull the large files: Navigate to the `RCareWorld` repository using the cd command. Example command: `cd RCareWorld`. Checkout to the branch for this competition (this step might take a while since it contains large files): `git checkout phy-robo-care-test` Next, run `git lfs pull`.
 
@@ -34,8 +34,8 @@ Follow the [conda install guidance](https://docs.anaconda.com/miniconda/minicond
 # Install Guide
 If you are proceeding immediately after the "Cloning the Repo" step, navigate back to the RCareWorld directory.
 
-- Navigate to `RCareWorld` folder: Example command: `cd ~/RCareWorld` (this command may vary depends on where your RCareWorld folder is).
-- Install `pyrcareworld` module: 
+- Navigate to `RCareWorld` folder: Example command: `cd ~/RCareWorld` (this command may vary depending on where your RCareWorld folder is).
+- Install `pyrcareworld` module: the bash file creates and activates a conda environment called `rcareworld`, and then installs the pyrcareworld module and its dependencies in that conda environment: 
   - Ubuntu: `bash install/Ubuntu/install_pyrcareworld.sh`.
   - Windows: `./install/Windows/install_pyrcareworld.bat`. Note on Windows you may need to install Microsoft Visual C++ 14.0 or greater using Visual Studio Installer. If you are confused as to how to do this, reference this tutorial: https://www.youtube.com/watch?v=yBvxsw6OOw4.
   - MacOS: `bash install/Mac/install_pyrcareworld.sh`.
@@ -44,9 +44,9 @@ If you are proceeding immediately after the "Cloning the Repo" step, navigate ba
 # Testing Installation
 Navigate to the `RCareWorld` folder and then to the `demo` folder.
 
-Inside the `demo` folder, you will find four files titled `test_install_linux.py`, `test_install_mac.py`, `test_install_mac_silicon.py`, and `test_install_windows.py`. In order to test installation, use the following commands: 
+Inside the `demo` folder, you will find four files titled `test_install_linux.py`, `test_install_mac.py`, `test_install_mac_silicon.py`, and `test_install_windows.py`. In order to test the installation, use the following commands: 
 
-First activate the conda environment: `conda activate rcareworld`.
+First, activate the conda environment: `conda activate rcareworld`.
 
 Run `python test_install_<system_name>.py`, replace <system_name> with `linux`, `windows`, `mac`, or `mac_silicon`. If you are using mac silicon, make sure you have run the following commands in the terminal before running this script:
 `arch -x86_64 bash` if your shell is bash
