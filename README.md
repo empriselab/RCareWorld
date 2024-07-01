@@ -27,7 +27,7 @@ Follow the [conda install guidance](https://docs.anaconda.com/miniconda/minicond
 ## Cloning the Repo
 - Clone the repo:  If you have ssh key setup on github use: `git clone git@github.com:empriselab/RCareWorld.git` otherwise, `git clone https://github.com/empriselab/RCareWorld.git`
 
-- Checkout to the competition branch and pull the large files: Navigate to the `RCareWorld` repository using the cd command. Example command: `cd RCareWorld`. Checkout to the branch for this competition (this step might take a while since it contains large files): `git checkout challenge-internal` Next, run `git lfs pull`.
+- Checkout to the competition branch and pull the large files: Navigate to the `RCareWorld` repository using the cd command. Example command: `cd RCareWorld`. Checkout to the branch for this competition (this step might take a while since it contains large files): `git checkout phy-robo-care-test` Next, run `git lfs pull`.
 
 - Unzip the executables: Navigate to the `demo/Build` folder. You should expect to see `Linux.zip`, `Mac.zip`, and `Windows.zip` under `demo/Build/TestInstall` folder. Unzip the one that matches your system. 
 
