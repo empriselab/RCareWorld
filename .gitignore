@@ -249,3 +249,6 @@ cython_debug/
 *.iges
 *.igs
 *.STL
+
+# ignore ds store files created by mac
+.DS_Store
