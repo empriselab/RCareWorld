@@ -57,3 +57,5 @@ or
 If you have correctly installed based on the installation guide, then a Unity window should open up and the resulting image should appear.
 ![alt text](./Test_Install_Image.png)
 
+# Tutorial Videos
+Congratulations! Now you have RCareWorld installed. For more information about using the simulation, please watch our [playlist](https://www.youtube.com/playlist?list=PLR4mEXh9zalLtbGLbx2A5TmX9Niy-svqq) of tutorials, which will be continuously updated.
