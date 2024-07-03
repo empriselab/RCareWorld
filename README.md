@@ -1,5 +1,5 @@
 ![alt text](rcareworld.png)
-# Here is the code for RCareWorld PhyRoboCare Challenge 🦾
+# Here is the code for RCareWorld PhyRC Challenge 🦾
 - Check the website https://emprise.cs.cornell.edu/rcareworld/
 - Auto-generated APIs https://emprise.cs.cornell.edu/rcareworld-doc/
 - Discuss in the forum https://github.com/empriselab/RCareWorld/discussions
