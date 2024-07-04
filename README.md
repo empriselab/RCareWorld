@@ -1,5 +1,6 @@
 ![alt text](rcareworld.png)
 # Here is the code for RCareWorld V1.1.0 🦾
+# Please refer to the [phy-robo-care](https://github.com/empriselab/RCareWorld/tree/phy-robo-care) branch if you are participating in the [PhyRC Challenge](https://emprise.cs.cornell.edu/rcareworld/challenge/).
 - Check the website https://emprise.cs.cornell.edu/rcareworld/
 - Check the documentation and tutorials
   - [Full Install](https://sunny-building-1e7.notion.site/Full-install-RCareWorld-All-you-need-to-know-c5432d938f9545299f2b268373ec8abc?pvs=4)
