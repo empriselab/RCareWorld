@@ -236,8 +236,7 @@ class ControllerAttr(attr.ColliderAttr):
 
     def MoveForward(self, distance: float, speed: float):
         """
-        Move robot forward. Only works if the robot controller has implemented functions inherited from `ICustomMove.cs`. See https://github.com/mvig-robotflow/rfuniverse/blob/main/Assets/RFUniverse/Scripts/Utils/ICustomMove.cs and https://github.com/mvig-robotflow/rfuniverse/blob/main/Assets/RFUniverse/Scripts/Utils/ToborMove.cs for more details.
-
+        Move robot forward. Only works if the robot controller has a mobile platform.
         Args:
             distance: Float, distance.
             speed: Float, velocity.
@@ -246,7 +245,7 @@ class ControllerAttr(attr.ColliderAttr):
 
     def MoveBack(self, distance: float, speed: float):
         """
-        Move robot backword. Only works if the robot controller has implemented functions inherited from `ICustomMove.cs`. See https://github.com/mvig-robotflow/rfuniverse/blob/main/Assets/RFUniverse/Scripts/Utils/ICustomMove.cs and https://github.com/mvig-robotflow/rfuniverse/blob/main/Assets/RFUniverse/Scripts/Utils/ToborMove.cs for more details.
+        Move robot backword. Only works if the robot controller has a mobile platform.
 
         Args:
             distance: Float, distance.
@@ -256,8 +255,7 @@ class ControllerAttr(attr.ColliderAttr):
 
     def TurnLeft(self, angle: float, speed: float):
         """
-        Turn robot left. Only works if the robot controller has implemented functions inherited from `ICustomMove.cs`. See https://github.com/mvig-robotflow/rfuniverse/blob/main/Assets/RFUniverse/Scripts/Utils/ICustomMove.cs and https://github.com/mvig-robotflow/rfuniverse/blob/main/Assets/RFUniverse/Scripts/Utils/ToborMove.cs for more details.
-
+        Turn robot left. Only works if the robot controller has a mobile platform.
         Args:
             angle: Float, rotation angle.
             speed: Float, velocity.
@@ -266,7 +264,7 @@ class ControllerAttr(attr.ColliderAttr):
 
     def TurnRight(self, angle: float, speed: float):
         """
-        Turn robot right. Only works if the robot controller has implemented functions inherited from `ICustomMove.cs`. See https://github.com/mvig-robotflow/rfuniverse/blob/main/Assets/RFUniverse/Scripts/Utils/ICustomMove.cs and https://github.com/mvig-robotflow/rfuniverse/blob/main/Assets/RFUniverse/Scripts/Utils/ToborMove.cs for more details.
+        Turn robot right. Only works if the robot controller has a mobile platform.
 
         Args:
             angle: Float, rotation angle.
@@ -276,13 +274,13 @@ class ControllerAttr(attr.ColliderAttr):
 
     def GripperOpen(self):
         """
-        Open the gripper. Only works if the robot controller has implemented functions inherited from `ICustomGripper.cs`. See https://github.com/mvig-robotflow/rfuniverse/blob/main/Assets/RFUniverse/Scripts/Utils/ICustomGripper.cs and https://github.com/mvig-robotflow/rfuniverse/blob/main/Assets/RFUniverse/Scripts/Utils/GeneralGripper.cs for more details.
+        Open the gripper. 
         """
         self._send_data("GripperOpen")
 
     def GripperClose(self):
         """
-        Close the gripper. Only works if the robot controller has implemented functions inherited from `ICustomGripper.cs`. See https://github.com/mvig-robotflow/rfuniverse/blob/main/Assets/RFUniverse/Scripts/Utils/ICustomGripper.cs and https://github.com/mvig-robotflow/rfuniverse/blob/main/Assets/RFUniverse/Scripts/Utils/GeneralGripper.cs for more details.
+        Close the gripper. 
         """
         self._send_data("GripperClose")
 

@@ -26,7 +26,7 @@ class DigitAttr(attr.BaseAttr):
 
     def GetData(self):
         """
-        Get data from DIGIT in RFUniverse.
+        Get data from DIGIT.
 
         """
         self._send_data("GetData")

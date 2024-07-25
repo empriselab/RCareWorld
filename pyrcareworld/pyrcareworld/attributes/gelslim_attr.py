@@ -26,7 +26,7 @@ class GelSlimAttr(attr.BaseAttr):
 
     def GetData(self):
         """
-        Get data from GelSlim in RFUniverse.
+        Get data from GelSlim.
         """
         self._send_data("GetData")
 

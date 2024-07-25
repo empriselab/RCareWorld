@@ -10,7 +10,7 @@ except ImportError:
 
 class RCareWorldGymWrapper(RCareWorld, gym.Env):
     """
-    RFUniverse base environment with Gym class.
+    RCareWorld base environment with Gym class.
 
     Args:
         executable_file: Str, the absolute path of Unity executable file. None for last used executable file; "@editor" for using Unity Editor.

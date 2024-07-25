@@ -27,7 +27,7 @@ def download(args):
     else:
         save_path = args.savepath
 
-    releases_url = f"https://api.github.com/repos/robotflow-initiative/rfuniverse/releases"
+    releases_url = f"https://api.github.com/repos/empriselab/RCareWorld/releases"
     response = requests.get(releases_url)
     releases = response.json()
     last_version = None
@@ -98,7 +98,7 @@ def download(args):
     folder_name = os.path.splitext(os.path.basename(download_url))[0]
     folder_path = os.path.join(save_path, folder_name)
     print(fr"Unzip Done: {folder_path}")
-    executable_file = os.path.abspath(os.path.join(folder_path, f"RFUniverse{suffix}"))
+    executable_file = os.path.abspath(os.path.join(folder_path, f"RCareWorld{suffix}"))
     pyrcareworld.config["executable_file"] = executable_file
     pyrcareworld.save_config(pyrcareworld.config)
     if platform == "linux":
