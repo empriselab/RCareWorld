@@ -1,0 +1,14 @@
+numpy>=1.14.1
+opencv-contrib-python
+requests
+
+# gym==0.21.0
+# cloudpickle
+# grpcio>=1.11.0
+# Pillow>=4.2.1
+# protobuf==3.19.0
+# pyyaml>=3.1.0
+# pybullet
+# open3d
+# pandas
+# stable-baselines3
