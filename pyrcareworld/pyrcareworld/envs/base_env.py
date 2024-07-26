@@ -22,7 +22,7 @@ class RCareWorld(ABC):
         port: Int, the port for communication.
         proc_id: Int, the process id for the Unity environment. 0 for the first process, 1 for the second process, and so on.
         log_level: Int, the log level for Unity environment. 0 for no log, 1 for errors logs, 2 for warnings and errors, 3 for all only.
-        ext_attr: (Deprecated in RCareWorld 2.0.0) List, the list of extended attributes. All extended attributes will be added to the environment.
+        ext_attr: (Deprecated in RCareWorld 1.5.0) List, the list of extended attributes. All extended attributes will be added to the environment.
         check_version: Bool, True for checking the version of the Unity environment and the pyrcareworld library. False for not checking the version.
     """
 
