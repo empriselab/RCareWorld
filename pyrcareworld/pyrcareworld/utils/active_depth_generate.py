@@ -1,33 +1,12 @@
-# by Xiaoshuai Jet Zhang <i@jetd.me>, Jan 2021
-# v2021.10.08
-#
-# Depth simulation toolkit.
-#
-# Please run:
-#  1. `pip3 install --upgrade pip`
-#  2. `pip3 install opencv-contrib-python scipy open3d`
-# before using this package.
-#
-# TODO:
-#  1. IR intensity instead of pixel values in real pipeline.
-#
-
 from typing import Optional, Tuple
-
 import numpy as np
-
-# try:
-#     import scipy.signal
-# except ImportError:
-#     print('Please install scipy with `pip3 install scipy`')
-#     raise
 
 try:
     import cv2
     from cv2 import ximgproc
 except ImportError:
     print("opencv-contrib not installed, " "some features will be disabled.")
-    print("Please install with `pip3 install opencv-contrib-python`")
+    print("Please install with `pip install opencv-contrib-python`")
     ximgproc = None
 
 

@@ -1,10 +1,6 @@
 from typing import List
 import struct
 
-from pyrcareworld.logging_util import get_logger
-
-logger = get_logger(__name__)
-
 
 class OutgoingMessage:
     """
@@ -22,19 +18,19 @@ class OutgoingMessage:
         """
         Append a boolean value.
         """
-        self.buffer += struct.pack("<?", b)
+        self.buffer.extend(int(b).to_bytes(1, byteorder="little"))
 
     def write_int32(self, i: int) -> None:
         """
         Append an integer value.
         """
-        self.buffer += struct.pack("<i", i)
+        self.buffer.extend(i.to_bytes(4, byteorder="little"))
 
     def write_float32(self, f: float) -> None:
         """
         Append a float value. It will be truncated to 32-bit precision.
         """
-        self.buffer += struct.pack("<f", f)
+        self.buffer.extend(struct.pack("f", f))
 
     def write_float32_list(self, float_list: List[float]) -> None:
         """
@@ -49,18 +45,6 @@ class OutgoingMessage:
         Append a string value. Internally, it will be encoded to ascii, and the
         encoded length will also be written to the message.
         """
-        encoded_key = s.encode("ascii")
-        self.write_int32(len(encoded_key))
-        self.buffer += encoded_key
-
-    def set_raw_bytes(self, buffer: bytearray) -> None:
-        """
-        Set the internal buffer to a new bytearray. This will overwrite any existing data.
-        :param buffer:
-        :return:
-        """
-        if self.buffer:
-            logger.warning(
-                "Called set_raw_bytes but the message already has been written to. This will overwrite data."
-            )
-        self.buffer = bytearray(buffer)
+        s_byte = s.encode("utf-8")
+        self.write_int32(len(s_byte))
+        self.buffer.extend(s_byte)

@@ -1,12 +1,14 @@
-cloudpickle==2.2.1
-grpcio==1.51.1
-gymnasium==0.29.1
-numpy==1.24.2
-open3d==0.16.0
-opencv-contrib-python==4.5.4.60
-opencv-python==4.5.4.60
-pandas==1.5.3
-Pillow==9.4.0
-protobuf==3.19.0
-pyaml==21.10.1
-pybullet==3.2.5
+numpy>=1.14.1
+opencv-contrib-python
+requests
+
+# gym==0.21.0
+# cloudpickle
+# grpcio>=1.11.0
+# Pillow>=4.2.1
+# protobuf==3.19.0
+# pyyaml>=3.1.0
+# pybullet
+# open3d
+# pandas
+# stable-baselines3

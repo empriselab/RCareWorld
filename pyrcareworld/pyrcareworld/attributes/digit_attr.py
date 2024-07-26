@@ -1,27 +1,32 @@
-import pyrcareworld.attributes as attr
-from pyrcareworld.side_channel.side_channel import (
-    IncomingMessage,
-    OutgoingMessage,
-)
-import pyrcareworld.utils.utility as utility
 import base64
+import pyrcareworld.attributes as attr
 
 
-def parse_message(msg: IncomingMessage) -> dict:
-    this_object_data = attr.base_attr.parse_message(msg)
-    if msg.read_bool() is True:
-        this_object_data["light"] = base64.b64decode(msg.read_string())
-        this_object_data["depth"] = base64.b64decode(msg.read_string())
-    return this_object_data
+class DigitAttr(attr.BaseAttr):
+    """
+    Class for simulating DIGIT tactile sensor.
+    """
 
+    def parse_message(self, data: dict):
+        """
+        Parse messages. This function is called by internal function.
 
-def GetData(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-    msg = OutgoingMessage()
+        Returns:
+            Dict: A dict containing useful information of this class.
 
-    msg.write_int32(kwargs["id"])
-    msg.write_string("GetData")
+            self.data['light']: Bytes of RGB light image in DIGIT.
 
-    return msg
+            self.data['depth']: Bytes of depth image in DIGIT.
+        """
+        super().parse_message(data)
+        if "light" in self.data:
+            self.data["light"] = base64.b64decode(self.data["light"])
+        if "depth" in self.data:
+            self.data["depth"] = base64.b64decode(self.data["depth"])
+
+    def GetData(self):
+        """
+        Get data from DIGIT.
+
+        """
+        self._send_data("GetData")

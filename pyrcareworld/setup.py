@@ -3,26 +3,22 @@ from setuptools import find_packages
 import pyrcareworld
 
 VERSION = pyrcareworld.__version__
-# here = os.path.abspath(os.path.dirname(__file__))
 
 setup(
     name="pyrcareworld",
     version=VERSION,
-    description="RCareWorld python interface",
-    url="https://github.com/empriselab/RCareWorld",
-    author="Ruolin Ye",
-    author_email="ry273@cornell.edu",
-    packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
-    zip_safe=False,
+    description="rcareworld python interface",
+    url="https://github.com/robotflow-initiative/pyrcareworld",
+    author="RobotFlow AI Team",
+    author_email="robotflow@163.com",
     install_requires=[
-        "cloudpickle",
-        "grpcio>=1.11.0",
         "numpy>=1.14.1",
-        "Pillow>=4.2.1",
-        "protobuf==3.19.0",
-        "pyyaml>=3.1.0",
-        "pybullet",
-        "opencv-python",
+        "opencv-contrib-python",
+        "requests"
     ],
-    python_requires=">=3.6.1",
+    entry_points={
+        'console_scripts': [
+            'pyrcareworld=pyrcareworld.entry_points:pyrcareworld_entry_points',
+        ]
+    }
 )
