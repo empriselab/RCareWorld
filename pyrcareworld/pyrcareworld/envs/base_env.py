@@ -16,7 +16,7 @@ class RCareWorld(ABC):
 
     Args:
         executable_file: Str, the absolute path of Unity executable file. None for last used executable file; "@editor" for using Unity Editor.
-        scene_file: Str, the absolute path of Unity scene JSON file. All JSON files locate at `StraemingAssets/SceneData` by default.
+        scene_file: Str, the absolute path of Unity scene JSON file. All JSON files locate at `StreamingAssets/SceneData` by default.
         assets: List, the list of pre-load assets. All assets in the list will be pre-loaded in Unity when the environment is initialized, which will save time during instanciating.
         graphics: Bool, True for showing GUI and False for headless mode.
         port: Int, the port for communication.
@@ -297,7 +297,7 @@ class RCareWorld(ABC):
         Load the scene asynchronisely.
 
         Args:
-            file: Str, the scene JSON file. If it's a relative path, it will load from `StraemingAssets`.
+            file: Str, the scene JSON file. If it's a relative path, it will load from `StreamingAssets`.
             auto_wait: Bool, if True, this function will not return until the loading is done.
         """
         self._send_env_data("LoadSceneAsync", file)
@@ -427,7 +427,7 @@ class RCareWorld(ABC):
             self, name: str, id: int = None, attr_type: type = attr.BaseAttr
     ):
         """
-        Instanciate an object.
+        Instantiate an object.
 
         Built-in assets:
 
