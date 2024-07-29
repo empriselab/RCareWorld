@@ -27,5 +27,4 @@ def test_articulation_ik():
         while not current_robot.data["move_done"] or not current_robot.data["rotate_done"]:
             env.step()
 
-    env.Pend()
     env.close()
