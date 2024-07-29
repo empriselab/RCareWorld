@@ -1,11 +1,12 @@
 from pyrcareworld.envs.base_env import RCareWorld
 from pyrcareworld.attributes.light_attr import LightType
 
-env = RCareWorld(scene_file="LightScene.json")
+def test_light():
+    """Tests updating features of scene lighting."""
+    env = RCareWorld(scene_file="LightScene.json", graphics=False)
 
-light = env.GetAttr(885275)
-env.SetShadowDistance(50)
-while 1:
+    light = env.GetAttr(885275)
+    env.SetShadowDistance(50)
     env.step(50)
     light.SetColor(color=[1.0, 0.0, 0.0])
     env.step(50)

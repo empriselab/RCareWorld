@@ -1,8 +1,9 @@
 from pyrcareworld.envs.base_env import RCareWorld
 
-env = RCareWorld(scene_file="DebugScene.json")
+def test_debug():
+    """Test various debug commands."""
+    env = RCareWorld(scene_file="DebugScene.json", graphics=False)
 
-while 1:
     env.DebugGraspPoint()
     env.SendLog("DebugGraspPoint")
     env.step(300)

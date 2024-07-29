@@ -2,20 +2,21 @@ import random
 from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 
-env = RCareWorld(assets=["franka_panda"])
-env.SetTimeStep(0.005)
-robot = env.InstanceObject(
-    name="franka_panda", id=123456, attr_type=attr.ControllerAttr
-)
-robot.SetIKTargetOffset(position=[0, 0.105, 0])
-env.step()
-gripper = env.GetAttr(1234560)
-gripper.GripperOpen()
-robot.IKTargetDoMove(position=[0, 0.5, 0.5], duration=0, speed_based=False)
-robot.IKTargetDoRotate(rotation=[0, 45, 180], duration=0, speed_based=False)
-robot.WaitDo()
+def test_pick_and_place():
+    """Tests pick and place of a box with a panda."""
+    env = RCareWorld(assets=["franka_panda"], graphics=False)
+    env.SetTimeStep(0.005)
+    robot = env.InstanceObject(
+        name="franka_panda", id=123456, attr_type=attr.ControllerAttr
+    )
+    robot.SetIKTargetOffset(position=[0, 0.105, 0])
+    env.step()
+    gripper = env.GetAttr(1234560)
+    gripper.GripperOpen()
+    robot.IKTargetDoMove(position=[0, 0.5, 0.5], duration=0, speed_based=False)
+    robot.IKTargetDoRotate(rotation=[0, 45, 180], duration=0, speed_based=False)
+    robot.WaitDo()
 
-while 1:
     box1 = env.InstanceObject(
         name="Rigidbody_Box", id=111111, attr_type=attr.RigidbodyAttr
     )
