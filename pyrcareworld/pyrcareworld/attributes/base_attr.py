@@ -2,6 +2,29 @@ class BaseAttr:
     """
     Base attribute class, which includes general functions such as
     object loading, deleting and transforming.
+
+    By default, messages received from Unity are expected to include
+    the following keys:
+
+        'name': The name of the object.
+
+        'position': The position of the object in world coordinates.
+
+        'rotation': The euler angle of the object in world coordinates.
+
+        'quaternion': The quaternion of the object in world coordinates.
+
+        'local_position': The position of the object in its parent's local coordinates.
+
+        'local_rotation': The euler angle of the object in its parent's local coordinates.
+
+        'local_quaternion': The quaternion of the object in its parent's local coordinates.
+
+        'local_to_world_matrix': The transformation matrix from local to world coordinates.
+
+        'result_local_point': The result of transforming object from local to world coordinates.
+
+        'result_world_point': The result of transforming object from world to local coordinates.
     """
 
     def __init__(self, env, id: int, data: dict = {}):
@@ -11,30 +34,11 @@ class BaseAttr:
 
     def parse_message(self, data: dict):
         """
-        Parse messages. This function is called by internal function.
+        Parse messages. This function is called by an internal function.
 
-        Returns:
-            Dict: A dict containing useful information of this class.
-
-            self.data['name']: The name of the object.
-
-            self.data['position']: The position of the object in world coordinate.
-
-            self.data['rotation']: The euler angle of the object in world coordinate.
-
-            self.data['quaternion']: The quaternion of the object in world coordinate.
-
-            self.data['local_position']: The position of the object in its parent's local coordinate.
-
-            self.data['local_rotation']: The euler angle of the object in its parent's local coordinate.
-
-            self.data['local_quaternion']: The quaternion of the object in its parent's local coordinate.
-
-            self.data['local_to_world_matrix']: The transformation matrix from local to world coordinate.
-
-            self.data['result_local_point']: The result of transforming object from local to world coordinate.
-
-            self.data['result_world_point']: The result of transforming object from world to local coordinate.
+        Args:
+            data: Dict, a dict containing useful information of this class.
+                  See the class docstring for expected keys.
         """
         self.data = data
 

@@ -8,7 +8,7 @@ class ClothAttr(attr.BaseAttr):
 
     def GetParticles(self):
         """
-        get the cloth particles.
+        Get the cloth particles.
         """
         self._send_data("GetParticles")
 
