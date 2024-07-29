@@ -178,7 +178,7 @@ class BaseAttr:
 
     def SetActive(self, active: bool):
         """
-        Set the activeness of this obeject.
+        Set the activeness of this object.
 
         Args:
             active: Bool, True for active, False for inactive.

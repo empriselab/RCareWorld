@@ -176,8 +176,7 @@ class RFUniverseCommunicator(threading.Thread):
         elif data_type == "null" or data_type == "none":
             return None
         else:
-            # print(f"dont support this type: {data_type}")
-            raise ValueError(f"dont support this type: {data_type}")
+            raise ValueError(f"This type is unsupported: {data_type}")
 
     def read_string(self, datas: bytes) -> str:
         count = self.read_int(datas)

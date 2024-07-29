@@ -17,7 +17,7 @@ class RCareWorld(ABC):
     Args:
         executable_file: Str, the absolute path of Unity executable file. None for last used executable file; "@editor" for using Unity Editor.
         scene_file: Str, the absolute path of Unity scene JSON file. All JSON files locate at `StreamingAssets/SceneData` by default.
-        assets: List, the list of pre-load assets. All assets in the list will be pre-loaded in Unity when the environment is initialized, which will save time during instanciating.
+        assets: List, the list of pre-load assets. All assets in the list will be pre-loaded in Unity when the environment is initialized, which will save time during instantiating.
         graphics: Bool, True for showing GUI and False for headless mode.
         port: Int, the port for communication.
         proc_id: Int, the process id for the Unity environment. 0 for the first process, 1 for the second process, and so on.
@@ -70,7 +70,7 @@ class RCareWorld(ABC):
             PROC_TYPE = "release"
             self.port = self.port + 1 + proc_id  # default release port
         else:  # error
-            raise ValueError(f"Executable file {executable_file} not exists")
+            raise ValueError(f"Executable file {executable_file} does not exist")
 
         self.communicator = RFUniverseCommunicator(
             port=self.port,
