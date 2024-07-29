@@ -15,7 +15,7 @@ class RCareWorld(ABC):
     rcareworld base environment class.
 
     Args:
-        executable_file: Str, the absolute path of Unity executable file. None for last used executable file; "@editor" for using Unity Editor.
+        executable_file: Str, the absolute path of Unity executable file. None uses the RCAREWORLD_EXECUTABLE environment variable; "@editor" for using Unity Editor.
         scene_file: Str, the absolute path of Unity scene JSON file. All JSON files locate at `StraemingAssets/SceneData` by default.
         assets: List, the list of pre-load assets. All assets in the list will be pre-loaded in Unity when the environment is initialized, which will save time during instanciating.
         graphics: Bool, True for showing GUI and False for headless mode.
@@ -60,7 +60,12 @@ class RCareWorld(ABC):
         self.log_map = {"Log": 3, "Warning": 2, "Error": 1, "Exception": 1, "Assert": 1}
 
         if executable_file is None:
-            executable_file = pyrcareworld.executable_file
+            try:
+                executable_file = os.environ["RCAREWORLD_EXECUTABLE"]
+            except KeyError:
+                raise RuntimeError("Unity executable not found. Either specify the "
+                                   "absolute path with RCareWorld(executable_file=...) "
+                                   "or export RCAREWORLD_EXECUTABLE=... in terminal.")
 
         if executable_file == "" or executable_file == "@editor":  # editor
             assert proc_id == 0, "proc_id must be 0 when using editor"
@@ -232,9 +237,9 @@ class RCareWorld(ABC):
         """
         Close the environment
         """
-        if self.process is not None:
+        if hasattr(self, "process") and self.process is not None:
             self.process.kill()
-        if self.communicator is not None:
+        if hasattr(self, "communicator") and self.communicator is not None:
             self.communicator.close()
 
     # def SetAutoSimulate(self, auto: bool):
