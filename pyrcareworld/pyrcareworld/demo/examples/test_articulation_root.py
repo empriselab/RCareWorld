@@ -2,7 +2,7 @@ from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 
 def test_articulation_root():
-    """Tests directly articulating a Shadow Hand."""
+    """Test directly articulating a Shadow Hand."""
     env = RCareWorld(graphics=False)
     shadow = env.InstanceObject("shadowhand", attr_type=attr.ControllerAttr)
     shadow.SetPosition([0,1,0])

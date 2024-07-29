@@ -6,7 +6,7 @@ from pyrcareworld.envs.base_env import RCareWorld
 from demo import mesh_path
 
 def test_cloth_attach():
-    """Tests simulating a cloth."""
+    """Test simulating a cloth."""
     env = RCareWorld(graphics=False)
     env.DebugObjectPose()
     env.EnabledGroundObiCollider(True)

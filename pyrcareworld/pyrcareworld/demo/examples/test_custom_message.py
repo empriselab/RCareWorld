@@ -2,7 +2,7 @@ from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 
 def test_custom_message():
-    """Tests sending a custom message to the env."""
+    """Test sending a custom message to the env."""
     env = RCareWorld(assets=["CustomAttr"], graphics=False)
 
     # custom message
