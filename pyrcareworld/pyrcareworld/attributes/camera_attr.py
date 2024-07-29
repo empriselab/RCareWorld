@@ -8,47 +8,6 @@ class CameraAttr(attr.BaseAttr):
     of the scene in rcareworld.
     """
 
-    def parse_message(self, data: dict):
-        """
-        Parse messages. This function is called by internal function.
-
-        Returns:
-            Dict: A dict containing useful information of this class.
-
-            self.data['rgb']: The bytes of rgb image.
-
-            self.data['normal']: The bytes of normal image.
-
-            self.data['id_map']: The bytes of instance segmentation mask image.
-
-            self.data['depth']: The bytes of depth image.
-
-            self.data['depth_exr']: The bytes of depth image in exr format.
-
-            self.data['amodal_mask']: The bytes of amodal mask image.
-
-            self.data['heat_map']: The bytes of heat map image.
-
-            self.data['2d_bounding_box']: The 2d bouding box of objects in camera (image) coordinate.
-
-            self.data['3d_bounding_box']: The 3d bounding box of objects in world coordinate.
-        """
-        super().parse_message(data)
-        # if "rgb" in self.data:
-        #     self.data["rgb"] = base64.b64decode(self.data["rgb"])
-        # if "normal" in self.data:
-        #     self.data["normal"] = base64.b64decode(self.data["normal"])
-        # if "id_map" in self.data:
-        #     self.data["id_map"] = base64.b64decode(self.data["id_map"])
-        # if "depth" in self.data:
-        #     self.data["depth"] = base64.b64decode(self.data["depth"])
-        # if "depth_exr" in self.data:
-        #     self.data["depth_exr"] = base64.b64decode(self.data["depth_exr"])
-        # if "amodal_mask" in self.data:
-        #     self.data["amodal_mask"] = base64.b64decode(self.data["amodal_mask"])
-        # if "heat_map" in self.data:
-        #     self.data["heat_map"] = base64.b64decode(self.data["heat_map"])
-
     def AlignView(self):
         """
         Make the camera in rcareworld align the current view in GUI.
