@@ -119,7 +119,7 @@ class RCareWorld(ABC):
         if msg == "Env":
             self._parse_env_data(objs)
         elif msg == "Instance":
-            self._parse_instence_data(objs)
+            self._parse_instance_data(objs)
         elif msg == "Debug":
             self._parse_debug_data(objs)
         elif msg == "Message":
@@ -133,7 +133,7 @@ class RCareWorld(ABC):
         if "close" in self.data:
             self.close()
 
-    def _parse_instence_data(self, objs: list) -> None:
+    def _parse_instance_data(self, objs: list) -> None:
         this_object_id = objs[0]
         this_object_type = objs[1]
         this_object_data = objs[2]
