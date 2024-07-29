@@ -4,18 +4,12 @@ import pyrcareworld.attributes as attr
 class GameObjectAttr(attr.BaseAttr):
     """
     Basic game object attribute class.
+
+    In addition to the default keys in messages received from Unity
+    expected by BaseAttr, the following are expected in this class:
+        
+        '3d_bounding_box': The 3d bounding box of objects.
     """
-
-    def parse_message(self, data: dict):
-        """
-        Parse messages. This function is called by internal function.
-
-        Returns:
-            Dict: A dict containing useful information of this class.
-
-            self.data['3d_bounding_box']: The 3d bounding box of objects.
-        """
-        super().parse_message(data)
 
     def SetColor(self, color: list):
         """

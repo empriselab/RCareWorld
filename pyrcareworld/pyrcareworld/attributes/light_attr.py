@@ -29,15 +29,6 @@ class LightAttr(attr.BaseAttr):
     Light attribute class.
     """
 
-    def parse_message(self, data: dict):
-        """
-        Parse messages. This function is called by internal function.
-
-        Returns:
-            Dict: A dict containing useful information of this class.
-        """
-        super().parse_message(data)
-
     def SetColor(self, color: list):
         """
         Set the color of light.

@@ -4,20 +4,14 @@ import pyrcareworld.attributes as attr
 class RigidbodyAttr(attr.ColliderAttr):
     """
     Rigid body class.
+
+    In addition to the default keys in messages received from Unity
+    expected by BaseAttr, the following are expected in this class:
+
+        'velocity': The velocity of the object.
+
+        'angular_velocity': The angular velocity of the object.
     """
-
-    def parse_message(self, data: dict):
-        """
-        Parse messages. This function is called by internal function.
-
-        Returns:
-            Dict: A dict containing useful information of this class.
-
-            self.data['velocity']: The velocity of the object.
-
-            self.data['angular_velocity']: The angular velcity of the object.
-        """
-        super().parse_message(data)
 
     def SetMass(self, mass: float):
         """

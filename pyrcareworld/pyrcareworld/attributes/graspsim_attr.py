@@ -4,26 +4,20 @@ import pyrcareworld.attributes as attr
 class GraspSimAttr(attr.BaseAttr):
     """
     Grasp pose simulation class.
+    
+    In addition to the default keys in messages received from Unity
+    expected by BaseAttr, the following are expected in this class:
+
+        'done': Whether the simulation is done
+
+        'points': The list of grasp points.
+
+        'quaternions': The list of grasping pose quaternions.
+
+        'width': The list of gripper width of grasping pose.
+
+        'success': The list of success or failure of the grasing pose.
     """
-
-    def parse_message(self, data: dict):
-        """
-        Parse messages. This function is called by internal function.
-
-        Returns:
-            Dict: A dict containing useful information of this class.
-
-            self.data['done']: Whether the simulation is done
-
-            self.data['points']: The list of grasp points.
-
-            self.data['quaternions']: The list of grasping pose quaternions.
-
-            self.data['width']: The list of gripper width of grasping pose.
-
-            self.data['success']: The list of success or failure of the grasing pose.
-        """
-        super().parse_message(data)
 
     def StartGraspSim(
         self,

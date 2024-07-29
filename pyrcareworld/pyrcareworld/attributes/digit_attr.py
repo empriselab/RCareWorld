@@ -5,19 +5,16 @@ import pyrcareworld.attributes as attr
 class DigitAttr(attr.BaseAttr):
     """
     Class for simulating DIGIT tactile sensor.
+
+    In addition to the default keys in messages received from Unity
+    expected by BaseAttr, the following are expected in this class:
+
+        'light': Bytes of RGB light image in DIGIT.
+
+        'depth': Bytes of depth image in DIGIT.
     """
 
     def parse_message(self, data: dict):
-        """
-        Parse messages. This function is called by internal function.
-
-        Returns:
-            Dict: A dict containing useful information of this class.
-
-            self.data['light']: Bytes of RGB light image in DIGIT.
-
-            self.data['depth']: Bytes of depth image in DIGIT.
-        """
         super().parse_message(data)
         if "light" in self.data:
             self.data["light"] = base64.b64decode(self.data["light"])

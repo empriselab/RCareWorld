@@ -21,6 +21,11 @@ class OmplManagerAttr(attr.BaseAttr):
     Note:
     This parent class by default assumes that all joints are acutated and should be planned. If this is not your desired
     behaviour, please write your own inheritated class that overrides respective functionalities.
+
+    In addition to the default keys in messages received from Unity
+    expected by BaseAttr, the following are expected in this class:
+
+        'is_collide':  Whether there is a collision.
     """
 
     def __init__(self, env, id: int, data=None):

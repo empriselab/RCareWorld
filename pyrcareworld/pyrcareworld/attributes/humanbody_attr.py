@@ -4,20 +4,14 @@ import pyrcareworld.attributes as attr
 class HumanbodyAttr(attr.BaseAttr):
     """
     Human body Inverse Kinematic class.
+
+    In addition to the default keys in messages received from Unity
+    expected by BaseAttr, the following are expected in this class:
+
+        'move_done': Whether the movement has finished.
+
+        'rotate_done': Whether the rotation has finished.
     """
-
-    def parse_message(self, data: dict):
-        """
-        Parse messages. This function is called by internal function.
-
-        Returns:
-            Dict: A dict containing useful information of this class.
-
-            self.data['move_done']: Whether the movement has finished.
-
-            self.data['rotate_done']: Whether the rotation has finished.
-        """
-        super().parse_message(data)
 
     def HumanIKTargetDoMove(
         self,
