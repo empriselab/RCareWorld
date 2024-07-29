@@ -14,7 +14,8 @@ setup(
     install_requires=[
         "numpy>=1.14.1",
         "opencv-contrib-python",
-        "requests"
+        "requests",
+        "pytest",
     ],
     entry_points={
         'console_scripts': [
