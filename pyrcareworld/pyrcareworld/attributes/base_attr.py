@@ -18,23 +18,23 @@ class BaseAttr:
 
             self.data['name']: The name of the object.
 
-            self.data['position']: The position of the object in world coordinate.
+            self.data['position']: The position of the object in world coordinates.
 
-            self.data['rotation']: The euler angle of the object in world coordinate.
+            self.data['rotation']: The euler angle of the object in world coordinates.
 
-            self.data['quaternion']: The quaternion of the object in world coordinate.
+            self.data['quaternion']: The quaternion of the object in world coordinates.
 
-            self.data['local_position']: The position of the object in its parent's local coordinate.
+            self.data['local_position']: The position of the object in its parent's local coordinates.
 
-            self.data['local_rotation']: The euler angle of the object in its parent's local coordinate.
+            self.data['local_rotation']: The euler angle of the object in its parent's local coordinates.
 
-            self.data['local_quaternion']: The quaternion of the object in its parent's local coordinate.
+            self.data['local_quaternion']: The quaternion of the object in its parent's local coordinates.
 
-            self.data['local_to_world_matrix']: The transformation matrix from local to world coordinate.
+            self.data['local_to_world_matrix']: The transformation matrix from local to world coordinates.
 
-            self.data['result_local_point']: The result of transforming object from local to world coordinate.
+            self.data['result_local_point']: The result of transforming the object from local to world coordinates.
 
-            self.data['result_world_point']: The result of transforming object from world to local coordinate.
+            self.data['result_world_point']: The result of transforming the object from world to local coordinates.
         """
         self.data = data
 
@@ -226,7 +226,7 @@ class BaseAttr:
 
     def GetLocalPointFromWorld(self, point: list):
         """
-        Transform a point from local coordinate to world coordinate. After calling this method and stepping once, the result will be saved in self.data['result_local_point']
+        Transform a point from local coordinates to world coordinates. After calling this method and stepping once, the result will be saved in self.data['result_local_point']
 
         Args:
             point: A list of length 3, representing the position of a point.
@@ -238,7 +238,7 @@ class BaseAttr:
 
     def GetWorldPointFromLocal(self, point: list):
         """
-        Transform a point from world coordinate to local coordinate. After calling this method and stepping once, the result will be saved in self.data['result_world_point']
+        Transform a point from world coordinates to local coordinates. After calling this method and stepping once, the result will be saved in self.data['result_world_point']
 
         Args:
             point: A list of length 3, representing the position of a point.
