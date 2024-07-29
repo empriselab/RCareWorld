@@ -15,7 +15,7 @@ class RCareWorld(ABC):
     rcareworld base environment class.
 
     Args:
-        executable_file: Str, the absolute path of Unity executable file. None uses the RCAREWORLD_EXECUTABLE environment variable; "@editor" for using Unity Editor.
+        executable_file: Str, the absolute path of Unity executable file. None uses config.json; "@editor" for using Unity Editor.
         scene_file: Str, the absolute path of Unity scene JSON file. All JSON files locate at `StraemingAssets/SceneData` by default.
         assets: List, the list of pre-load assets. All assets in the list will be pre-loaded in Unity when the environment is initialized, which will save time during instanciating.
         graphics: Bool, True for showing GUI and False for headless mode.
@@ -60,12 +60,7 @@ class RCareWorld(ABC):
         self.log_map = {"Log": 3, "Warning": 2, "Error": 1, "Exception": 1, "Assert": 1}
 
         if executable_file is None:
-            try:
-                executable_file = os.environ["RCAREWORLD_EXECUTABLE"]
-            except KeyError:
-                raise RuntimeError("Unity executable not found. Either specify the "
-                                   "absolute path with RCareWorld(executable_file=...) "
-                                   "or export RCAREWORLD_EXECUTABLE=... in terminal.")
+            executable_file = pyrcareworld.executable_file
 
         if executable_file == "" or executable_file == "@editor":  # editor
             assert proc_id == 0, "proc_id must be 0 when using editor"
@@ -75,7 +70,7 @@ class RCareWorld(ABC):
             PROC_TYPE = "release"
             self.port = self.port + 1 + proc_id  # default release port
         else:  # error
-            raise ValueError(f"Executable file {executable_file} not exists")
+            raise ValueError(f"Executable file {executable_file} does not exist")
 
         self.communicator = RFUniverseCommunicator(
             port=self.port,
