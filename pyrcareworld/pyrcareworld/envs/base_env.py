@@ -294,7 +294,7 @@ class RCareWorld(ABC):
 
     def LoadSceneAsync(self, file: str, auto_wait: bool = False) -> None:
         """
-        Load the scene asynchronisely.
+        Load the scene asynchronously.
 
         Args:
             file: Str, the scene JSON file. If it's a relative path, it will load from `StreamingAssets`.
@@ -307,7 +307,7 @@ class RCareWorld(ABC):
 
     def SwitchSceneAsync(self, name: str, auto_wait: bool = False) -> None:
         """
-        Switch the scene asynchronisely.
+        Switch the scene asynchronously.
 
         Args:
             name: Str, the scene name.
