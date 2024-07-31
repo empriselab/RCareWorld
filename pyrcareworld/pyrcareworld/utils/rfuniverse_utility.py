@@ -18,7 +18,7 @@ def EncodeIDAsColor(instance_id: int):
     return [r, g, b, 255]
 
 
-def UnityEularToQuaternion(eular: list) -> list:
+def UnityEulerToQuaternion(eular: list) -> list:
     """
     Transform euler angle to quaternion in Unity.
 

@@ -16,7 +16,7 @@ for id in ids:
         env.step()
     current_robot.IKTargetDoMove(position=[0, 0.5, 0.5], duration=0.1, relative=True)
     current_robot.IKTargetDoRotateQuaternion(
-        quaternion=utility.UnityEularToQuaternion([90, 0, 0]),
+        quaternion=utility.UnityEulerToQuaternion([90, 0, 0]),
         duration=30,
         relative=True,
     )
