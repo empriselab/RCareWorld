@@ -4,7 +4,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 from pyrcareworld.envs.base_env import RCareWorld
 from pyrcareworld.attributes.humanbody_attr import HumanbodyAttr
 
-env = RCareWorld(executable_file ="/home/cathy/Workspace/rcareworld_new/RCareUnity/Build/TestPlayer.x86_64", scene_file="HumanBodyIK.json")
+env = RCareWorld(scene_file="HumanBodyIK.json")
 env.step()
 print("This example shows how BioIK works on the human body. It does not show the range of motion of the careavatar with c6-c7 spinal cord injury.")
 human = env.GetAttr(168242)
