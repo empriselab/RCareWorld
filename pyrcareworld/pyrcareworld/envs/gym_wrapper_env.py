@@ -14,7 +14,7 @@ class RCareWorldGymWrapper(RCareWorld, gym.Env):
 
     Args:
         executable_file: Str, the absolute path of Unity executable file. None for last used executable file; "@editor" for using Unity Editor.
-        scene_file: Str, the absolute path of Unity scene JSON file. All JSON files locate at `StreamingAssets/SceneData` by default.
+        scene_file: Str, the absolute path of Unity scene JSON file. All JSON files locate at `<PlayerName>_Data/StreamingAssets/SceneData` by default. This is located in the build for the executable files.
         assets: List, the list of pre-loaded assets. All assets in the list will be pre-loaded in Unity when the environment is initialized, which will save time during instantiating.
         graphics: Bool, True for showing GUI and False for headless mode.
         port: Int, the port for communication.
