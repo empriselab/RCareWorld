@@ -21,7 +21,7 @@ ur5.IKTargetDoMove(position=[0, 0, -0.5], duration=0.1, relative=True)
 ur5.WaitDo()
 ur5.IKTargetDoMove(position=[0, -0.2, 0.3], duration=0.1, relative=True)
 ur5.IKTargetDoRotateQuaternion(
-    quaternion=utility.UnityEularToQuaternion([0, 90, 0]), duration=30, relative=True
+    quaternion=utility.UnityEulerToQuaternion([0, 90, 0]), duration=30, relative=True
 )
 ur5.WaitDo()
 
