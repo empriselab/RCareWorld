@@ -119,7 +119,7 @@ class RCareWorld(ABC):
         if msg == "Env":
             self._parse_env_data(objs)
         elif msg == "Instance":
-            self._parse_instence_data(objs)
+            self._parse_instance_data(objs)
         elif msg == "Debug":
             self._parse_debug_data(objs)
         elif msg == "Message":
@@ -133,7 +133,7 @@ class RCareWorld(ABC):
         if "close" in self.data:
             self.close()
 
-    def _parse_instence_data(self, objs: list) -> None:
+    def _parse_instance_data(self, objs: list) -> None:
         this_object_id = objs[0]
         this_object_type = objs[1]
         this_object_data = objs[2]
@@ -294,10 +294,10 @@ class RCareWorld(ABC):
 
     def LoadSceneAsync(self, file: str, auto_wait: bool = False) -> None:
         """
-        Load the scene asynchronisely.
+        Load the scene asynchronously.
 
         Args:
-            file: Str, the scene JSON file. If it's a relative path, it will load from `StraemingAssets`.
+            file: Str, the scene JSON file. If it's a relative path, it will load from `StreamingAssets`.
             auto_wait: Bool, if True, this function will not return until the loading is done.
         """
         self._send_env_data("LoadSceneAsync", file)
@@ -307,7 +307,7 @@ class RCareWorld(ABC):
 
     def SwitchSceneAsync(self, name: str, auto_wait: bool = False) -> None:
         """
-        Switch the scene asynchronisely.
+        Switch the scene asynchronously.
 
         Args:
             name: Str, the scene name.
@@ -320,7 +320,7 @@ class RCareWorld(ABC):
 
     def WaitSceneInit(self) -> None:
         """
-        Wait for the Scene Init done.
+        Wait for the Scene Init to be done.
         """
         while "scene_init" not in self.data:
             self._step(simulate=False)
@@ -335,7 +335,7 @@ class RCareWorld(ABC):
 
     def WaitLoadDone(self) -> None:
         """
-        Wait for the loading is done.
+        Wait for the loading to be done.
         """
         while "load_done" not in self.data:
             self._step(simulate=False)
@@ -427,7 +427,7 @@ class RCareWorld(ABC):
             self, name: str, id: int = None, attr_type: type = attr.BaseAttr
     ):
         """
-        Instanciate an object.
+        Instantiate an object.
 
         Built-in assets:
 
@@ -534,7 +534,7 @@ class RCareWorld(ABC):
             axis: Str, import axis, This can be 'z' or 'y', depending on the URDF file
 
         Returns:
-            pyrcareworld.attributes.ControllerAttr: The object attribute intance.
+            pyrcareworld.attributes.ControllerAttr: The object attribute instance.
         """
         assert id not in self.attrs, "this ID exists"
 
@@ -556,7 +556,7 @@ class RCareWorld(ABC):
             collider_mode: Str, How to generate collisions for model, can be "VHACD"/"CoACD"/"Convex"/Any other is None Collider
 
         Returns:
-            pyrcareworld.attributes.RigidbodyAttr: The object attribute intance.
+            pyrcareworld.attributes.RigidbodyAttr: The object attribute instance.
         """
         assert id not in self.attrs, "this ID exists"
 
@@ -604,7 +604,7 @@ class RCareWorld(ABC):
 
     def SetGroundActive(self, active: bool) -> None:
         """
-        Set the ground active or inactive.
+        Set the ground to be active or inactive.
 
         Args:
             active: Bool, active or inactive the ground.
@@ -732,7 +732,9 @@ class RCareWorld(ABC):
 
     def GetViewTransform(self) -> None:
         """
-        Get the GUI view transform.After calling this method and stepping once, the result will be saved in env.data['view_position'] / env.data['view_rotation'] / env.data['view_quaternion']
+        Get the GUI view transform.
+        
+        After calling this method and stepping once, the result will be saved in env.data['view_position'] / env.data['view_rotation'] / env.data['view_quaternion']
         """
         self._send_env_data("GetViewTransform")
 
@@ -793,7 +795,7 @@ class RCareWorld(ABC):
         """
         self._send_env_data("EnabledGroundObiCollider", enabled)
 
-    # Dubug API
+    # Debug API
     def DebugGraspPoint(self, enabled: bool = True) -> None:
         """
         Show or hide end effector of robot arm for debug.

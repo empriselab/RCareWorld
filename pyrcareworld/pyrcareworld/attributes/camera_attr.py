@@ -4,7 +4,7 @@ import pyrcareworld.attributes as attr
 
 class CameraAttr(attr.BaseAttr):
     """
-    Camera attribute class, which can capture many kinds of screenshot
+    Camera attribute class, which can capture many kinds of screenshots
     of the scene in rcareworld.
     """
 
@@ -29,9 +29,9 @@ class CameraAttr(attr.BaseAttr):
 
             self.data['heat_map']: The bytes of heat map image.
 
-            self.data['2d_bounding_box']: The 2d bouding box of objects in camera (image) coordinate.
+            self.data['2d_bounding_box']: The 2d bounding box of objects in camera (image) coordinates.
 
-            self.data['3d_bounding_box']: The 3d bounding box of objects in world coordinate.
+            self.data['3d_bounding_box']: The 3d bounding box of objects in world coordinates.
         """
         super().parse_message(data)
         # if "rgb" in self.data:
@@ -69,7 +69,7 @@ class CameraAttr(attr.BaseAttr):
             width: Int, the width of image.
             height: Int, the height of image.
             fov: Float, the field of view for camera.
-            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignroed.
+            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignored.
         """
         if intrinsic_matrix is None:
             if width is None:
@@ -98,7 +98,7 @@ class CameraAttr(attr.BaseAttr):
             width: Int, the width of image.
             height: Int, the height of image.
             fov: Float, the field of view for camera.
-            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignroed.
+            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignored.
         """
         if intrinsic_matrix is None:
             if width is None:
@@ -128,7 +128,7 @@ class CameraAttr(attr.BaseAttr):
             width: Int, the width of image.
             height: Int, the height of image.
             fov: Float, the field of view for camera.
-            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignroed.
+            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignored.
         """
         if intrinsic_matrix is None:
             if width is None:
@@ -152,7 +152,7 @@ class CameraAttr(attr.BaseAttr):
         intrinsic_matrix: np.ndarray = None,
     ):
         """
-        Get the depth 8bit png image from camera. Since eacg pixel of depth image returned from this function is 8-bit, user should limit the depth range (`zero_dis` and `one_dis`) for more accurate results.
+        Get the depth 8bit png image from camera. Since each pixel of depth image returned from this function is 8-bit, user should limit the depth range (`zero_dis` and `one_dis`) for more accurate results.
 
         Args:
             zero_dis: The minimum distance in calculation.
@@ -160,7 +160,7 @@ class CameraAttr(attr.BaseAttr):
             width: Int, the width of image.
             height: Int, the height of image.
             fov: Float, the field of view for camera.
-            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignroed.
+            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignored.
         """
         if intrinsic_matrix is None:
             if width is None:
@@ -192,13 +192,13 @@ class CameraAttr(attr.BaseAttr):
         intrinsic_matrix: np.ndarray = None,
     ):
         """
-        Get the depth 16bit png image from camera. Since eacg pixel of depth image returned from this function is 16-bit.
+        Get the depth 16bit png image from camera. Since each pixel of depth image returned from this function is 16-bit, user should limit the depth range (`zero_dis` and `one_dis`) for more accurate results.
 
         Args:
             width: Int, the width of image.
             height: Int, the height of image.
             fov: Float, the field of view for camera.
-            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignroed.
+            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignored.
         """
         if intrinsic_matrix is None:
             if width is None:
@@ -234,7 +234,7 @@ class CameraAttr(attr.BaseAttr):
             width: Int, the width of image.
             height: Int, the height of image.
             fov: Float, the field of view for camera.
-            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignroed.
+            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignored.
         """
         if intrinsic_matrix is None:
             if width is None:
@@ -266,7 +266,7 @@ class CameraAttr(attr.BaseAttr):
             width: Int, the width of image.
             height: Int, the height of image.
             fov: Float, the field of view for camera.
-            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignroed.
+            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignored.
         """
         if intrinsic_matrix is None:
             if width is None:
@@ -311,7 +311,7 @@ class CameraAttr(attr.BaseAttr):
             height: Int, the height of image.
             radius: The radius of heat map.
             fov: Float, the field of view for camera.
-            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignroed.
+            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignored.
         """
         if intrinsic_matrix is None:
             if width is None:
@@ -347,7 +347,7 @@ class CameraAttr(attr.BaseAttr):
             height: Int, the height of image.
             radius: The radius of heat map.
             fov: Float, the field of view for camera.
-            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignroed.
+            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignored.
         """
         if intrinsic_matrix is None:
             if width is None:
