@@ -36,7 +36,7 @@ class RCareWorld(ABC):
             graphics: bool = True,
             port: int = 5004,
             proc_id=0,
-            log_level=1,
+            log_level=0,
             ext_attr: list = [],
             check_version: bool = True
     ):

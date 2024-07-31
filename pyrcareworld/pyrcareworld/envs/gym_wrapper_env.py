@@ -31,7 +31,7 @@ class RCareWorldGymWrapper(RCareWorld, gym.Env):
         graphics: bool = True,
         port: int = 5004,
         proc_id=0,
-        log_level=1,
+        log_level=0,
         ext_attr: list[type(attr.BaseAttr)] = [],
         check_version: bool = True
     ):
