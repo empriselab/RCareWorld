@@ -1,7 +1,7 @@
 from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 
-env = RCareWorld(executable_file="/home/cathy/Workspace/rcareworld_new/RCareUnity/Build/TestPlayer.x86_64", assets=["stretch-3"])
+env = RCareWorld(assets=["stretch-3"])
 
 stretch = env.InstanceObject(name="stretch-3", attr_type=attr.ControllerAttr)
 stretch.SetTransform(position=[0, 0.05, 0])

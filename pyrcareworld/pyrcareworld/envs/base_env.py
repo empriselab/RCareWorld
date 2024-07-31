@@ -15,9 +15,9 @@ class RCareWorld(ABC):
     rcareworld base environment class.
 
     Args:
-        executable_file: Str, the absolute path of Unity executable file. None for last used executable file; "@editor" for using Unity Editor.
-        scene_file: Str, the absolute path of Unity scene JSON file. All JSON files locate at `StreamingAssets/SceneData` by default.
-        assets: List, the list of pre-load assets. All assets in the list will be pre-loaded in Unity when the environment is initialized, which will save time during instantiating.
+        executable_file: Str, the absolute path of Unity executable file. None uses config.json; "@editor" for using Unity Editor.
+        scene_file: Str, the absolute path of Unity scene JSON file. All JSON files locate at `StraemingAssets/SceneData` by default.
+        assets: List, the list of pre-load assets. All assets in the list will be pre-loaded in Unity when the environment is initialized, which will save time during instanciating.
         graphics: Bool, True for showing GUI and False for headless mode.
         port: Int, the port for communication.
         proc_id: Int, the process id for the Unity environment. 0 for the first process, 1 for the second process, and so on.
@@ -232,9 +232,9 @@ class RCareWorld(ABC):
         """
         Close the environment
         """
-        if self.process is not None:
+        if hasattr(self, "process") and self.process is not None:
             self.process.kill()
-        if self.communicator is not None:
+        if hasattr(self, "communicator") and self.communicator is not None:
             self.communicator.close()
 
     # def SetAutoSimulate(self, auto: bool):
