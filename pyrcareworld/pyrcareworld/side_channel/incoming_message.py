@@ -24,9 +24,12 @@ class IncomingMessage:
         if self._at_end_of_buffer():
             return default_value
 
-        val = struct.unpack_from("<?", self.buffer, self.offset)[0]
         self.offset += 1
-        return val
+        return bool(
+            int.from_bytes(
+                self.buffer[self.offset - 1 : self.offset], byteorder="little"
+            )
+        )
 
     def read_int32(self, default_value: int = 0) -> int:
         """
@@ -37,9 +40,10 @@ class IncomingMessage:
         if self._at_end_of_buffer():
             return default_value
 
-        val = struct.unpack_from("<i", self.buffer, self.offset)[0]
         self.offset += 4
-        return val
+        return int.from_bytes(
+            self.buffer[self.offset - 4 : self.offset], byteorder="little"
+        )
 
     def read_float32(self, default_value: float = 0.0) -> float:
         """
@@ -50,9 +54,8 @@ class IncomingMessage:
         if self._at_end_of_buffer():
             return default_value
 
-        val = struct.unpack_from("<f", self.buffer, self.offset)[0]
         self.offset += 4
-        return val
+        return struct.unpack("f", self.buffer[self.offset - 4 : self.offset])[0]
 
     def read_float32_list(self, default_value: List[float] = None) -> List[float]:
         """
@@ -77,16 +80,10 @@ class IncomingMessage:
         """
         if self._at_end_of_buffer():
             return default_value
-        encoded_str_len = self.read_int32()
-        val = self.buffer[self.offset : self.offset + encoded_str_len].decode("ascii")
-        self.offset += encoded_str_len
-        return val
 
-    def get_raw_bytes(self) -> bytes:
-        """
-        Get a copy of the internal bytes used by the message.
-        """
-        return bytearray(self.buffer)
+        count = self.read_int32()
+        self.offset += count
+        return self.buffer[self.offset - count : self.offset].decode("utf-8")
 
     def _at_end_of_buffer(self) -> bool:
         return self.offset >= len(self.buffer)

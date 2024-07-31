@@ -1,202 +1,370 @@
+import numpy as np
 import pyrcareworld.attributes as attr
-from pyrcareworld.side_channel.side_channel import (
-    IncomingMessage,
-    OutgoingMessage,
-)
-import pyrcareworld.utils.utility as utility
-import base64
 
 
-def parse_message(msg: IncomingMessage) -> dict:
-    this_object_data = attr.base_attr.parse_message(msg)
-    this_object_data["width"] = msg.read_int32()
-    this_object_data["height"] = msg.read_int32()
-    this_object_data["fov"] = msg.read_float32()
-    if msg.read_bool() is True:
-        this_object_data["rgb"] = base64.b64decode(msg.read_string())
-    if msg.read_bool() is True:
-        this_object_data["normal"] = base64.b64decode(msg.read_string())
-    if msg.read_bool() is True:
-        this_object_data["id_map"] = base64.b64decode(msg.read_string())
-    if msg.read_bool() is True:
-        this_object_data["depth"] = base64.b64decode(msg.read_string())
-    if msg.read_bool() is True:
-        this_object_data["depth_exr"] = base64.b64decode(msg.read_string())
-    if msg.read_bool() is True:
-        this_object_data["amodal_mask"] = base64.b64decode(msg.read_string())
-    if msg.read_bool() is True:
-        ddbbox_count = msg.read_int32()
-        this_object_data["2d_bounding_box"] = []
-        for i in range(ddbbox_count):
-            this_object_data["2d_bounding_box"][i] = {}
-            this_object_data["2d_bounding_box"][i]["position"] = [
-                msg.read_float32() for _ in range(2)
-            ]
-            this_object_data["2d_bounding_box"][i]["size"] = [
-                msg.read_float32() for _ in range(2)
-            ]
-    if msg.read_bool() is True:
-        dddbbox_count = msg.read_int32()
-        this_object_data["3d_bounding_box"] = []
-        for i in range(dddbbox_count):
-            this_object_data["3d_bounding_box"][i] = {}
-            this_object_data["3d_bounding_box"][i]["position"] = [
-                msg.read_float32() for _ in range(3)
-            ]
-            this_object_data["3d_bounding_box"][i]["rotation"] = [
-                msg.read_float32() for _ in range(3)
-            ]
-            this_object_data["3d_bounding_box"][i]["size"] = [
-                msg.read_float32() for _ in range(3)
-            ]
-    return this_object_data
+class CameraAttr(attr.BaseAttr):
+    """
+    Camera attribute class, which can capture many kinds of screenshots
+    of the scene in rcareworld.
+    """
 
+    def parse_message(self, data: dict):
+        """
+        Parse messages. This function is called by internal function.
 
-def AlignView(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-    msg = OutgoingMessage()
+        Returns:
+            Dict: A dict containing useful information of this class.
 
-    msg.write_int32(kwargs["id"])
-    msg.write_string("AlignView")
+            self.data['rgb']: The bytes of rgb image.
 
-    return msg
+            self.data['normal']: The bytes of normal image.
 
+            self.data['id_map']: The bytes of instance segmentation mask image.
 
-def GetRGB(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id"]
-    optional_params = ["width", "height", "fov", "intrinsic_matrix"]
-    utility.CheckKwargs(kwargs, compulsory_params)
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("GetRGB")
-    if "intrinsic_matrix" in kwargs:
-        msg.write_bool(True)
-        msg.write_float32_list(kwargs["intrinsic_matrix"])
-    else:
-        msg.write_bool(False)
-        msg.write_int32(kwargs["width"])
-        msg.write_int32(kwargs["height"])
-        if "fov" in kwargs:
-            msg.write_float32(kwargs["fov"])
+            self.data['depth']: The bytes of depth image.
+
+            self.data['depth_exr']: The bytes of depth image in exr format.
+
+            self.data['amodal_mask']: The bytes of amodal mask image.
+
+            self.data['heat_map']: The bytes of heat map image.
+
+            self.data['2d_bounding_box']: The 2d bounding box of objects in camera (image) coordinates.
+
+            self.data['3d_bounding_box']: The 3d bounding box of objects in world coordinates.
+        """
+        super().parse_message(data)
+        # if "rgb" in self.data:
+        #     self.data["rgb"] = base64.b64decode(self.data["rgb"])
+        # if "normal" in self.data:
+        #     self.data["normal"] = base64.b64decode(self.data["normal"])
+        # if "id_map" in self.data:
+        #     self.data["id_map"] = base64.b64decode(self.data["id_map"])
+        # if "depth" in self.data:
+        #     self.data["depth"] = base64.b64decode(self.data["depth"])
+        # if "depth_exr" in self.data:
+        #     self.data["depth_exr"] = base64.b64decode(self.data["depth_exr"])
+        # if "amodal_mask" in self.data:
+        #     self.data["amodal_mask"] = base64.b64decode(self.data["amodal_mask"])
+        # if "heat_map" in self.data:
+        #     self.data["heat_map"] = base64.b64decode(self.data["heat_map"])
+
+    def AlignView(self):
+        """
+        Make the camera in rcareworld align the current view in GUI.
+        """
+        self._send_data("AlignView")
+
+    def GetRGB(
+        self,
+        width: int = None,
+        height: int = None,
+        fov: float = 60.0,
+        intrinsic_matrix: np.ndarray = None,
+    ):
+        """
+        Get the camera RGB image.
+
+        Args:
+            width: Int, the width of image.
+            height: Int, the height of image.
+            fov: Float, the field of view for camera.
+            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignored.
+        """
+        if intrinsic_matrix is None:
+            if width is None:
+                width = 512
+            if height is None:
+                height = 512
         else:
-            msg.write_float32(60)
-    return msg
+            if width is None:
+                width = int(intrinsic_matrix[0, 2] * 2)
+            if height is None:
+                height = int(intrinsic_matrix[1, 2] * 2)
 
+        self._send_data("GetRGB", intrinsic_matrix, int(width), int(height), float(fov))
 
-def GetNormal(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id"]
-    optional_params = ["width", "height", "fov", "intrinsic_matrix"]
-    utility.CheckKwargs(kwargs, compulsory_params)
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("GetNormal")
-    if "intrinsic_matrix" in kwargs:
-        msg.write_bool(True)
-        msg.write_float32_list(kwargs["intrinsic_matrix"])
-    else:
-        msg.write_bool(False)
-        msg.write_int32(kwargs["width"])
-        msg.write_int32(kwargs["height"])
-        if "fov" in kwargs:
-            msg.write_float32(kwargs["fov"])
+    def GetNormal(
+        self,
+        width: int = None,
+        height: int = None,
+        fov: float = 60.0,
+        intrinsic_matrix: np.ndarray = None,
+    ):
+        """
+        Get the normal image in world coordinate.
+
+        Args:
+            width: Int, the width of image.
+            height: Int, the height of image.
+            fov: Float, the field of view for camera.
+            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignored.
+        """
+        if intrinsic_matrix is None:
+            if width is None:
+                width = 512
+            if height is None:
+                height = 512
         else:
-            msg.write_float32(60)
-    return msg
+            if width is None:
+                width = int(intrinsic_matrix[0, 2] * 2)
+            if height is None:
+                height = int(intrinsic_matrix[1, 2] * 2)
+        self._send_data(
+            "GetNormal", intrinsic_matrix, int(width), int(height), float(fov)
+        )
 
+    def GetID(
+        self,
+        width: int = None,
+        height: int = None,
+        fov: float = 60.0,
+        intrinsic_matrix: np.ndarray = None,
+    ):
+        """
+        Get the instance segmentation mask image. The color for each pixel is computed from object ID, see `pyrcareworld.utils.rfunicerse_util.GetColorFromID` for more details.
 
-def GetID(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id"]
-    optional_params = ["width", "height", "fov", "intrinsic_matrix"]
-    utility.CheckKwargs(kwargs, compulsory_params)
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("GetID")
-    if "intrinsic_matrix" in kwargs:
-        msg.write_bool(True)
-        msg.write_float32_list(kwargs["intrinsic_matrix"])
-    else:
-        msg.write_bool(False)
-        msg.write_int32(kwargs["width"])
-        msg.write_int32(kwargs["height"])
-        if "fov" in kwargs:
-            msg.write_float32(kwargs["fov"])
+        Args:
+            width: Int, the width of image.
+            height: Int, the height of image.
+            fov: Float, the field of view for camera.
+            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignored.
+        """
+        if intrinsic_matrix is None:
+            if width is None:
+                width = 512
+            if height is None:
+                height = 512
         else:
-            msg.write_float32(60)
-    return msg
+            if width is None:
+                width = int(intrinsic_matrix[0, 2] * 2)
+            if height is None:
+                height = int(intrinsic_matrix[1, 2] * 2)
+        self._send_data("GetID", intrinsic_matrix, int(width), int(height), float(fov))
 
+    def GetDepth(
+        self,
+        zero_dis: float = 0.,
+        one_dis: float = 1.,
+        width: int = None,
+        height: int = None,
+        fov: float = 60.0,
+        intrinsic_matrix: np.ndarray = None,
+    ):
+        """
+        Get the depth 8bit png image from camera. Since each pixel of depth image returned from this function is 8-bit, user should limit the depth range (`zero_dis` and `one_dis`) for more accurate results.
 
-def GetDepth(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "zero_dis", "one_dis"]
-    optional_params = ["width", "height", "fov", "intrinsic_matrix"]
-    utility.CheckKwargs(kwargs, compulsory_params)
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("GetDepth")
-    msg.write_float32(kwargs["zero_dis"])
-    msg.write_float32(kwargs["one_dis"])
-    if "intrinsic_matrix" in kwargs:
-        msg.write_bool(True)
-        msg.write_float32_list(kwargs["intrinsic_matrix"])
-    else:
-        msg.write_bool(False)
-        msg.write_int32(kwargs["width"])
-        msg.write_int32(kwargs["height"])
-        if "fov" in kwargs:
-            msg.write_float32(kwargs["fov"])
+        Args:
+            zero_dis: The minimum distance in calculation.
+            one_dis: The maximum distance in calculation.
+            width: Int, the width of image.
+            height: Int, the height of image.
+            fov: Float, the field of view for camera.
+            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignored.
+        """
+        if intrinsic_matrix is None:
+            if width is None:
+                width = 512
+            if height is None:
+                height = 512
         else:
-            msg.write_float32(60)
-    return msg
+            if width is None:
+                width = int(intrinsic_matrix[0, 2] * 2)
+            if height is None:
+                height = int(intrinsic_matrix[1, 2] * 2)
+        self._send_data(
+            "GetDepth",
+            float(zero_dis),
+            float(one_dis),
+            intrinsic_matrix,
+            int(width),
+            int(height),
+            float(fov),
+        )
 
+    def GetDepth16Bit(
+        self,
+        zero_dis: float = 0.,
+        one_dis: float = 1.,
+        width: int = None,
+        height: int = None,
+        fov: float = 60.0,
+        intrinsic_matrix: np.ndarray = None,
+    ):
+        """
+        Get the depth 16bit png image from camera. Since each pixel of depth image returned from this function is 16-bit, user should limit the depth range (`zero_dis` and `one_dis`) for more accurate results.
 
-def GetDepthEXR(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id"]
-    optional_params = ["width", "height", "fov", "intrinsic_matrix"]
-    utility.CheckKwargs(kwargs, compulsory_params)
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("GetDepthEXR")
-    if "intrinsic_matrix" in kwargs:
-        msg.write_bool(True)
-        msg.write_float32_list(kwargs["intrinsic_matrix"])
-    else:
-        msg.write_bool(False)
-        msg.write_int32(kwargs["width"])
-        msg.write_int32(kwargs["height"])
-        if "fov" in kwargs:
-            msg.write_float32(kwargs["fov"])
+        Args:
+            width: Int, the width of image.
+            height: Int, the height of image.
+            fov: Float, the field of view for camera.
+            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignored.
+        """
+        if intrinsic_matrix is None:
+            if width is None:
+                width = 512
+            if height is None:
+                height = 512
         else:
-            msg.write_float32(60)
-    return msg
+            if width is None:
+                width = int(intrinsic_matrix[0, 2] * 2)
+            if height is None:
+                height = int(intrinsic_matrix[1, 2] * 2)
+        self._send_data(
+            "GetDepth16Bit",
+            float(zero_dis),
+            float(one_dis),
+            intrinsic_matrix,
+            int(width),
+            int(height),
+            float(fov),
+        )
 
+    def GetDepthEXR(
+        self,
+        width: int = None,
+        height: int = None,
+        fov: float = 60.0,
+        intrinsic_matrix: np.ndarray = None,
+    ):
+        """
+        Get the depth exr image from camera. This function returns EXR format image bytes and each pixel is 32-bit.
 
-def GetAmodalMask(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id"]
-    optional_params = ["width", "height", "fov", "intrinsic_matrix"]
-    utility.CheckKwargs(kwargs, compulsory_params)
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("GetAmodalMask")
-    if "intrinsic_matrix" in kwargs:
-        msg.write_bool(True)
-        msg.write_float32_list(kwargs["intrinsic_matrix"])
-    else:
-        msg.write_bool(False)
-        msg.write_int32(kwargs["width"])
-        msg.write_int32(kwargs["height"])
-        if "fov" in kwargs:
-            msg.write_float32(kwargs["fov"])
+        Args:
+            width: Int, the width of image.
+            height: Int, the height of image.
+            fov: Float, the field of view for camera.
+            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignored.
+        """
+        if intrinsic_matrix is None:
+            if width is None:
+                width = 512
+            if height is None:
+                height = 512
         else:
-            msg.write_float32(60)
-    return msg
+            if width is None:
+                width = int(intrinsic_matrix[0, 2] * 2)
+            if height is None:
+                height = int(intrinsic_matrix[1, 2] * 2)
+        self._send_data(
+            "GetDepthEXR", intrinsic_matrix, int(width), int(height), float(fov)
+        )
 
+    def GetAmodalMask(
+        self,
+        target_id: int,
+        width: int = None,
+        height: int = None,
+        fov: float = 60,
+        intrinsic_matrix: np.ndarray = None,
+    ):
+        """
+        Get the amodal mask image for target object.
 
-def Get2DBBox(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("Get2DBBox")
-    return msg
+        Args:
+            target_id: The target object ID.
+            width: Int, the width of image.
+            height: Int, the height of image.
+            fov: Float, the field of view for camera.
+            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignored.
+        """
+        if intrinsic_matrix is None:
+            if width is None:
+                width = 512
+            if height is None:
+                height = 512
+        else:
+            if width is None:
+                width = int(intrinsic_matrix[0, 2] * 2)
+            if height is None:
+                height = int(intrinsic_matrix[1, 2] * 2)
+        self._send_data(
+            "GetAmodalMask",
+            int(target_id),
+            intrinsic_matrix,
+            int(width),
+            int(height),
+            float(fov),
+        )
+
+    def StartHeatMapRecord(self, targets_id: list):
+        targets_id = [int(i) for i in targets_id]
+
+        self._send_data("StartHeatMapRecord", targets_id)
+
+    def EndHeatMapRecord(self):
+        self._send_data("EndHeatMapRecord")
+
+    def GetHeatMap(
+        self,
+        width: int = None,
+        height: int = None,
+        radius: int = 50,
+        fov: float = 60.0,
+        intrinsic_matrix: np.ndarray = None,
+    ):
+        """
+        Get the heat map image.
+
+        Args:
+            width: Int, the width of image.
+            height: Int, the height of image.
+            radius: The radius of heat map.
+            fov: Float, the field of view for camera.
+            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignored.
+        """
+        if intrinsic_matrix is None:
+            if width is None:
+                width = 512
+            if height is None:
+                height = 512
+        else:
+            if width is None:
+                width = int(intrinsic_matrix[0,2] * 2)
+            if height is None:
+                height = int(intrinsic_matrix[1,2] * 2)
+        self._send_data(
+            "GetHeatMap",
+            int(radius),
+            intrinsic_matrix,
+            int(width),
+            int(height),
+            float(fov),
+        )
+
+    def Get2DBBox(
+        self,
+        width: int = None,
+        height: int = None,
+        fov: float = 60.0,
+        intrinsic_matrix: np.ndarray = None,
+    ):
+        """
+        Get the 2d bounding box of objects in current camera view.
+
+        Args:
+            width: Int, the width of image.
+            height: Int, the height of image.
+            radius: The radius of heat map.
+            fov: Float, the field of view for camera.
+            intrinsic_matrix: A ndarray of shape 3*3, representing the camera intrinsic matrix. When this parameter is passed, `width`, `height` and `fov` will be ignored.
+        """
+        if intrinsic_matrix is None:
+            if width is None:
+                width = 512
+            if height is None:
+                height = 512
+        else:
+            if width is None:
+                width = int(intrinsic_matrix[0,2] * 2)
+            if height is None:
+                height = int(intrinsic_matrix[1,2] * 2)
+        self._send_data(
+            "Get2DBBox", intrinsic_matrix, int(width), int(height), float(fov)
+        )
+
+    def Get3DBBox(self):
+        """
+        Get the 3d bounding box of objects in world coordinate.
+        """
+        self._send_data("Get3DBBox")
