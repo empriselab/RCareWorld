@@ -11,8 +11,6 @@ Welcome to PhyRC Challenge Document's documentation!
 
 
 
-   test/examples
-   api/modules
 
 
 Indices and tables
@@ -25,3 +23,9 @@ Indices and tables
 API
 ====
 ..automodule:: test
+
+.. toctree::
+   :maxdepth: 2
+
+   api/modules
+

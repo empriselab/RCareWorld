@@ -8,7 +8,7 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('./code'))
+sys.path.insert(0, os.path.abspath('../pyrcareworld'))
 
 project = 'PhyRC Challenge'
 copyright = '2024, EmPRISE Lab'
