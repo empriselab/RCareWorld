@@ -8,9 +8,8 @@ setup(
     name="pyrcareworld",
     version=VERSION,
     description="rcareworld python interface",
-    url="https://github.com/robotflow-initiative/pyrcareworld",
-    author="RobotFlow AI Team",
-    author_email="robotflow@163.com",
+    url="https://github.com/empriselab/RCareWorld",
+    author="RCareWorld",
     install_requires=[
         "numpy>=1.14.1",
         "opencv-contrib-python",
