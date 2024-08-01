@@ -16,9 +16,11 @@ build:
     # golang: "1.19"
   jobs:
     pre_install:
-      - sphinx-apidoc -o ./docs/api ./pyrcareworld 
-    post_install:
       - pip install -r docs/requirements.txt
+
+    post_install:
+      - sphinx-apidoc -o ./docs/api ./pyrcareworld 
+
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
   configuration: docs/conf.py
