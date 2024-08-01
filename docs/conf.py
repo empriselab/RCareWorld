@@ -10,7 +10,7 @@ import sys
 
 sys.path.insert(0, os.path.abspath('../pyrcareworld'))
 
-project = 'PhyRC Challenge'
+project = 'Rcareworld'
 copyright = '2024, EmPRISE Lab'
 author = 'EmPRISE Lab'
 release = '1.5.0'

@@ -4,7 +4,7 @@
    contain the root `toctree` directive. .. :caption: Contents:
    
 
-Welcome to PhyRC Challenge's Documentation!
+Welcome to RcareWorld's Documentation!
 ====================================================
 
 .. toctree::
