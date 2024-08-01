@@ -19,6 +19,7 @@ build:
       - pip install -r docs/requirements.txt
 
     post_install:
+    - rm -rf ../main_repo
     - git clone --branch main https://github.com/empriselab/RCareWorld.git ../main_repo
     - ls ../main_repo
     - ls
