@@ -31,3 +31,10 @@ Installation
    :maxdepth: 2
 
    install
+
+submission
+====
+.. toctree::
+   :maxdepth: 2
+
+   submission

@@ -1,0 +1,36 @@
+# Use the official Python 3.10 slim image
+FROM python:3.10-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Install git
+RUN apt-get update && \
+    apt-get install -y git && \
+    apt-get clean
+
+# Install Git Large File Storage
+RUN apt-get update && \
+    apt-get install -y curl && \
+    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && \
+    apt-get install -y git-lfs && \
+    apt-get clean && \
+    git lfs install
+
+# Clone the specified GitHub repository
+RUN git clone https://github.com/empriselab/RCareWorld.git
+WORKDIR /app/RCareWorld
+
+# Switch to the competition-specific branch
+RUN git checkout phy-robo-care
+RUN git lfs pull
+
+# Install Python dependencies from requirements.txt
+COPY requirements.txt /app/RCareWorld/
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the test_bathing.py script into the working directory
+COPY test_bathing.py /app/RCareWorld/
+
+# Command to run the test_bathing.py script on container start
+CMD ["python", "test_bathing.py"]
