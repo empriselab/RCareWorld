@@ -1,6 +1,7 @@
 """
-A OMPL plugin for RFUniverse
+An OMPL plugin for RFUniverse
 Modified from pybullet_ompl
+To run this demo, you need to install ompl python following its document.
 
 Author: Jieyi Zhang
 """
@@ -13,14 +14,14 @@ from ompl import geometric as og
 import copy
 import pyrcareworld.attributes as attr
 
-
 class OmplManagerAttr(attr.BaseAttr):
     """
-    To use with rfu_OMPL. You need to construct a instance of this class and pass to PbOMPL.
+    To use with rfu_OMPL. You need to construct an instance of this class and pass to PbOMPL.
+    To run this demo, you need to install ompl python following its document.
 
     Note:
-    This parent class by default assumes that all joints are acutated and should be planned. If this is not your desired
-    behaviour, please write your own inheritated class that overrides respective functionalities.
+    This parent class by default assumes that all joints are actuated and should be planned. If this is not your desired
+    behavior, please write your own inherited class that overrides respective functionalities.
     """
 
     def __init__(self, env, id: int, data=None):
@@ -33,10 +34,20 @@ class OmplManagerAttr(attr.BaseAttr):
         self.joint_upper_limit = []
 
     def parse_message(self, data: dict):
+        """
+        Parse messages. This function is called by an internal function.
+
+        :param data: Dictionary containing the message data.
+        """
         super().parse_message(data)
         self.is_collision = data["is_collide"]
 
     def modify_robot(self, robot_id: int):
+        """
+        Modify the robot's attributes.
+
+        :param robot_id: Int, the ID of the robot.
+        """
         self.robot_attr = self.env.GetAttr(robot_id)
         self.joint_num = self.robot_attr.data["number_of_moveable_joints"]
         self.joint_lower_limit = self.robot_attr.data["joint_lower_limit"]
@@ -46,39 +57,50 @@ class OmplManagerAttr(attr.BaseAttr):
 
     def get_cur_state(self) -> list:
         """
-        Get current robot state.
+        Get the current robot state.
+
+        :return: List of current joint values.
         """
         return copy.deepcopy(self.state)
 
     def set_state(self, state):
         """
-        Set robot state.
-        To faciliate collision checking
-        Args:
-            state: list[Float], joint values of robot
+        Set the robot state.
+
+        :param state: List of Float, joint values of the robot.
         """
         self.state = state
         self._set_joint_positions(self.state)
 
     def reset(self):
         """
-        Reset robot state
-        Args:
-            state: list[Float], joint values of robot
+        Reset the robot state.
         """
         self.state = [0.0] * self.joint_num
         self._set_joint_positions(self.state)
 
     def _set_joint_positions(self, positions: list):
-        self.is_collision = False
+        """
+        Set joint positions.
 
+        :param positions: List of joint positions.
+        """
+        self.is_collision = False
         self._send_data("SetJointState", positions)
 
     def RestoreRobot(self, robot_id: int):
+        """
+        Restore the robot to its initial state.
+
+        :param robot_id: Int, the ID of the robot.
+        """
         self._send_data("RestoreRobot", robot_id)
 
-
 class RFUStateSpace(ob.RealVectorStateSpace):
+    """
+    Custom state space for RFUniverse.
+    """
+
     def __init__(self, num_dim) -> None:
         super().__init__(num_dim)
         self.num_dim = num_dim
@@ -86,28 +108,31 @@ class RFUStateSpace(ob.RealVectorStateSpace):
 
     def allocStateSampler(self):
         """
-        This will be called by the internal OMPL planner
+        Allocate a state sampler. This will be called by the internal OMPL planner.
         """
-        # WARN: This will cause problems if the underlying planner is multi-threaded!!!
         if self.state_sampler:
             return self.state_sampler
-
-        # when ompl planner calls this, we will return our sampler
         return self.allocDefaultStateSampler()
 
     def set_state_sampler(self, state_sampler):
         """
-        Optional, Set custom state sampler.
+        Set a custom state sampler.
+
+        :param state_sampler: The custom state sampler.
         """
         self.state_sampler = state_sampler
 
-
 class RFUOMPL:
+    """
+    RFUniverse OMPL interface for path planning.
+    """
+
     def __init__(self, manager, time_unit=1) -> None:
         """
-        Args
-            robot: A RFUOMPLRobot instance.
-            obstacles: list of obstacle ids. Optional.
+        Initialize the RFUOMPL class.
+
+        :param manager: An instance of OmplManagerAttr.
+        :param time_unit: The time unit for planning.
         """
         self.manager = manager
         self.env = self.manager.env
@@ -126,22 +151,25 @@ class RFUOMPL:
         self.ss = og.SimpleSetup(self.space)
         self.ss.setStateValidityChecker(ob.StateValidityCheckerFn(self.is_state_valid))
         self.si = self.ss.getSpaceInformation()
-        # self.si.setStateValidityCheckingResolution(0.005)
-        # self.collision_fn = pb_utils.get_collision_fn(self.robot_id, self.robot.joint_idx, self.obstacles, [], True, set(),
-        #                                                 custom_limits={}, max_distance=0, allow_collision_links=[])
 
-        self.set_planner("InformedRRTstar")  # RRT by default
+        self.set_planner("InformedRRTstar")
 
     def is_state_valid(self, state):
-        # check if a given state will lead a collision
+        """
+        Check if a given state will lead to a collision.
+
+        :param state: The state to check.
+        :return: Bool, True if the state is valid, False otherwise.
+        """
         self.manager.set_state(self.state_to_list(state))
-        # self.env.SetNextStepNoTimeConsuming()
         self.env.step(2)
         return not self.manager.is_collision
 
     def set_planner(self, planner_name):
         """
-        Note: Add your planner here!!
+        Set the planner.
+
+        :param planner_name: The name of the planner.
         """
         if planner_name == "PRM":
             self.planner = og.PRM(self.ss.getSpaceInformation())
@@ -160,13 +188,19 @@ class RFUOMPL:
         elif planner_name == "InformedRRTstar":
             self.planner = og.InformedRRTstar(self.ss.getSpaceInformation())
         else:
-            print("{} not recognized, please add it first".format(planner_name))
+            print(f"{planner_name} not recognized, please add it first")
             return
         self.ss.setPlanner(self.planner)
 
     def plan_start_goal(self, start, goal, until_success=True, allowed_time=None):
         """
-        plan a path to gaol from the given robot start state
+        Plan a path to the goal from the given robot start state.
+
+        :param start: List of start joint positions.
+        :param goal: List of goal joint positions.
+        :param until_success: Bool, keep planning until success.
+        :param allowed_time: Float, allowed planning time.
+        :return: Tuple of (Bool, list of states)
         """
         if allowed_time is None:
             allowed_time = self.time_unit
@@ -176,62 +210,52 @@ class RFUOMPL:
 
         orig_robot_state = self.manager.get_cur_state()
 
-        # set the start and goal states;
         s = ob.State(self.space)
         g = ob.State(self.space)
         for i in range(len(start)):
             s[i] = start[i]
             g[i] = goal[i]
 
-        # print(self.is_state_valid(goal))
-        # print(g)
-        # print(goal)
         self.ss.setStartAndGoalStates(s, g)
 
-        # attempt to solve the problem within allowed planning time
         res = False
         self.ss.solve(allowed_time)
         print("Solution Find")
         while True:
-            print(
-                "Found solution: interpolating into {} segments".format(INTERPOLATE_NUM)
-            )
-            # print the path to screen
+            print(f"Found solution: interpolating into {INTERPOLATE_NUM} segments")
             sol_path_geometric = self.ss.getSolutionPath()
             sol_path_geometric.interpolate(INTERPOLATE_NUM)
             sol_path_states = sol_path_geometric.getStates()
             sol_path_list = [self.state_to_list(state) for state in sol_path_states]
-            sum = 0
-            last_state = sol_path_list[-1]
-            for i in range(self.manager.joint_num):
-                sum += abs(goal[i] - last_state[i])
-            if sum < 1e-2:
+            sum_error = sum(abs(goal[i] - sol_path_list[-1][i]) for i in range(self.manager.joint_num))
+            if sum_error < 1e-2:
                 res = True
             if not until_success or res:
                 break
             allowed_time *= 2
             self.ss.solve(allowed_time)
 
-        # reset robot state
         self.manager.set_state(orig_robot_state)
         self.env.step(50)
         return res, sol_path_list
 
     def plan(self, goal, allowed_time=DEFAULT_PLANNING_TIME):
         """
-        plan a path to gaol from current robot state
+        Plan a path to the goal from the current robot state.
+
+        :param goal: List of goal joint positions.
+        :param allowed_time: Float, allowed planning time.
+        :return: Tuple of (Bool, list of states)
         """
         start = self.manager.get_cur_state()
         return self.plan_start_goal(start, goal, allowed_time=allowed_time)
 
     def execute(self, path, dynamics=False):
         """
-        Execute a planned plan. Will visualize in pybullet.
-        Args:
-            path: list[state], a list of state
-            dynamics: allow dynamic simulation. If dynamics is false, this API will use robot.set_state(),
-                      meaning that the simulator will simply reset robot's state WITHOUT any dynamics simulation. Since the
-                      path is collision free, this is somewhat acceptable.
+        Execute a planned path and visualize in pybullet.
+
+        :param path: List of states.
+        :param dynamics: Bool, allow dynamic simulation. If False, uses robot.set_state() which resets the robot's state without dynamics simulation.
         """
         for q in path:
             if dynamics:
@@ -243,7 +267,18 @@ class RFUOMPL:
             self.env.step()
 
     def set_state_sampler(self, state_sampler):
+        """
+        Set a custom state sampler.
+
+        :param state_sampler: The custom state sampler.
+        """
         self.space.set_state_sampler(state_sampler)
 
     def state_to_list(self, state):
+        """
+        Convert a state to a list.
+
+        :param state: The state to convert.
+        :return: List of state values.
+        """
         return [state[i] for i in range(self.manager.joint_num)]
