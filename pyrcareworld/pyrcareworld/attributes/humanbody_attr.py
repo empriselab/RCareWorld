@@ -1,6 +1,5 @@
 import pyrcareworld.attributes as attr
 
-
 class HumanbodyAttr(attr.BaseAttr):
     """
     Human body Inverse Kinematic class.
@@ -8,14 +7,14 @@ class HumanbodyAttr(attr.BaseAttr):
 
     def parse_message(self, data: dict):
         """
-        Parse messages. This function is called by internal function.
+        Parse messages. This function is called by an internal function.
 
-        Returns:
-            Dict: A dict containing useful information of this class.
+        :param data: Dictionary containing the message data.
+        :return: A dict containing useful information of this class.
+        :rtype: dict
 
-            self.data['move_done']: Whether the movement has finished.
-
-            self.data['rotate_done']: Whether the rotation has finished.
+        self.data['move_done']: Whether the movement has finished.
+        self.data['rotate_done']: Whether the rotation has finished.
         """
         super().parse_message(data)
 
@@ -30,12 +29,11 @@ class HumanbodyAttr(attr.BaseAttr):
         """
         Human body Inverse Kinematics target movement.
 
-        Args:
-            index: Int, the target for movement. 0 for left hand, 1 for right hand,2 for left foot, 3 for right foot, 4 for head.
-            position: A list of length 3, representing the position.
-            duration: Float, if `speed_based` is True, it represents movement duration; otherwise, it represents movement speed.
-            speed_based: Bool.
-            relative: Bool, if True, `position` is relative; otherwise, `position` is absolute.
+        :param index: Int, the target for movement. 0 for left hand, 1 for right hand, 2 for left foot, 3 for right foot, 4 for head.
+        :param position: A list of length 3, representing the position.
+        :param duration: Float, if `speed_based` is True, it represents movement duration; otherwise, it represents movement speed.
+        :param speed_based: Bool, if True, `duration` represents movement duration; otherwise, it represents movement speed.
+        :param relative: Bool, if True, `position` is relative; otherwise, `position` is absolute.
         """
         if position is not None:
             assert len(position) == 3, "position length must be 3"
@@ -60,12 +58,11 @@ class HumanbodyAttr(attr.BaseAttr):
         """
         Human body Inverse Kinematics target rotation.
 
-        Args:
-            index: Int, the target for movement. 0 for left hand, 1 for right hand,2 for left foot, 3 for right foot, 4 for head.
-            rotation: A list of length 3, representing the rotation.
-            duration: Float, if `speed_based` is True, it represents movement duration; otherwise, it represents movement speed.
-            speed_based: Bool.
-            relative: Bool, if True, `rotation` is relative; otherwise, `rotation` is absolute.
+        :param index: Int, the target for movement. 0 for left hand, 1 for right hand, 2 for left foot, 3 for right foot, 4 for head.
+        :param rotation: A list of length 3, representing the rotation.
+        :param duration: Float, if `speed_based` is True, it represents movement duration; otherwise, it represents movement speed.
+        :param speed_based: Bool, if True, `duration` represents movement duration; otherwise, it represents movement speed.
+        :param relative: Bool, if True, `rotation` is relative; otherwise, `rotation` is absolute.
         """
         if rotation is not None:
             assert len(rotation) == 3, "rotation length must be 3"
@@ -90,12 +87,11 @@ class HumanbodyAttr(attr.BaseAttr):
         """
         Human body Inverse Kinematics target rotation using quaternion.
 
-        Args:
-            index: Int, the target for movement. 0 for left hand, 1 for right hand,2 for left foot, 3 for right foot, 4 for head.
-            quaternion: A list of length 4, representing the quaternion.
-            duration: Float, if `speed_based` is True, it represents movement duration; otherwise, it represents movement speed.
-            speed_based: Bool.
-            relative: Bool, if True, `quaternion` is relative; otherwise, `quaternion` is absolute.
+        :param index: Int, the target for movement. 0 for left hand, 1 for right hand, 2 for left foot, 3 for right foot, 4 for head.
+        :param quaternion: A list of length 4, representing the quaternion.
+        :param duration: Float, if `speed_based` is True, it represents movement duration; otherwise, it represents movement speed.
+        :param speed_based: Bool, if True, `duration` represents movement duration; otherwise, it represents movement speed.
+        :param relative: Bool, if True, `quaternion` is relative; otherwise, `quaternion` is absolute.
         """
         if quaternion is not None:
             assert len(quaternion) == 4, "quaternion length must be 4"
@@ -111,18 +107,16 @@ class HumanbodyAttr(attr.BaseAttr):
 
     def HumanIKTargetDoComplete(self, index: int):
         """
-        Make the human body IK target movement / rotation complete directly.
+        Make the human body IK target movement/rotation complete directly.
 
-        Args:
-            index: Int, the target for movement. 0 for left hand, 1 for right hand,2 for left foot, 3 for right foot, 4 for head.
+        :param index: Int, the target for movement. 0 for left hand, 1 for right hand, 2 for left foot, 3 for right foot, 4 for head.
         """
         self._send_data("HumanIKTargetDoComplete", index)
 
     def HumanIKTargetDoKill(self, index: int):
         """
-        Make the human body IK target movement / rotation stop.
+        Make the human body IK target movement/rotation stop.
 
-        Args:
-            index: Int, the target for movement. 0 for left hand, 1 for right hand,2 for left foot, 3 for right foot, 4 for head.
+        :param index: Int, the target for movement. 0 for left hand, 1 for right hand, 2 for left foot, 3 for right foot, 4 for head.
         """
         self._send_data("HumanIKTargetDoKill", index)
