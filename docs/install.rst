@@ -4,7 +4,7 @@
 Welcome to PhyRC Challenge's documentation!
 =====================================================
 
-.. image:: rcareworld.png
+.. image:: ../rcareworld.png
    :alt: alt text
 
 Here is the code for RCareWorld PhyRC Challenge 🦾
@@ -76,7 +76,7 @@ or
 
 If you have correctly installed based on the installation guide, then a Unity window should open up and the resulting image should appear.
 
-.. image:: ./Test_Install_Image.png
+.. image:: ../Test_Install_Image.png
    :alt: alt text
 
 Tutorial Videos
