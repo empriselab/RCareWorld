@@ -22,8 +22,8 @@ build:
     - git clone --branch main https://github.com/empriselab/RCareWorld.git ../main_repo
     - ls ../main_repo
     - ls
-    - cp -r ../main_repo/pycareworld ./pycareworld
-    - sphinx-apidoc -o ./docs/api ./pycareworld ./pycareworld/pyrcareworld/demo/*
+    - cp -r ../main_repo/pyrcareworld ./pyrcareworld
+    - sphinx-apidoc -o ./docs/api ./pyrcareworld ./pyrcareworld/pyrcareworld/demo/*
 
 
 # Build documentation in the "docs/" directory with Sphinx
