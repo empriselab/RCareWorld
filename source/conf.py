@@ -5,10 +5,6 @@
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
-import os
-import sys
-
-sys.path.insert(0, os.path.abspath('./code'))
 
 project = 'PhyRC Challenge'
 copyright = '2024, EmPRISE Lab'
@@ -20,20 +16,13 @@ release = '1.0.1'
 
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.todo',
-    'sphinx.ext.coverage',
-    'sphinx.ext.mathjax',
-    'sphinx.ext.githubpages',
-    'sphinx.ext.intersphinx',
-    'sphinx.ext.autosummary',
     'sphinx.ext.napoleon',  
     'sphinx.ext.viewcode',
-    'myst_parser',
 ]
 
 templates_path = ['_templates']
 exclude_patterns = []
-autosummary_generate = True
+
 
 
 # -- Options for HTML output -------------------------------------------------

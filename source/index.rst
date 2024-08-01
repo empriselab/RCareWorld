@@ -11,8 +11,8 @@ Welcome to PhyRC Challenge Document's documentation!
 
 
 
+   install
    test/examples
-   api/modules
 
 
 Indices and tables
@@ -22,6 +22,4 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
-API
-====
-..automodule:: test
+
