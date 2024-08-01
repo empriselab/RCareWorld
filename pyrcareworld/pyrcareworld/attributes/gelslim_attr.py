@@ -1,7 +1,6 @@
 import base64
 import pyrcareworld.attributes as attr
 
-
 class GelSlimAttr(attr.BaseAttr):
     """
     Class for simulating GelSlim tactile sensor.
@@ -9,14 +8,14 @@ class GelSlimAttr(attr.BaseAttr):
 
     def parse_message(self, data: dict):
         """
-        Parse messages. This function is called by internal function.
+        Parse messages. This function is called by an internal function.
 
-        Returns:
-            Dict: A dict containing useful information of this class.
+        :param data: Dictionary containing the message data.
+        :return: A dict containing useful information of this class.
+        :rtype: dict
 
-            self.data['light']: Bytes of RGB light image in GelSlim.
-
-            self.data['depth']: Bytes of depth image in GelSlim.
+        self.data['light']: Bytes of RGB light image in GelSlim.
+        self.data['depth']: Bytes of depth image in GelSlim.
         """
         super().parse_message(data)
         if "light" in self.data:
@@ -34,9 +33,8 @@ class GelSlimAttr(attr.BaseAttr):
         """
         Blur Gel mesh. Simulate smooth deformation.
 
-        Args:
-            radius: Int, Gaussian blur radius.
-            sigma: Float, Gaussian blur sigma.
+        :param radius: Int, Gaussian blur radius.
+        :param sigma: Float, Gaussian blur sigma.
         """
         self._send_data("BlurGel", int(radius), float(sigma))
 

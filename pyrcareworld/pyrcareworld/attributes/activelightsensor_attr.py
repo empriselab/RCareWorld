@@ -12,17 +12,24 @@ class ActiveLightSensorAttr(attr.CameraAttr):
     """
 
     def __init__(self, env, id: int, data=None):
+        """
+        Initialize the ActiveLightSensorAttr.
+
+        :param env: Environment object.
+        :param id: ID of the sensor.
+        :param data: Optional initial data.
+        """
         super().__init__(env, id, data)
         self.main_intrinsic_matrix = np.eye(3)
         self.ir_intrinsic_matrix = np.eye(3)
 
     def parse_message(self, data: dict):
         """
-        Parse messages. This function is called by internal function.
+        Parse messages. This function is called by an internal function.
 
-        Returns:
-            Dict: A dict containing useful information of this class.\n
-            self.data['active_depth']: IR-based depth, shape = (w,h)
+        :param data: Dictionary containing the message data.
+        :return: A dict containing useful information of this class.
+        :rtype: dict
         """
         super().parse_message(data)
         if "ir_left" in self.data and "ir_right" in self.data:
@@ -88,9 +95,8 @@ class ActiveLightSensorAttr(attr.CameraAttr):
         """
         Get IR-based depth image.
 
-        Args:
-            main_intrinsic_matrix_local: np.ndarray The intrinsic matrix of main camera.
-            ir_intrinsic_matrix_local: np.ndarray The intrinsic matrix of IR-based camera.
+        :param main_intrinsic_matrix_local: np.ndarray The intrinsic matrix of main camera.
+        :param ir_intrinsic_matrix_local: np.ndarray The intrinsic matrix of IR-based camera.
         """
         self.main_intrinsic_matrix = main_intrinsic_matrix_local
         self.ir_intrinsic_matrix = ir_intrinsic_matrix_local

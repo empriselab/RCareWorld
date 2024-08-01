@@ -1,55 +1,57 @@
 class BaseAttr:
     """
     Base attribute class, which includes general functions such as
-    object loading, deleting and transforming.
+    object loading, setting transform, setting parent, etc.
     """
 
     def __init__(self, env, id: int, data: dict = {}):
+        """
+        Initialize the BaseAttr.
+
+        :param env: Environment object.
+        :param id: ID of the object.
+        :param data: Optional initial data.
+        """
         self.env = env
         self.id = id
         self.data = data
 
     def parse_message(self, data: dict):
         """
-        Parse messages. This function is called by internal function.
+        Parse messages. This function is called by an internal function.
 
-        Returns:
-            Dict: A dict containing useful information of this class.
+        :param data: Dictionary containing the message data.
+        :return: A dict containing useful information of this class.
+        :rtype: dict
 
-            self.data['name']: The name of the object.
-
-            self.data['position']: The position of the object in world coordinates.
-
-            self.data['rotation']: The euler angle of the object in world coordinates.
-
-            self.data['quaternion']: The quaternion of the object in world coordinates.
-
-            self.data['local_position']: The position of the object in its parent's local coordinates.
-
-            self.data['local_rotation']: The euler angle of the object in its parent's local coordinates.
-
-            self.data['local_quaternion']: The quaternion of the object in its parent's local coordinates.
-
-            self.data['local_to_world_matrix']: The transformation matrix from local to world coordinates.
-
-            self.data['result_local_point']: The result of transforming the object from local to world coordinates.
-
-            self.data['result_world_point']: The result of transforming the object from world to local coordinates.
+        self.data['name']: The name of the object.
+        self.data['position']: The position of the object in world coordinates.
+        self.data['rotation']: The euler angle of the object in world coordinates.
+        self.data['quaternion']: The quaternion of the object in world coordinates.
+        self.data['local_position']: The position of the object in its parent's local coordinates.
+        self.data['local_rotation']: The euler angle of the object in its parent's local coordinates.
+        self.data['local_quaternion']: The quaternion of the object in its parent's local coordinates.
+        self.data['local_to_world_matrix']: The transformation matrix from local to world coordinates.
+        self.data['result_local_point']: The result of transforming the object from local to world coordinates.
+        self.data['result_world_point']: The result of transforming the object from world to local coordinates.
         """
         self.data = data
 
     def _send_data(self, message: str, *args):
+        """
+        Send data to the environment.
+
+        :param message: The message to send.
+        :param args: Additional arguments for the message.
+        """
         self.env._send_instance_data(self.id, message, *args)
 
     def SetType(self, attr_type: type):
         """
-        Set the attribute type of this object
+        Set the attribute type of this object.
 
-        Args:
-            attr_type: Any attribute in pyrcareworld.attributes.
-
-        Returns:
-            The target attribute.
+        :param attr_type: Any attribute in pyrcareworld.attributes.
+        :return: The target attribute.
         """
         self.env.attrs[self.id] = attr_type(self.env, self.id, self.data)
         return self.env.attrs[self.id]
@@ -62,13 +64,12 @@ class BaseAttr:
         is_world: bool = True,
     ):
         """
-        Set the transform of this object, including position, rotation, scale and coordinate.
+        Set the transform of this object, including position, rotation, scale, and coordinate.
 
-        Args:
-            position: A list of length 3, representing the target position value of object.
-            rotation: A list of length 3, representing the target euler angle value of object.
-            scale: A list of length 3, representing the target scale value of object.
-            is_world: Bool, True for world coordinate, False for local coordinate.
+        :param position: A list of length 3, representing the target position value of the object.
+        :param rotation: A list of length 3, representing the target euler angle value of the object.
+        :param scale: A list of length 3, representing the target scale value of the object.
+        :param is_world: Bool, True for world coordinate, False for local coordinate.
         """
         if position is not None:
             assert len(position) == 3, "position length must be 3"
@@ -84,11 +85,10 @@ class BaseAttr:
 
     def SetPosition(self, position: list = None, is_world: bool = True):
         """
-        Set the position of this object
+        Set the position of this object.
 
-        Args:
-            position: A list of length 3, representing the target position value of object.
-            is_world: Bool, True for world coordinate, False for local coordinate.
+        :param position: A list of length 3, representing the target position value of the object.
+        :param is_world: Bool, True for world coordinate, False for local coordinate.
         """
         assert len(position) == 3, "position length must be 3"
         position = [float(i) for i in position]
@@ -97,11 +97,10 @@ class BaseAttr:
 
     def SetRotation(self, rotation: list = None, is_world: bool = True):
         """
-        Set the rotation of this object
+        Set the rotation of this object.
 
-        Args:
-            rotation: A list of length 3, representing the target euler angle value of object.
-            is_world: Bool, True for world coordinate, False for local coordinate.
+        :param rotation: A list of length 3, representing the target euler angle value of the object.
+        :param is_world: Bool, True for world coordinate, False for local coordinate.
         """
         assert len(rotation) == 3, "rotation length must be 3"
         rotation = [float(i) for i in rotation]
@@ -110,11 +109,10 @@ class BaseAttr:
 
     def SetRotationQuaternion(self, quaternion: list = None, is_world: bool = True):
         """
-        Rotate this object using quaternion.
+        Set the rotation of this object using quaternion.
 
-        Args:
-            quaternion: A list of length 4, representing the quaternion from current pose.
-            is_world: Bool, True for world coordinate, False for local coordinate.
+        :param quaternion: A list of length 4, representing the quaternion from the current pose.
+        :param is_world: Bool, True for world coordinate, False for local coordinate.
         """
         assert len(quaternion) == 4, "quaternion length must be 4"
         quaternion = [float(i) for i in quaternion]
@@ -123,10 +121,9 @@ class BaseAttr:
 
     def SetScale(self, scale: list = None):
         """
-        Set the scale of this object
+        Set the scale of this object.
 
-        Args:
-            scale: A list of length 3, representing the target scale value of object.
+        :param scale: A list of length 3, representing the target scale value of the object.
         """
         assert len(scale) == 3, "scale length must be 3"
         scale = [float(i) for i in scale]
@@ -137,9 +134,8 @@ class BaseAttr:
         """
         Translate this object.
 
-        Args:
-            translation: A list of length 3, representing the translation from current position.
-            is_world: Bool, True for world coordinate, False for local coordinate.
+        :param translation: A list of length 3, representing the translation from the current position.
+        :param is_world: Bool, True for world coordinate, False for local coordinate.
         """
         assert len(translation) == 3, "translation length must be 3"
         translation = [float(i) for i in translation]
@@ -150,9 +146,8 @@ class BaseAttr:
         """
         Rotate this object.
 
-        Args:
-            rotation: A list of length 3, representing the euler-angle-format rotation from current euler angle.
-            is_world: Bool, True for world coordinate, False for local coordinate.
+        :param rotation: A list of length 3, representing the euler-angle-format rotation from the current euler angle.
+        :param is_world: Bool, True for world coordinate, False for local coordinate.
         """
         assert len(rotation) == 3, "rotation length must be 3"
         rotation = [float(i) for i in rotation]
@@ -161,11 +156,10 @@ class BaseAttr:
 
     def LookAt(self, target: list, world_up: list = None):
         """
-        Rotates the transform so the forward vector points at target's current position.
+        Rotate the transform so the forward vector points at the target's current position.
 
-        Args:
-            target: A list of length 3, target to point towards.
-            world_up: A list of length 3, vector specifying the upward direction.
+        :param target: A list of length 3, target to point towards.
+        :param world_up: A list of length 3, vector specifying the upward direction.
         """
         if world_up is None:
             world_up = [0.0, 1.0, 0.0]
@@ -178,10 +172,9 @@ class BaseAttr:
 
     def SetActive(self, active: bool):
         """
-        Set the activeness of this object.
+        Activate/Deactivate this object.
 
-        Args:
-            active: Bool, True for active, False for inactive.
+        :param active: Bool, True for active, False for inactive.
         """
         self._send_data("SetActive", active)
 
@@ -189,18 +182,16 @@ class BaseAttr:
         """
         Set the parent of this object.
 
-        Args:
-            parent_id: Int, the id of parent object.
-            parent_name: Str, the name of parent object.
+        :param parent_id: Int, the ID of the parent object.
+        :param parent_name: Str, the name of the parent object.
         """
         self._send_data("SetParent", parent_id, parent_name)
 
     def SetLayer(self, layer: int):
         """
-        Set the layer in Unity of this object.
+        Set the layer in Unity of this object. Check https://docs.unity3d.com/Manual/Layers.html to get an idea about layers.
 
-        Args:
-            layer: Int, the number of layer.
+        :param layer: Int, the number of the layer.
         """
         self._send_data("SetLayer", layer)
 
@@ -208,8 +199,8 @@ class BaseAttr:
         """
         Duplicate an object.
 
-        Args:
-            new_id: Int, the id of new object.
+        :param new_id: Int, the ID of the new object.
+        :return: The new duplicated object.
         """
         self._send_data("Copy", new_id)
 
@@ -218,7 +209,7 @@ class BaseAttr:
 
     def Destroy(self):
         """
-        Destroy this object in Unity.
+        Destroy this object.
         """
         self._send_data("Destroy")
 
@@ -226,10 +217,10 @@ class BaseAttr:
 
     def GetLocalPointFromWorld(self, point: list):
         """
-        Transform a point from local coordinates to world coordinates. After calling this method and stepping once, the result will be saved in self.data['result_local_point']
+        Transform a point from local coordinates to world coordinates.
+        After calling this method and stepping once, the result will be saved in self.data['result_local_point'].
 
-        Args:
-            point: A list of length 3, representing the position of a point.
+        :param point: A list of length 3, representing the position of a point.
         """
         assert len(point) == 3, "point length must be 3"
         point = [float(i) for i in point]
@@ -238,10 +229,10 @@ class BaseAttr:
 
     def GetWorldPointFromLocal(self, point: list):
         """
-        Transform a point from world coordinates to local coordinates. After calling this method and stepping once, the result will be saved in self.data['result_world_point']
+        Transform a point from world coordinates to local coordinates.
+        After calling this method and stepping once, the result will be saved in self.data['result_world_point'].
 
-        Args:
-            point: A list of length 3, representing the position of a point.
+        :param point: A list of length 3, representing the position of a point.
         """
         assert len(point) == 3, "point length must be 3"
         point = [float(i) for i in point]
@@ -258,11 +249,10 @@ class BaseAttr:
         """
         Tween movement.
 
-        Args:
-            position: A list of length 3, representing the position.
-            duration: Float, if `speed_based` is True, it represents movement duration; otherwise, it represents movement speed.
-            speed_based: Bool.
-            relative: Bool, if True, `position` is relative; otherwise, `position` is absolute.
+        :param position: A list of length 3, representing the position.
+        :param duration: Float, if `speed_based` is True, it represents movement duration; otherwise, it represents movement speed.
+        :param speed_based: Bool, determines if the movement is speed-based.
+        :param relative: Bool, if True, `position` is relative; otherwise, `position` is absolute.
         """
         if position is not None:
             assert len(position) == 3, "position length must be 3"
@@ -282,11 +272,10 @@ class BaseAttr:
         """
         Tween rotation.
 
-        Args:
-            rotation: A list of length 3, representing the rotation.
-            duration: Float, if `speed_based` is True, it represents movement duration; otherwise, it represents movement speed.
-            speed_based: Bool.
-            relative: Bool, if True, `rotation` is relative; otherwise, `rotation` is absolute.
+        :param rotation: A list of length 3, representing the rotation.
+        :param duration: Float, if `speed_based` is True, it represents movement duration; otherwise, it represents movement speed.
+        :param speed_based: Bool, determines if the rotation is speed-based.
+        :param relative: Bool, if True, `rotation` is relative; otherwise, `rotation` is absolute.
         """
         if rotation is not None:
             assert len(rotation) == 3, "rotation length must be 3"
@@ -306,11 +295,10 @@ class BaseAttr:
         """
         Tween rotation using quaternion.
 
-        Args:
-            quaternion: A list of length 4, representing the quaternion.
-            duration: Float, if `speed_based` is True, it represents movement duration; otherwise, it represents movement speed.
-            speed_based: Bool.
-            relative: Bool, if True, `quaternion` is relative; otherwise, `quaternion` is absolute.
+        :param quaternion: A list of length 4, representing the quaternion.
+        :param duration: Float, if `speed_based` is True, it represents movement duration; otherwise, it represents movement speed.
+        :param speed_based: Bool, determines if the rotation is speed-based.
+        :param relative: Bool, if True, `quaternion` is relative; otherwise, `quaternion` is absolute.
         """
         if quaternion is not None:
             assert len(quaternion) == 4, "quaternion length must be 4"
@@ -326,20 +314,21 @@ class BaseAttr:
 
     def DoComplete(self):
         """
-        Tween movement / rotation complete directly.
+        Complete tween movement/rotation directly.
         """
         self._send_data("DoComplete")
 
     def DoKill(self):
         """
-        Tween movement / rotation stop.
+        Stop tween movement/rotation.
         """
         self._send_data("DoKill")
 
     def WaitDo(self):
         """
-        Wait for the native IK target movement / rotation complete.
+        Wait for the native IK target movement/rotation to complete.
         """
+
         self.env._step()
         while not self.data["move_done"] or not self.data["rotate_done"]:
             self.env._step()

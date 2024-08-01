@@ -1,7 +1,6 @@
 import numpy as np
 import pyrcareworld.attributes as attr
 
-
 class PointCloudAttr(attr.BaseAttr):
     """
     Point cloud rendering class.
@@ -9,10 +8,11 @@ class PointCloudAttr(attr.BaseAttr):
 
     def parse_message(self, data: dict):
         """
-        Parse messages. This function is called by internal function.
+        Parse messages. This function is called by an internal function.
 
-        Returns:
-            Dict: A dict containing useful information of this class.
+        :param data: Dictionary containing the message data.
+        :return: A dict containing useful information of this class.
+        :rtype: dict
         """
         super().parse_message(data)
 
@@ -26,12 +26,11 @@ class PointCloudAttr(attr.BaseAttr):
         """
         Display point cloud in Unity.
 
-        Args:
-            positions: A list of positions of points in a point cloud.
-            colors: A list of colors of points (range [0, 1]) in a point cloud.
-            ply_path: Str, the absolute path of `.ply` file. If this parameter is specified, `positions`
-                and `colors` will be ignored.
-            radius: Float, the radius of the point cloud.
+        :param positions: A list of positions of points in a point cloud.
+        :param colors: A list of colors of points (range [0, 1]) in a point cloud.
+        :param ply_path: Str, the absolute path of `.ply` file. If this parameter is specified, `positions`
+                         and `colors` will be ignored.
+        :param radius: Float, the radius of the point cloud.
         """
         self._send_data("ShowPointCloud", ply_path, positions, colors, radius)
 
@@ -39,7 +38,6 @@ class PointCloudAttr(attr.BaseAttr):
         """
         Set the radius for points in a point cloud.
 
-        Args:
-            radius: Float, the radius.
+        :param radius: Float, the radius.
         """
         self._send_data("SetRadius", radius)

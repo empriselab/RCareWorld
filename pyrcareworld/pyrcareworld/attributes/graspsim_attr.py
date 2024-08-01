@@ -1,6 +1,5 @@
 import pyrcareworld.attributes as attr
 
-
 class GraspSimAttr(attr.BaseAttr):
     """
     Grasp pose simulation class.
@@ -8,20 +7,17 @@ class GraspSimAttr(attr.BaseAttr):
 
     def parse_message(self, data: dict):
         """
-        Parse messages. This function is called by internal function.
+        Parse messages. This function is called by an internal function.
 
-        Returns:
-            Dict: A dict containing useful information of this class.
+        :param data: Dictionary containing the message data.
+        :return: A dict containing useful information of this class.
+        :rtype: dict
 
-            self.data['done']: Whether the simulation is done
-
-            self.data['points']: The list of grasp points.
-
-            self.data['quaternions']: The list of grasping pose quaternions.
-
-            self.data['width']: The list of gripper width of grasping pose.
-
-            self.data['success']: The list of success or failure of the grasing pose.
+        self.data['done']: Whether the simulation is done.
+        self.data['points']: The list of grasp points.
+        self.data['quaternions']: The list of grasping pose quaternions.
+        self.data['width']: The list of gripper width of grasping pose.
+        self.data['success']: The list of success or failure of the grasping pose.
         """
         super().parse_message(data)
 
@@ -40,16 +36,15 @@ class GraspSimAttr(attr.BaseAttr):
         """
         Start simulating grasping.
 
-        Args:
-            mesh: Str, the absolute path to .obj file.
-            gripper: Str, the name of the gripper.
-            points: A list of float, representing the grasping points.
-            normals: A list of float, representing the normals.
-            depth_range_min: Float, the minimum depth of grasp pose.
-            depth_range_max: Float, the maximum depth of grasp pose.
-            depth_lerp_count: Int, the interpolation count of depth.
-            angle_lerp_count: Int, the interpolation count of angle.
-            parallel_count: Int, the count of parallel grasping.
+        :param mesh: Str, the absolute path to .obj file.
+        :param gripper: Str, the name of the gripper.
+        :param points: A list of float, representing the grasping points.
+        :param normals: A list of float, representing the normals.
+        :param depth_range_min: Float, the minimum depth of grasp pose.
+        :param depth_range_max: Float, the maximum depth of grasp pose.
+        :param depth_lerp_count: Int, the interpolation count of depth.
+        :param angle_lerp_count: Int, the interpolation count of angle.
+        :param parallel_count: Int, the count of parallel grasping.
         """
         self._send_data(
             "StartGraspSim",
@@ -78,15 +73,14 @@ class GraspSimAttr(attr.BaseAttr):
         """
         Generate grasp poses and visualize grasp results.
 
-        Args:
-            mesh: Str, the absolute path to .obj file.
-            gripper: Str, the name of the gripper.
-            points: A list of float, representing the grasping points.
-            normals: A list of float, representing the normals.
-            depth_range_min: Float, the minimum depth of grasp pose.
-            depth_range_max: Float, the maximum depth of grasp pose.
-            depth_lerp_count: Int, the interpolation count of depth.
-            angle_lerp_count: Int, the interpolation count of angle.
+        :param mesh: Str, the absolute path to .obj file.
+        :param gripper: Str, the name of the gripper.
+        :param points: A list of float, representing the grasping points.
+        :param normals: A list of float, representing the normals.
+        :param depth_range_min: Float, the minimum depth of grasp pose.
+        :param depth_range_max: Float, the maximum depth of grasp pose.
+        :param depth_lerp_count: Int, the interpolation count of depth.
+        :param angle_lerp_count: Int, the interpolation count of angle.
         """
         self._send_data(
             "GenerateGraspPose",
@@ -111,12 +105,11 @@ class GraspSimAttr(attr.BaseAttr):
         """
         Start testing the grasp based on current grasp poses.
 
-        Args:
-            mesh: Str, the absolute path to .obj file.
-            gripper: Str, the name of the gripper.
-            points: A list of float, representing the grasping points.
-            quaternions: A list of float, representing the quaternions.
-            parallel_count: Int, the interpolation count of angle.
+        :param mesh: Str, the absolute path to .obj file.
+        :param gripper: Str, the name of the gripper.
+        :param points: A list of float, representing the grasping points.
+        :param quaternions: A list of float, representing the quaternions.
+        :param parallel_count: Int, the count of parallel grasping.
         """
         self._send_data(
             "StartGraspTest", mesh, gripper, points, quaternions, parallel_count
@@ -128,10 +121,9 @@ class GraspSimAttr(attr.BaseAttr):
         """
         Display grasp poses.
 
-        Args:
-            mesh: Str, the absolute path to .obj file.
-            gripper: Str, the name of the gripper.
-            points: A list of float, representing the grasping points.
-            quaternions: A list of float, representing the quaternions.
+        :param mesh: Str, the absolute path to .obj file.
+        :param gripper: Str, the name of the gripper.
+        :param positions: A list of float, representing the grasping positions.
+        :param quaternions: A list of float, representing the quaternions.
         """
         self._send_data("ShowGraspPose", mesh, gripper, positions, quaternions)
