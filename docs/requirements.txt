@@ -1,0 +1,3 @@
+# requirements.txt
+sphinx
+sphinx-book-theme
