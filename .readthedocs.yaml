@@ -20,14 +20,14 @@ build:
       - git clone https://github.com/empriselab/RCareWorld.git
       - ls
       # Navigate into the directory
-      - cd Rcareworld/pyrcareworld/pycareworld
+      - cd Rcareworld/pyrcareworld/
       # Install Python dependencies from requirements.txt
       - pip install -r requirements.txt
       # Install the package in editable mode
       - pip install -e .
       # Install additional requirements for docs
       - pip install -r docs/requirements.txt
-      - cd ../../..
+      - cd ../..
       - ls
 
     post_install:
