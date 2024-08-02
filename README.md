@@ -10,12 +10,15 @@ This codebase contains a minimal install of RCareWorld. You will have access to 
 While RCareWorld supports Linux, Windows, and Mac (experimental), our evaluate platform is based on Ubuntu 20.04. We do not guarantee the simulation environments for the competition work on MacOS, Windows, or other Linux versions as intended. 
 We highly recommend using an Ubuntu 20.04 system which will be used for evaluation. Please make sure your computer has at least 10GB free space before starting.
 
+# Download Guide
+- Clone the repo: `git clone https://github.com/empriselab/RCareWorld.git`
+- Switch to the `phy-robo-care` branch: `cd RCareWorld` and then `git checkout phy-robo-care `
+
 # Install Guide
 If you are proceeding immediately after the "Cloning the Repo" step, navigate back to the RCareWorld directory.
 - Create a conda environment with Python 3.10: `conda create -n rcareworld python=3.10`
 - Install the requirements: `cd pyrcareworld` and then `pip install -r requirements.txt`
 - Install pyrcareworld: `pip install -e .`
-- Download the executable and unzip it: link to be added
 
 # Tutorial Videos
 Congratulations! Now you have RCareWorld installed. For more information about using the simulation, please watch our [playlist](https://www.youtube.com/playlist?list=PLR4mEXh9zalLtbGLbx2A5TmX9Niy-svqq) of tutorials, which will be continuously updated.
