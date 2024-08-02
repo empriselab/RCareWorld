@@ -19,13 +19,15 @@ build:
           # Clone the repository
       - git clone https://github.com/empriselab/RCareWorld.git
       # Navigate into the directory
-      - cd pyrcareworld
+      - cd rcareworld/pyrcareworld/pycareworld
       # Install Python dependencies from requirements.txt
       - pip install -r requirements.txt
       # Install the package in editable mode
       - pip install -e .
       # Install additional requirements for docs
       - pip install -r docs/requirements.txt
+      - cd ../../..
+      - ls
 
     post_install:
       - sphinx-apidoc -o ./docs/api ./pyrcareworld ./pyrcareworld/pyrcareworld/demo/*
