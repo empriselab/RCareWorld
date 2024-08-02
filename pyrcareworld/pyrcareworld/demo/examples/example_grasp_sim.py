@@ -16,7 +16,7 @@ except ImportError:
     raise Exception(
         "This feature requires open3d, please install with `pip install open3d`"
     )
-
+from demo import mesh_path
 
 
 
@@ -32,16 +32,16 @@ def get_grasp_pose(file: str, points_count, scale: float = 1):
     return points, normals
 
 
-mesh_path = os.path.join("/home/cathy/Workspace/rcareworld_new/pyrcareworld/test/pyrcareworld_test/mesh/","drink1/drink1.obj")
+obj_path = os.path.join(mesh_path,"drink1/drink1.obj")
 
-points, normals = get_grasp_pose(mesh_path, 100)
+points, normals = get_grasp_pose(obj_path, 100)
 points = points.reshape(-1).tolist()
 normals = normals.reshape(-1).tolist()
 
 env = RCareWorld(assets=["GraspSim"])
 grasp_sim = env.InstanceObject(id=123123, name="GraspSim", attr_type=GraspSimAttr)
 grasp_sim.StartGraspSim(
-    mesh=os.path.abspath(mesh_path),
+    mesh=os.path.abspath(obj_path),
     gripper="franka_hand",
     points=points,
     normals=normals,
@@ -53,7 +53,7 @@ grasp_sim.StartGraspSim(
 )
 
 # only show grasp pose
-# grasp_sim.GenerateGraspPose(mesh=os.path.abspath(mesh_path),
+# grasp_sim.GenerateGraspPose(mesh=os.path.abspath(obj_path),
 #                             gripper='SimpleFrankaGripper',
 #                             points=points,
 #                             normals=normals,
@@ -78,7 +78,7 @@ env.close()
 data = np.concatenate((points, quaternions, width), axis=1)
 csv = pd.DataFrame(data, columns=["x", "y", "z", "qx", "qy", "qz", "qw", "width"])
 
-csv_path = os.path.join(os.path.dirname(mesh_path), "grasps_rfu.csv")
+csv_path = os.path.join(os.path.dirname(obj_path), "grasps_rfu.csv")
 csv.to_csv(csv_path, index=True, header=True)
 
 env.Pend()
