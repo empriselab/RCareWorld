@@ -7,6 +7,6 @@ The installation is as easy as
 - Install pyrcareworld module: `pip install -e .`
 # Please refer to the [phy-robo-care](https://github.com/empriselab/RCareWorld/tree/phy-robo-care) branch if you are participating in the [PhyRC Challenge](https://emprise.cs.cornell.edu/rcareworld/challenge/).
 - Check the website https://emprise.cs.cornell.edu/rcareworld/
-- Check the documentation and tutorials (Coming soon)
+- Check the documentation: https://rcareworld.readthedocs.io/en/latest/
 - Discuss in the forum https://github.com/empriselab/RCareWorld/discussions
 - Watch our presentation https://www.youtube.com/watch?v=mNy1cloWrP0
