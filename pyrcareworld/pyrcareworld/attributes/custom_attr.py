@@ -3,15 +3,14 @@ import pyrcareworld.attributes as attr
 class CustomAttr(attr.BaseAttr):
     """
     This is an example of a custom attribute class, without actual functions.
+    
+    The data stored in self.data is a dictionary containing the following keys:
+        - 'custom_message': a custom message.
     """
 
     def parse_message(self, data: dict):
         """
         Parse messages. This function is called by an internal function.
-
-        :param data: Dictionary containing the message data.
-        :return: A dict containing useful information of this class.
-        :rtype: dict
 
         data['custom_message']: A custom message.
         """

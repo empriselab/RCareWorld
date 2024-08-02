@@ -3,43 +3,20 @@ import pyrcareworld.attributes as attr
 
 class CameraAttr(attr.BaseAttr):
     """
-    Camera attribute class, which can capture many kinds of screenshots
-    of the scene in rcareworld.
+    Camera class. This class is used to control the camera and obtain visual information from the simulation environment.
+    
+    The data stored in self.data is a dictionary containing the following keys:
+        - 'name': The name of the object.
+        - 'position': The position of the object in world coordinates.
+        - 'rotation': The euler angle of the object in world coordinates.
+        - 'quaternion': The quaternion of the object in world coordinates.
+        - 'local_position': The position of the object in its parent's local coordinates.
+        - 'local_rotation': The euler angle of the object in its parent's local coordinates.
+        - 'local_quaternion': The quaternion of the object in its parent's local coordinates.
+        - 'local_to_world_matrix': The transformation matrix from local to world coordinates.
+        - 'result_local_point': The result of transforming the object from local to world coordinates.
+        - 'result_world_point': The result of transforming the object from world to local coordinates.
     """
-
-    def parse_message(self, data: dict):
-        """
-        Parse messages. This function is called by an internal function.
-
-        :param data: Dictionary containing the message data.
-        :return: A dict containing useful information of this class.
-        :rtype: dict
-
-        self.data['rgb']: The bytes of RGB image.
-        self.data['normal']: The bytes of normal image.
-        self.data['id_map']: The bytes of instance segmentation mask image.
-        self.data['depth']: The bytes of depth image.
-        self.data['depth_exr']: The bytes of depth image in EXR format.
-        self.data['amodal_mask']: The bytes of amodal mask image.
-        self.data['heat_map']: The bytes of heat map image.
-        self.data['2d_bounding_box']: The 2D bounding box of objects in camera (image) coordinates.
-        self.data['3d_bounding_box']: The 3D bounding box of objects in world coordinates.
-        """
-        super().parse_message(data)
-        # if "rgb" in self.data:
-        #     self.data["rgb"] = base64.b64decode(self.data["rgb"])
-        # if "normal" in self.data:
-        #     self.data["normal"] = base64.b64decode(self.data["normal"])
-        # if "id_map" in self.data:
-        #     self.data["id_map"] = base64.b64decode(self.data["id_map"])
-        # if "depth" in self.data:
-        #     self.data["depth"] = base64.b64decode(self.data["depth"])
-        # if "depth_exr" in self.data:
-        #     self.data["depth_exr"] = base64.b64decode(self.data["depth_exr"])
-        # if "amodal_mask" in self.data:
-        #     self.data["amodal_mask"] = base64.b64decode(self.data["amodal_mask"])
-        # if "heat_map" in self.data:
-        #     self.data["heat_map"] = base64.b64decode(self.data["heat_map"])
 
     def AlignView(self):
         """

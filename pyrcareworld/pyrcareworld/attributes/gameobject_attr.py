@@ -3,19 +3,11 @@ import pyrcareworld.attributes as attr
 class GameObjectAttr(attr.BaseAttr):
     """
     Basic game object attribute class.
+    
+    The data stored in self.data is a dictionary containing the following keys:
+     - '3d_bounding_box': The 3D bounding box of objects.
     """
 
-    def parse_message(self, data: dict):
-        """
-        Parse messages. This function is called by an internal function.
-
-        :param data: Dictionary containing the message data.
-        :return: A dict containing useful information of this class.
-        :rtype: dict
-
-        self.data['3d_bounding_box']: The 3D bounding box of objects.
-        """
-        super().parse_message(data)
 
     def SetColor(self, color: list):
         """

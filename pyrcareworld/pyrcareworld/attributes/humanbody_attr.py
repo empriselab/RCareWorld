@@ -3,20 +3,11 @@ import pyrcareworld.attributes as attr
 class HumanbodyAttr(attr.BaseAttr):
     """
     Human body Inverse Kinematic class.
+    
+    The data stored in self.data is a dictionary containing the following keys:
+    - 'move_done': Whether the movement has finished.
+    - 'rotate_done': Whether the rotation has finished.
     """
-
-    def parse_message(self, data: dict):
-        """
-        Parse messages. This function is called by an internal function.
-
-        :param data: Dictionary containing the message data.
-        :return: A dict containing useful information of this class.
-        :rtype: dict
-
-        self.data['move_done']: Whether the movement has finished.
-        self.data['rotate_done']: Whether the rotation has finished.
-        """
-        super().parse_message(data)
 
     def HumanIKTargetDoMove(
         self,

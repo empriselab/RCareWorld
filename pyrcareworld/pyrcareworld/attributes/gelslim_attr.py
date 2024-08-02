@@ -4,6 +4,10 @@ import pyrcareworld.attributes as attr
 class GelSlimAttr(attr.BaseAttr):
     """
     Class for simulating GelSlim tactile sensor.
+    https://arxiv.org/abs/1803.00628
+    The data stored in self.data is a dictionary containing the following keys:
+    - 'light': Bytes of RGB light image in GelSlim.
+    - 'depth': Bytes of depth image in GelSlim.
     """
 
     def parse_message(self, data: dict):
@@ -11,11 +15,6 @@ class GelSlimAttr(attr.BaseAttr):
         Parse messages. This function is called by an internal function.
 
         :param data: Dictionary containing the message data.
-        :return: A dict containing useful information of this class.
-        :rtype: dict
-
-        self.data['light']: Bytes of RGB light image in GelSlim.
-        self.data['depth']: Bytes of depth image in GelSlim.
         """
         super().parse_message(data)
         if "light" in self.data:

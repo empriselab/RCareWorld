@@ -3,20 +3,11 @@ import pyrcareworld.attributes as attr
 class RigidbodyAttr(attr.ColliderAttr):
     """
     Rigid body class.
+    
+    The data stored in self.data is a dictionary containing the following keys:
+    - 'velocity': The velocity of the object.
+    - 'angular_velocity': The angular velocity of the object.
     """
-
-    def parse_message(self, data: dict):
-        """
-        Parse messages. This function is called by an internal function.
-
-        :param data: Dictionary containing the message data.
-        :return: A dict containing useful information of this class.
-        :rtype: dict
-
-        self.data['velocity']: The velocity of the object.
-        self.data['angular_velocity']: The angular velocity of the object.
-        """
-        super().parse_message(data)
 
     def SetMass(self, mass: float):
         """

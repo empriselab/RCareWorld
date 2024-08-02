@@ -5,6 +5,9 @@ class DigitAttr(attr.BaseAttr):
     """
     Class for simulating DIGIT tactile sensor.
     https://digit.ml/
+    The data stored in self.data is a dictionary containing the following keys:
+        - 'light': Bytes of RGB light image in DIGIT.
+        - 'depth': Bytes of depth image in DIGIT.
     """
 
     def parse_message(self, data: dict):
@@ -12,11 +15,6 @@ class DigitAttr(attr.BaseAttr):
         Parse messages. This function is called by an internal function.
 
         :param data: Dictionary containing the message data.
-        :return: A dict containing useful information of this class.
-        :rtype: dict
-
-        self.data['light']: Bytes of RGB light image in DIGIT.
-        self.data['depth']: Bytes of depth image in DIGIT.
         """
         super().parse_message(data)
         if "light" in self.data:
