@@ -5,7 +5,7 @@ import pandas as pd
 # Add the project directory to the system path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
-from demo import mesh_path
+from pyrcareworld.demo import mesh_path
 from pyrcareworld.envs.base_env import RCareWorld
 from pyrcareworld.attributes.graspsim_attr import GraspSimAttr
 

@@ -16,7 +16,7 @@ except ImportError:
     raise Exception(
         "This feature requires open3d, please install with `pip install open3d`"
     )
-from demo import mesh_path
+from pyrcareworld.demo import mesh_path
 
 
 

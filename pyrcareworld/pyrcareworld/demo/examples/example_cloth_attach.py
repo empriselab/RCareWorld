@@ -5,7 +5,7 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 from pyrcareworld.envs.base_env import RCareWorld
-from demo import mesh_path
+from pyrcareworld.demo import mesh_path
 
 # Initialize the environment
 env = RCareWorld()

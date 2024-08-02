@@ -21,7 +21,7 @@ class ClothGrasperAttr(attr.BaseAttr):
         """
         self._send_data("IsGarmentBeingHeld")
         self.env._step()
-        return self.data.get("IsGarmentBeingHeld")
+        return self.data.get("is_garment_being_held", False)
 
     def toggle_grasp_and_gripper(self):
         """
