@@ -2,15 +2,22 @@ import os
 from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 
+# Initialize the environment with the specified scene file
 env = RCareWorld(scene_file="SimpleYCBModel.json")
 
-model = []
+# List to store model IDs
+model_ids = []
 
-for i in env.attrs:
-    if type(env.attrs[i]) is attr.RigidbodyAttr:
-        model.append(i)
+# Iterate through the environment attributes to find RigidbodyAttr objects
+for attr_id in env.attrs:
+    if isinstance(env.attrs[attr_id], attr.RigidbodyAttr):
+        model_ids.append(attr_id)
 
-env.ExportOBJ(model, os.path.abspath("./scene_mesh.obj"))
+# Export the models as an OBJ file
+output_path = os.path.abspath("./scene_mesh.obj")
+env.ExportOBJ(model_ids, output_path)
+print(f"Scene mesh exported to {output_path}")
 
+# End the environment session
 env.Pend()
 env.close()
