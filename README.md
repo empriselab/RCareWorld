@@ -15,7 +15,6 @@ We highly recommend using an Ubuntu 20.04 system which will be used for evaluati
 - Switch to the `phy-robo-care` branch: `cd RCareWorld` and then `git checkout phy-robo-care `
 
 # Install Guide
-If you are proceeding immediately after the "Cloning the Repo" step, navigate back to the RCareWorld directory.
 - Create a conda environment with Python 3.10: `conda create -n rcareworld python=3.10`
 - Install the requirements: `cd pyrcareworld` and then `pip install -r requirements.txt`
 - Install pyrcareworld: `pip install -e .`
