@@ -1,6 +1,5 @@
 import os
 import json
-from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 
 class DressingScoreAttr(attr.BaseAttr):

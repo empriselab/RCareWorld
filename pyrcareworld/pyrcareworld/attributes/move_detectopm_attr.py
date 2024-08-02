@@ -1,4 +1,3 @@
-from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 
 class MovementDetectionAttr(attr.BaseAttr):
