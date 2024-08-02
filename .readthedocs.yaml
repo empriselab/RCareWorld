@@ -18,6 +18,7 @@ build:
     pre_install:
           # Clone the repository
       - git clone https://github.com/empriselab/RCareWorld.git
+      - ls
       # Navigate into the directory
       - cd rcareworld/pyrcareworld/pycareworld
       # Install Python dependencies from requirements.txt
