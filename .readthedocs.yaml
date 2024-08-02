@@ -22,7 +22,7 @@ build:
       # Navigate into the directory
       - cd RCareWorld/pyrcareworld/ && ls
       # Install Python dependencies from requirements.txt
-      - pip install -r ./RCareWorld/pycareworld/requirements.txt
+      - pip install -r RCareWorld/pyrcareworld/requirements.txt
       # Install the package in editable mode
       - cd RCareWorld/pyrcareworld/ && pip install -e .
       # Install additional requirements for docs
