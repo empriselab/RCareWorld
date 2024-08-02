@@ -5,16 +5,6 @@ class ColliderAttr(attr.GameObjectAttr):
     Collider class for objects that have a collider in Unity.
     """
 
-    def parse_message(self, data: dict):
-        """
-        Parse messages. This function is called by an internal function.
-
-        :param data: Dictionary containing the message data.
-        :return: A dict containing useful information of this class.
-        :rtype: dict
-        """
-        super().parse_message(data)
-
     def EnabledAllCollider(self, enabled: bool):
         """
         Enable or disable all colliders.

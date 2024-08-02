@@ -18,22 +18,21 @@ class BaseAttr:
 
     def parse_message(self, data: dict):
         """
-        Parse messages. This function is called by an internal function.
+        Parse messages. 
+        This function handles the data sent from Unity and stores it in self.data, which contains the keys in `data`.
+        This function is called by an internal function at each timestep, so the data is updated every timestep.
 
-        :param data: Dictionary containing the message data.
-        :return: A dict containing useful information of this class.
-        :rtype: dict
-
-        self.data['name']: The name of the object.
-        self.data['position']: The position of the object in world coordinates.
-        self.data['rotation']: The euler angle of the object in world coordinates.
-        self.data['quaternion']: The quaternion of the object in world coordinates.
-        self.data['local_position']: The position of the object in its parent's local coordinates.
-        self.data['local_rotation']: The euler angle of the object in its parent's local coordinates.
-        self.data['local_quaternion']: The quaternion of the object in its parent's local coordinates.
-        self.data['local_to_world_matrix']: The transformation matrix from local to world coordinates.
-        self.data['result_local_point']: The result of transforming the object from local to world coordinates.
-        self.data['result_world_point']: The result of transforming the object from world to local coordinates.
+        :param data: Dictionary containing the message data. The keys are:
+            - 'name': The name of the object.
+            - 'position': The position of the object in world coordinates.
+            - 'rotation': The euler angle of the object in world coordinates.
+            - 'quaternion': The quaternion of the object in world coordinates.
+            - 'local_position': The position of the object in its parent's local coordinates.
+            - 'local_rotation': The euler angle of the object in its parent's local coordinates.
+            - 'local_quaternion': The quaternion of the object in its parent's local coordinates.
+            - 'local_to_world_matrix': The transformation matrix from local to world coordinates.
+            - 'result_local_point': The result of transforming the object from local to world coordinates.
+            - 'result_world_point': The result of transforming the object from world to local coordinates.
         """
         self.data = data
 

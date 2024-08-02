@@ -2,44 +2,34 @@ import pyrcareworld.attributes as attr
 
 class ControllerAttr(attr.ColliderAttr):
     """
-    Robot controller class, which will control robot arms, hands, and embodied robots.
+    Robot controller class, which will control robot arms, hands, mobile manipulators, etc.
+    The data stored in self.data is a dictionary containing the following keys:
+        - 'number_of_joints': The number of joints in an articulation.
+        - 'names': The name of each part in an articulation.
+        - 'types': The joint type of each part in an articulation.
+        - 'positions': The position of each part in an articulation.
+        - 'rotations': The rotation of each part in an articulation.
+        - 'quaternion': The quaternion of each part in an articulation.
+        - 'local_positions': The local position of each part in an articulation.
+        - 'local_rotations': The local rotation of each part in an articulation.
+        - 'local_quaternion': The local quaternion of each part in an articulation.
+        - 'velocities': The velocity of each part in an articulation.
+        - 'angular_velocities': The angular velocity of each part in an articulation.
+        - 'number_of_moveable_joints': The number of moveable joints in an articulation.
+        - 'joint_positions': The joint position of each moveable joint in an articulation.
+        - 'joint_velocities': The joint velocity of each moveable joint in an articulation.
+        - 'joint_accelerations': The joint accelerations of each moveable joint in an articulation.
+        - 'joint_force': The joint force of each moveable joint in an articulation.
+        - 'joint_lower_limit': The joint lower limit of each moveable joint in an articulation.
+        - 'joint_upper_limit': The joint upper limit of each moveable joint in an articulation.
+        - 'joint_stiffness': The joint stiffness of each moveable joint in an articulation.
+        - 'joint_damping': The joint damping of each moveable joint in an articulation.
+        - 'move_done': Whether robot arm IK has finished moving.
+        - 'rotate_done': Whether robot arm IK has finished rotating.
+        - 'gravity_forces': Inverse dynamics force needed to counteract gravity.
+        - 'coriolis_centrifugal_forces': Inverse dynamics force needed to counteract coriolis centrifugal forces.
+        - 'drive_forces': Inverse dynamics drive forces.
     """
-
-    def parse_message(self, data: dict):
-        """
-        Parse messages. This function is called by an internal function.
-
-        :param data: Dictionary containing the message data.
-        :return: A dict containing useful information of this class.
-        :rtype: dict
-
-        self.data['number_of_joints']: The number of joints in an articulation.
-        self.data['names']: The name of each part in an articulation.
-        self.data['types']: The joint type of each part in an articulation.
-        self.data['positions']: The position of each part in an articulation.
-        self.data['rotations']: The rotation of each part in an articulation.
-        self.data['quaternion']: The quaternion of each part in an articulation.
-        self.data['local_positions']: The local position of each part in an articulation.
-        self.data['local_rotations']: The local rotation of each part in an articulation.
-        self.data['local_quaternion']: The local quaternion of each part in an articulation.
-        self.data['velocities']: The velocity of each part in an articulation.
-        self.data['angular_velocities']: The angular velocity of each part in an articulation.
-        self.data['number_of_moveable_joints']: The number of moveable joints in an articulation.
-        self.data['joint_positions']: The joint position of each moveable joint in an articulation.
-        self.data['joint_velocities']: The joint velocity of each moveable joint in an articulation.
-        self.data['joint_accelerations']: The joint accelerations of each moveable joint in an articulation.
-        self.data['joint_force']: The joint force of each moveable joint in an articulation.
-        self.data['joint_lower_limit']: The joint lower limit of each moveable joint in an articulation.
-        self.data['joint_upper_limit']: The joint upper limit of each moveable joint in an articulation.
-        self.data['joint_stiffness']: The joint stiffness of each moveable joint in an articulation.
-        self.data['joint_damping']: The joint damping of each moveable joint in an articulation.
-        self.data['move_done']: Whether robot arm IK has finished moving.
-        self.data['rotate_done']: Whether robot arm IK has finished rotating.
-        self.data['gravity_forces']: Inverse dynamics force needed to counteract gravity.
-        self.data['coriolis_centrifugal_forces']: Inverse dynamics force needed to counteract coriolis centrifugal forces.
-        self.data['drive_forces']: Inverse dynamics drive forces.
-        """
-        super().parse_message(data)
 
     def SetJointPosition(self, joint_positions: list):
         """
