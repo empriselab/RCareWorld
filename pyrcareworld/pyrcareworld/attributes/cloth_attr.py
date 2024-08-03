@@ -10,6 +10,16 @@ class ClothAttr(attr.BaseAttr):
         Get the cloth particles.
         """
         self._send_data("GetParticles")
+        self.env._step()  # Ensure a step is made to process the command
+        print("GetParticles command sent")
+        
+                # Wait for the data to be returned and processed
+        while 'particles' not in self.data:
+            self.env._step()
+        
+        # Return the particles data
+        return self.data['particles']
+
 
     def AddAttach(self, id: int, max_dis: float = 0.03):
         """

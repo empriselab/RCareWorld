@@ -1,21 +1,23 @@
 import os
 import sys
+import random
 
 # Add the project directory to the system path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 from pyrcareworld.envs.base_env import RCareWorld
-from pyrcareworld.attributes import ClothAttr, ControllerAttr
+import pyrcareworld.attributes as attr
 from pyrcareworld.demo import mesh_path
 
 # Initialize the environment
-env = RCareWorld()
+env = RCareWorld(assets=["kinova_gen3_robotiq85"])
+env.SetTimeStep(0.005)
 env.DebugObjectPose()
 env.EnabledGroundObiCollider(True)
 
 # Load the T-shirt mesh
 t_shirt_path = os.path.join(mesh_path, 'Tshirt.obj')
-mesh = env.LoadCloth(path=t_shirt_path, id=123)
+mesh = env.LoadCloth(path=t_shirt_path)
 mesh.SetTransform(position=[0, 1, 0])
 
 # Perform initial simulation steps to stabilize the cloth
@@ -30,40 +32,59 @@ print(mesh.data)
 position1 = mesh.data['particles'][500]
 position2 = mesh.data['particles'][200]
 
-# Create an instance of the robot object
-robot_id = 456
-robot = env.InstanceObject(name="kinova_gen3_robotiq85", id=robot_id, attr_type=ControllerAttr)
+# Create point objects at the positions of the selected particles
+point1 = env.InstanceObject("Empty")
+point1.SetTransform(position=position1)
+mesh.AddAttach(point1.id)
+
+point2 = env.InstanceObject("Empty")
+point2.SetTransform(position=position2)
+mesh.AddAttach(point2.id)
+
+env.step()
+
+# Move the points to the initial positions
+point1.DoMove([-0.25, 1, 0], 2, speed_based=False)
+point2.DoMove([0.25, 1, 0], 2, speed_based=False)
+point2.WaitDo()
+
+# Initialize the Kinova robot
+robot = env.InstanceObject(name="kinova_gen3_robotiq85", id=123456, attr_type=attr.ControllerAttr)
 robot.SetPosition([0, 0, 0])
 env.step()
 
 # Get the gripper attribute and open the gripper
-gripper = env.GetAttr(robot_id)
+gripper = env.GetAttr(1234560)
 gripper.GripperOpen()
 
-# Move and rotate the robot to the initial position
-robot.IKTargetDoMove(position=[0, 1, 0.5], duration=2, speed_based=False)
-robot.IKTargetDoRotate(rotation=[0, 0, 180], duration=2, speed_based=False)
+# Move the robot to the first point, grab it, and move it to a new position
+robot.IKTargetDoMove(position=[-0.25, 1, 0], duration=2, speed_based=False)
 robot.WaitDo()
-
-# Attach the cloth to the robot gripper
-mesh.AddAttach(robot_id, max_dis=0.04)
-env.step()
-
-# Simulate grasping
+robot.IKTargetDoMove(position=[-0.25, 1, 0.5], duration=2, speed_based=False)
+robot.WaitDo()
 gripper.GripperClose()
-env.step()
+env.step(50)
 
-# Move the robot with the cloth
-robot.IKTargetDoMove(position=[0, 1, 1], duration=2, speed_based=False)
+robot.IKTargetDoMove(position=[0, 1.5, 0], duration=2, speed_based=False)
 robot.WaitDo()
 
-# Open the gripper to release the cloth
+robot.IKTargetDoMove(position=[0.25, 1.5, 0], duration=2, speed_based=False)
+robot.WaitDo()
 gripper.GripperOpen()
-env.step()
+env.step(50)
 
-# Remove the attachment
-mesh.RemoveAttach(robot_id)
-env.step()
+# Main loop to oscillate the points
+while True:
+    # Move the points backward
+    point1.DoMove([-0.25, 1, -0.5], 1)
+    point2.DoMove([0.25, 1, -0.5], 1)
+    point2.WaitDo()
+
+    # Move the points forward
+    point1.DoMove([-0.25, 1, 0.5], 1)
+    point2.DoMove([0.25, 1, 0.5], 1)
+    point2.WaitDo()
 
 # Close the environment
+env.Pend()
 env.close()
