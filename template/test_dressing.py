@@ -1,76 +1,78 @@
-import os
-import time
-import numpy as np
+import random
 from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
+import json
 
-def main():
-    # Set the path to the Unity executable file
-    UNITY_EXECUTABLE_PATH = "<YourPathHere>"
-
-    # Initialize the environment
-    env = RCareWorld(executable_file=UNITY_EXECUTABLE_PATH)
-    env.DebugObjectPose()
-    env.SetTimeStep(0.005)
-    env.step()
-
-    # Instantiate DressingScoreAttr and ClothAttr
-    dressing_score = env.InstanceObject(name="DressingScore", id=1, attr_type=attr.DressingScoreAttr)
-    cloth = env.InstanceObject(name="Cloth", id=2, attr_type=attr.ClothAttr)
+json_path = "Your Jason File(dressingscore.json) Path"
+with open(json_path, 'r') as file:
+    data = json.load(file)
     
-    # Create the robot
-    robot = env.InstanceObject(name="franka_panda", id=123456, attr_type=attr.ControllerAttr)
-    robot.SetIKTargetOffset(position=[0, 0.105, 0])
-    env.step()
+"""
+JSON File Template:
+{
+  "DressingScore": 0,
+  "DressingScoreMax": 0,
+  "DressingScoreMin": 0,
+  "DressingScoreStep": 0,
+  "DressingScoreThreshold": 0,
+}
 
-    # Move the robot to the cloth
-    cloth_position = cloth.data['position']
-    robot.IKTargetDoMove(position=cloth_position, duration=0, speed_based=False)
-    robot.IKTargetDoRotate(rotation=[0, 45, 180], duration=0, speed_based=False)
+Print the data to see the keys and grades.
+"""
+# Initialize the environment with the specified assets and set the time step
+env = RCareWorld(executable_file="Your Unity Executable Path")
+env.SetTimeStep(0.005)
+
+
+kinova_id = 315893
+robot = env.GetAttr(kinova_id)
+robot.SetPosition([1.267,1.148,0.716])
+env.step()
+
+# Get the gripper attribute and open the gripper
+gripper = env.GetAttr(3158930)
+gripper.GripperOpen()
+
+
+robot.WaitDo()
+
+# Main loop to create, move, and manipulate boxes
+while True:
+
+    position1 = (1.907, 1.547, 0.33)
+    position2 = (1.469, 1.547, 0.207)
+
+    robot.IKTargetDoMove(
+        position=[position1[0], position1[1] + 0.5, position1[2]],
+        duration=2,
+        speed_based=False,
+    )
     robot.WaitDo()
-    env.step()
-    robot.grasp(cloth.id)
-    env.step()
-
-    # Move the robot to the manikin
-    manikin_position = [0.3, 0.5, 0.3]  # Adjust as necessary
-    robot.IKTargetDoMove(position=manikin_position, duration=2, speed_based=False)
+    robot.IKTargetDoMove(
+        position=[position1[0], position1[1], position1[2]],
+        duration=2,
+        speed_based=False,
+    )
     robot.WaitDo()
+    gripper.GripperClose()
+    env.step(50)
+    robot.IKTargetDoMove(
+        position=[0, 0.5, 0], duration=2, speed_based=False, relative=True
+    )
+    robot.WaitDo()
+    robot.IKTargetDoMove(
+        position=[position2[0], position2[1] + 0.5, position2[2]],
+        duration=4,
+        speed_based=False,
+    )
+    robot.WaitDo()
+    robot.IKTargetDoMove(
+        position=[position2[0], position2[1] + 0.06, position2[2]],
+        duration=2,
+        speed_based=False,
+    )
+    
+    for key, value in data.items():
+        print(f'{key}: {value}')
+
     env.step()
-
-    # Simulate moving the cloth to the manikin
-    start_time = time.time()
-    while time.time() - start_time < 10:  # Adjust duration as necessary
-        # Horizontal movement
-        new_position = [manikin_position[0] + 0.1 * np.sin(time.time()), manikin_position[1], manikin_position[2]]
-        robot.IKTargetDoMove(position=new_position, duration=0.1, speed_based=False)
-        robot.WaitDo()
-        env.step()
-
-        # Check for contact with the manikin
-        cloth_particles = cloth.data.get('particles', [])
-        manikin_collider = manikin_position  # Simplified for this example
-
-        for particle in cloth_particles:
-            if np.linalg.norm(np.array(particle) - np.array(manikin_collider)) < 0.05:  # Adjust threshold as necessary
-                print("Contact detected, releasing cloth.")
-                robot.release(cloth.id)
-                env.step()
-                break
-
-        # Display real-time scores
-        scores = dressing_score.get_scores()
-        print(f"Current Scores: {scores}")
-
-        env.step()
-
-    # Save final scores to file
-    score_file_path = "./dressing_scores.json"
-    dressing_score.save_scores_to_file(score_file_path)
-    print(f"Final scores saved to {score_file_path}")
-
-    # Close the environment
-    env.close()
-
-if __name__ == "__main__":
-    main()

@@ -1,86 +1,86 @@
-import os
-import time
-import numpy as np
+import json
 from pyrcareworld.envs.base_env import RCareWorld
-import pyrcareworld.attributes as attr
+from pyrcareworld.attributes.sponge_attr import SpongeAttr
 
-def main():
-    # Set the path to the Unity executable file
-    UNITY_EXECUTABLE_PATH = "<YourPathHere>"
-
-    # Initialize the environment
-    env = RCareWorld(executable_file=UNITY_EXECUTABLE_PATH)
-    env.DebugObjectPose()
-    env.SetTimeStep(0.005)
-    env.step()
-
-    # Instantiate BathingScoreAttr and SpongeAttr
-    bathing_score = env.InstanceObject(name="BathingScore", id=1, attr_type=attr.BathingScoreAttr)
-    sponge = env.InstanceObject(name="Sponge", id=2, attr_type=attr.SpongeAttr)
+json_path = "Your Jason File(dressingscore.json) Path"
+with open(json_path, 'r') as file:
+    data = json.load(file)
     
-    # Create the robot
-    robot = env.InstanceObject(name="franka_panda", id=123456, attr_type=attr.ControllerAttr)
-    robot.SetIKTargetOffset(position=[0, 0.105, 0])
-    env.step()
+"""
+JSON File Template:
+{
+    "PickUpScrubberScore": 0,
+    "DipScrubberInWaterTankScore": 0,
+    "MoveScrubberToManikinScore": 0,
+    "BodyCoverageScore": 0,
+    "ForceThresholdScore": 0,
+    "TotalScore": 0
+}
 
-    # Grasp the sponge
-    sponge_position = sponge.data['position']
-    robot.IKTargetDoMove(position=sponge_position, duration=0, speed_based=False)
-    robot.IKTargetDoRotate(rotation=[0, 45, 180], duration=0, speed_based=False)
+Print the data to see the keys and grades.
+"""
+# Initialize the environment with the specified assets and set the time step
+env = RCareWorld()#executable_file="Your Unity Executable Path"
+env.SetTimeStep(0.005)
+
+stretch_id = 221582
+robot = env.GetAttr(stretch_id)
+robot.SetPosition([1.267,1.148,0.716])
+env.step()
+
+# Get the gripper attribute and open the gripper
+gripper = env.GetAttr(2215820)
+gripper.GripperOpen()
+
+robot.WaitDo()
+
+sponge = env.GetAttr(123456)
+
+# Main loop to create, move, and manipulate boxes
+while True:
+
+
+    # Get the positions of the boxes
+    position1 = (-0.657, 0.941, 1.645)
+    position2 = (-0.263, 1.063, 1.645)
+
+    # Move the robot to the first box, pick it up, and move it to the second box's position
+    robot.IKTargetDoMove(
+        position=[position1[0], position1[1] + 0.5, position1[2]],
+        duration=2,
+        speed_based=False,
+    )
     robot.WaitDo()
-    env.step()
-    robot.grasp(sponge.id)
-    env.step()
-
-    # Move the sponge to the water tank
-    water_tank_position = [0.5, 0.2, 0.5]  # Adjust as necessary
-    robot.IKTargetDoMove(position=water_tank_position, duration=2, speed_based=False)
+    robot.IKTargetDoMove(
+        position=[position1[0], position1[1], position1[2]],
+        duration=2,
+        speed_based=False,
+    )
     robot.WaitDo()
-    env.step()
-    sponge.SetTransform(position=water_tank_position)
-    env.step()
-
-    # Simulate dipping the sponge in the water
-    for _ in range(20):
-        new_position = [water_tank_position[0], water_tank_position[1] - 0.1, water_tank_position[2]]
-        sponge.SetTransform(position=new_position)
-        env.step()
-
-    # Move the sponge to the manikin
-    manikin_position = [0.3, 0.5, 0.3]  # Adjust as necessary
-    robot.IKTargetDoMove(position=manikin_position, duration=2, speed_based=False)
+    gripper.GripperClose()
+    env.step(50)
+    robot.IKTargetDoMove(
+        position=[0, 0.5, 0], duration=2, speed_based=False, relative=True
+    )
     robot.WaitDo()
+    robot.IKTargetDoMove(
+        position=[position2[0], position2[1] + 0.5, position2[2]],
+        duration=4,
+        speed_based=False,
+    )
+    robot.WaitDo()
+    robot.IKTargetDoMove(
+        position=[position2[0], position2[1] + 0.06, position2[2]],
+        duration=2,
+        speed_based=False,
+    )
+    
+    for key, value in data.items():
+        print(f'{key}: {value}')
+        
+
+    print(sponge.GetBodyCoverageScore())
+    print(sponge.GetForceThresholdScore())
+    print(sponge.GetPickUpScrubberScore())
+
     env.step()
-    sponge.SetTransform(position=manikin_position)
-    env.step()
-
-    # Simulate the bathing process and calculate scores
-    start_time = time.time()
-    while time.time() - start_time < 10:  # Adjust duration as necessary
-        forces = sponge.data['forces']
-        prop = sponge.data['proportion']
-
-        if forces:
-            all_nonzero_forces = [force for force in forces if force > 0]
-            forces_score = attr.sponge_attr.score_forces(all_nonzero_forces)
-            print(f"Forces Score: {forces_score}")
-
-        if prop is not None:
-            print(f"Bathing Score: {prop}")
-
-        # Display real-time scores
-        scores = bathing_score.get_scores()
-        print(f"Current Scores: {scores}")
-
-        env.step()
-
-    # Save final scores to file
-    score_file_path = "./bathing_scores.json"
-    bathing_score.save_scores_to_file(score_file_path)
-    print(f"Final scores saved to {score_file_path}")
-
-    # Close the environment
-    env.close()
-
-if __name__ == "__main__":
-    main()
