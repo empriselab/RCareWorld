@@ -9,7 +9,7 @@ import pyrcareworld.utils.rfuniverse_utility as utility
 from pyrcareworld.demo import urdf_path
 
 # Initialize the environment
-env = RCareWorld()
+env = RCareWorld(executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 
 # Load the UR5 robot with native IK enabled
 ur5 = env.LoadURDF(path=os.path.join(urdf_path, "UR5/ur5_robot.urdf"), native_ik=True)

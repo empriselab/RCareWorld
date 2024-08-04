@@ -4,7 +4,7 @@ import pyrcareworld.attributes as attr
 
 # Supported grippers: allegro_hand_right, bhand, dh_robotics_ag95_gripper, franka_hand, svh
 # Initialize the environment with the specified gripper
-env = RCareWorld(assets=["allegro_hand_right"])
+env = RCareWorld(assets=["allegro_hand_right"], executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 
 # Create an instance of the Allegro Hand Right gripper
 bhand = env.InstanceObject("allegro_hand_right", attr_type=attr.ControllerAttr)

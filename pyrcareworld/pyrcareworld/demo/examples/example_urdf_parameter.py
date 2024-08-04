@@ -9,7 +9,7 @@ import pyrcareworld.attributes as attr
 from pyrcareworld.demo import urdf_path
 
 # Initialize the environment
-env = RCareWorld()
+env = RCareWorld(executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 
 # Load the Franka Panda robot URDF with the specified axis
 robot = env.LoadURDF(path=os.path.join(urdf_path, "Franka/panda.urdf"), axis="z")

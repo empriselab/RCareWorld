@@ -38,7 +38,7 @@ points, normals = get_grasp_pose(obj_path, 100)
 points = points.reshape(-1).tolist()
 normals = normals.reshape(-1).tolist()
 
-env = RCareWorld(assets=["GraspSim"])
+env = RCareWorld(assets=["GraspSim"], executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 grasp_sim = env.InstanceObject(id=123123, name="GraspSim", attr_type=GraspSimAttr)
 grasp_sim.StartGraspSim(
     mesh=os.path.abspath(obj_path),

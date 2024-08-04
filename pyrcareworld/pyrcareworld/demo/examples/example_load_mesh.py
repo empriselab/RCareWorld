@@ -9,12 +9,12 @@ from pyrcareworld.envs.base_env import RCareWorld
 from pyrcareworld.demo import mesh_path
 
 # Initialize the environment
-env = RCareWorld()
+env = RCareWorld(executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 env.step()
 
 # Load a mesh from the specified path
 mesh = env.LoadMesh(
-    path=os.path.join(mesh_path, "002_master_chef_can/google_16k/textured.obj")
+    path=os.path.join(mesh_path, "002_master_chef_can/google_16k/textured.obj", )
 )
 
 # Set the initial transform of the mesh with random rotation

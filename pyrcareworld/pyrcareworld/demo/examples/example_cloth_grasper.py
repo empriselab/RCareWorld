@@ -10,7 +10,7 @@ import pyrcareworld.attributes as attr
 from pyrcareworld.demo import mesh_path
 
 # Initialize the environment
-env = RCareWorld(assets=["kinova_gen3_robotiq85"])
+env = RCareWorld(assets=["kinova_gen3_robotiq85"], executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 env.SetTimeStep(0.005)
 env.DebugObjectPose()
 env.EnabledGroundObiCollider(True)

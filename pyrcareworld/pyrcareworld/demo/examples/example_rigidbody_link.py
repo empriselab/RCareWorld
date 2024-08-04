@@ -3,7 +3,7 @@ from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 
 # Initialize the environment with specified assets
-env = RCareWorld(assets=["franka_panda"])
+env = RCareWorld(assets=["franka_panda"],executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 
 # Enable debugging of object poses and set the time step
 env.DebugObjectPose()

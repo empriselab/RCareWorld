@@ -5,7 +5,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 from pyrcareworld.envs.base_env import RCareWorld
 from pyrcareworld.attributes.bathing_score_attr import BathingScoreAttr
 
-env = RCareWorld()
+env = RCareWorld(executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 env.step()
 
 bathing_score = env.InstanceObject(name="BathingScore", attr_type=BathingScoreAttr)

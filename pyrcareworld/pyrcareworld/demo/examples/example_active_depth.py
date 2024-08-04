@@ -24,7 +24,7 @@ nd_ir_intrinsic_matrix = np.array([[480, 0, 240],
                                    [0, 480, 240],
                                    [0, 0, 1]])
 
-env = RCareWorld(scene_file="ActiveDepth.json")
+env = RCareWorld(scene_file="ActiveDepth.json", executable_file= "C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 active_light_sensor_1 = env.GetAttr(789789)
 
 active_light_sensor_1.GetRGB(intrinsic_matrix=nd_main_intrinsic_matrix)

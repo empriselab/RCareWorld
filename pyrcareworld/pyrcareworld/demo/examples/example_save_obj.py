@@ -3,7 +3,7 @@ from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 
 # Initialize the environment with the specified scene file
-env = RCareWorld(scene_file="SimpleYCBModel.json")
+env = RCareWorld(scene_file="SimpleYCBModel.json", executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 
 # List to store model IDs
 model_ids = []

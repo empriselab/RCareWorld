@@ -3,6 +3,10 @@ import json
 import pyrcareworld.attributes as attr
 
 class DressingScoreAttr(attr.BaseAttr):
+    """
+    DressingScoreAttr class to interact with the DressingScoreAttr in Unity.
+    """
+    
     def get_scores(self):
         """
         Get the current scores from Unity.
@@ -44,4 +48,3 @@ class DressingScoreAttr(attr.BaseAttr):
         
         self._send_data("LoadScores", scores)
         self.env._step()
-

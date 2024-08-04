@@ -8,7 +8,7 @@ from pyrcareworld.envs.base_env import RCareWorld
 from pyrcareworld.attributes.digit_attr import DigitAttr
 
 # Initialize the environment
-env = RCareWorld()
+env = RCareWorld(executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 
 # Create an instance of a Digit object and set its position
 digit = env.InstanceObject(name="Digit", attr_type=DigitAttr)

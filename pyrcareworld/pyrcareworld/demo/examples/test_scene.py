@@ -1,7 +1,7 @@
 from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 
-env = RCareWorld(assets=["Collider_Box", "Rigidbody_Sphere"])
+env = RCareWorld(assets=["Collider_Box", "Rigidbody_Sphere"], executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 
 box1 = env.InstanceObject(name="Collider_Box", attr_type=attr.ColliderAttr)
 box1.SetTransform(position=[-0.5, 0.5, 0], scale=[0.1, 1, 1])

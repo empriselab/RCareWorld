@@ -22,7 +22,7 @@ positions = data[:, 0:3].reshape(-1).tolist()
 quaternions = data[:, 3:7].reshape(-1).tolist()
 
 # Initialize the environment
-env = RCareWorld()
+env = RCareWorld(executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 
 # Create an instance of the GraspSim object
 grasp_sim = env.InstanceObject(id=123123, name="GraspSim", attr_type=GraspSimAttr)

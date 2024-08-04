@@ -2,7 +2,7 @@ from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.utils.rfuniverse_utility as utility
 
 # Initialize the environment with the specified scene file
-env = RCareWorld(scene_file="ArticulationIK.json")
+env = RCareWorld(scene_file="ArticulationIK.json", executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 
 # List of robot IDs to be controlled
 ids = [221584]

@@ -15,7 +15,7 @@ except ImportError:
     )
 
 # Initialize the environment with the specified scene file
-env = RCareWorld(scene_file="PointCloud.json")
+env = RCareWorld(scene_file="PointCloud.json", executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 
 # Define the intrinsic matrix
 nd_intrinsic_matrix = np.array([[960, 0, 960], [0, 960, 540], [0, 0, 1]])

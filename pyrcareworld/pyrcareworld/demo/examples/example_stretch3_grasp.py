@@ -8,12 +8,23 @@ from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 
 # Initialize the environment with the specified assets
-env = RCareWorld(assets=["Rigidbody_Box", "stretch-3"])
+env = RCareWorld(assets=["Rigidbody_Box", "stretch-3"], executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
+
+print("Environment initialized.")
+
 
 # Create an instance of a Rigidbody_Box and set its position
 box = env.InstanceObject(name="Rigidbody_Box", id=123456, attr_type=attr.RigidbodyAttr)
-box.SetTransform(position=[0.5, 0.05, 0.5], scale=[0.05, 0.05, 0.05])
+box.SetTransform(position=[0.5, 0.2, 0.5], scale=[0.05, 0.05, 0.05])
 env.step(5)
+print("Box created.")
+
+box.SetTransform(
+    position=[0.5, 0.2, 0.5], 
+    scale=[0.05, 0.05, 0.05],
+    rotation=[0, 0, 0],
+    )
+env.step(100)
 
 # Print the data attributes of the box
 print("Rigidbody_Box Data:")

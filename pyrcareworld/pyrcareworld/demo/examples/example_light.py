@@ -2,7 +2,7 @@ from pyrcareworld.envs.base_env import RCareWorld
 from pyrcareworld.attributes.light_attr import LightType
 
 # Initialize the environment with the specified scene file
-env = RCareWorld(scene_file="LightScene.json")
+env = RCareWorld(scene_file="LightScene.json", executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 
 # Get the light attribute by ID
 light = env.GetAttr(885275)

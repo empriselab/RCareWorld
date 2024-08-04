@@ -8,7 +8,7 @@ from pyrcareworld.envs.base_env import RCareWorld
 from pyrcareworld.attributes.humanbody_attr import HumanbodyAttr
 
 # Initialize the environment with the specified scene file
-env = RCareWorld(scene_file="HumanBodyIK.json")
+env = RCareWorld(scene_file="HumanBodyIK.json", executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 
 # Perform an initial simulation step
 env.step()

@@ -3,7 +3,7 @@ from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 
 # Initialize the environment with the specified assets and set the time step
-env = RCareWorld(assets=["kinova_gen3_robotiq85"])
+env = RCareWorld(assets=["kinova_gen3_robotiq85"], executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 env.SetTimeStep(0.005)
 
 # Create an instance of the Franka Panda robot and set its IK target offset

@@ -1,0 +1,8 @@
+newmtl black
+Kd 0.2 0.2 0.2
+illum 2
+
+newmtl white
+Kd 0.9 0.9 0.9
+illum 2
+

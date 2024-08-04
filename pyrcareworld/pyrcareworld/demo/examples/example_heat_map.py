@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 
 # Initialize the environment
-env = RCareWorld()
+env = RCareWorld(executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 
 # Create an instance of a Camera object and set its position and rotation
 camera = env.InstanceObject(name="Camera", attr_type=attr.CameraAttr)

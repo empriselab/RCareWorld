@@ -4,7 +4,7 @@ from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 
 # Initialize the environment with specified assets
-env = RCareWorld(assets=["Camera", "GameObject_Box"])
+env = RCareWorld(assets=["Camera", "GameObject_Box"], executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 
 # Instantiate a camera object
 camera = env.InstanceObject(name="Camera", id=123456, attr_type=attr.CameraAttr)

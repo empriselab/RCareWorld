@@ -15,7 +15,7 @@ except ImportError:
     )
 
 # Initialize the environment with the specified scene file
-env = RCareWorld(scene_file="PointCloud.json")
+env = RCareWorld(scene_file="PointCloud.json", executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 
 # Capture data from the first camera
 camera1 = env.GetAttr(698548)

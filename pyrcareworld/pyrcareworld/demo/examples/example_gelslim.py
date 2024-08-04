@@ -11,7 +11,7 @@ import pyrcareworld.attributes as attr
 from pyrcareworld.attributes.gelslim_attr import GelSlimAttr
 
 # Initialize the environment
-env = RCareWorld()
+env = RCareWorld(executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 
 # Create an instance of a GelSlim object and set its position
 gelslim = env.InstanceObject(name="GelSlim", attr_type=GelSlimAttr)

@@ -9,7 +9,7 @@ from pyrcareworld.envs.base_env import RCareWorld
 from pyrcareworld.demo import mesh_path
 
 # Initialize the environment
-env = RCareWorld()
+env = RCareWorld(executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 
 # Set the background color of the view
 env.SetViewBackGround([0.0, 0.0, 0.0])

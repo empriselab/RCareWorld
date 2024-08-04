@@ -1,15 +1,28 @@
 from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
+import time
 
 # Initialize the environment with the specified asset
-env = RCareWorld(assets=["stretch-3"])
+env = RCareWorld(assets=["stretch_3"], executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
+env.SetTimeStep(0.005)
+
+print("Environment initialized.")
 
 # Create an instance of the Stretch robot and set its initial properties
-stretch = env.InstanceObject(name="stretch-3", id=123456, attr_type=attr.ControllerAttr)
-stretch.SetTransform(position=[0, 0.05, 0])
+stretch = env.InstanceObject(name="stretch-3", id=221582, attr_type=attr.ControllerAttr)
+
+
+stretch.SetPosition([0, 0, 0])
 stretch.SetImmovable(False)
 env.step()
-gripper = env.GetAttr(1234560)
+
+print("Stretch robot created.")
+
+
+time.sleep(10)
+
+
+gripper = env.GetAttr(2215820)
 gripper.GripperOpen()
 env.step()
 

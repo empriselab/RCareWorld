@@ -1,7 +1,7 @@
 from pyrcareworld.envs.base_env import RCareWorld
 
 # Initialize the environment with the specified scene file
-env = RCareWorld(scene_file="DebugScene.json")
+env = RCareWorld(scene_file="DebugScene.json", executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 
 
 # Debug Grasp Point
@@ -47,7 +47,7 @@ env.step(300)
 env.Debug2DBBox(False)
 
     # Debug Joint Link
-    env.DebugJointLink()
-    env.SendLog("DebugJointLink")
-    env.step(300)
-    env.DebugJointLink(False)
+env.DebugJointLink()
+env.SendLog("DebugJointLink")
+env.step(300)
+env.DebugJointLink(False)

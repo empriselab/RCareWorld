@@ -2,7 +2,7 @@ from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 
 # Initialize the environment with a custom asset
-env = RCareWorld(assets=["CustomAttr"])
+env = RCareWorld(assets=["CustomAttr"], executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 
 # Create an instance of a custom attribute and send a custom message
 custom = env.InstanceObject(name="CustomAttr", id=123456, attr_type=attr.CustomAttr)

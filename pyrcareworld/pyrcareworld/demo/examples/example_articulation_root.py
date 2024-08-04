@@ -2,7 +2,7 @@ from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 
 # Initialize the environment
-env = RCareWorld()
+env = RCareWorld(executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
 
 # Instantiate the shadow hand object with a controller attribute
 shadow = env.InstanceObject("shadowhand", attr_type=attr.ControllerAttr)
