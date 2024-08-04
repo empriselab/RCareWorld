@@ -324,12 +324,6 @@ class RCareWorld(ABC):
         while "scene_init" not in self.data:
             self._step(simulate=False)
         self.data.pop("scene_init")
-        if self.check_version and "rfu_version" in self.data:
-            rfu_version = self.data["rfu_version"].split(".")
-            pyrfu_version = pyrcareworld.__version__.split(".")
-            if rfu_version[0] != pyrfu_version[0] or rfu_version[1] != pyrfu_version[1] or rfu_version[2] != pyrfu_version[2]:
-                rfu_version = self.data["rfu_version"]
-                raise Exception(f"pyrcareworld version: {pyrcareworld.__version__}\nrcareworld version: {rfu_version}\nPlease use the version with the same first three digits or turn off version check when initializing the environment (pass in parameter check_version=False)")
         self._send_debug_data("SetPythonVersion", pyrcareworld.__version__)
 
     def WaitLoadDone(self) -> None:
