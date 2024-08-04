@@ -10,6 +10,10 @@
 /[Dd]oc/
 /[Dd]ocs/
 
+# ignore build folder
+/[Bb]uilds/
+/[Bb]uild/
+
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
