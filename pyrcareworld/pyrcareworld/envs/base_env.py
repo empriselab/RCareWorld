@@ -38,7 +38,7 @@ class RCareWorld(ABC):
             proc_id=0,
             log_level=0,
             ext_attr: list = [],
-            check_version: bool = True
+            check_version: bool = False
     ):
         """
         Initialize the RCareWorld base environment class.
