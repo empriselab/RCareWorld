@@ -31,4 +31,4 @@ class SpongeAttr(attr.BaseAttr):
         """
         Get the force on the sponge.
         """
-        return self.data.get("real_time_forces", [])
+        return self.data.get("real_time_forces", [0.0]) 

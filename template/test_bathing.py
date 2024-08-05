@@ -91,6 +91,6 @@ env.step(300)
 
 # print(sponge.GetPaintProportion())
 # print(sponge.GetEffectiveForceProportion())
-print(sponge.GetForce())
+print("Force", sponge.GetForce())
 
 env.step()
