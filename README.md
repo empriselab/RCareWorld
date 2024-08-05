@@ -1,10 +1,10 @@
 ![alt text](rcareworld.png)
 # Here is the code for RCareWorld PhyRC Challenge 🦾
-This codebase requires a minimal installation of RCareWorld. You will have access to executables without the scenes for the competition. We will release the simulation environments for the robot-assisted dressing and bed bathing on Aug 5th AOE.
+This codebase requires a minimal installation of RCareWorld. You will have access to executables without the scenes for the competition. We will release the simulation environments for the robot-assisted dressing and bed bathing on Aug 6th AOE.
 
-This repo is in testing stage.
+This repo is currently in the testing stage.
 - Check the website https://emprise.cs.cornell.edu/rcareworld/
-- Auto-generated APIs: Please only refer to this document if you are participating in the PhyRC challenge. Please don't use the links in the main branch. https://rcareworld.readthedocs.io/en/phy-robo-care/
+- APIs: Please only refer to this document if you are participating in the PhyRC challenge. Please don't use the links in the main branch. https://rcareworld.readthedocs.io/en/phy-robo-care/
 - Discuss in the forum https://github.com/empriselab/RCareWorld/discussions
 
 
