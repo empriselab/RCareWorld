@@ -9,6 +9,11 @@ from pyrcareworld.demo import mesh_path
 from pyrcareworld.envs.base_env import RCareWorld
 from pyrcareworld.attributes.graspsim_attr import GraspSimAttr
 
+
+from pyrcareworld.demo import executable_path
+# Initialize the environment with the specified scene file
+player_path = os.path.join(executable_path, "Player/Player.x86_64")
+
 # Paths to object and pose data
 obj_path = os.path.join(mesh_path, "drink1/drink1.obj")
 pose_path = os.path.join(mesh_path, "drink1/grasps_rfu.csv")
@@ -22,7 +27,7 @@ positions = data[:, 0:3].reshape(-1).tolist()
 quaternions = data[:, 3:7].reshape(-1).tolist()
 
 # Initialize the environment
-env = RCareWorld(executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
+env = RCareWorld(executable_file=player_path)
 
 # Create an instance of the GraspSim object
 grasp_sim = env.InstanceObject(id=123123, name="GraspSim", attr_type=GraspSimAttr)

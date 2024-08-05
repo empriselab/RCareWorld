@@ -17,6 +17,7 @@ except ImportError:
         "This feature requires open3d, please install with `pip install open3d`"
     )
 from pyrcareworld.demo import mesh_path
+from pyrcareworld.demo import executable_path
 
 
 
@@ -38,7 +39,9 @@ points, normals = get_grasp_pose(obj_path, 100)
 points = points.reshape(-1).tolist()
 normals = normals.reshape(-1).tolist()
 
-env = RCareWorld(assets=["GraspSim"], executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
+executable_path = os.path.join(executable_path, "Player/Player.x86_64")
+
+env = RCareWorld(assets=["GraspSim"], executable_file=executable_path)
 grasp_sim = env.InstanceObject(id=123123, name="GraspSim", attr_type=GraspSimAttr)
 grasp_sim.StartGraspSim(
     mesh=os.path.abspath(obj_path),

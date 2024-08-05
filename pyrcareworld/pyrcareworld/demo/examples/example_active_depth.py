@@ -17,6 +17,11 @@ from pyrcareworld.envs.base_env import RCareWorld
 
 from pyrcareworld.attributes.activelightsensor_attr import ActiveLightSensorAttr
 
+
+from pyrcareworld.demo import executable_path
+# Initialize the environment with the specified scene file
+player_path = os.path.join(executable_path, "Player/Player.x86_64")
+
 nd_main_intrinsic_matrix = np.array([[600, 0, 240],
                                      [0, 600, 240],
                                      [0, 0, 1]])
@@ -24,7 +29,7 @@ nd_ir_intrinsic_matrix = np.array([[480, 0, 240],
                                    [0, 480, 240],
                                    [0, 0, 1]])
 
-env = RCareWorld(scene_file="ActiveDepth.json", executable_file= "C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
+env = RCareWorld(scene_file="ActiveDepth.json", executable_file=player_path)
 active_light_sensor_1 = env.GetAttr(789789)
 
 active_light_sensor_1.GetRGB(intrinsic_matrix=nd_main_intrinsic_matrix)

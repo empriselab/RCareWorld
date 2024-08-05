@@ -1,7 +1,14 @@
 from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 
-env = RCareWorld(assets=["Collider_Box", "Rigidbody_Sphere"], executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+from pyrcareworld.demo import executable_path
+# Initialize the environment with the specified scene file
+player_path = os.path.join(executable_path, "Player/Player.x86_64")
+
+env = RCareWorld(assets=["Collider_Box", "Rigidbody_Sphere"], executable_file=player_path)
 
 box1 = env.InstanceObject(name="Collider_Box", attr_type=attr.ColliderAttr)
 box1.SetTransform(position=[-0.5, 0.5, 0], scale=[0.1, 1, 1])

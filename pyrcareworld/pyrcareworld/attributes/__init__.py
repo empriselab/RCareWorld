@@ -14,9 +14,9 @@ from pyrcareworld.attributes.gelslim_attr import GelSlimAttr
 from pyrcareworld.attributes.humanbody_attr import HumanbodyAttr
 from pyrcareworld.attributes.graspsim_attr import GraspSimAttr
 from pyrcareworld.attributes.softbody_attr import SoftBodyAttr
-from pyrcareworld.attributes.intersect_attr import IntersectAttr
+# from pyrcareworld.attributes.intersect_attr import IntersectAttr
 from pyrcareworld.attributes.cloth_grasper_attr import ClothGrasperAttr
-from pyrcareworld.attributes.move_detectopm_attr import MovementDetectionAttr
+# from pyrcareworld.attributes.move_detectopm_attr import MovementDetectionAttr
 # from pyrcareworld.attributes.sponge_attr import SpongeAttr
 from pyrcareworld.attributes.grasp_detection_attr import GraspDetectionAttr
 from pyrcareworld.attributes.bathing_score_attr import BathingScoreAttr
@@ -43,7 +43,7 @@ attrs = {
 "HumanbodyAttr": HumanbodyAttr,
 "GraspSimAttr": GraspSimAttr,
 "SoftBodyAttr": SoftBodyAttr,
-"IntersectAttr": IntersectAttr,
+# "IntersectAttr": IntersectAttr,
 "ClothGrasperAttr": ClothGrasperAttr,
 # "SpongeAttr": SpongeAttr,
 "GraspDetectionAttr": GraspDetectionAttr,

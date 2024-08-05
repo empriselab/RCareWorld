@@ -2,9 +2,16 @@ import os
 from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+from pyrcareworld.demo import executable_path
+# Initialize the environment with the specified scene file
+player_path = os.path.join(executable_path, "Player/Player.x86_64")
+
 # Supported grippers: allegro_hand_right, bhand, dh_robotics_ag95_gripper, franka_hand, svh
 # Initialize the environment with the specified gripper
-env = RCareWorld(assets=["allegro_hand_right"], executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
+env = RCareWorld(assets=["allegro_hand_right"], executable_file=player_path)
 
 # Create an instance of the Allegro Hand Right gripper
 bhand = env.InstanceObject("allegro_hand_right", attr_type=attr.ControllerAttr)

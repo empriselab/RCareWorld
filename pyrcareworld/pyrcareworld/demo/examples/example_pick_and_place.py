@@ -2,8 +2,15 @@ import random
 from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+from pyrcareworld.demo import executable_path
+# Initialize the environment with the specified scene file
+player_path = os.path.join(executable_path, "Player/Player.x86_64")
+
 # Initialize the environment with the specified assets and set the time step
-env = RCareWorld(assets=["franka_panda"], executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
+env = RCareWorld(assets=["franka_panda"], executable_file=player_path)
 env.SetTimeStep(0.005)
 
 # Create an instance of the Franka Panda robot and set its IK target offset

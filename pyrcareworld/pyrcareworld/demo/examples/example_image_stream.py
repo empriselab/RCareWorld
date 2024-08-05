@@ -4,6 +4,13 @@ import pyrcareworld.attributes as attr
 import cv2
 import numpy as np
 
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+from pyrcareworld.demo import executable_path
+# Initialize the environment with the specified scene file
+player_path = os.path.join(executable_path, "Player/Player.x86_64")
+
 # Global variable to store the image
 img = None
 
@@ -20,7 +27,7 @@ class ImageThread(threading.Thread):
                 cv2.waitKey(10)
 
 # Initialize the environment with specified assets
-env = RCareWorld(assets=["Camera", "GameObject_Box"], executable_file= "C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
+env = RCareWorld(assets=["Camera", "GameObject_Box"], executable_file=player_path)
 
 # Create and set up the camera object
 camera = env.InstanceObject(name="Camera", id=123456, attr_type=attr.CameraAttr)

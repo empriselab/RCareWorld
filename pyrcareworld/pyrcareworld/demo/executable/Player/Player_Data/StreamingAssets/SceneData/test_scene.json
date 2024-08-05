@@ -1,0 +1,338 @@
+{
+  "ground": true,
+  "cameraPosition": [
+    0.0,
+    1.0,
+    -3.0
+  ],
+  "cameraRotation": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "groundPosition": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "assetsData": [
+    {
+      "$type": "RFUniverse.Attributes.ColliderAttrData, RFUniverse",
+      "colliderDatas": [
+        {
+          "renderIndexQueue": [
+            0
+          ],
+          "type": 1,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "radius": 1.0,
+          "height": 1.0,
+          "direction": 0,
+          "physicMateria": {
+            "bounciness": 0.0,
+            "dynamicFriction": 0.6,
+            "staticFriction": 0.6,
+            "frictionCombine": 0,
+            "bounceCombine": 0
+          }
+        }
+      ],
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "render": true,
+      "name": "Collider_Box",
+      "id": 408173,
+      "type": "Collider",
+      "parentID": -1,
+      "parentName": "",
+      "position": [
+        -0.5,
+        0.5,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.1,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "$type": "RFUniverse.Attributes.ColliderAttrData, RFUniverse",
+      "colliderDatas": [
+        {
+          "renderIndexQueue": [
+            0
+          ],
+          "type": 1,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "radius": 1.0,
+          "height": 1.0,
+          "direction": 0,
+          "physicMateria": {
+            "bounciness": 0.0,
+            "dynamicFriction": 0.6,
+            "staticFriction": 0.6,
+            "frictionCombine": 0,
+            "bounceCombine": 0
+          }
+        }
+      ],
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "render": true,
+      "name": "Collider_Box",
+      "id": 572962,
+      "type": "Collider",
+      "parentID": -1,
+      "parentName": "",
+      "position": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.1,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "$type": "RFUniverse.Attributes.ColliderAttrData, RFUniverse",
+      "colliderDatas": [
+        {
+          "renderIndexQueue": [
+            0
+          ],
+          "type": 1,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "radius": 1.0,
+          "height": 1.0,
+          "direction": 0,
+          "physicMateria": {
+            "bounciness": 0.0,
+            "dynamicFriction": 0.6,
+            "staticFriction": 0.6,
+            "frictionCombine": 0,
+            "bounceCombine": 0
+          }
+        }
+      ],
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "render": true,
+      "name": "Collider_Box",
+      "id": 752657,
+      "type": "Collider",
+      "parentID": -1,
+      "parentName": "",
+      "position": [
+        0.0,
+        0.5,
+        0.5
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        0.1
+      ]
+    },
+    {
+      "$type": "RFUniverse.Attributes.ColliderAttrData, RFUniverse",
+      "colliderDatas": [
+        {
+          "renderIndexQueue": [
+            0
+          ],
+          "type": 1,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "radius": 1.0,
+          "height": 1.0,
+          "direction": 0,
+          "physicMateria": {
+            "bounciness": 0.0,
+            "dynamicFriction": 0.6,
+            "staticFriction": 0.6,
+            "frictionCombine": 0,
+            "bounceCombine": 0
+          }
+        }
+      ],
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "render": true,
+      "name": "Collider_Box",
+      "id": 377400,
+      "type": "Collider",
+      "parentID": -1,
+      "parentName": "",
+      "position": [
+        0.0,
+        0.5,
+        -0.5
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        0.1
+      ]
+    },
+    {
+      "$type": "RFUniverse.Attributes.RigidbodyAttrData, RFUniverse",
+      "mass": 1.0,
+      "useGravity": true,
+      "isKinematic": false,
+      "colliderDatas": [
+        {
+          "renderIndexQueue": [
+            0
+          ],
+          "type": 2,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "radius": 0.5,
+          "height": 1.0,
+          "direction": 0,
+          "physicMateria": {
+            "bounciness": 0.0,
+            "dynamicFriction": 0.6,
+            "staticFriction": 0.6,
+            "frictionCombine": 0,
+            "bounceCombine": 0
+          }
+        }
+      ],
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "render": true,
+      "name": "Rigidbody_Sphere",
+      "id": 665079,
+      "type": "Rigidbody",
+      "parentID": -1,
+      "parentName": "",
+      "position": [
+        0.0,
+        0.249999925,
+        -4.74420131E-06
+      ],
+      "rotation": [
+        -0.0011223848,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    }
+  ]
+}
