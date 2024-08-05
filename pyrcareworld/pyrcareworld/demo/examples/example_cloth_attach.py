@@ -6,9 +6,10 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 
 from pyrcareworld.envs.base_env import RCareWorld
 from pyrcareworld.demo import mesh_path
+from pyrcareworld.demo import executable_path
 
 # Initialize the environment
-env = RCareWorld(executable_file="C:\\Users\\15156\\Desktop\\New folder (2)\\Rcareworld.exe")
+env = RCareWorld(executable_file=os.path.join(executable_path, "Player/Player.x86_64"))
 env.DebugObjectPose()
 env.EnabledGroundObiCollider(True)
 
