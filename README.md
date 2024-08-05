@@ -21,6 +21,7 @@ We highly recommend using an Ubuntu 20.04 system which will be used for evaluati
 - Create a conda environment with Python 3.10: `conda create -n rcareworld python=3.10`
 - Install the requirements: `cd pyrcareworld` and then `pip install -r requirements.txt`
 - Install pyrcareworld: `pip install -e .`
+- Verify the installation works: Navigate to `pyrcareworld/pyrcareworld/demo/examples` folder, and frun `python test_scene.py`. You should expect to see the RCareWorld Unity executable window pop up with a white cube.
 
 # Get Started with the Examples
 Check the examples in `pyrcareworld/pyrcareworld/demo/examples` folder. 
@@ -28,3 +29,6 @@ Check the examples in `pyrcareworld/pyrcareworld/demo/examples` folder.
 # Starter Scripts for Bathing and Dressing Tasks
 Check the `test_bathing.py` and `test_dressing.py` to get an overall idea about how to use the simulation environments. Your score will be 
 stored in a json file called `spongeScore.json` for bathing and `dressingScore.json` for dressing under `~/.config/unity3d/RCareWorld/RCareWorld/`
+
+# Submit to EvalAI
+Once you are done with your solutions, submit your code to EvalAI following [this](https://rcareworld.readthedocs.io/en/phy-robo-care/) tutorial. Remember, you need to sign up as a team on EvalAI before Sep 8 (11:59pm AOE) to participate.

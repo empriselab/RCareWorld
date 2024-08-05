@@ -23,7 +23,6 @@ WORKDIR /app/RCareWorld
 
 # Switch to the competition-specific branch
 RUN git checkout phy-robo-care
-RUN git lfs pull
 
 # Install Python dependencies from requirements.txt
 COPY requirements.txt /app/RCareWorld/
