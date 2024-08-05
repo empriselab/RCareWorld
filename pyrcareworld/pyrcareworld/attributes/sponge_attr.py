@@ -27,8 +27,8 @@ class SpongeAttr(attr.BaseAttr):
         """
         return self.data.get("effective_force_proportion", 0.0)
 
-    def GetRealTimeForces(self):
+    def GetForce(self):
         """
-        Get the real-time forces recorded by the sponge.
+        Get the force on the sponge.
         """
         return self.data.get("real_time_forces", [])
