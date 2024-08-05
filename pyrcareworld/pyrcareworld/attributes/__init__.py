@@ -22,6 +22,7 @@ from pyrcareworld.attributes.grasp_detection_attr import GraspDetectionAttr
 from pyrcareworld.attributes.bathing_score_attr import BathingScoreAttr
 from pyrcareworld.attributes.dressing_score_attr import DressingScoreAttr
 from pyrcareworld.attributes.sponge_attr import SpongeAttr
+from pyrcareworld.attributes.sponge_score_attr import SpongeScoreAttr
 # from pyrcareworld.attributes.omplmanager_attr import OMPLManagerAttr
 
 
@@ -50,5 +51,6 @@ attrs = {
 "BathingScoreAttr": BathingScoreAttr,
 "DressingScoreAttr": DressingScoreAttr,
 "SpongeAttr": SpongeAttr,
+"SpongeScoreAttr": SpongeScoreAttr,
 # "OMPLManagerAttr": OMPLManagerAttr
 }

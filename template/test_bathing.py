@@ -1,46 +1,53 @@
 import json
 from pyrcareworld.envs.base_env import RCareWorld
-from pyrcareworld.attributes.sponge_attr import SpongeAttr
+# from pyrcareworld.attributes.sponge_attr import SpongeAttr
 
-json_path = "Your Jason File(dressingscore.json) Path"
-with open(json_path, 'r') as file:
-    data = json.load(file)
+# json_path = "Your Jason File(dressingscore.json) Path"
+# with open(json_path, 'r') as file:
+#     data = json.load(file)
     
-"""
-JSON File Template:
-{
-    "PickUpScrubberScore": 0,
-    "DipScrubberInWaterTankScore": 0,
-    "MoveScrubberToManikinScore": 0,
-    "BodyCoverageScore": 0,
-    "ForceThresholdScore": 0,
-    "TotalScore": 0
-}
+# """
+# JSON File Template:
+# {
+#     "PickUpScrubberScore": 0,
+#     "DipScrubberInWaterTankScore": 0,
+#     "MoveScrubberToManikinScore": 0,
+#     "BodyCoverageScore": 0,
+#     "ForceThresholdScore": 0,
+#     "TotalScore": 0
+# }
 
-Print the data to see the keys and grades.
-"""
+# Print the data to see the keys and grades.
+# """
 # Initialize the environment with the specified assets and set the time step
 env = RCareWorld()#executable_file="Your Unity Executable Path"
-env.SetTimeStep(0.005)
+# env.SetTimeStep(0.005)
 
 stretch_id = 221582
 robot = env.GetAttr(stretch_id)
-robot.SetPosition([1.267,1.148,0.716])
 env.step()
 
 # Get the gripper attribute and open the gripper
 gripper = env.GetAttr(2215820)
 gripper.GripperOpen()
+env.step()
 
-robot.WaitDo()
+env.step(100)
 
-sponge = env.GetAttr(123456)
+gripper.GripperClose()
+env.step()
+
+
+
+sponge = env.GetAttr(91846)
+env.step()
+print(sponge.data)
 
 # Main loop to create, move, and manipulate boxes
 while True:
 
 
-    # Get the positions of the boxes
+    # Random positions
     position1 = (-0.657, 0.941, 1.645)
     position2 = (-0.263, 1.063, 1.645)
 
@@ -74,13 +81,12 @@ while True:
         duration=2,
         speed_based=False,
     )
-    
-    for key, value in data.items():
-        print(f'{key}: {value}')
+
+    print(sponge.data)
         
 
-    print(sponge.GetBodyCoverageScore())
-    print(sponge.GetForceThresholdScore())
-    print(sponge.GetPickUpScrubberScore())
+    # print(sponge.GetPaintProportion())
+    # print(sponge.GetEffectiveForceProportion())
+    # print(sponge.GetRealTimeForces())
 
     env.step()

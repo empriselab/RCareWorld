@@ -3,9 +3,9 @@ from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 import json
 
-json_path = "Your Jason File(dressingscore.json) Path"
-with open(json_path, 'r') as file:
-    data = json.load(file)
+# json_path = "Your Jason File(dressingscore.json) Path"
+# with open(json_path, 'r') as file:
+#     data = json.load(file)
     
 """
 JSON File Template:
