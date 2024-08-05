@@ -1,0 +1,833 @@
+{
+  "ground": true,
+  "cameraPosition": [
+    -5.529076,
+    1.691474,
+    0.106703617
+  ],
+  "cameraRotation": [
+    35.908226,
+    95.08472,
+    -0.000765274337
+  ],
+  "groundPosition": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "assetsData": [
+    {
+      "$type": "RFUniverse.Attributes.ControllerData, RFUniverse",
+      "articulationDatas": [
+        {
+          "artIndexQueue": [
+            0,
+            1
+          ],
+          "anchorPosition": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "anchorRotation": [
+            0.0,
+            0.0,
+            -0.7071068,
+            0.7071068
+          ],
+          "JointType": 2,
+          "linearLockX": 0,
+          "linearLockY": 0,
+          "linearLockZ": 0,
+          "swingYLock": 2,
+          "swingZLock": 2,
+          "twistLock": 2,
+          "xDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          },
+          "yDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          },
+          "zDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          }
+        },
+        {
+          "artIndexQueue": [
+            0,
+            1,
+            1
+          ],
+          "anchorPosition": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "anchorRotation": [
+            0.0,
+            0.0,
+            -0.7071068,
+            0.7071068
+          ],
+          "JointType": 2,
+          "linearLockX": 1,
+          "linearLockY": 0,
+          "linearLockZ": 0,
+          "swingYLock": 2,
+          "swingZLock": 2,
+          "twistLock": 1,
+          "xDrive": {
+            "lowerLimit": -138.082825,
+            "upperLimit": 138.082825,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          },
+          "yDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          },
+          "zDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          }
+        },
+        {
+          "artIndexQueue": [
+            0,
+            1,
+            1,
+            1
+          ],
+          "anchorPosition": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "anchorRotation": [
+            0.0,
+            0.0,
+            -0.7071068,
+            0.7071068
+          ],
+          "JointType": 2,
+          "linearLockX": 0,
+          "linearLockY": 0,
+          "linearLockZ": 0,
+          "swingYLock": 2,
+          "swingZLock": 2,
+          "twistLock": 2,
+          "xDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          },
+          "yDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          },
+          "zDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          }
+        },
+        {
+          "artIndexQueue": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "anchorPosition": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "anchorRotation": [
+            0.0,
+            0.0,
+            -0.7071068,
+            0.7071068
+          ],
+          "JointType": 2,
+          "linearLockX": 1,
+          "linearLockY": 0,
+          "linearLockZ": 0,
+          "swingYLock": 2,
+          "swingZLock": 2,
+          "twistLock": 1,
+          "xDrive": {
+            "lowerLimit": -152.406769,
+            "upperLimit": 152.406769,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          },
+          "yDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          },
+          "zDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          }
+        },
+        {
+          "artIndexQueue": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "anchorPosition": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "anchorRotation": [
+            0.0,
+            0.0,
+            -0.7071068,
+            0.7071068
+          ],
+          "JointType": 2,
+          "linearLockX": 0,
+          "linearLockY": 0,
+          "linearLockZ": 0,
+          "swingYLock": 2,
+          "swingZLock": 2,
+          "twistLock": 2,
+          "xDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          },
+          "yDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          },
+          "zDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          }
+        },
+        {
+          "artIndexQueue": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "anchorPosition": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "anchorRotation": [
+            0.0,
+            0.0,
+            -0.7071068,
+            0.7071068
+          ],
+          "JointType": 2,
+          "linearLockX": 1,
+          "linearLockY": 0,
+          "linearLockZ": 0,
+          "swingYLock": 2,
+          "swingZLock": 2,
+          "twistLock": 1,
+          "xDrive": {
+            "lowerLimit": -127.769592,
+            "upperLimit": 127.769592,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          },
+          "yDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          },
+          "zDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          }
+        },
+        {
+          "artIndexQueue": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "anchorPosition": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "anchorRotation": [
+            0.0,
+            0.0,
+            -0.7071068,
+            0.7071068
+          ],
+          "JointType": 2,
+          "linearLockX": 0,
+          "linearLockY": 0,
+          "linearLockZ": 0,
+          "swingYLock": 2,
+          "swingZLock": 2,
+          "twistLock": 2,
+          "xDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          },
+          "yDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          },
+          "zDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          }
+        },
+        {
+          "artIndexQueue": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "anchorPosition": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "anchorRotation": [
+            0.0,
+            0.0,
+            0.7071068,
+            0.7071068
+          ],
+          "JointType": 0,
+          "linearLockX": 2,
+          "linearLockY": 2,
+          "linearLockZ": 2,
+          "swingYLock": 2,
+          "swingZLock": 2,
+          "twistLock": 2,
+          "xDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          },
+          "yDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          },
+          "zDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          }
+        },
+        {
+          "artIndexQueue": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "anchorPosition": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "anchorRotation": [
+            0.0,
+            0.0,
+            0.7071068,
+            0.7071068
+          ],
+          "JointType": 0,
+          "linearLockX": 2,
+          "linearLockY": 2,
+          "linearLockZ": 2,
+          "swingYLock": 2,
+          "swingZLock": 2,
+          "twistLock": 2,
+          "xDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          },
+          "yDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          },
+          "zDrive": {
+            "lowerLimit": 0.0,
+            "upperLimit": 0.0,
+            "stiffness": 100000.0,
+            "damping": 9000.0,
+            "forceLimit": 3.40282347E+38,
+            "target": 0.0,
+            "targetVelocity": 0.0
+          }
+        }
+      ],
+      "colliderDatas": [
+        {
+          "renderIndexQueue": [
+            0,
+            0
+          ],
+          "type": 4,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "radius": 1.0,
+          "height": 1.0,
+          "direction": 0,
+          "physicMateria": {
+            "bounciness": 0.0,
+            "dynamicFriction": 0.6,
+            "staticFriction": 0.6,
+            "frictionCombine": 0,
+            "bounceCombine": 0
+          }
+        },
+        {
+          "renderIndexQueue": [
+            0,
+            1,
+            0
+          ],
+          "type": 4,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "radius": 1.0,
+          "height": 1.0,
+          "direction": 0,
+          "physicMateria": {
+            "bounciness": 0.0,
+            "dynamicFriction": 0.6,
+            "staticFriction": 0.6,
+            "frictionCombine": 0,
+            "bounceCombine": 0
+          }
+        },
+        {
+          "renderIndexQueue": [
+            0,
+            1,
+            1,
+            0
+          ],
+          "type": 4,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "radius": 1.0,
+          "height": 1.0,
+          "direction": 0,
+          "physicMateria": {
+            "bounciness": 0.0,
+            "dynamicFriction": 0.6,
+            "staticFriction": 0.6,
+            "frictionCombine": 0,
+            "bounceCombine": 0
+          }
+        },
+        {
+          "renderIndexQueue": [
+            0,
+            1,
+            1,
+            1,
+            0
+          ],
+          "type": 4,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "radius": 1.0,
+          "height": 1.0,
+          "direction": 0,
+          "physicMateria": {
+            "bounciness": 0.0,
+            "dynamicFriction": 0.6,
+            "staticFriction": 0.6,
+            "frictionCombine": 0,
+            "bounceCombine": 0
+          }
+        },
+        {
+          "renderIndexQueue": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "type": 4,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "radius": 1.0,
+          "height": 1.0,
+          "direction": 0,
+          "physicMateria": {
+            "bounciness": 0.0,
+            "dynamicFriction": 0.6,
+            "staticFriction": 0.6,
+            "frictionCombine": 0,
+            "bounceCombine": 0
+          }
+        },
+        {
+          "renderIndexQueue": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "type": 4,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            1.611493E-43
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "radius": 1.0,
+          "height": 1.0,
+          "direction": 0,
+          "physicMateria": {
+            "bounciness": 0.0,
+            "dynamicFriction": 0.6,
+            "staticFriction": 0.6,
+            "frictionCombine": 0,
+            "bounceCombine": 0
+          }
+        },
+        {
+          "renderIndexQueue": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "type": 4,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            -1.233227E-40
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "radius": 1.0,
+          "height": 1.0,
+          "direction": 0,
+          "physicMateria": {
+            "bounciness": 0.0,
+            "dynamicFriction": 0.6,
+            "staticFriction": 0.6,
+            "frictionCombine": 0,
+            "bounceCombine": 0
+          }
+        },
+        {
+          "renderIndexQueue": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "type": 4,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            9.464412E-40
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "radius": 1.0,
+          "height": 1.0,
+          "direction": 0,
+          "physicMateria": {
+            "bounciness": 0.0,
+            "dynamicFriction": 0.6,
+            "staticFriction": 0.6,
+            "frictionCombine": 0,
+            "bounceCombine": 0
+          }
+        }
+      ],
+      "color": [
+        0.0664973,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "render": true,
+      "name": "kinova_gen3_robotiq85",
+      "id": 221584,
+      "type": "Controller",
+      "parentID": -1,
+      "parentName": "",
+      "position": [
+        -4.146948,
+        0.0,
+        -0.0675962
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  ]
+}
