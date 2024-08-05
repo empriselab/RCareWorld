@@ -15,8 +15,8 @@ import numpy as np
 import json
 
 # Initialize the environment with the specified assets and set the time step
-env = RCareWorld()
-# env = RCareWorld(executable_file="Dressing/DressingPlayer.x86_64")
+# env = RCareWorld()
+env = RCareWorld(executable_file="Dressing/DressingPlayer.x86_64")
 print(env.attrs)
 
 kinova_id = 315893
@@ -39,9 +39,10 @@ print(cloth.data)
 # Set the camera as a child of the robot's hand
 # you can also load new cameras and set them as children of other objects in the scene
 camera_hand = env.GetAttr(654321)
-camera_hand.SetTransform(position=gripper.data['position'], rotation=[0, 90, 0])
+camera_hand.SetTransform(position=gripper.data['position'], rotation=[-90, 90, -90])
 camera_hand.SetParent(3158930)
 camera_hand.GetRGB(512, 512)
+env.step()
 rgb = np.frombuffer(camera_hand.data["rgb"], dtype=np.uint8)
 env.step()
 
@@ -75,6 +76,13 @@ robot.IKTargetDoRotate(
 )
 robot.WaitDo()
 
+# cloth data without particles
+print("Cloth data:" + str(cloth.data))
+
+
+# particle positions will show up after calling GetParticles
+cloth.GetParticles()
+env.step()
 print("Cloth data:" + str(cloth.data)) 
 
 env.step(300)
