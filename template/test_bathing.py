@@ -1,27 +1,8 @@
 import json
 from pyrcareworld.envs.base_env import RCareWorld
-# from pyrcareworld.attributes.sponge_attr import SpongeAttr
-
-# json_path = "Your Jason File(dressingscore.json) Path"
-# with open(json_path, 'r') as file:
-#     data = json.load(file)
-    
-# """
-# JSON File Template:
-# {
-#     "PickUpScrubberScore": 0,
-#     "DipScrubberInWaterTankScore": 0,
-#     "MoveScrubberToManikinScore": 0,
-#     "BodyCoverageScore": 0,
-#     "ForceThresholdScore": 0,
-#     "TotalScore": 0
-# }
-
-# Print the data to see the keys and grades.
-# """
-# Initialize the environment with the specified assets and set the time step
-env = RCareWorld()#executable_file="Your Unity Executable Path"
-# env.SetTimeStep(0.005)
+import numpy as np
+import cv2
+env = RCareWorld(executable_file="Player/Player.x86_64")
 
 stretch_id = 221582
 robot = env.GetAttr(stretch_id)
@@ -30,18 +11,26 @@ env.step()
 # Get the gripper attribute and open the gripper
 gripper = env.GetAttr(2215820)
 gripper.GripperOpen()
+env.step(300)
+
+
+# gripper.GripperClose()
+# env.step()
+
+
+
+# sponge = env.GetAttr(91846)
+# env.step()
+# print(sponge.data)
+
+camera_hand = env.GetAttr(654321)
+camera_hand.SetTransform(position=gripper.data['position'], rotation=[0, 0, 0])
+camera_hand.SetParent(2215820)
+camera_hand.GetRGB(512, 512)
 env.step()
-
-env.step(100)
-
-gripper.GripperClose()
-env.step()
-
-
-
-sponge = env.GetAttr(91846)
-env.step()
-print(sponge.data)
+rgb = np.frombuffer(camera_hand.data["rgb"], dtype=np.uint8)
+rgb = cv2.imdecode(rgb, cv2.IMREAD_COLOR)
+cv2.imwrite("rgb_head.png", rgb)
 
 # Main loop to create, move, and manipulate boxes
 while True:
@@ -82,7 +71,6 @@ while True:
         speed_based=False,
     )
 
-    print(sponge.data)
         
 
     # print(sponge.GetPaintProportion())
