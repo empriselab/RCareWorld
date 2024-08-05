@@ -22,5 +22,9 @@ We highly recommend using an Ubuntu 20.04 system which will be used for evaluati
 - Install the requirements: `cd pyrcareworld` and then `pip install -r requirements.txt`
 - Install pyrcareworld: `pip install -e .`
 
-# Tutorial Videos
-Congratulations! Now you have RCareWorld installed. For more information about using the simulation, please watch our [playlist](https://www.youtube.com/playlist?list=PLR4mEXh9zalLtbGLbx2A5TmX9Niy-svqq) of tutorials, which will be continuously updated.
+# Get Started with the Examples
+Check the examples in `pyrcareworld/pyrcareworld/demo/examples` folder. 
+
+# Starter Scripts for Bathing and Dressing Tasks
+Check the `test_bathing.py` and `test_dressing.py` to get an overall idea about how to use the simulation environments. Your score will be 
+stored in a json file called `spongeScore.json` for bathing and `dressingScore.json` for dressing under `~/.config/unity3d/RCareWorld/RCareWorld/`
