@@ -7,6 +7,7 @@ WORKDIR /app
 # Install git
 RUN apt-get update && \
     apt-get install -y git && \
+    apt-get install -y git curl libgl1-mesa-glx libglib2.0-0 && \
     apt-get clean
 
 # Install Git Large File Storage
@@ -25,10 +26,13 @@ WORKDIR /app/RCareWorld
 RUN git checkout phy-robo-care
 
 # Install Python dependencies from requirements.txt
-COPY requirements.txt /app/RCareWorld/
-RUN pip install --no-cache-dir -r requirements.txt
+WORKDIR /app/RCareWorld/pyrcareworld
 
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -e .
+RUN pip install opencv-python
 # Copy the test_bathing.py script into the working directory
+WORKDIR /app/RCareWorld/template
 COPY test_bathing.py /app/RCareWorld/
 
 # Command to run the test_bathing.py script on container start
