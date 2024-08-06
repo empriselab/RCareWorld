@@ -16,7 +16,7 @@ import json
 
 # Initialize the environment with the specified assets and set the time step
 # env = RCareWorld()
-env = RCareWorld(executable_file="Dressing/DressingPlayer.x86_64", graphics=False)
+env = RCareWorld(executable_file="../Dressing/DressingPlayer.x86_64", graphics=False)
 print(env.attrs)
 
 kinova_id = 315893

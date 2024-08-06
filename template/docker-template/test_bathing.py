@@ -18,7 +18,7 @@ import cv2
 
 # Initialize the environment with the specified executable file
 # env = RCareWorld()
-env = RCareWorld(executable_file="Bathing/BathingPlayer.x86_64", graphics=False)
+env = RCareWorld(executable_file="../Bathing/BathingPlayer.x86_64", graphics=False)
 print(env.attrs)
 
 stretch_id = 221582
