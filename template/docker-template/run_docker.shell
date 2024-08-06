@@ -1,0 +1,22 @@
+DOCKER_IMAGE_NAME="unity-python"
+
+echo "Building Docker image..."
+docker build -t $DOCKER_IMAGE_NAME .
+
+echo "Running Docker container..."
+CONTAINER_ID=$(docker run -d $DOCKER_IMAGE_NAME)
+
+echo "Waiting for the Docker container to finish..."
+docker wait $CONTAINER_ID
+
+OUTPUT_DIR="./output"
+mkdir -p $OUTPUT_DIR
+
+echo "Copying JSON files from Docker container to host..."
+docker cp $CONTAINER_ID:/root/.config/unity3d/RCareWorld/BathingPlayer/spongeScore.json $OUTPUT_DIR/spongeScore.json
+docker cp $CONTAINER_ID:/root/.config/unity3d/RCareWorld/BathingPlayer/dressingscore.json $OUTPUT_DIR/dressingscore.json
+
+echo "Cleaning up..."
+docker rm $CONTAINER_ID
+
+echo "Done. JSON files are saved in the $OUTPUT_DIR directory."

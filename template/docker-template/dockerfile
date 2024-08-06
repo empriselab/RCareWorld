@@ -31,9 +31,9 @@ WORKDIR /app/RCareWorld/pyrcareworld
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install -e .
 RUN pip install opencv-python
-# Copy the test_bathing.py script into the working directory
-WORKDIR /app/RCareWorld/template
-COPY test_bathing.py /app/RCareWorld/
+
+
+WORKDIR /app/RCareWorld/template/docker-template
 
 # Command to run the test_bathing.py script on container start
-CMD ["python", "test_bathing.py"]
+CMD ["./run_python.shell"]

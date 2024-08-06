@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Run the test_bathing.py script
+python ./test_bathing.py
+
+# Run the test_dressing.py script
+python ./test_dressing.py
