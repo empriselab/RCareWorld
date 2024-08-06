@@ -15,6 +15,7 @@ from pyrcareworld.attributes.humanbody_attr import HumanbodyAttr
 from pyrcareworld.attributes.graspsim_attr import GraspSimAttr
 from pyrcareworld.attributes.softbody_attr import SoftBodyAttr
 # from pyrcareworld.attributes.omplmanager_attr import OMPLManagerAttr
+from pyrcareworld.attributes.rope_attr import RopeAttr
 
 attrs = {
 "BaseAttr": BaseAttr,
@@ -34,4 +35,5 @@ attrs = {
 "GraspSimAttr": GraspSimAttr,
 "SoftBodyAttr": SoftBodyAttr,
 # "OMPLManagerAttr": OMPLManagerAttr
+"RopeAttr": RopeAttr
 }
