@@ -36,4 +36,4 @@ RUN pip install opencv-python
 WORKDIR /app/RCareWorld/template/docker-template
 
 # Command to run the test_bathing.py script on container start
-CMD ["./run_python.shell"]
+# CMD ["bash", "/app/RCareWorld/template/docker-template/run_python.shell"]
