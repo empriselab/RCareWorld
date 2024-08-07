@@ -234,3 +234,10 @@ cython_debug/
 
 # Mac
 .DS_Store
+
+#Docker-build
+/template/docker-template/*.zip
+/template/docker-template/*.tar
+/template/docker-template/output
+template/rgb_hand.png
+template/rgb_hand.png

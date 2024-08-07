@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set Docker image name
-DOCKER_IMAGE_NAME="unity-test"
+DOCKER_IMAGE_NAME="your_docker_name"
 
 echo "Building Docker image..."
 docker build -t $DOCKER_IMAGE_NAME .
@@ -16,10 +16,25 @@ OUTPUT_DIR="./output"
 mkdir -p $OUTPUT_DIR
 
 echo "Copying JSON files from Docker container to host..."
-docker cp $CONTAINER_ID:/root/.config/unity3d/RCareWorld/BathingPlayer/spongeScore.json $OUTPUT_DIR/spongeScore.json
-docker cp $CONTAINER_ID:/root/.config/unity3d/RCareWorld/BathingPlayer/dressingscore.json $OUTPUT_DIR/dressingscore.json
+docker cp $CONTAINER_ID:/root/.config/unity3d/RCareWorld/BathingPlayer/spongeScore.json $OUTPUT_DIR/BathingScore.json
+docker cp $CONTAINER_ID:/root/.config/unity3d/RCareWorld/BathingPlayer/dressingScore.json $OUTPUT_DIR/DressingScore.json
 
-echo "Cleaning up..."
+echo "Cleaning up Docker container..."
 docker rm $CONTAINER_ID
 
-echo "Done. JSON files are saved in the $OUTPUT_DIR directory."
+echo "Echoing JSON file contents..."
+echo "Contents of BathingScore.json:"
+cat $OUTPUT_DIR/BathingScore.json
+echo "Contents of DressingScore.json:"
+cat $OUTPUT_DIR/DressingScore.json
+
+echo "Saving Docker image to tar file..."
+docker save -o your_docker_name.tar $DOCKER_IMAGE_NAME
+
+echo "Compressing Docker image to zip file..."
+zip your_docker_name.zip your_docker_name.tar
+
+echo "Cleaning up tar file..."
+rm your_docker_name.tar
+
+echo "Done. JSON files are saved in the $OUTPUT_DIR directory and Docker image is saved as your_docker_name.zip."
