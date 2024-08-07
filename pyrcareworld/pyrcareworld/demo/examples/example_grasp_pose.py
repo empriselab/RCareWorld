@@ -11,7 +11,7 @@ from pyrcareworld.envs.base_env import RCareWorld
 from pyrcareworld.attributes.graspsim_attr import GraspSimAttr
 
 # Initialize the environment with the specified scene file
-player_path = os.path.join(executable_path, "Player/Player.x86_64")
+player_path = os.path.join(executable_path, "../executable/Player/Player.x86_64")
 
 # Paths to object and pose data
 obj_path = os.path.join(mesh_path, "drink1/drink1.obj")

@@ -9,7 +9,7 @@ from pyrcareworld.demo import mesh_path
 from pyrcareworld.demo import executable_path
 
 # Initialize the environment
-env = RCareWorld(executable_file=os.path.join(executable_path, "Player/Player.x86_64"))
+env = RCareWorld(executable_file=os.path.join(executable_path, "../executable/Player/Player.x86_64"))
 env.DebugObjectPose()
 env.EnabledGroundObiCollider(True)
 

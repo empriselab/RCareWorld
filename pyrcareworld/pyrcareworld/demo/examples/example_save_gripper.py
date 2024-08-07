@@ -9,7 +9,7 @@ from pyrcareworld.demo import executable_path
 from pyrcareworld.envs.base_env import RCareWorld
 
 # Initialize the environment with the specified scene file
-player_path = os.path.join(executable_path, "Player/Player.x86_64")
+player_path = os.path.join(executable_path, "../executable/Player/Player.x86_64")
 
 # Supported grippers: allegro_hand_right, bhand, dh_robotics_ag95_gripper, franka_hand, svh
 # Initialize the environment with the specified gripper

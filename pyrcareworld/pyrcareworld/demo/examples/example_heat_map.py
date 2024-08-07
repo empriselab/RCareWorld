@@ -11,7 +11,7 @@ from pyrcareworld.envs.base_env import RCareWorld
 
 
 # Initialize the environment with the specified scene file
-player_path = os.path.join(executable_path, "Player/Player.x86_64")
+player_path = os.path.join(executable_path, "../executable/Player/Player.x86_64")
 
 # Initialize the environment
 env = RCareWorld(executable_file=player_path)

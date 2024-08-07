@@ -20,7 +20,7 @@ from pyrcareworld.attributes.activelightsensor_attr import ActiveLightSensorAttr
 from pyrcareworld.demo import executable_path
 
 # Initialize the environment with the specified scene file
-player_path = os.path.join(executable_path, "Player/Player.x86_64")
+player_path = os.path.join(executable_path, "../executable/Player/Player.x86_64")
 
 nd_main_intrinsic_matrix = np.array([[600, 0, 240],
                                      [0, 600, 240],

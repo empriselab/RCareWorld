@@ -8,7 +8,7 @@ from pyrcareworld.demo import executable_path
 from pyrcareworld.envs.base_env import RCareWorld
 
 # Initialize the environment with the specified scene file
-player_path = os.path.join(executable_path, "Player/Player.x86_64")
+player_path = os.path.join(executable_path, "../executable/Player/Player.x86_64")
 
 # Initialize the environment with specified assets
 env = RCareWorld(assets=["Rigidbody_Box", "franka_panda"],executable_file=player_path)
