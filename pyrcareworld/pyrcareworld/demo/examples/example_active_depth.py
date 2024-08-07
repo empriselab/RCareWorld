@@ -19,6 +19,7 @@ from pyrcareworld.attributes.activelightsensor_attr import ActiveLightSensorAttr
 
 
 from pyrcareworld.demo import executable_path
+
 # Initialize the environment with the specified scene file
 player_path = os.path.join(executable_path, "Player/Player.x86_64")
 
