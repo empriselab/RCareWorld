@@ -4,9 +4,8 @@ FROM python:3.10-slim
 # Set the working directory
 WORKDIR /app
 
-# Install git
+# Install git and other dependencies
 RUN apt-get update && \
-    apt-get install -y git && \
     apt-get install -y git curl libgl1-mesa-glx libglib2.0-0 && \
     apt-get clean
 
@@ -27,13 +26,18 @@ RUN git checkout phy-robo-care
 
 # Install Python dependencies from requirements.txt
 WORKDIR /app/RCareWorld/pyrcareworld
-
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install -e .
 RUN pip install opencv-python
 
-
+# Set the working directory for scripts
 WORKDIR /app/RCareWorld/template/docker-template
 
-# Command to run the test_bathing.py script on container start
-# CMD ["bash", "/app/RCareWorld/template/docker-template/run_python.shell"]
+# Copy the shell script to the container
+COPY run_python.shell /app/RCareWorld/template/docker-template/run_python.shell
+
+# Ensure the shell script has execute permissions
+RUN chmod +x /app/RCareWorld/template/docker-template/run_python.shell
+
+# Command to run the shell script
+CMD ["bash", "/app/RCareWorld/template/docker-template/run_python.shell"]
