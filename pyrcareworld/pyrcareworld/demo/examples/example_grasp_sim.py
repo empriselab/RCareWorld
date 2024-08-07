@@ -1,9 +1,12 @@
 import os
 import sys
+import numpy as np
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+
 from pyrcareworld.attributes.graspsim_attr import GraspSimAttr
 from pyrcareworld.envs.base_env import RCareWorld
-import numpy as np
+
 
 try:
     import pandas as pd

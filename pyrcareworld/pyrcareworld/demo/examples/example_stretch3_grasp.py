@@ -1,13 +1,13 @@
 import os
 import sys
+import pyrcareworld.attributes as attr
 
 # Add the project directory to the system path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 from pyrcareworld.envs.base_env import RCareWorld
-import pyrcareworld.attributes as attr
-
 from pyrcareworld.demo import executable_path
+
 # Initialize the environment with the specified scene file
 player_path = os.path.join(executable_path, "Player/Player.x86_64")
 

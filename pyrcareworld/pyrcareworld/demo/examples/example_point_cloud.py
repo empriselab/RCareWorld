@@ -1,10 +1,13 @@
 import os
+import sys
+import pyrcareworld.utils.depth_processor as dp
+
+from pyrcareworld.demo import executable_path
+from pyrcareworld.envs.base_env import RCareWorld
 
 # Enable OpenCV EXR support
 os.environ["OPENCV_IO_ENABLE_OPENEXR"] = "1"
-
-from pyrcareworld.envs.base_env import RCareWorld
-import pyrcareworld.utils.depth_processor as dp
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 # Ensure open3d is installed
 try:
@@ -13,10 +16,8 @@ except ImportError:
     raise Exception(
         "This feature requires open3d, please install with `pip install open3d`"
     )
-import os
-import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
-from pyrcareworld.demo import executable_path
+
+
 # Initialize the environment with the specified scene file
 player_path = os.path.join(executable_path, "Player/Player.x86_64")
 

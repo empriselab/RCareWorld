@@ -1,9 +1,10 @@
-from pyrcareworld.envs.base_env import RCareWorld
-from pyrcareworld.attributes.light_attr import LightType
-
 import os
 import sys
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+
+from pyrcareworld.envs.base_env import RCareWorld
+from pyrcareworld.attributes.light_attr import LightType
 from pyrcareworld.demo import executable_path
 
 # Initialize the environment with the specified scene file

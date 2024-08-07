@@ -1,10 +1,10 @@
 import os
 import sys
+import pyrcareworld.attributes as attr
 
 # Add the project directory to the system path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
-import pyrcareworld.attributes as attr
 from pyrcareworld.envs.base_env import RCareWorld
 from pyrcareworld.demo import mesh_path
 

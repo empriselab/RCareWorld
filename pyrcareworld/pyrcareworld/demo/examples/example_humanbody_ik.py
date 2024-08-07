@@ -6,8 +6,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 
 from pyrcareworld.envs.base_env import RCareWorld
 from pyrcareworld.attributes.humanbody_attr import HumanbodyAttr
-
-
 from pyrcareworld.demo import executable_path
 
 # Initialize the environment with the specified scene file

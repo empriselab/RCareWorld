@@ -3,7 +3,9 @@ import cv2
 import numpy as np
 import os
 import sys
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+
 from pyrcareworld.demo import executable_path
 from pyrcareworld.envs.base_env import RCareWorld
 

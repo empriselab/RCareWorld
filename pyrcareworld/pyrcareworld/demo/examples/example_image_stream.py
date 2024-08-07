@@ -1,13 +1,14 @@
-import threading
-from pyrcareworld.envs.base_env import RCareWorld
-import pyrcareworld.attributes as attr
-import cv2
-import numpy as np
-
 import os
 import sys
+import cv2
+import threading
+import numpy as np
+import pyrcareworld.attributes as attr
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+
 from pyrcareworld.demo import executable_path
+from pyrcareworld.envs.base_env import RCareWorld
 
 # Initialize the environment with the specified scene file
 player_path = os.path.join(executable_path, "Player/Player.x86_64")

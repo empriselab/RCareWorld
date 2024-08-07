@@ -1,10 +1,12 @@
-from pyrcareworld.envs.base_env import RCareWorld
-import pyrcareworld.utils.rfuniverse_utility as utility
-
 import os
 import sys
+import pyrcareworld.utils.rfuniverse_utility as utility
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+
 from pyrcareworld.demo import executable_path
+from pyrcareworld.envs.base_env import RCareWorld
+
 # Initialize the environment with the specified scene file
 player_path = os.path.join(executable_path, "Player/Player.x86_64")
 

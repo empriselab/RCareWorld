@@ -9,7 +9,7 @@ from pyrcareworld.demo import urdf_path
 from pyrcareworld.demo import executable_path
 
 # Initialize the environment with the specified scene file
-player_path = os.path.join(executable_path, "C:\\Users\\15156\\Desktop\\New folder (2)\\RCareWorld.exe")
+player_path = os.path.join(executable_path, "Player/Player.x86_64")
 
 # Initialize the environment
 env = RCareWorld(executable_file=player_path)

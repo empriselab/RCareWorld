@@ -1,11 +1,12 @@
-from pyrcareworld.envs.base_env import RCareWorld
-import pyrcareworld.attributes as attr
 import time
-
 import os
 import sys
+import pyrcareworld.attributes as attr
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+from pyrcareworld.envs.base_env import RCareWorld
 from pyrcareworld.demo import executable_path
+
 # Initialize the environment with the specified scene file
 player_path = os.path.join(executable_path, "Player/Player.x86_64")
 
@@ -18,16 +19,13 @@ print("Environment initialized.")
 # Create an instance of the Stretch robot and set its initial properties
 stretch = env.InstanceObject(name="stretch-3", id=221582, attr_type=attr.ControllerAttr)
 
-
 stretch.SetPosition([0, 0, 0])
 stretch.SetImmovable(False)
 env.step()
 
 print("Stretch robot created.")
 
-
 time.sleep(10)
-
 
 gripper = env.GetAttr(2215820)
 gripper.GripperOpen()
@@ -54,5 +52,6 @@ stretch.WaitDo()
 # env.step(300)
 # stretch.TurnRight(90, 30)
 # env.step(300)
+
 stretch.TurnLeft(90, 30)
 env.step(300)

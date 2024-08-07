@@ -1,9 +1,12 @@
 import os
-os.environ["OPENCV_IO_ENABLE_OPENEXR"] = "1"
 import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 import cv2
 import numpy as np
+import pyrcareworld.utils.depth_processor as dp
+import pyrcareworld.utils.rfuniverse_utility as utility
+
+os.environ["OPENCV_IO_ENABLE_OPENEXR"] = "1"
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 try:
     import open3d as o3d
@@ -11,13 +14,9 @@ except ImportError:
     raise Exception(
         "This feature requires open3d, please install with `pip install open3d`"
     )
-import pyrcareworld.utils.rfuniverse_utility as utility
-import pyrcareworld.utils.depth_processor as dp
+
 from pyrcareworld.envs.base_env import RCareWorld
-
 from pyrcareworld.attributes.activelightsensor_attr import ActiveLightSensorAttr
-
-
 from pyrcareworld.demo import executable_path
 
 # Initialize the environment with the specified scene file
