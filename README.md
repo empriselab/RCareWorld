@@ -22,6 +22,14 @@ Clone the `phy-robo-care` branch of the repo: `git clone -b phy-robo-care https:
 First of all, please ensure that conda is installed on your computer.
 For details, refer to the conda installation guide: [Conda Installation Guide](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
 
+Also, please install `libassimp`. Ubuntu users can install it with this command:
+
+```
+sudo apt-get update
+sudo apt-get install libassimp-dev
+```
+Then you can install the rcareworld!
+
 <!-- - Create a conda environment with Python 3.10: `conda create -n rcareworld python=3.10`
 - Activate the conda environment: `conda activate rcareworld`
 - Install the requirements: `cd pyrcareworld` and then `pip install -r requirements.txt`
