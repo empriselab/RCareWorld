@@ -25,6 +25,14 @@ API Reference
 
    api/modules
 
+installation
+===
+.. toctree::
+   :maxdepth: 2
+
+   installation
+
+
 Submission
 ====
 .. toctree::

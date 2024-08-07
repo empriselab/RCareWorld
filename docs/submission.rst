@@ -19,17 +19,27 @@ If you are participating in only 1 track, you should write one script that runs 
 if your entry-point script is `test_bathing.py`, you should write a Dockerfile that copies this script into the container and runs it.
 If you are participating in both of the tracks, you should write two scripts, one for each track, and write a Dockerfile that copies both scripts into the container and runs them.
 
-3. Build the Docker image
+Build Your Docker
+-----------------
+
+1. Clone the GitHub repository and checkout the specific branch
 
 .. code-block:: bash
 
-    docker build -t your_docker_name .
+    git clone https://github.com/empriselab/RCareWorld.git
+    cd RCareWorld
+    git checkout phy-robo-care
+    cd template/docker-template
 
-4. Run your Docker container
+2. Run the Docker script
 
 .. code-block:: bash
 
-    docker run -it your_docker_name
+    sudo bash ./run_docker.sh
+
+The `run_docker.sh` script will build the Docker image, run the container, and save the generated ZIP file.
+
+
 
 Writing and Testing Code Inside Docker
 --------------------------------------
