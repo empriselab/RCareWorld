@@ -49,22 +49,29 @@ class RFUniverseCommunicator(threading.Thread):
             raise OSError("No available port")
 
     def online(self):
-        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.server.bind(("localhost", self.port))
-        print(f"Waiting for connections on port: {self.port}...")
-        self.server.listen(1)
-        self.client, _ = self.server.accept()
-        print(f"Connected successfully")
-        self.connected = True
-        self.client.settimeout(None)
-        self.client.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-        self.receive_step()
+        try:
+            self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            self.server.bind(("localhost", self.port))
+            print(f"Waiting for connections on port: {self.port}...")
+            self.server.listen(1)
+            self.client, _ = self.server.accept()
+            print(f"Connected successfully")
+            self.connected = True
+            self.client.settimeout(None)
+            self.client.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+            self.receive_step()
+        except KeyboardInterrupt:
+            self.handle_keyboard_interrupt()
+
 
     def close(self):
-        self.client.close()
-        self.server.close()
+        if self.client:
+            self.client.close()
+        if self.server:
+            self.server.close()
         self.connected = False
+
 
     def run(self):
         while True:
@@ -93,33 +100,53 @@ class RFUniverseCommunicator(threading.Thread):
                     break
                 self.on_receive_data(objs)
 
-
     def receive_bytes(self):
         data = bytearray()
         while len(data) < 4:
-            temp_data = self.client.recv(4 - len(data))
-            if len(temp_data) == 0:
+            try:
+                temp_data = self.client.recv(4 - len(data))
+                if len(temp_data) == 0:
+                    self.handle_disconnection()
+                    return None
+                data.extend(temp_data)
+            except ConnectionResetError:
                 self.handle_disconnection()
                 return None
-            data.extend(temp_data)
+            except KeyboardInterrupt:
+                self.handle_keyboard_interrupt()
+                return None
         assert len(data) == 4
         length = int.from_bytes(data, byteorder="little", signed=False)
         if length == 0:
             return None
         buffer = bytearray()
         while len(buffer) < length:
-            temp_data = self.client.recv(length - len(buffer))
-            if len(temp_data) == 0:
+            try:
+                temp_data = self.client.recv(length - len(buffer))
+                if len(temp_data) == 0:
+                    self.handle_disconnection()
+                    return None
+                buffer.extend(temp_data)
+            except ConnectionResetError:
                 self.handle_disconnection()
                 return None
-            buffer.extend(temp_data)
+            except KeyboardInterrupt:
+                self.handle_keyboard_interrupt()
+                return None
         assert len(buffer) == length
         return buffer
+
+    def handle_keyboard_interrupt(self):
+        print("Keyboard interrupt detected")
+        self.clean_up()
+        sys.exit(0)
+
     
     def handle_disconnection(self):
         print("Window closed")
         self.clean_up()
         sys.exit(0)
+
         
     def clean_up(self):
         if self.client:
@@ -127,6 +154,7 @@ class RFUniverseCommunicator(threading.Thread):
         if self.server:
             self.server.close()
         print("Resources cleaned up")
+
     
     def send_bytes(self, data: bytes):
         if not self.connected:

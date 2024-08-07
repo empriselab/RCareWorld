@@ -45,13 +45,23 @@ cd pyrcareworld/demo/examples
 python test_scene.py
 
 ```
-
+ 
 # Get Started with the Examples
 Check the examples in `pyrcareworld/pyrcareworld/demo/examples` folder. 
 
+You can read any file in the examples folder and try running it with python to understand the corresponding output and related APIs. For more details, you can check our documentation and YouTube channel! Relevant links can be found at the bottom of this document.
+
+You can try to run python pyrcareworld/pyrcareworld/demo/test_scene.py and then you will get a window similar to the screenshot below! This indicates that the environment is set up correctly!
+
+![test_scene_py_img](./test_scene.png)
+
 # Starter Scripts for Bathing and Dressing Tasks
-Check the `test_bathing.py` and `test_dressing.py` to get an overall idea about how to use the simulation environments. Your score will be 
-stored in a json file called `spongeScore.json` for bathing and `dressingScore.json` for dressing under `~/.config/unity3d/RCareWorld/RCareWorld/`
+
+Check the `test_bathing.py` and `test_dressing.py` to get an overall idea about how to use the simulation environments. 
+
+**`test_bathing.py` and `test_dressing.py` are in `Rcareworld/template`!**
+
+Your score will be stored in a json file called `spongeScore.json` for bathing and `dressingScore.json` for dressing under `~/.config/unity3d/RCareWorld/RCareWorld/`
 
 # Submit to EvalAI
 Once you are done with your solutions, submit your code to EvalAI following [this](https://rcareworld.readthedocs.io/en/phy-robo-care/) tutorial. Remember, you need to sign up as a team on EvalAI before Sep 8 (11:59pm AOE) to participate.
