@@ -1,8 +1,10 @@
+import sys
 import struct
 import socket
 import threading
-from sys import platform
 import numpy as np
+
+from sys import platform
 from pyrcareworld.utils.locker import Locker
 
 
@@ -72,26 +74,33 @@ class RFUniverseCommunicator(threading.Thread):
                 self.on_receive_data(objs)
 
     def sync_step(self):
-        self.send_object("StepStart")
-        self.receive_step()
+        try:
+            self.send_object("StepStart")
+            self.receive_step()
+        except AssertionError:
+            self.handle_disconnection()
 
     def receive_step(self):
-        # sync_receive_objects_queue = []
         while True:
             if not self.connected:
                 raise ConnectionError("Connection closed")
             data = self.receive_bytes()
+            if data is None:
+                return
             if data is not None and len(data) > 0:
                 objs = self.receive_object(data)
                 if len(objs) > 0 and objs[0] == "StepEnd":
                     break
                 self.on_receive_data(objs)
 
+
     def receive_bytes(self):
         data = bytearray()
         while len(data) < 4:
             temp_data = self.client.recv(4 - len(data))
-            assert len(temp_data) != 0
+            if len(temp_data) == 0:
+                self.handle_disconnection()
+                return None
             data.extend(temp_data)
         assert len(data) == 4
         length = int.from_bytes(data, byteorder="little", signed=False)
@@ -100,11 +109,25 @@ class RFUniverseCommunicator(threading.Thread):
         buffer = bytearray()
         while len(buffer) < length:
             temp_data = self.client.recv(length - len(buffer))
-            assert len(temp_data) != 0
+            if len(temp_data) == 0:
+                self.handle_disconnection()
+                return None
             buffer.extend(temp_data)
         assert len(buffer) == length
         return buffer
-
+    
+    def handle_disconnection(self):
+        print("Window closed")
+        self.clean_up()
+        sys.exit(0)
+        
+    def clean_up(self):
+        if self.client:
+            self.client.close()
+        if self.server:
+            self.server.close()
+        print("Resources cleaned up")
+    
     def send_bytes(self, data: bytes):
         if not self.connected:
             return

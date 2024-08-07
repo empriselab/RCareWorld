@@ -53,7 +53,7 @@ env.SendLog("Debug2DBBox")
 env.step(300)
 env.Debug2DBBox(False)
 
-    # Debug Joint Link
+# Debug Joint Link
 env.DebugJointLink()
 env.SendLog("DebugJointLink")
 env.step(300)

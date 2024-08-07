@@ -9,6 +9,7 @@ from pyrcareworld.attributes.humanbody_attr import HumanbodyAttr
 
 
 from pyrcareworld.demo import executable_path
+
 # Initialize the environment with the specified scene file
 player_path = os.path.join(executable_path, "Player/Player.x86_64")
 

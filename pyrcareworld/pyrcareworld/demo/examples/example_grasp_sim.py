@@ -4,6 +4,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 from pyrcareworld.attributes.graspsim_attr import GraspSimAttr
 from pyrcareworld.envs.base_env import RCareWorld
 import numpy as np
+
 try:
     import pandas as pd
 except ImportError:
@@ -55,7 +56,7 @@ grasp_sim.StartGraspSim(
     parallel_count=100,
 )
 
-# only show grasp pose
+# ONLY show grasp pose
 # grasp_sim.GenerateGraspPose(mesh=os.path.abspath(obj_path),
 #                             gripper='SimpleFrankaGripper',
 #                             points=points,
@@ -65,6 +66,7 @@ grasp_sim.StartGraspSim(
 #                             depth_lerp_count=5,
 #                             angle_lerp_count=5,
 #                             )
+
 env.step()
 while not grasp_sim.data['done']:
     env.step()
