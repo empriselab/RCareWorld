@@ -5,7 +5,9 @@ The robot will move to the first position, pick up the cloth, and move to the se
 
 You can obtain low level information of the cloth, the robot, and use unlimited numbers of cameras to observe the scene.
 
-Check the website detailed rubric. After each run of the simulation, a json file will be generated in the current directory.
+Check the website detailed rubric. After each run of the simulation, a json file will be generated in the current directory
+(~/.config/unity3d/RCareWorld/DressingPlayer).
+The path may be different accotding to the OS and your computer configuration.
 """
 
 from pyrcareworld.envs.base_env import RCareWorld

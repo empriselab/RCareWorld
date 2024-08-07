@@ -1,14 +1,17 @@
 """
 An example of the usage of the bathing environment.
 
-The sponge will be attached to the robot's hand if the grasp center and the ponge are close enough. (distancd < 0.1m)
+The sponge will be attached to the robot's hand if the grasp center and the sponge are close enough. (distance < 0.1m)
 The sponge will be detached from the robot's hand if you call the GripperOpen() function.
 
 You can obtain low level information of the sponge, the robot, and use unlimited numbers of cameras to observe the scene.
 
 The threshold for a comfortable force on the human body is set to 1-6N.
 
-Check the website detailed rubric. After each run of the simulation, a json file will be generated in the current directory.
+Check the website detailed rubric. After each run of the simulation, a json file will be generated in the current directory
+(~/.config/unity3d/RCareWorld/BathingPlaye).
+
+The path may be different accotding to the OS and your computer configuration.
 """
 
 import json
