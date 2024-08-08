@@ -16,18 +16,30 @@ We highly recommend using an Ubuntu 20.04 system which will be used for evaluati
 # Download Guide
 <!-- - Clone the repo: `git clone https://github.com/empriselab/RCareWorld.git`
 - Switch to the `phy-robo-care` branch: `cd RCareWorld` and then `git checkout phy-robo-care ` -->
-Clone the `phy-robo-care` branch of the repo: `git clone -b phy-robo-care https://github.com/empriselab/RCareWorld.git`
+Clone the `phy-robo-care` branch of the repo: 
+
+`git clone -b phy-robo-care https://github.com/empriselab/RCareWorld.git`
 
 # Install Guide
 First of all, please ensure that conda is installed on your computer.
 For details, refer to the conda installation guide: [Conda Installation Guide](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
 
-Also, please install `libassimp`. Ubuntu users can install it with this command:
+We highly recommend Ubuntu. If you are using Windows, we strongly recommend using WSL (Windows Subsystem for Linux). Here is the [WSL Installation Guide](https://docs.microsoft.com/en-us/windows/wsl/install).
 
+## Ubuntu Users
+Please install `libassimp` and other necessary accessories with this command:
 ```
-sudo apt-get update
-sudo apt-get install libassimp-dev
+    sudo apt-get update
+    sudo apt-get install libassimp-dev libopenblas-dev liblapack-dev
+    pip install --upgrade open3d
 ```
+## Windows User
+Install [Visual Studio](https://visualstudio.microsoft.com/downloads/) to get started.
+
+Additionally, to ensure your computer can run smoothly even without a GPU, please install the NVIDIA driver! If you have a GPU, please proceed to install the NVIDIA GPU driver from the official [NVIDIA Driver Downloads](https://www.nvidia.com/Download/index.aspx).
+
+
+## Install Rcareworld
 Then you can install the rcareworld!
 
 <!-- - Create a conda environment with Python 3.10: `conda create -n rcareworld python=3.10`
@@ -64,7 +76,6 @@ You can try to run python pyrcareworld/pyrcareworld/demo/test_scene.py and then 
 ![test_scene_py_img](./test_scene.png)
 
 # Starter Scripts for Bathing and Dressing Tasks
-
 Check the `test_bathing.py` and `test_dressing.py` to get an overall idea about how to use the simulation environments. 
 
 **`test_bathing.py` and `test_dressing.py` are in `Rcareworld/template`!**
