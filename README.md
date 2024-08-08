@@ -1,6 +1,6 @@
 ![alt text](rcareworld.png)
 # Here is the code for RCareWorld PhyRC Challenge 🦾
-This codebase requires a minimal installation of RCareWorld. You will have access to executables for the competition. We will release the simulation environments for the robot-assisted dressing and bed bathing before Aug 8th AOE.
+This codebase requires a minimal installation of RCareWorld. You will have access to executables for the competition. We will release the simulation environments for the robot-assisted dressing and bed bathing before Aug 8th AoE.
 
 This repo is currently in the testing stage.
 
@@ -75,10 +75,18 @@ Go through the examples, run the examples, and read the comments in the code to 
 
 # Starter Scripts for Bathing and Dressing Tasks
 Check the `test_bathing.py` and `test_dressing.py` to get an overall idea about how to use the simulation environments for the dressing and bathing task. 
+These two files are without graphics rendering to make them compatible with the docker environment. If you want to use them with rendering in your local environment, set `graphics=False` to `graphics=True` in the `RCareWorld()`.
+```
+# An example is as the following.
+# For docker
+env = RCareWorld(executable_file="Bathing/BathingPlayer.x86_64", graphics=False)
+# For local use with rendering
+env = RCareWorld(executable_file="Bathing/BathingPlayer.x86_64", graphics=True)
+```
 
 **`test_bathing.py` and `test_dressing.py` are in `RCareWorld/template`**
 
 Your score will be stored in a JSON file called `spongeScore.json` for bathing and `dressingScore.json` for dressing under `~/.config/unity3d/RCareWorld/BathingPlayer/` for bathing and `~/.config/unity3d/RCareWorld/DressingPlayer/` for dressing.
 
 # Submit to EvalAI
-Once you are done with your solutions, submit your code to EvalAI following [this](https://rcareworld.readthedocs.io/en/phy-robo-care/submission.html) tutorial. Remember, you need to sign up as a team on EvalAI before Sep 8 (11:59pm AOE) to participate.
+Once you are done with your solutions, submit your code to EvalAI following [this](https://rcareworld.readthedocs.io/en/phy-robo-care/submission.html) tutorial. Remember, you need to sign up as a team on EvalAI before Sep 8 (11:59pm AoE) to participate.
