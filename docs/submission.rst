@@ -53,16 +53,14 @@ Write and Test Code Inside Docker
         # The script can be named as anything but we use test_bathing.py as an example
         python test_bathing.py
 
+    
+
 Packaging Your Docker Environment
 ---------------------------------
 
     .. code-block:: bash
 
-        # Save your Docker container as an image
-        docker commit <container_id> your-image-name
-
-        # Export your Docker image to a tar file
-        docker save your-image-name | gzip > your-image-name.tar.gz
+        bash ./save_docker.shell
 
 Uploading to EvalAI
 -------------------
@@ -83,12 +81,12 @@ And then, click on the 'Participate' button. Sign up or log in to your EvalAI ac
 
         pip install "evalai"
 
-        evalai set_token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1MTE5NTk2MywianRpIjoiMGJlZjY5NzVhNWI4NDM0OWEyM2RiOTcxZDc0NjRiYzkiLCJ1c2VyX2lkIjo0NTE3NH0.lZ_wVxaKqfXxVu2I4KJfeh8vPHOBOn_9YaUSnaQCncM
+    
+    Then go to `https://eval.ai/web/challenges/challenge-page/2351/submission`_ . Each person's token and submission command will differ. Copy the command from the webpage to submit.
 
-        evalai challenge 2351 phase submit --file <submission_file_path> --large
+    
 
-        # Use --private or --public flag in the submission command to make the submission private or public respectively.
-        # example: evalai challenge 2351 phase submit --file <submission_file_path> --large --private
+        
 
 5. If uploading directly, select the zip/tar file and upload:
 
