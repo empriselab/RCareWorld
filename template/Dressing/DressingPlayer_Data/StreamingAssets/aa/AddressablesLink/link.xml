@@ -158,20 +158,22 @@
     <type fullname="UnityEngine.UIElements.ThemeStyleSheet" preserve="all" />
     <type fullname="UnityEngine.UIElements.UIDocument" preserve="all" />
     <type fullname="UnityEngine.UIElements.VisualTreeAsset" preserve="all" />
+    <type fullname="UnityEngine.UIElements.Button/UxmlFactory" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.UIElements.Label/UxmlFactory" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.UIElements.ScrollView/UxmlFactory" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.UIElements.Slider/UxmlFactory" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.UIElements.StyleProperty" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.UIElements.StyleRule" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.UIElements.StyleSheets.Dimension" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.UIElements.StyleValueHandle" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.UIElements.UxmlRootElementFactory" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.UIElements.VisualElement/UxmlFactory" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.UIElements.VisualElementAsset" preserve="nothing" serialized="true" />
-    <type fullname="UnityEngine.UIElements.Button/UxmlFactory" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.UIElements.DynamicAtlasSettings" preserve="nothing" serialized="true" />
-    <type fullname="UnityEngine.UIElements.Label/UxmlFactory" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.UIElements.StyleComplexSelector" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.UIElements.StyleSelector" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.UIElements.StyleSelectorPart" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.UIElements.StyleSheets.ScalableImage" preserve="nothing" serialized="true" />
-    <type fullname="UnityEngine.UIElements.UxmlRootElementFactory" preserve="nothing" serialized="true" />
-    <type fullname="UnityEngine.UIElements.VisualElement/UxmlFactory" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.UIElements.FloatField/UxmlFactory" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.UIElements.GroupBox/UxmlFactory" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.UIElements.Toggle/UxmlFactory" preserve="nothing" serialized="true" />
