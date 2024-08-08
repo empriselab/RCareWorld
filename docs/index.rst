@@ -25,6 +25,7 @@ API Reference
 
    api/modules
 
+
 Installation
 ===
 .. toctree::
