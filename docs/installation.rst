@@ -36,6 +36,7 @@ Local Testing
         cd pyrcareworld
         pip install -r requirements.txt
         pip install -e .
+        pip install upgrade open3d
 
 4. Install the NVIDIA driver if you have a GPU or ensure your computer can run smoothly even without a GPU. You can download the NVIDIA drivers from the official `NVIDIA website <https://www.nvidia.com/Download/index.aspx>`_.
 

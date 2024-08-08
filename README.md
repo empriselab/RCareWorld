@@ -56,6 +56,7 @@ conda activate rcareworld
 cd pyrcareworld
 pip install -r requirements.txt
 pip install -e .
+pip install upgrade open3d
 
 # Verify the installation works
 cd pyrcareworld/demo/examples
