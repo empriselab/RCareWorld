@@ -1,7 +1,68 @@
-.. _Complete Guide to Environment Setup and Code Submission Using Docker:
+Usage Guide
+===========
 
-EvalAI Submission Guide
-=======================
+Installation Guide
+==================
+
+This guide provides instructions for both local testing and Docker-based setup.
+
+Local Testing
+-------------
+
+1. Clone the GitHub repository and checkout the `phy-robo-care` branch:
+
+    .. code-block:: bash
+
+        git clone -b phy-robo-care https://github.com/empriselab/RCareWorld.git
+
+2. Install the necessary libraries before running:
+
+    .. code-block:: bash
+
+        sudo apt-get update
+        sudo apt-get install libassimp-dev libopenblas-dev liblapack-dev
+
+3. Install Python dependencies:
+
+    .. code-block:: bash
+
+        # Install conda if not already installed
+        # Follow instructions from https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html
+
+        # Create a conda environment with Python 3.10
+        conda create -n rcareworld python=3.10
+
+        # Activate the conda environment 
+        conda activate rcareworld
+
+        # Install the requirements
+        cd pyrcareworld
+        pip install -r requirements.txt
+        pip install -e .
+        pip install upgrade open3d
+
+4. Install the NVIDIA driver if you have a GPU or ensure your computer can run smoothly even without a GPU. You can download the NVIDIA drivers from the official `NVIDIA website <https://www.nvidia.com/Download/index.aspx>`_.
+
+5. Run examples for testing:
+
+    .. code-block:: bash
+
+        # Verify the installation works
+        cd pyrcareworld/demo/examples
+        python test_scene.py
+
+6. Test specific scripts:
+
+    .. code-block:: bash
+
+        cd /RCareWorld/template
+        python test_bathing.py
+        python test_dressing.py
+
+For more details, please see the `GitHub repository <https://github.com/empriselab/RCareWorld/>`_.
+
+Submission Guide
+================
 
 Download and Install Docker
 ---------------------------
@@ -107,7 +168,7 @@ And then, click on the 'Participate' button. Sign up or log in to your EvalAI ac
     You should expect to see your submission in the leaderboard after a while. This might take 10 minutes to several hours depending on the size of the file and the number of submissions in the queue.
 
 Additional Notes
------------------
+----------------
 
 - GPU is highly recommended for running the environment.
 - If you want to use Windows, download it from drive and update the executable_file path. The drive includes a folder for Windows only.
