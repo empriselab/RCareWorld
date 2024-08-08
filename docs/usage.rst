@@ -30,11 +30,12 @@ Build Your Docker
 
     .. code-block:: bash
 
+        # The run_docker.sh script is in the template/docker-template folder
         sudo bash ./run_docker.sh
 
     The `run_docker.sh` script will build the Docker image, run the container, and save the generated ZIP file.
 
-Writing and Testing Code Inside Docker
+Write and Test Code Inside Docker
 --------------------------------------
 
     .. code-block:: bash
@@ -69,14 +70,12 @@ Uploading to EvalAI
 1. Visit the submission page for the competition: `EvalAI overview Page <https://eval.ai/web/challenges/challenge-page/2351/overview>`_
 And then, click on the 'Participate' button. Sign up or log in to your EvalAI account.
 
-2. Select the phase.
+2. Select the `Dev Phase`_.
 
 3. Choose the upload method depending on the file size:
 
-    .. code-block:: none
-
-        - Use CLI for file size > 400MB
-        - Upload file directly if file size < 400MB
+    - Use CLI for file size > 400MB
+    - Upload file directly if file size < 400MB
 
 4. If using the CLI, upload with:
 
