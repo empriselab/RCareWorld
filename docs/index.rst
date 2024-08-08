@@ -31,5 +31,5 @@ EvalAI Submission Guide
 .. toctree::
    :maxdepth: 2
 
-   usage
+   submission
 
