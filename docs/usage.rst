@@ -4,62 +4,14 @@ Usage Guide
 Installation Guide
 ==================
 
-This guide provides instructions for both local testing and Docker-based setup.
+For detailed installation instructions and to get started, please follow the steps provided in the README of the GitHub repository: `RCareWorld GitHub Repository <https://github.com/empriselab/RCareWorld>`_.
 
-Local Testing
--------------
+In summary:
+1. Ensure your system meets the hardware requirements (Ubuntu 20.04 recommended, 10GB free space, discrete GPU recommended).
+2. Follow the README instructions for cloning the repository and installing the necessary libraries and dependencies.
+3. Verify the installation by running the example scripts as described in the README.
 
-1. Clone the GitHub repository and checkout the `phy-robo-care` branch:
-
-    .. code-block:: bash
-
-        git clone -b phy-robo-care https://github.com/empriselab/RCareWorld.git
-
-2. Install the necessary libraries before running:
-
-    .. code-block:: bash
-
-        sudo apt-get update
-        sudo apt-get install libassimp-dev libopenblas-dev liblapack-dev
-
-3. Install Python dependencies:
-
-    .. code-block:: bash
-
-        # Install conda if not already installed
-        # Follow instructions from https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html
-
-        # Create a conda environment with Python 3.10
-        conda create -n rcareworld python=3.10
-
-        # Activate the conda environment 
-        conda activate rcareworld
-
-        # Install the requirements
-        cd pyrcareworld
-        pip install -r requirements.txt
-        pip install -e .
-        pip install upgrade open3d
-
-4. Install the NVIDIA driver if you have a GPU or ensure your computer can run smoothly even without a GPU. You can download the NVIDIA drivers from the official `NVIDIA website <https://www.nvidia.com/Download/index.aspx>`_.
-
-5. Run examples for testing:
-
-    .. code-block:: bash
-
-        # Verify the installation works
-        cd pyrcareworld/demo/examples
-        python test_scene.py
-
-6. Test specific scripts:
-
-    .. code-block:: bash
-
-        cd /RCareWorld/template
-        python test_bathing.py
-        python test_dressing.py
-
-For more details, please see the `GitHub repository <https://github.com/empriselab/RCareWorld/>`_.
+Refer to the README for any additional setup details and troubleshooting tips.
 
 Submission Guide
 ================
@@ -77,10 +29,6 @@ Setting Up Your Docker Environment
 We provide an example of how the code should be structured and how to set up the Dockerfile in the `template folder <https://github.com/empriselab/RCareWorld/tree/phy-robo-care/template>`_.
 A sample Dockerfile looks like the one in `this link <https://github.com/empriselab/RCareWorld/blob/phy-robo-care/template/dockerfile>`_.
 You can use this as a reference to set up your Docker environment.
-
-.. If you are participating in only one track, you should write one script that runs your entire codebase. For example,
-.. if your entry-point script is `test_bathing.py`, you should write a Dockerfile that copies this script into the container and runs it.
-.. If you are participating in both tracks, you should write two scripts, one for each track, and write a Dockerfile that copies both scripts into the container and runs them.
 
 Build Your Docker
 -----------------
@@ -166,16 +114,3 @@ And then, click on the 'Participate' button. Sign up or log in to your EvalAI ac
         # Click on 'Upload File' button
 
     You should expect to see your submission in the leaderboard after a while. This might take 10 minutes to several hours depending on the size of the file and the number of submissions in the queue.
-
-Additional Notes
-----------------
-
-- GPU is highly recommended for running the environment.
-- If you want to use Windows, download it from drive and update the executable_file path. The drive includes a folder for Windows only.
-- You can try to run `python pyrcareworld/pyrcareworld/demo/test_scene.py` and then you will get a window similar to the screenshot below! This indicates that the environment is set up correctly.
-
-    .. image:: ../test_scene.png
-       :align: center
-       :alt: Screenshot of the test scene.
-
-- `test_bathing.py` and `test_dressing.py` are in RCareWorld/template.
