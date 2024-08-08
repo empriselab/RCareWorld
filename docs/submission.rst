@@ -106,7 +106,7 @@ And then, click on the 'Participate' button. Sign up or log in to your EvalAI ac
 
     You should expect to see your submission in the leaderboard after a while. This might take 10 minutes to several hours depending on the size of the file and the number of submissions in the queue.
 
-Additional Notes:
+Additional Notes
 -----------------
 
 - GPU is highly recommended for running the environment.
