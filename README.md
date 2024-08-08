@@ -70,7 +70,7 @@ A window with white cubes will pop up as the screenshot shows. This indicates th
 # Get Started with the Examples
 Check the examples in `pyrcareworld/pyrcareworld/demo/examples` folder. 
 
-Go through the examples to understand the corresponding output and related APIs. 
+Go through the examples, run the examples, and read the comments in the code to understand the corresponding output and related APIs. 
 
 # Starter Scripts for Bathing and Dressing Tasks
 Check the `test_bathing.py` and `test_dressing.py` to get an overall idea about how to use the simulation environments for the dressing and bathing task. 
