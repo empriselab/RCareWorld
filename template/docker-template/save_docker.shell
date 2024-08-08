@@ -19,10 +19,22 @@ echo "Copying JSON files from Docker container to host..."
 docker cp $CONTAINER_ID:/root/.config/unity3d/RCareWorld/BathingPlayer/spongeScore.json $OUTPUT_DIR/BathingScore.json
 docker cp $CONTAINER_ID:/root/.config/unity3d/RCareWorld/BathingPlayer/dressingScore.json $OUTPUT_DIR/DressingScore.json
 
+echo "Cleaning up Docker container..."
+docker rm $CONTAINER_ID
+
 echo "Echoing JSON file contents..."
 echo "Contents of BathingScore.json:"
 cat $OUTPUT_DIR/BathingScore.json
 echo "Contents of DressingScore.json:"
 cat $OUTPUT_DIR/DressingScore.json
 
-echo "Done. JSON files are saved in the $OUTPUT_DIR directory."
+echo "Saving Docker image to tar file..."
+docker save -o your_docker_name.tar $DOCKER_IMAGE_NAME
+
+echo "Compressing Docker image to zip file..."
+zip your_docker_name.zip your_docker_name.tar
+
+echo "Cleaning up tar file..."
+rm your_docker_name.tar
+
+echo "Done. JSON files are saved in the $OUTPUT_DIR directory and Docker image is saved as your_docker_name.zip."
