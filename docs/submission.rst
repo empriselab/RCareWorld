@@ -21,6 +21,7 @@ Build Your Docker
 1. Clone the GitHub repository and enter the template folder:
 
     .. code-block:: bash
+        
         cd RCareWorld/template/docker-template
 
 2. Run the Docker script:
