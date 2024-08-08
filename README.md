@@ -10,11 +10,11 @@ This repo is currently in the testing stage.
 
 
 # Hardware requirements
-While RCareWorld supports Linux, Windows, and Mac (experimental), our evaluation platform is based on Ubuntu 20.04. We do not guarantee the simulation environments for the competition work on MacOS, Windows, or other Linux versions as intended. The executable files are by default for Linux systems. If you want to use Windows, download it from [drive](https://drive.google.com/drive/folders/1TW-C6k1z5xCdgE7q1ht3Flb2FaeCrQ51?usp=sharing) and update the executable_file path.
+While RCareWorld supports Linux, Windows, and Mac (experimental), our evaluation platform is based on Ubuntu 20.04. We do not guarantee the simulation environments for the competition work on MacOS, Windows, or other Linux versions as intended. The executable files are only for Linux systems. If you want to use Windows, you might consider using [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) which ideally has the same functionality as Ubuntu.
 
-We highly recommend using an Ubuntu 20.04 system which will be used for evaluation. For this competition, all tutorials are based on the Ubuntu system, though we welcome contributions from people using Windows, you might need to make necessary adaptations for the Windows system. 
+We highly recommend using an Ubuntu 20.04 system which will be used for evaluation. For this competition, all tutorials are based on the Ubuntu system.
 
-Please ensure your computer has at least 10GB of free space before starting. A system with a discrete graphics card is highly recommended. 
+Please ensure your computer has at least 10GB of free space before starting. One or multiple discrete graphics cards with proper drivers are highly recommended. 
 
 # Download Guide
 <!-- - Clone the repo: `git clone https://github.com/empriselab/RCareWorld.git`
@@ -24,7 +24,7 @@ Clone the `phy-robo-care` branch of the repo:
 `git clone -b phy-robo-care https://github.com/empriselab/RCareWorld.git`
 
 # Install Guide
-## Pre-install checklist
+## Pre-install Guide
 Before starting, make sure Conda is installed on your computer.
 For details, refer to the Conda installation guide: [Conda Installation Guide](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
 
