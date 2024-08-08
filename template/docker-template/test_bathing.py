@@ -39,7 +39,7 @@ print(text)
 
 # Initialize the environment with the specified executable file
 # env = RCareWorld()
-env = RCareWorld(executable_file="Bathing/BathingPlayer.x86_64", graphics=False)
+env = RCareWorld(executable_file="Bathing/BathingPlayer.x86_64")
 # Print the objects in the environment
 print(env.attrs)
 
