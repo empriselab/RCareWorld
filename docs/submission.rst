@@ -68,9 +68,23 @@ Packaging Your Docker Environment
     .. code-block:: bash
 
         bash ./save_docker.shell
+        
+    The `save_docker.sh` script will build the Docker image, run the container.and generated ZIP file.
 
-    The `save_docker.sh` script will build the Docker image, run the container.
-and generated ZIP file.
+    You can also use the command line to package your files. We recommend packaging them in .zip format, but we also support .tar format. You can use the following command line to package Docker:
+
+    First,  using the following command:
+
+    .. code-block:: shell
+
+        # Find your Docker image ID
+        docker images
+
+        # Then use the image ID to package your Docker image:
+        docker save <image_id> | gzip > your_docker_name.tar.gz
+        zip your_docker_name.zip your_docker_name.tar.gz
+
+    After packaging, submit the compressed file.
 
 Uploading to EvalAI
 -------------------
