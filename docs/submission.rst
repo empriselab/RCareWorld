@@ -6,7 +6,7 @@ EvalAI Submission Guide
 Download and Install Docker
 ---------------------------
 
-1. Go to Docker website download page: `Docker Hub <https://hub.docker.com/>`_
+1. Go to Docker website download page: `Docker Hub <https://docs.docker.com/get-docker/>`_
 
 2. Choose the appropriate installer for your operating system and follow the installation instructions provided on the site. 
 
@@ -15,9 +15,9 @@ set up the dockerfile in the `template folder <https://github.com/empriselab/RCa
 A sample Dockerfile looks like the one in `this link <https://github.com/empriselab/RCareWorld/blob/phy-robo-care/template/dockerfile>`.
 You can use this as a reference to set up your Docker environment.
 
-If you are participating in only 1 track, you should write one script that runs your entire codebase. For example,
-if your entry-point script is `test_bathing.py`, you should write a Dockerfile that copies this script into the container and runs it.
-If you are participating in both of the tracks, you should write two scripts, one for each track, and write a Dockerfile that copies both scripts into the container and runs them.
+.. If you are participating in only 1 track, you should write one script that runs your entire codebase. For example,
+.. if your entry-point script is `test_bathing.py`, you should write a Dockerfile that copies this script into the container and runs it.
+.. If you are participating in both of the tracks, you should write two scripts, one for each track, and write a Dockerfile that copies both scripts into the container and runs them.
 
 Build Your Docker
 -----------------
