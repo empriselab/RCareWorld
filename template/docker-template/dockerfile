@@ -18,11 +18,9 @@ RUN apt-get update && \
     git lfs install
 
 # Clone the specified GitHub repository
-RUN git clone https://github.com/empriselab/RCareWorld.git
+RUN git clone -b phy-robo-care https://github.com/empriselab/RCareWorld.git
 WORKDIR /app/RCareWorld
-
-# Switch to the competition-specific branch
-RUN git checkout phy-robo-care
+RUN git pull
 
 # Install Python dependencies from requirements.txt
 WORKDIR /app/RCareWorld/pyrcareworld
@@ -33,8 +31,6 @@ RUN pip install opencv-python
 # Set the working directory for scripts
 WORKDIR /app/RCareWorld/template/docker-template
 
-# Copy the shell script to the container
-COPY run_python.shell /app/RCareWorld/template/docker-template/run_python.shell
 
 # Ensure the shell script has execute permissions
 RUN chmod +x /app/RCareWorld/template/docker-template/run_python.shell
