@@ -9,24 +9,54 @@ docker build -t $DOCKER_IMAGE_NAME .
 echo "Running Docker container..."
 CONTAINER_ID=$(docker run -d $DOCKER_IMAGE_NAME)
 
-echo "Waiting for the Docker container to finish..."
-docker wait $CONTAINER_ID
+echo "Docker container ID: $CONTAINER_ID"
+
+# Wait for a certain period to ensure the container is running (adjust the sleep time as needed)
+sleep 10
 
 OUTPUT_DIR="./output"
 mkdir -p $OUTPUT_DIR
 
-echo "Copying JSON files from Docker container to host..."
-docker cp $CONTAINER_ID:/root/.config/unity3d/RCareWorld/BathingPlayer/spongeScore.json $OUTPUT_DIR/BathingScore.json
-docker cp $CONTAINER_ID:/root/.config/unity3d/RCareWorld/BathingPlayer/dressingScore.json $OUTPUT_DIR/DressingScore.json
+echo "Finding JSON files in Docker container..."
+
+# Find and copy the spongeScore.json file
+SPONGE_SCORE_PATH=$(docker exec $CONTAINER_ID find / -name "spongeScore.json" 2>/dev/null | head -n 1)
+if [ -n "$SPONGE_SCORE_PATH" ]; then
+    docker cp $CONTAINER_ID:$SPONGE_SCORE_PATH $OUTPUT_DIR/BathingScore.json
+    echo "spongeScore.json copied to $OUTPUT_DIR/BathingScore.json"
+else
+    echo "spongeScore.json not found."
+fi
+
+# Find and copy the dressingScore.json file
+DRESSING_SCORE_PATH=$(docker exec $CONTAINER_ID find / -name "dressingScore.json" 2>/dev/null | head -n 1)
+if [ -n "$DRESSING_SCORE_PATH" ]; then
+    docker cp $CONTAINER_ID:$DRESSING_SCORE_PATH $OUTPUT_DIR/DressingScore.json
+    echo "dressingScore.json copied to $OUTPUT_DIR/DressingScore.json"
+else
+    echo "dressingScore.json not found."
+fi
+
+echo "Waiting for the Docker container to finish..."
+docker wait $CONTAINER_ID
 
 echo "Cleaning up Docker container..."
 docker rm $CONTAINER_ID
 
 echo "Echoing JSON file contents..."
-echo "Contents of BathingScore.json:"
-cat $OUTPUT_DIR/BathingScore.json
-echo "Contents of DressingScore.json:"
-cat $OUTPUT_DIR/DressingScore.json
+if [ -f "$OUTPUT_DIR/BathingScore.json" ]; then
+    echo "Contents of BathingScore.json:"
+    cat $OUTPUT_DIR/BathingScore.json
+else
+    echo "BathingScore.json not found in output directory."
+fi
+
+if [ -f "$OUTPUT_DIR/DressingScore.json" ]; then
+    echo "Contents of DressingScore.json:"
+    cat $OUTPUT_DIR/DressingScore.json
+else
+    echo "DressingScore.json not found in output directory."
+fi
 
 echo "Saving Docker image to tar file..."
 docker save -o your_docker_name.tar $DOCKER_IMAGE_NAME
