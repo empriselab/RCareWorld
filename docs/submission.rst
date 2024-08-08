@@ -31,7 +31,7 @@ Build Your Docker
         # The run_docker.sh script is in the template/docker-template folder
         sudo bash ./run_docker.shell
 
-    The `run_docker.sh` script will build the Docker image, run the container, and save the generated ZIP file.
+    The `run_docker.sh` script will build the Docker image, run the container.
 
 
 
@@ -53,9 +53,9 @@ Write and Test Code Inside Docker
         # The script can be named as anything but we use test_bathing.py as an example
         python test_bathing.py
 
-    Make sure you set `graphics=False`` in `RCareWorld()`` before copying your code to the docker container and then attach the examples there.
+    If you want to run code in the docker container, make sure you have set `graphics=False`` in `RCareWorld()`` before copying your code.
 
-    Format `graphics=False`` and `RCareWorld()`` like I did in `README.md.<https://github.com/empriselab/RCareWorld/blob/phy-robo-care/README.md>`_
+
 
 
 
@@ -68,6 +68,9 @@ Packaging Your Docker Environment
     .. code-block:: bash
 
         bash ./save_docker.shell
+
+    The `save_docker.sh` script will build the Docker image, run the container.
+and generated ZIP file.
 
 Uploading to EvalAI
 -------------------
@@ -89,7 +92,8 @@ And then, click on the 'Participate' button. Sign up or log in to your EvalAI ac
         pip install "evalai"
 
     
-    Then go to `https://eval.ai/web/challenges/challenge-page/2351/submission`_ . Each person's token and submission command will differ. Copy the command from the webpage to submit.
+    Then go to `submission page <https://eval.ai/web/challenges/challenge-page/2351/my-submission>`_. Each person's token and submission command will differ. Copy the command from the webpage to submit.
+
 
     
 
