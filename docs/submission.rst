@@ -53,7 +53,14 @@ Write and Test Code Inside Docker
         # The script can be named as anything but we use test_bathing.py as an example
         python test_bathing.py
 
-    
+    Make sure you set `graphics=False`` in `RCareWorld()`` before copying your code to the docker container and then attach the examples there.
+
+    Format `graphics=False`` and `RCareWorld()`` like I did in `README.md.<https://github.com/empriselab/RCareWorld/blob/phy-robo-care/README.md>`_
+
+
+
+
+
 
 Packaging Your Docker Environment
 ---------------------------------

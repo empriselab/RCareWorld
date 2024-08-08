@@ -75,6 +75,7 @@ Go through the examples, run the examples, and read the comments in the code to 
 
 # Starter Scripts for Bathing and Dressing Tasks
 Check the `test_bathing.py` and `test_dressing.py` to get an overall idea about how to use the simulation environments for the dressing and bathing task. 
+
 These two files are without graphics rendering to make them compatible with the docker environment. If you want to use them with rendering in your local environment, set `graphics=False` to `graphics=True` in the `RCareWorld()`.
 ```
 # An example is as the following.
