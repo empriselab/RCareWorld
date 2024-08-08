@@ -63,12 +63,12 @@ rgb = np.frombuffer(camera_hand.data["rgb"], dtype=np.uint8)
 env.step()
 
 # Random positions and rotation
-position1 = (1.5, 2, 0)
+position1 = (1.5, 2.3, 0.6)
 rotation = (0, 0, -69.858)
 
 # move the robot to the first position
 robot.IKTargetDoMove(
-    position=[position1[0], position1[1]+0.3, position1[2]+0.6],
+    position=[position1[0], position1[1], position1[2]],
     duration=2,
     speed_based=False,
 )
