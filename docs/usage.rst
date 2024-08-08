@@ -174,7 +174,7 @@ Additional Notes
 - If you want to use Windows, download it from drive and update the executable_file path. The drive includes a folder for Windows only.
 - You can try to run `python pyrcareworld/pyrcareworld/demo/test_scene.py` and then you will get a window similar to the screenshot below! This indicates that the environment is set up correctly.
 
-    .. image:: test_scene.png
+    .. image:: ../test_scene.png
        :align: center
        :alt: Screenshot of the test scene.
 
