@@ -70,7 +70,7 @@ Uploading to EvalAI
 1. Visit the submission page for the competition: `EvalAI overview Page <https://eval.ai/web/challenges/challenge-page/2351/overview>`_
 And then, click on the 'Participate' button. Sign up or log in to your EvalAI account.
 
-2. Select the `Dev Phase`_.
+2. Select the `Phase 1`.
 
 3. Choose the upload method depending on the file size:
 
