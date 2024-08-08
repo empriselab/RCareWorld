@@ -26,7 +26,7 @@ API Reference
    api/modules
 
 
-Usage Guide
+EvalAI Submission Guide
 ====
 .. toctree::
    :maxdepth: 2
