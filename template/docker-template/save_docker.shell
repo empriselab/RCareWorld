@@ -17,25 +17,21 @@ sleep 10
 OUTPUT_DIR="./output"
 mkdir -p $OUTPUT_DIR
 
-echo "Finding JSON files in Docker container..."
+echo "Copying JSON files from Docker container to host..."
+docker cp $CONTAINER_ID:/root/.config/unity3d/RCareWorld/BathingPlayer/spongeScore.json $OUTPUT_DIR/BathingScore.json
+docker cp $CONTAINER_ID:/root/.config/unity3d/RCareWorld/BathingPlayer/dressingScore.json $OUTPUT_DIR/DressingScore.json
 
-# Find and copy the spongeScore.json file
-SPONGE_SCORE_PATH=$(docker exec $CONTAINER_ID find / -name "spongeScore.json" 2>/dev/null | head -n 1)
-if [ -n "$SPONGE_SCORE_PATH" ]; then
-    docker cp $CONTAINER_ID:$SPONGE_SCORE_PATH $OUTPUT_DIR/BathingScore.json
-    echo "spongeScore.json copied to $OUTPUT_DIR/BathingScore.json"
-else
-    echo "spongeScore.json not found."
-fi
+echo "Echoing JSON file contents..."
+echo "Contents of BathingScore.json:"
+cat $OUTPUT_DIR/BathingScore.json
+echo "Contents of DressingScore.json:"
+cat $OUTPUT_DIR/DressingScore.json
 
-# Find and copy the dressingScore.json file
-DRESSING_SCORE_PATH=$(docker exec $CONTAINER_ID find / -name "dressingScore.json" 2>/dev/null | head -n 1)
-if [ -n "$DRESSING_SCORE_PATH" ]; then
-    docker cp $CONTAINER_ID:$DRESSING_SCORE_PATH $OUTPUT_DIR/DressingScore.json
-    echo "dressingScore.json copied to $OUTPUT_DIR/DressingScore.json"
-else
-    echo "dressingScore.json not found."
-fi
+echo "Done. JSON files are saved in the $OUTPUT_DIR directory."
+
+# Keep the container running
+echo "Entering Docker container's bash shell..."
+docker exec -it $CONTAINER_ID /bin/bash
 
 echo "Waiting for the Docker container to finish..."
 docker wait $CONTAINER_ID
