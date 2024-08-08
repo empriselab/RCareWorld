@@ -85,12 +85,12 @@ robot.IKTargetDoRotate(
 robot.WaitDo()
 
 # cloth data without particles
-print("Cloth data:" + str(cloth.data))
+# print("Cloth data:" + str(cloth.data))
 
 
 # particle positions will show up after calling GetParticles
 cloth.GetParticles()
 env.step()
-print("Cloth data:" + str(cloth.data)) 
+# print("Cloth data:" + str(cloth.data)) 
 
 env.step(300)
