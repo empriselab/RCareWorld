@@ -12,7 +12,7 @@ CONTAINER_ID=$(docker run -d $DOCKER_IMAGE_NAME)
 echo "Docker container ID: $CONTAINER_ID"
 
 # Wait for a certain period to ensure the container is running (adjust the sleep time as needed)
-sleep 10
+sleep 30
 
 OUTPUT_DIR="./output"
 mkdir -p $OUTPUT_DIR
