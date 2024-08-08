@@ -1,20 +1,5 @@
-Usage Guide
+EvalAI Submission Guide
 ===========
-
-Installation Guide
-==================
-
-For detailed installation instructions and to get started, please follow the steps provided in the README of the GitHub repository: `RCareWorld GitHub Repository <https://github.com/empriselab/RCareWorld>`_.
-
-In summary:
-1. Ensure your system meets the hardware requirements (Ubuntu 20.04 recommended, 10GB free space, discrete GPU recommended).
-2. Follow the README instructions for cloning the repository and installing the necessary libraries and dependencies.
-3. Verify the installation by running the example scripts as described in the README.
-
-Refer to the README for any additional setup details and troubleshooting tips.
-
-Submission Guide
-================
 
 Download and Install Docker
 ---------------------------
