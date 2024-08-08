@@ -8,11 +8,11 @@ Download and Install Docker
 
 2. Choose the appropriate installer for your operating system and follow the installation instructions provided on the site. 
 
-Setting Up Your Docker Environment
+Set Up Your Docker Environment
 ----------------------------------
 
 We provide an example of how the code should be structured and how to set up the Dockerfile in the `template folder <https://github.com/empriselab/RCareWorld/tree/phy-robo-care/template>`_.
-A sample Dockerfile looks like the one in `this link <https://github.com/empriselab/RCareWorld/blob/phy-robo-care/template/dockerfile>`_.
+A sample Dockerfile looks like the one in `this link <https://github.com/empriselab/RCareWorld/blob/phy-robo-care/template/docker-template/dockerfile>`_.
 You can use this as a reference to set up your Docker environment.
 
 Build Your Docker
