@@ -3,6 +3,7 @@
 ## Install
 The installation is as easy as
 - Create a conda env: `conda create -n rcareworld python=3.10`
+- Activate the conda environment: `conda activate rcareworld`
 - Navigate to `pyrcareworld` folder: `cd pyrcareworld`
 - Install the requirements: `pip install -r requirements.txt`
 - Install pyrcareworld module: `pip install -e .`
