@@ -12,6 +12,13 @@ Download and Install Docker
 
 Additionally, to ensure your computer can run smoothly even without a GPU, please install the NVIDIA driver! If you have a GPU, please proceed to install the NVIDIA GPU driver! You can download the NVIDIA drivers from the official `NVIDIA website <https://www.nvidia.com/Download/index.aspx>`_.
 
+3. Install the necessary librarie before running.
+    
+    .. code-block:: bash
+
+        sudo apt-get update
+        sudo apt-get install libassimp-dev libopenblas-dev liblapack-dev
+
 Setting Up Your Docker Environment
 ----------------------------------
 
@@ -91,9 +98,16 @@ And then, click on the 'Participate' button. Sign up or log in to your EvalAI ac
 
     .. code-block:: bash
 
-        evalai push rcareworld-final:latest --phase <phase_id>
+        pip install "evalai"
 
-5. If uploading directly, select the tar file and upload:
+        evalai set_token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1MTE5NTk2MywianRpIjoiMGJlZjY5NzVhNWI4NDM0OWEyM2RiOTcxZDc0NjRiYzkiLCJ1c2VyX2lkIjo0NTE3NH0.lZ_wVxaKqfXxVu2I4KJfeh8vPHOBOn_9YaUSnaQCncM
+
+        evalai challenge 2351 phase  submit --file <submission_file_path> --large
+
+        # Use  --private or --public flag in the submission command to make the submission private or public respectively.
+        # example: evalai challenge 2351 phase  submit --file <submission_file_path> --large --private
+
+5. If uploading directly, select the zip/tar file and upload:
 
     .. code-block:: none
 
