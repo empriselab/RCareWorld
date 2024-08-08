@@ -25,7 +25,7 @@ API Reference
 
    api/modules
 
-installation
+Installation
 ===
 .. toctree::
    :maxdepth: 2
