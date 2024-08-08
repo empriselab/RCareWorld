@@ -18,22 +18,21 @@ You can use this as a reference to set up your Docker environment.
 Build Your Docker
 -----------------
 
-1. Clone the GitHub repository and checkout the specific branch:
+1. Clone the GitHub repository and enter the template folder:
 
     .. code-block:: bash
-
-        git clone -b phy-robo-care https://github.com/empriselab/RCareWorld.git
-        cd RCareWorld
-        cd template/docker-template
+        cd RCareWorld/template/docker-template
 
 2. Run the Docker script:
 
     .. code-block:: bash
 
         # The run_docker.sh script is in the template/docker-template folder
-        sudo bash ./run_docker.sh
+        sudo bash ./run_docker.shell
 
     The `run_docker.sh` script will build the Docker image, run the container, and save the generated ZIP file.
+
+
 
 Write and Test Code Inside Docker
 --------------------------------------

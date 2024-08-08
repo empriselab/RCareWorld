@@ -19,7 +19,10 @@ mkdir -p $OUTPUT_DIR
 
 echo "Copying JSON files from Docker container to host..."
 docker cp $CONTAINER_ID:/root/.config/unity3d/RCareWorld/BathingPlayer/spongeScore.json $OUTPUT_DIR/BathingScore.json
-docker cp $CONTAINER_ID:/root/.config/unity3d/RCareWorld/Dressinglayer/dressingScore.json $OUTPUT_DIR/DressingScore.json
+docker cp $CONTAINER_ID:/root/.config/unity3d/RCareWorld/DressingPlayer/dressingScore.json $OUTPUT_DIR/DressingScore.json
+
+
+
 
 
 echo "Echoing JSON file contents..."
