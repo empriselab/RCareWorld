@@ -16,6 +16,20 @@ import cv2
 import numpy as np
 import json
 
+text = """
+An example of the usage of the dressing environment.
+
+The robot will move to the first position, pick up the cloth, and move to the second position to drop the cloth.
+
+You can obtain low level information of the cloth, the robot, and use unlimited numbers of cameras to observe the scene.
+
+Check the website detailed rubric. After each run of the simulation, a json file will be generated in the current directory
+(~/.config/unity3d/RCareWorld/DressingPlayer).
+The path may be different accotding to the OS and your computer configuration.
+"""
+
+print(text) 
+
 # Initialize the environment with the specified assets and set the time step
 # env = RCareWorld()
 env = RCareWorld(executable_file="Dressing/DressingPlayer.x86_64")
