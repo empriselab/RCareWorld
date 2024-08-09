@@ -29,6 +29,8 @@ Build and Package Your Docker Environment
 
    .. code-block:: bash
 
+      # This command line is executed outside of Docker, in the cloned environment.
+
       bash ./save_docker.shell
 
    The ``save_docker.shell`` script will build the Docker image, run the container, and generate a ZIP file.
@@ -79,6 +81,8 @@ When you deploy their own Docker environment, you might encounter issues. The `r
 
    .. code-block:: bash
 
+      # This command line is executed outside of Docker, in the cloned environment.
+
       sudo bash ./run_docker.shell
 
    The ``run_docker.shell`` script will build the Docker image and run the container.
@@ -122,6 +126,8 @@ You can also actively enter Docker to perform testing.
 4. Run your script (e.g., ``test_bathing.py``):
 
    .. code-block:: bash
+
+      # This command line is executed inside of Docker
 
       python test_bathing.py
 

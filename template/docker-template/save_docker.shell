@@ -37,11 +37,11 @@ cat $OUTPUT_DIR/DressingScore.json
 echo "Done. JSON files are saved in the $OUTPUT_DIR directory."
 
 # Keep the container running
-echo "Entering Docker container's bash shell..."
-docker exec -it $CONTAINER_ID /bin/bash
+# echo "Entering Docker container's bash shell..."
+# docker exec -it $CONTAINER_ID /bin/bash
 
-echo "Waiting for the Docker container to finish..."
-docker wait $CONTAINER_ID
+# echo "Waiting for the Docker container to finish..."
+# docker wait $CONTAINER_ID
 
 echo "Cleaning up Docker container..."
 docker rm $CONTAINER_ID
