@@ -3,7 +3,7 @@
 This README contains instructions for installing the PhyRC version of RCareWorld. In addition to this README, please refer to the following links:
 
 - Website https://emprise.cs.cornell.edu/rcareworld/
-- Documentation: Please only refer to this document if you are participating in the PhyRC challenge. Please don't use the links in the main branch. https://rcareworld.readthedocs.io/en/phy-robo-care/
+- Documentation: https://rcareworld.readthedocs.io/en/phy-robo-care/ Please only refer to this document if you are participating in the PhyRC challenge. Please don't use the links in the main branch. 
 - Discussion Forum: https://github.com/empriselab/RCareWorld/discussions
 
 
