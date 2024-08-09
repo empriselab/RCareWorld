@@ -1,6 +1,7 @@
 from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 import cv2
+import os
 import numpy as np
 import json
 import argparse
