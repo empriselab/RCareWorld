@@ -7,7 +7,7 @@ echo "Building Docker image..."
 docker build -t $DOCKER_IMAGE_NAME .
 
 echo "Running Docker container..."
-CONTAINER_ID=$(docker run -d $DOCKER_IMAGE_NAME)
+CONTAINER_ID=$(docker run -d $DOCKER_IMAGE_NAME tail -f /dev/null)
 
 echo "Docker container ID: $CONTAINER_ID"
 
@@ -17,13 +17,11 @@ sleep 30
 OUTPUT_DIR="./output"
 mkdir -p $OUTPUT_DIR
 
+docker ps 
+
 echo "Copying JSON files from Docker container to host..."
 docker cp $CONTAINER_ID:/root/.config/unity3d/RCareWorld/BathingPlayer/spongeScore.json $OUTPUT_DIR/BathingScore.json
 docker cp $CONTAINER_ID:/root/.config/unity3d/RCareWorld/DressingPlayer/dressingScore.json $OUTPUT_DIR/DressingScore.json
-
-
-
-
 
 echo "Echoing JSON file contents..."
 echo "Contents of BathingScore.json:"
