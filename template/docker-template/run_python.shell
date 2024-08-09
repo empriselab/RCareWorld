@@ -1,17 +1,15 @@
 #!/bin/bash
+set -e
 
 echo "Starting test_bathing.py script..."
-python ../test_bathing.py
+python ../test_bathing.py || { echo "Failed to run test_bathing.py"; exit 1; }
 
 echo "Finished test_bathing.py script."
 
 echo "Starting test_dressing.py script..."
-python ../test_dressing.py
+python ../test_dressing.py || { echo "Failed to run test_dressing.py"; exit 1; }
 
 echo "Finished test_dressing.py script."
 
 echo "All scripts have finished running."
-
-# Start a service or keep the script running
-# For example, you could start a simple HTTP server or use `sleep` to keep it running
 sleep infinity
