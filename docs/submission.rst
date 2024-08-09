@@ -31,7 +31,7 @@ Build and Package Your Docker Environment
 
       # This command line is executed outside of Docker, in the cloned environment.
 
-      bash ./save_docker.shell
+      sudo bash ./save_docker.shell
 
    The ``save_docker.shell`` script will build the Docker image, run the container, and generate a ZIP file.
 
@@ -150,7 +150,7 @@ Uploading to EvalAI
 
       pip install "evalai"
 
-   Then, visit the `submission page <https://eval.ai/web/challenges/challenge-page/2351/my-submission>`_ and follow the instructions to submit your code. Each person’s token and submission command will differ, so copy the command from the webpage to submit.
+   Then, visit the `submission page <https://eval.ai/web/challenges/challenge-page/2351/submission>`_ and follow the instructions to submit your code. Each person's token and submission command will differ, so copy the command from the webpage to submit.
 
 5. If uploading directly, select the ``.zip`` or ``.tar`` file and upload:
 
