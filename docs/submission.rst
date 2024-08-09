@@ -35,14 +35,14 @@ Build Your Docker Image
 
       sudo bash ./run_docker.shell
 
-   The ``run_docker.sh`` script will build the Docker image and run the container.
+   The ``run_docker.shell`` script will build the Docker image and run the container.
 
    After the script completes, it will automatically enter Docker's interactive execute environment. By default, the Docker container will continue running in detached mode, allowing you to interact and run your code. If you don't need it, you can manually stop it by typing ``exit`` in the Docker shell.
    
 
    To prevent the Docker from entering the interactive mode, you can remove the last line ``docker exec -it $CONTAINER_ID /bin/bash`` from the ``run_docker.shell`` script.
 
-   By removing the ``sleep infinity`` line from the ``run_python.sh`` script, the container will automatically stop after the script finishes executing. 
+   By removing the ``sleep infinity`` line from the ``run_python.shell`` script, the container will automatically stop after the script finishes executing. 
 
 Write and Test Code Inside the Docker
 ---------------------------------
@@ -53,7 +53,7 @@ Write and Test Code Inside the Docker
 
       docker ps
 
-   This command displays information about the running Docker containers. Containers built with ``run_docker.sh`` or ``save_docker.sh`` will run in the background by default.
+   This command displays information about the running Docker containers. Containers built with ``run_docker.shell`` or ``save_docker.shell`` will run in the background by default.
 
 2. Access your Docker container's shell:
 
