@@ -75,10 +75,10 @@ Packaging Your Docker Environment
 
         bash ./save_docker.shell
         
-    The `save_docker.sh` script will build the Docker image, run the container.and generated ZIP file.
+    The `save_docker.shell` script will build the Docker image, run the container.and generated ZIP file.
     
-    Similarly, the first part of `save_docker.sh` is identical to `run_docker.sh`, and it will also start a Docker container that runs in the background by default.
-
+    Similarly, the first part of save_docker.shell is identical to run_docker.shell, and it will also start a Docker container that runs in the background by default. However, in the latter part, to save memory, the running Docker container will be removed. You can freely choose to comment out the relevant statements to decide whether to enable or disable this behavior.
+    
     You can also use the command line to package your files. We recommend packaging them in .zip format, but we also support .tar format. You can use the following command line to package Docker:
 
     First,  using the following command:
@@ -89,10 +89,24 @@ Packaging Your Docker Environment
         docker images
 
         # Then use the image ID to package your Docker image:
-        docker save <image_id> | gzip > your_docker_name.tar.gz
-        zip your_docker_name.zip your_docker_name.tar.gz
+        docker save <image_id> -o your_docker_name.tar
 
-    After packaging, submit the compressed file.
+        # Create a directory to unpack the tar file
+        mkdir unpacked_docker
+
+        # Unpack the tar file into the directory
+        tar -xf your_docker_name.tar -C unpacked_docker
+
+        # Compress the unpacked files into a zip file
+        zip -r your_docker_name.zip unpacked_docker
+
+        # Clean up the unpacked directory and the original tar file
+        rm -rf unpacked_docker
+        rm your_docker_name.tar
+
+    After packaging, submit the compressed `.zip` file.
+
+    If you find it troublesome, you can also directly upload a `.tar`` file. Considering the diversity of platforms, our `save_docker.shell` will save it as a `.zip`` file. We recognize and evaluate both types of compressed files. However, please note that we only accept `.tar`` and `.zip`` files; other file types cannot be uploaded. Even if the upload is successful, it will default to a score of zero!
 
 Uploading to EvalAI
 -------------------

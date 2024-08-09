@@ -37,5 +37,6 @@ cat $OUTPUT_DIR/DressingScore.json
 echo "Done. JSON files are saved in the $OUTPUT_DIR directory."
 
 # Keep the container running
+# Input `exit` to exit the exec mode
 echo "Entering Docker container's bash shell..."
 docker exec -it $CONTAINER_ID /bin/bash
