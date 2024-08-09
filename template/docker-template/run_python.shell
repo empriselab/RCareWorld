@@ -1,19 +1,17 @@
 #!/bin/bash
 
 echo "Starting test_bathing.py script..."
-
-# Run the test_bathing.py script
 python ../test_bathing.py
 
 echo "Finished test_bathing.py script."
 
 echo "Starting test_dressing.py script..."
-
-# Run the test_dressing.py script
 python ../test_dressing.py
 
 echo "Finished test_dressing.py script."
 
 echo "All scripts have finished running."
 
-exec tail -f /dev/null
+# Start a service or keep the script running
+# For example, you could start a simple HTTP server or use `sleep` to keep it running
+sleep infinity
