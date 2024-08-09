@@ -39,9 +39,9 @@ Build Your Docker Image
 
    After the script completes, it will automatically enter Docker's interactive exec environment. You can explore the Docker operating environment to build your own Docker container. By default, the Docker container will continue running in detached mode. If you don't need it, you can manually stop it by typing `exit`` in the Docker shell.
 
-    To prevent the Docker container from running indefinitely in the background, you can remove the last line `docker exec -it $CONTAINER_ID /bin/bash` from the `run_docker.shell`` script.
+   To prevent the Docker container from running indefinitely in the background, you can remove the last line `docker exec -it $CONTAINER_ID /bin/bash` from the `run_docker.shell`` script.
 
-    If you don't want the Docker container to keep running after the process finishes, you can remove the last line `sleep infinity`` from the `run_python.shell`` script. This will automatically shut down the Docker container once the docker build and docker run processes are completed.
+   If you don't want the Docker container to keep running after the process finishes, you can remove the last line `sleep infinity`` from the `run_python.shell`` script. This will automatically shut down the Docker container once the docker build and docker run processes are completed.
 
 Write and Test Code Inside Docker
 ---------------------------------
