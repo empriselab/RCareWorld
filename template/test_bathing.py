@@ -2,6 +2,7 @@ import json
 from pyrcareworld.envs.base_env import RCareWorld
 import numpy as np
 import cv2
+import os
 import argparse
 
 def _main(use_graphics=False):
