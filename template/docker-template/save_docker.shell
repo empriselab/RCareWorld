@@ -44,7 +44,7 @@ echo "Done. JSON files are saved in the $OUTPUT_DIR directory."
 # docker wait $CONTAINER_ID
 
 echo "Cleaning up Docker container..."
-docker rm $CONTAINER_ID
+docker rm -f $CONTAINER_ID
 
 echo "Echoing JSON file contents..."
 if [ -f "$OUTPUT_DIR/BathingScore.json" ]; then

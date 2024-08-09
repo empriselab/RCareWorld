@@ -15,6 +15,8 @@ player_path = os.path.join(executable_path, "../executable/Player/Player.x86_64"
 
 # Global variable to store the image
 img = None
+# Global flag to control the thread
+stop_thread = False
 
 # Thread class for displaying images
 class ImageThread(threading.Thread):
@@ -22,11 +24,13 @@ class ImageThread(threading.Thread):
         threading.Thread.__init__(self)
 
     def run(self):
-        while True:
+        while not stop_thread:
             global img
             if img is not None:
                 cv2.imshow("image", img)
-                cv2.waitKey(10)
+                if cv2.waitKey(10) == 27:  # Press 'Esc' to close the window
+                    break
+        cv2.destroyAllWindows()
 
 # Initialize the environment with specified assets
 env = RCareWorld(assets=["Camera", "GameObject_Box"], executable_file=player_path)
@@ -45,9 +49,18 @@ thread = ImageThread()
 thread.start()
 
 # Main loop to capture images and rotate the box
-while True:
-    camera.GetRGB(width=512, height=512)
-    box.Rotate([0, 1, 0], False)
-    env.step()
-    image = np.frombuffer(camera.data["rgb"], dtype=np.uint8)
-    img = cv2.imdecode(image, cv2.IMREAD_COLOR)
+try:
+    while True:
+        camera.GetRGB(width=512, height=512)
+        box.Rotate([0, 1, 0], False)
+        env.step()
+        image = np.frombuffer(camera.data["rgb"], dtype=np.uint8)
+        img = cv2.imdecode(image, cv2.IMREAD_COLOR)
+except KeyboardInterrupt:
+    print("Exiting the program...")
+
+finally:
+    # Stop the thread
+    stop_thread = True
+    thread.join()
+    print("Thread terminated.")
