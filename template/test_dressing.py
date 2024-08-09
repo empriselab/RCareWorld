@@ -21,7 +21,7 @@ def _main(use_graphics=False):
             
         print(text)
     # Initialize the environment with the specified assets and set the time step
-    env = RCareWorld(executable_file="Dressing/DressingPlayer.x86_64", graphics=use_graphics)
+    env = RCareWorld(executable_file="./Dressing/DressingPlayer.x86_64", graphics=use_graphics)
     print(env.attrs)
 
     kinova_id = 315893
@@ -39,7 +39,7 @@ def _main(use_graphics=False):
     # Get the cloth attribute and perform a simulation step
     cloth = env.GetAttr(782563)
     env.step()
-    print(cloth.data)
+    # print(cloth.data)
 
     # Set the camera as a child of the robot's hand
     # you can also load new cameras and set them as children of other objects in the scene
