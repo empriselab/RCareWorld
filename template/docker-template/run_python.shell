@@ -15,3 +15,5 @@ python ../test_dressing.py
 echo "Finished test_dressing.py script."
 
 echo "All scripts have finished running."
+
+exec tail -f /dev/null
