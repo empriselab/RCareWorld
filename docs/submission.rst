@@ -1,24 +1,30 @@
 EvalAI Submission Guide
 ===========
 
+This document provides a step-by-step guide on how to submit your code to the EvalAI platform for the PhyRC challenge on a Ubuntu computer.
+
 Download and Install Docker
 ---------------------------
 
 1. Go to the Docker website download page: `Docker Download Link <https://docs.docker.com/get-docker/>`_
 
-2. Choose the appropriate installer for your operating system and follow the installation instructions provided on the site. 
+2. Choose the appropriate installer for Ubuntu and follow the installation instructions provided on the site. 
 
 Set Up Your Docker Environment
 ----------------------------------
 
 We provide an example of how the code should be structured and how to set up the Dockerfile in the `template folder <https://github.com/empriselab/RCareWorld/tree/phy-robo-care/template>`_.
 A sample Dockerfile looks like the one in `this link <https://github.com/empriselab/RCareWorld/blob/phy-robo-care/template/docker-template/dockerfile>`_.
-You can use this as a reference to set up your Docker environment.
+You can use this as a reference to set up your Docker environment. 
+
+The Dockerfile runs `run_python.shell` to run the code. If you are only submitting to one of the tracks, modify `run_python.shell` to include only the python script for that track
+
+Make sure you have the codebase installed on your local machine following the instructions in the `README.md file <https://github.com/empriselab/RCareWorld/tree/phy-robo-care?tab=readme-ov-file#here-is-the-code-for-rcareworld-phyrc-challenge->`_.
 
 Build Your Docker
 -----------------
 
-1. Clone the GitHub repository and enter the template folder:
+1. Navigate to the `docker-template` folder:
 
     .. code-block:: bash
         
@@ -28,7 +34,6 @@ Build Your Docker
 
     .. code-block:: bash
 
-        # The run_docker.sh script is in the template/docker-template folder
         sudo bash ./run_docker.shell
 
     The `run_docker.sh` script will build the Docker image, run the container.
