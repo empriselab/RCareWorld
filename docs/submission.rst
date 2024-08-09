@@ -9,6 +9,7 @@ Download and Install Docker
 1. Visit the `Docker Download Page <https://docs.docker.com/get-docker/>`_.
 2. Select the appropriate installer for Ubuntu and follow the provided installation instructions.
 
+
 Set Up Your Docker Environment
 ------------------------------
 
@@ -20,62 +21,8 @@ The Dockerfile runs ``run_python.shell`` to execute the code. If you are submitt
 
 Ensure you have the codebase installed on your local machine by following the instructions in the `README.md file <https://github.com/empriselab/RCareWorld/tree/phy-robo-care?tab=readme-ov-file#here-is-the-code-for-rcareworld-phyrc-challenge->`_.
 
-Build Your Docker Image
------------------------
 
-1. Navigate to the ``docker-template`` folder:
-
-   .. code-block:: bash
-
-      cd RCareWorld/template/docker-template
-
-2. Run the Docker script:
-
-   .. code-block:: bash
-
-      sudo bash ./run_docker.shell
-
-   The ``run_docker.shell`` script will build the Docker image and run the container.
-
-   After the script completes, it will automatically enter Docker's interactive execute environment. By default, the Docker container will continue running in detached mode, allowing you to interact and run your code. If you don't need it, you can manually stop it by typing ``exit`` in the Docker shell.
-   
-
-   To prevent the Docker from entering the interactive mode, you can remove the last line ``docker exec -it $CONTAINER_ID /bin/bash`` from the ``run_docker.shell`` script.
-
-   By removing the ``sleep infinity`` line from the ``run_python.shell`` script, the container will automatically stop after the script finishes executing. 
-
-Write and Test Code Inside the Docker
----------------------------------
-
-1. Check the Docker container's ID (run this before entering the Docker environment):
-
-   .. code-block:: bash
-
-      docker ps
-
-   This command displays information about the running Docker containers. Containers built with ``run_docker.shell`` or ``save_docker.shell`` will run in the background by default.
-
-2. Access your Docker container's shell:
-
-   .. code-block:: bash
-
-      docker exec -it <container_id> bash
-
-3. Navigate to the project directory:
-
-   .. code-block:: bash
-
-      cd /app/RCareWorld
-
-4. Run your script (e.g., ``test_bathing.py``):
-
-   .. code-block:: bash
-
-      python test_bathing.py
-
-   **Note:** If running code in the Docker container, ensure you have set ``graphics=False`` in ``RCareWorld()`` before copying your code.
-
-Package Your Docker Environment
+Build and Package Your Docker Environment
 -------------------------------
 
 1. Run the packaging script:
@@ -114,6 +61,72 @@ Package Your Docker Environment
    After packaging, submit the compressed ``.zip`` file.
 
    **Note:** You can also upload a ``.tar`` file directly. However, we recommend packaging in ``.zip`` format. We accept and evaluate both ``.tar`` and ``.zip`` files, but other file types will not be accepted and will receive a score of zero even if uploaded successfully.
+
+
+
+Run Your Docker Image
+-----------------------
+
+When you deploy their own Docker environment, you might encounter issues. The `run_docker.shell` script can be used to check if Docker is running correctly, and it will also, by default, enter the Docker environment at the end.
+
+1. Navigate to the ``docker-template`` folder:
+
+   .. code-block:: bash
+
+      cd RCareWorld/template/docker-template
+
+2. Run the Docker script:
+
+   .. code-block:: bash
+
+      sudo bash ./run_docker.shell
+
+   The ``run_docker.shell`` script will build the Docker image and run the container.
+
+   After the script completes, it will automatically enter Docker's interactive execute environment. By default, the Docker container will continue running in detached mode, allowing you to interact and run your code. If you don't need it, you can manually stop it by typing ``exit`` in the Docker shell.
+   
+
+   To prevent the Docker from entering the interactive mode, you can remove the last line ``docker exec -it $CONTAINER_ID /bin/bash`` from the ``run_docker.shell`` script.
+
+   By removing the ``sleep infinity`` line from the ``run_python.shell`` script, the container will automatically stop after the script finishes executing. 
+
+
+
+
+Write and Test Code Inside the Docker
+---------------------------------
+
+You can also actively enter Docker to perform testing.
+
+
+1. Check the Docker container's ID (run this before entering the Docker environment):
+
+   .. code-block:: bash
+
+      docker ps
+
+   This command displays information about the running Docker containers. Containers built with ``run_docker.shell`` or ``save_docker.shell`` will run in the background by default.
+
+2. Access your Docker container's shell:
+
+   .. code-block:: bash
+
+      docker exec -it <container_id> bash
+
+3. Navigate to the project directory:
+
+   .. code-block:: bash
+
+      cd /app/RCareWorld/template
+
+4. Run your script (e.g., ``test_bathing.py``):
+
+   .. code-block:: bash
+
+      python test_bathing.py
+
+   **Note:** If running code in the Docker container, ensure you have set ``graphics=False`` in ``RCareWorld()`` before copying your code.
+
 
 Uploading to EvalAI
 -------------------
