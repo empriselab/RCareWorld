@@ -3,14 +3,14 @@
 echo "Starting test_bathing.py script..."
 
 # Run the test_bathing.py script
-python ./test_bathing.py
+python ../test_bathing.py
 
 echo "Finished test_bathing.py script."
 
 echo "Starting test_dressing.py script..."
 
 # Run the test_dressing.py script
-python ./test_dressing.py
+python ../test_dressing.py
 
 echo "Finished test_dressing.py script."
 
