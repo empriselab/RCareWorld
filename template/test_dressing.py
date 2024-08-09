@@ -21,7 +21,7 @@ def _main(use_graphics=False):
             
         print(text)
     # Initialize the environment with the specified assets and set the time step
-    env = RCareWorld(executable_file="Dressing/DressingPlayer.x86_64", graphics=use_graphics)
+    env = RCareWorld(executable_file="./Dressing/DressingPlayer.x86_64", graphics=use_graphics)
     print(env.attrs)
 
     kinova_id = 315893
