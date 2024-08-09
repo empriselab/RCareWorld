@@ -37,6 +37,10 @@ Build Your Docker
         sudo bash ./run_docker.shell
 
     The `run_docker.sh` script will build the Docker image, run the container.
+    
+    After the `run_docker.sh` script completes execution, it will automatically enter the Docker environment. You can familiarize yourself with the Docker operating environment to build your own Docker container! Specifically, the Docker container will automatically continue running in the background. If not needed, you can manually stop it. You can exit the Docker exec mode by typing "exit". To avoid this operation, you can remove the last line `docker exec -it $CONTAINER_ID /bin/bash` from the `run_docker.sh` script.
+
+    If you don't want to keep the Docker container running in the background, remove the last line `sleep infinity` from the `run_python.shell` script. This way, the Docker container will automatically shut down after the `docker build` and `docker run` processes are completed.
 
 
 
@@ -46,6 +50,7 @@ Write and Test Code Inside Docker
     .. code-block:: bash
 
         # Check the Docker container's ID
+        # This command will output information about the running Docker containers. When you use `run_docker.sh` or `save_docker.sh`, the Docker containers you build will run in the background by default. You can use this method to view the relevant information.
         docker ps
 
         # Access your Docker container's shell
@@ -63,10 +68,6 @@ Write and Test Code Inside Docker
 
 
 
-
-
-
-
 Packaging Your Docker Environment
 ---------------------------------
 
@@ -75,6 +76,8 @@ Packaging Your Docker Environment
         bash ./save_docker.shell
         
     The `save_docker.sh` script will build the Docker image, run the container.and generated ZIP file.
+    
+    Similarly, the first part of `save_docker.sh` is identical to `run_docker.sh`, and it will also start a Docker container that runs in the background by default.
 
     You can also use the command line to package your files. We recommend packaging them in .zip format, but we also support .tar format. You can use the following command line to package Docker:
 
