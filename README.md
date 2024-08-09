@@ -50,7 +50,7 @@ conda create -n rcareworld python=3.10
 conda activate rcareworld
 
 # Install the requirements
-cd pyrcareworld
+cd RCareWorld/pyrcareworld
 pip install -r requirements.txt
 pip install -e .
 
