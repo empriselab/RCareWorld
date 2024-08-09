@@ -23,7 +23,7 @@ def _main(use_graphics=False):
 
         print(text) 
     # Initialize the environment with the specified executable file and graphics option
-    env = RCareWorld(executable_file="Bathing/BathingPlayer.x86_64", graphics=use_graphics)
+    env = RCareWorld(executable_file="./Bathing/BathingPlayer.x86_64", graphics=use_graphics)
     print(env.attrs)
 
     stretch_id = 221582
