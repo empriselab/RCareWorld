@@ -5,6 +5,23 @@ import cv2
 import argparse
 
 def _main(use_graphics=False):
+    if use_graphics:
+        text = """
+        An example of the usage of the bathing environment.
+
+        The sponge will be attached to the robot's hand if the grasp center and the sponge are close enough. (distance < 0.1m)  
+        The sponge will be detached from the robot's hand if you call the GripperOpen() function.
+
+        You can obtain low level information of the sponge, the robot, and use unlimited numbers of cameras to observe the scene.
+
+        The threshold for a comfortable force on the human body is set to 1-6N.
+
+        Check the website detailed rubric. After each run of the simulation, a json file will be generated in the current directory (~/.config/unity3d/RCareWorld/BathingPlayer).
+
+        The path may be different according to the OS and your computer configuration.
+        """
+
+        print(text) 
     # Initialize the environment with the specified executable file and graphics option
     env = RCareWorld(executable_file="Bathing/BathingPlayer.x86_64", graphics=use_graphics)
     print(env.attrs)
