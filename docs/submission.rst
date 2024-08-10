@@ -79,12 +79,15 @@ Uploading to EvalAI
 
 4. If using the CLI, upload with:
 
+
    .. code-block:: bash
+
       pip install "evalai"
       
       # conda create -n evalai python=3.8
       # conda activate evalai
       # pip install "evalai"
+
 
    If you encounter issues with pip install evalai, you can create a new Python 3.8 conda environment that's just for submitting to EvalAI.
 
