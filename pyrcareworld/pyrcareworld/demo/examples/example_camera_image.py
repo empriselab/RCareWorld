@@ -57,6 +57,8 @@ def save_and_read_image(camera, filename):
     return image
 
 # Main loop to capture images
+print("Stop printing image.shape for debugging")
+
 for i in range(600):
     # Set a random color for the box
     color = random_color()
@@ -78,7 +80,6 @@ for i in range(600):
 
     # Print the shape of the captured image!
     # print(image.shape)
-    print("Stop printing image.shape for debugging")
 
     # Optional: Display the image using OpenCV
     # cv2.imshow("RGB Image", image)
