@@ -66,14 +66,21 @@ camera.GetHeatMap()
 env.step()
 
 # Process and save the heat map image
-print(camera.data)
-print(camera.data["heat_map"])
-image_np = np.frombuffer(camera.data["heat_map"], dtype=np.uint8)
-image_np = cv2.imdecode(image_np, cv2.IMREAD_COLOR)
-print(image_np.shape)
+# Print the data to check the structure
+# print(camera.data)
+# print(camera.data["heat_map"])
+print("Stop ptinting camera.data for debugging")
 
-# Save the heat map image
-cv2.imwrite("heatmap.png", image_np)
+heat_map = camera.data.get("heat_map", None)
+if heat_map:
+    print(heat_map)
+    image_np = np.frombuffer(camera.data["heat_map"], dtype=np.uint8)
+    image_np = cv2.imdecode(image_np, cv2.IMREAD_COLOR)
+    print(image_np.shape)
+    cv2.imwrite("heatmap.png", image_np)
+
+else:
+    print("Heat map data not found. Skipping this step.")
 
 # Close the environment
 env.close()

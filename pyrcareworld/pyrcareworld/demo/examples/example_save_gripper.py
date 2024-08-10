@@ -35,6 +35,7 @@ env = RCareWorld(assets=["allegro_hand_right"], executable_file=player_path)
 # Create an instance of the Allegro Hand Right gripper
 bhand = env.InstanceObject("allegro_hand_right", attr_type=attr.ControllerAttr)
 env.step(5)
+bhand.SetPosition([2, 1, 1])
 
 # Get the number of moveable joints in the gripper
 moveable_joint_count = bhand.data["number_of_moveable_joints"]

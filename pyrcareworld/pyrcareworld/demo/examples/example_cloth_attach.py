@@ -41,7 +41,9 @@ env.step(200)
 # Get particles data from the mesh
 mesh.GetParticles()
 env.step()
-print(mesh.data)
+# Print the particles data from the mesh
+# print(mesh.data)
+print("Stop printing mesh.data for debugging")
 
 # Extract positions of specific particles
 position1 = mesh.data['particles'][500]

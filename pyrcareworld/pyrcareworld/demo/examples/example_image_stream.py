@@ -47,8 +47,10 @@ class ImageThread(threading.Thread):
             if img is not None:
                 cv2.imshow("image", img)
                 if cv2.waitKey(10) == 27:  # Press 'Esc' to close the window
-                    break
-        cv2.destroyAllWindows()
+                    # Setting stop_thread to True to stop the thread
+                    global stop_thread
+                    stop_thread = True
+
 
 # Initialize the environment with specified assets
 env = RCareWorld(assets=["Camera", "GameObject_Box"], executable_file=player_path)
@@ -77,8 +79,10 @@ try:
 except KeyboardInterrupt:
     print("Exiting the program...")
 
+# In the main thread, after the loop ends, ensure OpenCV windows are properly closed
 finally:
     # Stop the thread
     stop_thread = True
     thread.join()
     print("Thread terminated.")
+    cv2.destroyAllWindows()  # Ensure this is called in the main thread

@@ -76,8 +76,9 @@ for i in range(600):
     # Save and read the captured image
     image = save_and_read_image(camera, "image_test.png")
 
-    # Print the shape of the captured image
-    print(image.shape)
+    # Print the shape of the captured image!
+    # print(image.shape)
+    print("Stop printing image.shape for debugging")
 
     # Optional: Display the image using OpenCV
     # cv2.imshow("RGB Image", image)

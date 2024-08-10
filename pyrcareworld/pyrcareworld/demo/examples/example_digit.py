@@ -13,6 +13,10 @@ What the Functionality Covers:
 Required Operations:
 - Mouse Interaction: The script allows for manual interaction with the Digit sensor by dragging the sphere.
 - Waiting: The environment waits for user interaction.
+
+Additional Information:
+- The visualization in RGB shows the output of the Digit sensor.
+- The red-only visualization might represent the intensity map or another specific channel related to the sensor's output.
 """)
 
 import os

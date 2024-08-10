@@ -44,7 +44,8 @@ env.step()
 env.SetViewTransform(position=[0, 1, 1])
 
 # Print the robot's data for debugging
-print(robot.data)
+# print(robot.data)
+print("Stop printing robot data for debugging.")
 
 # Adjust the view to look at the robot's position
 env.ViewLookAt(robot.data["position"])

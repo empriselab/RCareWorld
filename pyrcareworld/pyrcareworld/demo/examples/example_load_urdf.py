@@ -15,6 +15,7 @@ Required Operations:
 
 import os
 import sys
+import time
 
 # Add the project directory to the system path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
@@ -59,4 +60,5 @@ ur5.IKTargetDoRotateQuaternion(
 ur5.WaitDo()
 
 # End the environment session
+time.sleep(30)
 env.Pend()

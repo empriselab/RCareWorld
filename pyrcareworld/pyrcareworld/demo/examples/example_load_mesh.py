@@ -46,7 +46,9 @@ mesh.SetTransform(
 )
 
 # Create and transform copies of the mesh
-for i in range(100):
+# Change the number of copies as needed. Here, we create 10 copies. 
+# Notice the copmputer memory usage.
+for i in range(10):
     env.step(20)
     new_mesh = mesh.Copy(new_id=mesh.id + i + 1)
     new_mesh.SetTransform(

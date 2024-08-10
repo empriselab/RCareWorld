@@ -58,5 +58,5 @@ grasp_sim.ShowGraspPose(
 )
 
 # Close the environment
-env.Pend()
-env.close()
+# env.Pend()
+# env.close()

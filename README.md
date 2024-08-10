@@ -65,6 +65,14 @@ python test_scene.py
 ```
 A window with white cubes will pop up as the screenshot shows. This indicates the installation is successful.
 
+You can perform common Unity operations in this window:
+- `WSAD` to navigate
+- `QE` to ascend and descend 
+- `right-click` to pan
+- `End Pend` allows you to perform special operations; refer to the code for details. Clicking three times will close the window, but you can also manually cancel in the code
+- `Scroll` wheel direction is **opposite** to the direction in the DebugWindow
+
+
 ![test_scene_py_img](./test_scene.png)
 
  
@@ -84,6 +92,11 @@ python test_bathing.py
 # For local use with rendering
 python test_bathing.py --graphics
 ```
+You can also test `test_dressing.py` in the same way, but please note that the **dressing scene will occupy more memory**. 
+
+Please ensure that your computer has sufficient memory, or close unnecessary running programs in advance to improve the frame rate during execution!
+
+
 
 Your score will be stored in a JSON file called `spongeScore.json` for bathing and `dressingScore.json` for dressing under `~/.config/unity3d/RCareWorld/BathingPlayer/` for bathing and `~/.config/unity3d/RCareWorld/DressingPlayer/` for dressing.
 

@@ -36,7 +36,8 @@ env.step(5)
 # Print the data attributes of the box
 print("Rigidbody_Box Data:")
 for key in box.data:
-    print(f"{key}: {box.data[key]}")
+    # print(f"{key}: {box.data[key]}")
+    print("Stop printing Rigidbody_Box data for debugging.")
 
 # Create an instance of a franka_panda robot and set its position
 robot = env.InstanceObject(name="franka_panda", id=789789, attr_type=attr.ControllerAttr)
