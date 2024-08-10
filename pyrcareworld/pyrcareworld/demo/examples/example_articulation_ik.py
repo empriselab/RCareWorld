@@ -1,3 +1,18 @@
+print("""
+File Purpose:
+This script demonstrates how to control a robot's movement and rotation within the RCareWorld environment.
+
+What it Implements:
+The script initializes an environment using a specified scene file, performs a series of movements and rotations on a robot, and then closes the environment.
+
+What the Functionality Covers:
+The functionality provides an understanding of how to use inverse kinematics (IK) to control the position and rotation of a robot in the RCareWorld simulation.
+
+Required Operations:
+- Waiting: The script involves waiting for each movement and rotation to complete.
+- Loop: Iterates over a list of robot IDs to perform the operations.
+""")
+
 import os
 import sys
 import pyrcareworld.utils.rfuniverse_utility as utility

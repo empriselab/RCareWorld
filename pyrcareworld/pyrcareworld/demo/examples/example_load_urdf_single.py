@@ -1,3 +1,19 @@
+print("""
+This script demonstrates loading and interacting with a URDF model of a robot in the RCareWorld environment.
+
+What it Implements:
+- Initializes the environment and loads a URDF model of the UR5 robot. Note that the URDF loader does not render the texture, so while the robot's structure and joints are correctly loaded, the visual appearance may lack textures.
+- Sets the initial transform for the robot and adjusts the camera view to focus on it.
+- Displays the articulation parameters for the robot, allowing joint control via sliders.
+
+What the Functionality Covers:
+- Understanding how to load and manipulate URDF models in the RCareWorld environment.
+- Demonstrates how to interact with robot joints through the articulation parameter sliders.
+
+Required Operations:
+- User Interaction: Allows the user to drag sliders to control each joint of the robot.
+""")
+
 import os
 import sys
 

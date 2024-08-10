@@ -1,3 +1,21 @@
+print("""
+This script demonstrates the initialization and control of a shadow hand object in the RCareWorld environment.
+
+What it Implements:
+- Initializes the environment using a specified executable file.
+- Instantiates a shadow hand object with a 6DOF (6 Degrees of Freedom) controller.
+- Sets the position of the shadow hand and configures joint stiffness and damping.
+- Simulates joint movements with delays between each step.
+
+What the Functionality Covers:
+- How to instantiate and manipulate objects in the RCareWorld environment.
+- Understanding joint control, including stiffness, damping, and movement.
+
+Required Operations:
+- Waiting: The script involves waiting between each joint position update.
+- Loop: Iterates over joint positions to update them with delays.
+""")
+
 import os
 import sys
 import pyrcareworld.attributes as attr

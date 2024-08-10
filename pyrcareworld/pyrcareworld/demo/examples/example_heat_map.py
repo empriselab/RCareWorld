@@ -1,3 +1,22 @@
+print("""
+This script demonstrates the creation of a heat map in the RCareWorld environment by recording interactions with a target object.
+
+What it Implements:
+- Initializes the environment with a camera and a target object (a sphere).
+- Configures the target object for interaction, including drag and gravity settings.
+- Aligns the camera to the target, starts heat map recording during user interaction, and processes the recorded heat map.
+
+What the Functionality Covers:
+- Understanding how to set up and use heat map recording in the RCareWorld environment.
+- Capturing user interaction data and visualizing it as a heat map.
+
+Required Operations:
+- User Interaction: The script requires the user to drag the sphere to generate heat map data.
+- Data Processing: Retrieves and processes the heat map image from the recorded data.
+- Data Saving: Saves the processed heat map image to a file.
+""")
+
+
 import pyrcareworld.attributes as attr
 import cv2
 import numpy as np

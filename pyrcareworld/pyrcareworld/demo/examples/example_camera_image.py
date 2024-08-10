@@ -1,3 +1,21 @@
+print("""
+This script demonstrates the creation and control of a camera and a box object within the RCareWorld environment, capturing RGB images with random box colors.
+
+What it Implements:
+- Initializes the environment with camera and box objects.
+- Sets random colors for the box and captures RGB images using the camera.
+- Saves the captured images and optionally displays them using OpenCV.
+
+What the Functionality Covers:
+- Object instantiation and manipulation within the RCareWorld environment.
+- Camera positioning and orientation.
+- Capturing and processing images.
+
+Required Operations:
+- Loop: Continuously sets random colors, captures images, and updates the environment.
+- Optional: Viewing the images with OpenCV in real-time.
+""")
+
 import random
 import cv2
 from pyrcareworld.envs.base_env import RCareWorld

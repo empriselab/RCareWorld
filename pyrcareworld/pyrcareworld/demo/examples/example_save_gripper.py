@@ -1,3 +1,20 @@
+print("""
+This script demonstrates the control of an Allegro Hand Right gripper in the RCareWorld environment, setting joint positions and exporting the gripper's mesh.
+
+What it Implements:
+- Initializes the environment with an Allegro Hand Right gripper.
+- Sets the position of all moveable joints in the gripper to 30 degrees.
+- Exports the gripper's mesh as an OBJ file for external use.
+
+What the Functionality Covers:
+- Understanding how to control gripper joints using the RCareWorld environment.
+- Demonstrates exporting the 3D mesh of a gripper for use in other applications.
+
+Required Operations:
+- Joint Control: Sets the position of all moveable joints in the gripper.
+- Mesh Export: Exports the gripper's mesh to an OBJ file.
+""")
+
 import os
 import os
 import sys

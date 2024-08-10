@@ -1,3 +1,21 @@
+print("""
+This script demonstrates the control of a Kinova Gen3 robotic arm with a Robotiq 85 gripper in the RCareWorld environment, performing a pick-and-place operation with random box objects.
+
+What it Implements:
+- Initializes the environment with the Kinova Gen3 robotic arm and sets the simulation time step.
+- The robot arm picks up a box from a random position and places it at another random position.
+- The script continuously repeats the process by creating, manipulating, and destroying boxes.
+
+What the Functionality Covers:
+- Understanding how to control a robotic arm using inverse kinematics (IK) in RCareWorld.
+- Demonstrates the manipulation of rigid body objects and the use of a gripper for pick-and-place tasks.
+
+Required Operations:
+- Loop: The script continuously performs pick-and-place operations in a loop.
+- Object Manipulation: Creates, moves, and destroys rigid body box objects.
+- Robot Control: Executes IK movements and gripper operations to complete the task.
+""")
+
 import os
 import sys
 import random

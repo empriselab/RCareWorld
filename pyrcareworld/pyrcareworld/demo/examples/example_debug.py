@@ -1,3 +1,18 @@
+print("""
+This script demonstrates various debugging tools available in the RCareWorld environment by visualizing different aspects of the scene.
+
+What it Implements:
+- Initializes the environment with a specific scene file.
+- Activates and deactivates multiple debugging modes, such as grasp points, object IDs, object poses, collider bounds, collision pairs, and bounding boxes.
+
+What the Functionality Covers:
+- Understanding the visual debugging tools in RCareWorld for various scene components.
+- Learning how to log and step through debugging processes in the environment.
+
+Required Operations:
+- Waiting: The script waits for a specified number of steps in each debugging mode before deactivating it.
+""")
+
 import os
 import sys
 

@@ -1,3 +1,19 @@
+print("""
+This script demonstrates how to perform inverse kinematics (IK) movements on a human body model using the BioIK feature in the RCareWorld environment.
+
+What it Implements:
+- Initializes the environment with a scene containing a human body model.
+- Demonstrates a series of IK movements applied to various parts of the human body.
+
+What the Functionality Covers:
+- Understanding how BioIK works on a human body model within the RCareWorld environment.
+- Executing IK movements to simulate realistic body movements.
+
+Required Operations:
+- Loop: Iterates over different body indices to perform IK movements.
+- Waiting: The script waits for each IK movement to complete before proceeding to the next.
+""")
+
 import os
 import sys
 

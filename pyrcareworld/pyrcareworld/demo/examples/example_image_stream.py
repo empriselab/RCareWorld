@@ -1,3 +1,21 @@
+print("""
+This script demonstrates real-time image capture and display using a camera in the RCareWorld environment while rotating a 3D box object.
+
+What it Implements:
+- Initializes the environment with a camera and a box object.
+- Captures RGB images from the camera as the box rotates and displays the images in real-time using a separate thread.
+
+What the Functionality Covers:
+- Understanding how to capture and process real-time images in RCareWorld.
+- Demonstrates multithreading for simultaneous image capture and display.
+
+Required Operations:
+- Loop: Continuously captures images and rotates the box object.
+- Threading: Uses a separate thread to display images in real-time.
+- User Interaction: Allows the user to exit the program by pressing the 'Esc' key or sending a keyboard interrupt (Ctrl+C).
+""")
+
+
 import os
 import sys
 import cv2

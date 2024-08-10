@@ -1,3 +1,21 @@
+print("""
+This script demonstrates the use of custom attributes and dynamic messaging within the RCareWorld environment.
+
+What it Implements:
+- Initializes the environment with a custom attribute asset.
+- Sends and processes a custom message using a custom attribute.
+- Sets up a callback function to handle dynamic object messages and demonstrates sending messages with various data types.
+
+What the Functionality Covers:
+- Using custom attributes and handling custom messages in RCareWorld.
+- Understanding dynamic messaging with support for different data types.
+
+Required Operations:
+- Callback Handling: Listens and responds to dynamic object messages.
+- Waiting: Simulation steps are used to process the messages.
+""")
+
+
 import os
 import sys
 import pyrcareworld.attributes as attr

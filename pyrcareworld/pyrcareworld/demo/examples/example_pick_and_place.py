@@ -1,3 +1,20 @@
+print("""
+This script demonstrates the control of a Franka Panda robotic arm in the RCareWorld environment, performing a pick-and-place operation with randomly positioned boxes.
+
+What it Implements:
+- Initializes the environment with a Franka Panda robot and sets its inverse kinematics (IK) target offset.
+- The robot arm performs pick-and-place operations by moving to randomly generated boxes, picking them up, and placing them in new positions.
+
+What the Functionality Covers:
+- Understanding how to control a robotic arm using IK in RCareWorld.
+- Demonstrates object manipulation, including picking up and placing rigid body boxes with the gripper.
+
+Required Operations:
+- Loop: The script continuously performs pick-and-place operations in a loop.
+- Object Manipulation: Creates, moves, and destroys rigid body box objects.
+- Robot Control: Executes IK movements and gripper operations to complete the task.
+""")
+
 import random
 import pyrcareworld.attributes as attr
 import os

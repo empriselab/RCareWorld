@@ -54,6 +54,10 @@ cd RCareWorld/pyrcareworld
 pip install -r requirements.txt
 pip install -e .
 
+# To use open3d
+pip uninstall numpy
+conda install numpy
+
 # Verify the installation works
 cd pyrcareworld/demo/examples
 python test_scene.py
