@@ -118,8 +118,8 @@ image_depth_exr = active_light_sensor_2.data["depth_exr"]
 image_active_depth = active_light_sensor_2.data["active_depth"]
 local_to_world_matrix = active_light_sensor_2.data["local_to_world_matrix"]
 
-print(image_depth_exr)
-
+# print(image_depth_exr)
+print("Stop printing image_depth_exr")
 for i in range(500):
     env.step()
 # env.Pend()

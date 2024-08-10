@@ -60,12 +60,12 @@ mass_point.Link(robot.id, 8)
 last_velocity = [0, 0, 0]
 
 # Main loop to calculate acceleration and perform random movements
+print("Stop printing acc for debugging")
 while True:
     env.step()
     # Calculate acceleration
     acc = np.array(mass_point.data["velocity"]) - np.array(last_velocity) / env.data["fixed_delta_time"]
     # print("acc", np.linalg.norm(acc))
-    print("Stop printing acc for debugging")
     last_velocity = mass_point.data["velocity"]
 
     # If the robot has finished its move, perform a random movement
