@@ -91,7 +91,7 @@ Uploading to EvalAI
 
    If you encounter issues with pip install evalai, you can create a new Python 3.8 conda environment that's just for submitting to EvalAI.
 
-   First, visit the participate page `participate page <https://eval.ai/web/challenges/challenge-page/2351/participate>`__ to log in, then visit the `submission page <https://eval.ai/web/challenges/challenge-page/2351/submission>`_ and follow the instructions to submit your code.
+   First, visit the `participate page <https://eval.ai/web/challenges/challenge-page/2351/participate>`__ to log in, then visit the `submission page <https://eval.ai/web/challenges/challenge-page/2351/submission>`_ and follow the instructions to submit your code.
    
    Each person's token and submission command will differ, so copy the command from the webpage to submit.
 
