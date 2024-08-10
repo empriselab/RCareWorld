@@ -109,4 +109,5 @@ csv_path = os.path.join(os.path.dirname(obj_path), "grasps_rfu.csv")
 csv.to_csv(csv_path, index=True, header=True)
 
 env.Pend()
+env.Pend()
 env.close()
