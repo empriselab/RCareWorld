@@ -67,8 +67,9 @@ A window with white cubes will pop up as the screenshot shows. This indicates th
 
 You can perform common Unity operations in this window:
 - `WSAD` to navigate
-- `QE` to ascend and descend 
-- `right-click` to pan
+- `CTRL` to ascend 
+- `Space` to descend 
+- `Right Click` to pan
 - `End Pend` allows you to perform special operations; refer to the code for details. Clicking three times will close the window, but you can also manually cancel in the code
 - `Scroll` wheel direction is **opposite** to the direction in the DebugWindow
 
