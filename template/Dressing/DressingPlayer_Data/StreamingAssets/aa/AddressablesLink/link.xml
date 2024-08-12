@@ -4,8 +4,8 @@
     <type fullname="Obi.ObiClothRenderer" preserve="all" />
     <type fullname="Obi.ObiCollider" preserve="all" />
     <type fullname="Obi.ObiCollisionMaterial" preserve="all" />
-    <type fullname="Obi.ObiFixedUpdater" preserve="all" />
     <type fullname="Obi.ObiSolver" preserve="all" />
+    <type fullname="Obi.ObiNativeIntList" preserve="nothing" serialized="true" />
     <type fullname="Oni/ConstraintParameters" preserve="nothing" serialized="true" />
     <type fullname="Oni/SolverParameters" preserve="nothing" serialized="true" />
   </assembly>
@@ -117,6 +117,7 @@
     <type fullname="UnityEngine.Mesh" preserve="all" />
     <type fullname="UnityEngine.MeshFilter" preserve="all" />
     <type fullname="UnityEngine.MeshRenderer" preserve="all" />
+    <type fullname="UnityEngine.MonoBehaviour" preserve="all" />
     <type fullname="UnityEngine.Object" preserve="all" />
     <type fullname="UnityEngine.RectTransform" preserve="all" />
     <type fullname="UnityEngine.RenderSettings" preserve="all" />
