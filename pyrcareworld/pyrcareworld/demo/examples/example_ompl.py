@@ -1,3 +1,20 @@
+print("""
+This script demonstrates the use of the OMPL (Open Motion Planning Library) for planning and executing a motion path for a Franka Panda robot in the RCareWorld environment.
+
+What it Implements:
+- Initializes the environment with a Franka Panda robot, two collider boxes, and an OMPL manager. Note that the URDF loader does not render the texture, so while the robot's structure and joints are correctly loaded, the visual appearance may lack textures.
+- Disables native inverse kinematics (IK) for the robot and sets up the OMPL manager for motion planning.
+- Defines a start state and a target state for the robot's joints, uses OMPL to plan a path between them, and executes the planned path if a solution is found.
+
+What the Functionality Covers:
+- Understanding how to integrate OMPL with RCareWorld for motion planning tasks.
+- Demonstrates setting up the environment, configuring motion planners, and executing the planned motions.
+
+Required Operations:
+- Loop: Continuously executes the planned motion path.
+- Planning and Execution: Uses OMPL to plan and execute motion paths based on start and target states.
+""")
+
 import os
 import sys
 import pyrcareworld.attributes as attr

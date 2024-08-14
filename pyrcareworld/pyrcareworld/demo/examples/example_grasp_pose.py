@@ -1,3 +1,21 @@
+print("""
+This script demonstrates the visualization of grasp poses for a specified object within the RCareWorld environment using GraspSim.
+
+What it Implements:
+- Initializes the environment with the GraspSim object.
+- Loads grasp pose data from a CSV file, including positions and quaternions.
+- Visualizes the grasp poses on a specified 3D object using the SimpleFrankaGripper.
+
+What the Functionality Covers:
+- Understanding how to load and use pose data for grasp simulation in RCareWorld.
+- Demonstrates the integration of external pose data with the environment's simulation capabilities.
+
+Required Operations:
+- Data Loading: Reads and processes pose data from a CSV file.
+- Visualization: Displays the grasp poses on the object within the environment.
+""")
+
+
 import os
 import sys
 import pandas as pd
@@ -40,5 +58,6 @@ grasp_sim.ShowGraspPose(
 )
 
 # Close the environment
+env.Pend()
 env.Pend()
 env.close()

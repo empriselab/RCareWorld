@@ -1,5 +1,21 @@
+print("""
+This script demonstrates loading multiple URDF models of robots and performing inverse kinematics (IK) movements with the UR5 robot in the RCareWorld environment.
+
+What it Implements:
+- Initializes the environment and loads URDF models for the UR5, Yumi, and Kinova robots. Note that the URDF loader does not render the texture, so while the robot structures and joints are correctly loaded, the visual appearances may lack textures.
+- Performs a series of IK movements with the UR5 robot to demonstrate its control capabilities.
+
+What the Functionality Covers:
+- Understanding how to load and manipulate multiple URDF models in the RCareWorld environment.
+- Demonstrates how to execute IK movements, including translations and rotations, on the UR5 robot.
+
+Required Operations:
+- Sequential IK Movements: The script performs a series of movements with the UR5 robot and waits for each to complete before proceeding.
+""")
+
 import os
 import sys
+import time
 
 # Add the project directory to the system path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
@@ -44,4 +60,5 @@ ur5.IKTargetDoRotateQuaternion(
 ur5.WaitDo()
 
 # End the environment session
+time.sleep(30)
 env.Pend()

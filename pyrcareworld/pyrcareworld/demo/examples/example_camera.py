@@ -1,3 +1,20 @@
+print("""
+This script demonstrates capturing various types of images and bounding boxes using a camera within the RCareWorld environment.
+
+What it Implements:
+- Initializes the environment with a camera and a box object.
+- Captures and saves multiple image types: RGB, normal map, depth image, amodal mask, and ID map.
+- Annotates the ID map with a 2D bounding box and prints both 2D and 3D bounding box information.
+
+What the Functionality Covers:
+- Using the RCareWorld camera to capture different image representations.
+- Understanding and processing 2D and 3D bounding boxes in the environment.
+
+Required Operations:
+- Loop: Processes and prints bounding box information.
+- Save Images: Captures and saves images for each frame.
+""")
+
 import os
 import sys
 import cv2

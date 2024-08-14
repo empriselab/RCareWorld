@@ -1,3 +1,21 @@
+print("""
+This script demonstrates loading a 3D mesh and creating multiple copies with random rotations in the RCareWorld environment.
+
+What it Implements:
+- Initializes the environment and loads a specified 3D mesh.
+- Sets a random initial rotation for the mesh.
+- Creates multiple copies of the mesh, each with a different random rotation.
+
+What the Functionality Covers:
+- Understanding how to load and manipulate 3D meshes in the RCareWorld environment.
+- Demonstrates the creation of multiple mesh instances with varied transformations.
+
+Required Operations:
+- Loop: Continuously creates and transforms copies of the mesh.
+- Randomization: Applies random rotations to each mesh instance.
+""")
+
+
 import random
 import os
 import sys
@@ -28,7 +46,8 @@ mesh.SetTransform(
 )
 
 # Create and transform copies of the mesh
-for i in range(100):
+# Change the number of copies as needed. Here, we create 10 copies. Notice the copmputer memory usage.
+for i in range(10):
     env.step(20)
     new_mesh = mesh.Copy(new_id=mesh.id + i + 1)
     new_mesh.SetTransform(

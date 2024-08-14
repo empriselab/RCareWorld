@@ -1,3 +1,24 @@
+print("""
+This script demonstrates the setup and interaction of a Digit sensor within the RCareWorld environment.
+
+What it Implements:
+- Initializes the environment with a Digit sensor object and a target object.
+- Sets the position of both the Digit sensor and the target.
+- Configures the camera view for better observation of the interaction.
+
+What the Functionality Covers:
+- Understanding how to instantiate and position Digit sensors and targets in RCareWorld.
+- Learning how to set the camera view transform to observe specific interactions.
+
+Required Operations:
+- Mouse Interaction: The script allows for manual interaction with the Digit sensor by dragging the sphere.
+- Waiting: The environment waits for user interaction.
+
+Additional Information:
+- The visualization in RGB shows the output of the Digit sensor.
+- The red-only visualization might represent the intensity map or another specific channel related to the sensor's output.
+""")
+
 import os
 import sys
 

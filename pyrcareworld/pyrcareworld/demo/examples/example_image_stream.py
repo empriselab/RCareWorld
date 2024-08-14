@@ -1,3 +1,21 @@
+print("""
+This script demonstrates real-time image capture and display using a camera in the RCareWorld environment while rotating a 3D box object.
+
+What it Implements:
+- Initializes the environment with a camera and a box object.
+- Captures RGB images from the camera as the box rotates and displays the images in real-time using a separate thread.
+
+What the Functionality Covers:
+- Understanding how to capture and process real-time images in RCareWorld.
+- Demonstrates multithreading for simultaneous image capture and display.
+
+Required Operations:
+- Loop: Continuously captures images and rotates the box object.
+- Threading: Uses a separate thread to display images in real-time.
+- User Interaction: Allows the user to exit the program by pressing the 'Esc' key or sending a keyboard interrupt (Ctrl+C).
+""")
+
+
 import os
 import sys
 import cv2
@@ -29,8 +47,10 @@ class ImageThread(threading.Thread):
             if img is not None:
                 cv2.imshow("image", img)
                 if cv2.waitKey(10) == 27:  # Press 'Esc' to close the window
-                    break
-        cv2.destroyAllWindows()
+                    # Setting stop_thread to True to stop the thread
+                    global stop_thread
+                    stop_thread = True
+
 
 # Initialize the environment with specified assets
 env = RCareWorld(assets=["Camera", "GameObject_Box"], executable_file=player_path)
@@ -59,8 +79,10 @@ try:
 except KeyboardInterrupt:
     print("Exiting the program...")
 
+# In the main thread, after the loop ends, ensure OpenCV windows are properly closed
 finally:
     # Stop the thread
     stop_thread = True
     thread.join()
     print("Thread terminated.")
+    cv2.destroyAllWindows()  # Ensure this is called in the main thread

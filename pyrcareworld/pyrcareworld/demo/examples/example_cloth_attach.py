@@ -1,3 +1,20 @@
+print("""
+This script demonstrates the simulation of cloth physics by manipulating specific particles on a T-shirt mesh in the RCareWorld environment.
+
+What it Implements:
+- Initializes the environment and loads a T-shirt mesh.
+- Attaches points to specific particles on the mesh and moves these points to manipulate the cloth.
+- Oscillates the points to create a waving motion in the cloth simulation.
+
+What the Functionality Covers:
+- Understanding cloth simulation and particle manipulation in RCareWorld.
+- Using point attachments to influence cloth behavior.
+
+Required Operations:
+- Loop: Continuously oscillates the attached points to simulate cloth movement.
+- Waiting: Waits for each movement to complete before starting the next.
+""")
+
 import os
 import sys
 
@@ -24,7 +41,9 @@ env.step(200)
 # Get particles data from the mesh
 mesh.GetParticles()
 env.step()
-print(mesh.data)
+# Print the particles data from the mesh
+# print(mesh.data)
+print("Stop printing mesh.data for debugging")
 
 # Extract positions of specific particles
 position1 = mesh.data['particles'][500]

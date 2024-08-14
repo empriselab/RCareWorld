@@ -1,5 +1,23 @@
+print("""
+This script demonstrates the visualization of a point cloud in the RCareWorld environment using a PLY file.
+
+What it Implements:
+- Initializes the environment and creates a PointCloud object.
+- =====***ONLY a pointcloud will be rendered.***=====
+- Loads and displays a point cloud from a specified PLY file.
+- Adjusts the transform and radius of the point cloud for visualization purposes.
+
+What the Functionality Covers:
+- Understanding how to load and visualize point clouds in RCareWorld.
+- Demonstrates basic transformations and radius adjustments for point cloud data.
+
+Required Operations:
+- Visualization: Displays the point cloud with specified transformations and settings.
+""")
+
 import os
 import sys
+import time
 import pyrcareworld.attributes as attr
 
 # Add the project directory to the system path
@@ -13,6 +31,7 @@ from pyrcareworld.demo import executable_path
 # Initialize the environment with the specified scene file
 player_path = os.path.join(executable_path, "../executable/Player/Player.x86_64")
 
+time.sleep(5)
 # Initialize the environment
 env = RCareWorld(executable_file=player_path)
 

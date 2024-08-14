@@ -1,3 +1,22 @@
+print("""
+This script demonstrates the use of a GelSlim sensor within the RCareWorld environment to capture and manipulate light and depth images.
+
+What it Implements:
+- Initializes the environment with a GelSlim sensor and a target object.
+- Applies forces to the target object and captures the resulting light and depth images from the GelSlim sensor.
+- Applies a blur effect to the GelSlim sensor and captures the updated images.
+
+What the Functionality Covers:
+- Understanding how to instantiate and position GelSlim sensors and target objects in RCareWorld.
+- Learning how to apply forces to objects and retrieve sensor data such as light and depth images.
+- Demonstrates image manipulation techniques by applying blur to the sensor data.
+
+Required Operations:
+- Loop: Applies force to the target object over multiple simulation steps.
+- Image Capture: Retrieves and saves sensor data at different stages of the simulation.
+""")
+
+
 import os
 import sys
 import cv2

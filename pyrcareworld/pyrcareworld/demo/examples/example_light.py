@@ -1,3 +1,19 @@
+print("""
+This script demonstrates the dynamic manipulation of light properties within a scene in the RCareWorld environment.
+
+What it Implements:
+- Initializes the environment with a scene containing a light source.
+- Continuously modifies the light's properties, including color, range, type (Directional, Spot, Point), intensity, and spot angle.
+
+What the Functionality Covers:
+- Understanding how to interact with and control light attributes in a simulated environment.
+- Demonstrates the effects of different light settings on a scene.
+
+Required Operations:
+- Loop: The script continuously updates the light's properties in a loop.
+- Property Manipulation: Changes various light settings to observe their effects on the scene.
+""")
+
 import os
 import sys
 

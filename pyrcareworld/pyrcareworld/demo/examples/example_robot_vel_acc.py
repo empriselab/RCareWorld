@@ -1,3 +1,20 @@
+print("""
+This script demonstrates the control and movement of a Franka Panda robot in the RCareWorld environment, while calculating the acceleration of a linked mass point.
+
+What it Implements:
+- Initializes the environment with a Franka Panda robot and a MassPoint object.
+- Moves and rotates the robot to an initial position and links a mass point to a specific joint of the robot.
+- Calculates the acceleration of the mass point based on its velocity and performs random movements of the robot in a loop.
+
+What the Functionality Covers:
+- Understanding how to manipulate robotic arms using inverse kinematics (IK) in RCareWorld.
+- Demonstrates linking objects to robot joints and calculating dynamic properties like acceleration.
+
+Required Operations:
+- Loop: Continuously calculates acceleration and performs random movements of the robot.
+- Debugging: Enables debugging of object poses and performs simulation steps with detailed control.
+""")
+
 import os
 import sys
 import numpy as np
@@ -43,11 +60,12 @@ mass_point.Link(robot.id, 8)
 last_velocity = [0, 0, 0]
 
 # Main loop to calculate acceleration and perform random movements
+print("Stop printing acc for debugging")
 while True:
     env.step()
     # Calculate acceleration
     acc = np.array(mass_point.data["velocity"]) - np.array(last_velocity) / env.data["fixed_delta_time"]
-    print(np.linalg.norm(acc))
+    # print("acc", np.linalg.norm(acc))
     last_velocity = mass_point.data["velocity"]
 
     # If the robot has finished its move, perform a random movement

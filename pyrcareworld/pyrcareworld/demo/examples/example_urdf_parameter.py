@@ -1,3 +1,20 @@
+print("""
+This script demonstrates the loading and configuration of a Franka Panda robot URDF model in the RCareWorld environment.
+
+What it Implements:
+- Initializes the environment and loads the Franka Panda robot URDF model with the Z-axis as the specified axis.
+- Sets the initial transform of the robot and disables its native inverse kinematics (IK).
+- Displays the articulation parameters for the robot, allowing for joint control and inspection.
+
+What the Functionality Covers:
+- Understanding how to load and configure URDF models in RCareWorld.
+- Demonstrates how to disable native IK and inspect articulation parameters for fine-grained control.
+
+Required Operations:
+- Configuration: Sets the robot's transform and disables native IK for custom control.
+- Parameter Inspection: Displays articulation parameters for detailed inspection and manipulation.
+""")
+
 import os
 import sys
 

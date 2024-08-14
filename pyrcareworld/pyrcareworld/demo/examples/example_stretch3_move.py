@@ -1,3 +1,22 @@
+print("""
+This script demonstrates the control of a Stretch robot in the RCareWorld environment, including movement and gripper manipulation.
+
+What it Implements:
+- Initializes the environment with a Stretch robot and sets its initial properties, such as position and mobility.
+- Performs a series of actions including opening the gripper, moving the robot using inverse kinematics (IK), and rotating the robot.
+- =====***NOTE: This script does not include texture loading; the robot will appear white by default.***=====
+- =====***To load textures, you must manually include texture files and modify the script accordingly.***=====
+
+What the Functionality Covers:
+- Understanding how to control a robot's movement and gripper operations in RCareWorld.
+- Demonstrates basic robot movements, including forward, backward, and rotational commands.
+
+Required Operations:
+- Robot Control: Moves the robot and manipulates its gripper using IK commands.
+- Optional Movements: Additional movement commands (e.g., turning, moving forward/backward) can be uncommented for further control.
+""")
+
+
 import time
 import os
 import sys
