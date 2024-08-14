@@ -241,3 +241,4 @@ cython_debug/
 /template/docker-template/output
 template/rgb_hand.png
 template/rgb_hand.png
+pyrcareworld/pyrcareworld/demo/examples/example_save_obj.py
