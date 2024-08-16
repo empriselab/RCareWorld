@@ -39,3 +39,7 @@ class RopeAttr(attr.BaseAttr):
             id: Int, Tatget attr object id.
         """
         self._send_data("RemoveAttach", int(id))
+
+    def GetParticleGroup(self):
+
+        self._send_data("GetParticleGroup")
