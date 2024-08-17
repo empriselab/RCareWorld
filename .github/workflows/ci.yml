@@ -21,5 +21,5 @@ jobs:
           pip install -e .
           pip uninstall numpy
           conda install numpy
-          cd RCareWorld/template
+          cd ../../RCareWorld/template
           python test_bathing.py
