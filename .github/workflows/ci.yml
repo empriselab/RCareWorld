@@ -3,23 +3,23 @@ name: CI Checks
 on: [pull_request]
 
 jobs:
-  defaults:
-    run:
-      shell: bash -el {0}
   unit-tests:
     name: Unit Tests
     runs-on: "ubuntu-20.04"
+    defaults:
+      run:
+        shell: bash -el {0}
     steps:
-    - uses: actions/checkout@v4
-    - uses: conda-incubator/setup-miniconda@v3
-      with:
-        activate-environment: rcareworld
-        python-version: "3.10"
-    - run: |
-      cd RCareWorld/pyrcareworld
-      pip install -r requirements.txt
-      pip install -e .
-      pip uninstall numpy
-      conda install numpy
-      cd RCareWorld/template
-      python test_bathing.py
+      - uses: actions/checkout@v4
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          activate-environment: rcareworld
+          python-version: "3.10"
+      - run: |
+          cd RCareWorld/pyrcareworld
+          pip install -r requirements.txt
+          pip install -e .
+          pip uninstall numpy
+          conda install numpy
+          cd RCareWorld/template
+          python test_bathing.py
