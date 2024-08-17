@@ -15,14 +15,14 @@ jobs:
         with:
           activate-environment: rcareworld
           python-version: "3.10"
-    - name: Install dependencies
-      - run: |
-        cd RCareWorld/pyrcareworld
-        pip install -r requirements.txt
-        pip install -e .
-        pip uninstall numpy
-        conda install numpy
-    - name: Verify that installation works
-      run: |
-        cd RCareWorld/template
-        python test_bathing.py
+      - name: Install dependencies
+        - run: |
+          cd RCareWorld/pyrcareworld
+          pip install -r requirements.txt
+          pip install -e .
+          pip uninstall numpy
+          conda install numpy
+      - name: Verify that installation works
+        run: |
+          cd RCareWorld/template
+          python test_bathing.py
