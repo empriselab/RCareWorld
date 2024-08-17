@@ -3,29 +3,47 @@ name: CI Checks
 on: [pull_request]
 
 jobs:
-  unit-tests:
-    name: Unit Tests
-    runs-on: ubuntu-20.04
+  example-3:
+    name: Ex3 Linux
+    runs-on: "ubuntu-latest"
     defaults:
       run:
-        shell: bash -l {0}
+        shell: bash -el {0}
     steps:
       - uses: actions/checkout@v4
       - uses: conda-incubator/setup-miniconda@v3
         with:
           activate-environment: anaconda-client-env
-          environment-file: etc/example-environment-caching.yml
-          python-version: 3.10
-    - name: Install dependencies
-      run: |
-        conda create -n rcareworld python=3.10
-        conda activate rcareworld
-        cd RCareWorld/pyrcareworld
-        pip install -r requirements.txt
-        pip install -e .
-        pip uninstall numpy
-        conda install numpy
-    - name: Verify that installation works
-      run: |
-        cd RCareWorld/template
-        python test_bathing.py
+          environment-file: etc/example-environment.yml
+          python-version: 3.5
+          condarc-file: etc/example-condarc.yml
+          auto-activate-base: false
+      - run: |
+          conda info
+          conda list
+  # unit-tests:
+  #   name: Unit Tests
+  #   runs-on: ubuntu-20.04
+  #   defaults:
+  #     run:
+  #       shell: bash -l {0}
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: conda-incubator/setup-miniconda@v3
+  #       with:
+  #         activate-environment: anaconda-client-env
+  #         environment-file: etc/example-environment-caching.yml
+  #         python-version: "3.10"
+  #   - name: Install dependencies
+  #     run: |
+  #       conda create -n rcareworld python=3.10
+  #       conda activate rcareworld
+  #       cd RCareWorld/pyrcareworld
+  #       pip install -r requirements.txt
+  #       pip install -e .
+  #       pip uninstall numpy
+  #       conda install numpy
+  #   - name: Verify that installation works
+  #     run: |
+  #       cd RCareWorld/template
+  #       python test_bathing.py
