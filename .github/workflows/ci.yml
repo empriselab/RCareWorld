@@ -19,7 +19,7 @@ jobs:
           cd pyrcareworld
           pip install -r requirements.txt
           pip install -e .
-          pip uninstall numpy
+          yes | pip uninstall numpy
           conda install numpy
           cd ../template
           python test_bathing.py
