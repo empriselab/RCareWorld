@@ -8,7 +8,7 @@ _TEMPLATE_PATH = Path(__file__).parent.parent.parent / "template"
 _EXECUTABLE_PATH = _TEMPLATE_PATH / "Dressing" / "DressingPlayer.x86_64"
 
 
-class DressingEnvironment(RCareWorld):
+class DressingEnv(RCareWorld):
     """Dressing environment for the PhyRC competition."""
 
     def __init__(self, *args, **kwargs):

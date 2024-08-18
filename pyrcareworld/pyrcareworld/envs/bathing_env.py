@@ -8,7 +8,7 @@ _TEMPLATE_PATH = Path(__file__).parent.parent.parent / "template"
 _EXECUTABLE_PATH = _TEMPLATE_PATH / "Bathing" / "BathingPlayer.x86_64"
 
 
-class BathingEnvironment(RCareWorld):
+class BathingEnv(RCareWorld):
     """Bathing environment for the PhyRC competition."""
 
     def __init__(self, *args, **kwargs):
