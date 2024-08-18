@@ -3,6 +3,7 @@ opencv-contrib-python
 requests
 open3d
 pandas
+pytest>=7.2.2
 
 # gym==0.21.0
 # cloudpickle
