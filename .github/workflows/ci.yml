@@ -21,4 +21,5 @@ jobs:
           pip install -e .
           pip uninstall -y numpy
           conda install numpy
+          cd ../
           pytest tests/
