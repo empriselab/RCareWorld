@@ -4,7 +4,7 @@ from pyrcareworld.envs.base_env import RCareWorld
 from pathlib import Path
 
 
-_TEMPLATE_PATH = Path(__file__).parent.parent.parent / "template"
+_TEMPLATE_PATH = Path(__file__).parent.parent.parent.parent / "template"
 _EXECUTABLE_PATH = _TEMPLATE_PATH / "Dressing" / "DressingPlayer.x86_64"
 
 
