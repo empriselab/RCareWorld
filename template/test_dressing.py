@@ -1,4 +1,4 @@
-from pyrcareworld.envs.base_env import RCareWorld
+from pyrcareworld.envs.dressing_env import DressingEnv
 import pyrcareworld.attributes as attr
 import cv2
 import os
@@ -21,12 +21,8 @@ def _main(use_graphics=False):
         """
             
         print(text)
-    # Initialize the environment with the specified assets and set the time step
-
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    executable_file = os.path.join(script_dir, "Dressing", "DressingPlayer.x86_64")
-
-    env = RCareWorld(executable_file=executable_file, graphics=use_graphics)
+    # Initialize the environment
+    env = DressingEnv(graphics=use_graphics)
     print(env.attrs)
 
     kinova_id = 315893

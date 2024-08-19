@@ -1,8 +1,7 @@
 import json
-from pyrcareworld.envs.base_env import RCareWorld
+from pyrcareworld.envs.bathing_env import BathingEnv
 import numpy as np
 import cv2
-import os
 import argparse
 
 def _main(use_graphics=False):
@@ -23,12 +22,8 @@ def _main(use_graphics=False):
         """
 
         print(text) 
-    # Initialize the environment with the specified executable file and graphics option
-
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    executable_file = os.path.join(script_dir, "Bathing", "BathingPlayer.x86_64")
-
-    env = RCareWorld(executable_file=executable_file, graphics=use_graphics)
+    # Initialize the environment
+    env = BathingEnv(graphics=use_graphics)
     print(env.attrs)
 
     stretch_id = 221582
