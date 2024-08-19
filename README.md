@@ -103,3 +103,6 @@ Your score will be stored in a JSON file called `spongeScore.json` for bathing a
 
 # Submit to EvalAI
 Once you are done with your solutions, submit your code to EvalAI following [this](https://rcareworld.readthedocs.io/en/phy-robo-care/submission.html) tutorial. Remember, you need to sign up as a team on EvalAI before Sep 8 (11:59pm AoE) to participate.
+
+# Online Office Hours
+Book an appointment [here](https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0t_n2vlbhIcJTSNv0NY7_Z_Y3j2g5EsL0cKIgsB1phr07oFP9kA50c5WeS0Annn4H6sVexYWt1?gv=true). You may book multiple slots if your question is estimated to take more than 5 minutes, but do not book more than 4 slots per day. You may book the appointments 2 hours in advance.
