@@ -9,6 +9,10 @@ import pytest
 import numpy as np
 
 
+def degrees_to_radians(angle):
+    """Convert from degrees to radians."""
+    return np.pi * angle / 180
+
 def wrap_angle(angle):
     """Wrap an angle in radians to [-pi, pi]."""
     return np.arctan2(np.sin(angle), np.cos(angle))
@@ -27,8 +31,8 @@ def get_signed_angle_distance(target, source):
 
 def euler_angles_allclose(euler1, euler2, atol = 1e-6):
     """Compare two euler angles."""
-    wrapped_angles1 = [wrap_angle(a) for a in euler1]
-    wrapped_angles2 = [wrap_angle(a) for a in euler2]
+    wrapped_angles1 = [wrap_angle(degrees_to_radians(a)) for a in euler1]
+    wrapped_angles2 = [wrap_angle(degrees_to_radians(a)) for a in euler2]
     dists = [get_signed_angle_distance(a, b)
              for a, b in zip(wrapped_angles1, wrapped_angles2)]
     return np.allclose(dists, 0, atol=atol)
