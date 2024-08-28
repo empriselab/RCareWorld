@@ -82,6 +82,10 @@ Check the examples in the `pyrcareworld/pyrcareworld/demo/examples` folder.
 
 Go through the examples, run the examples, and read the comments in the code to understand the corresponding output and related APIs. 
 
+Specifically, we have examples for people interested in performing traditional motion planning using OMPL as well as reinforcement learning using Gym.
+- Motion planning: https://github.com/empriselab/RCareWorld/blob/phy-robo-care/pyrcareworld/pyrcareworld/demo/examples/example_ompl.py
+- RL: https://github.com/empriselab/RCareWorld/blob/phy-robo-care/pyrcareworld/pyrcareworld/demo/examples/example_rl.py
+
 # Starter Scripts for Bathing and Dressing Tasks
 Check out `RCareWorld/template/test_bathing.py` and `RCareWorld/template/test_dressing.py` to get an overall idea about how to use the simulation environments for the dressing and bathing tasks. 
 
@@ -103,3 +107,6 @@ Your score will be stored in a JSON file called `spongeScore.json` for bathing a
 
 # Submit to EvalAI
 Once you are done with your solutions, submit your code to EvalAI following [this](https://rcareworld.readthedocs.io/en/phy-robo-care/submission.html) tutorial. Remember, you need to sign up as a team on EvalAI before Sep 8 (11:59pm AoE) to participate.
+
+# Online Office Hours
+Book an appointment [here](https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0t_n2vlbhIcJTSNv0NY7_Z_Y3j2g5EsL0cKIgsB1phr07oFP9kA50c5WeS0Annn4H6sVexYWt1?gv=true). You may book multiple slots if your question is estimated to take more than 5 minutes, but do not book more than 4 slots per day. You may book the appointments 2 hours in advance.

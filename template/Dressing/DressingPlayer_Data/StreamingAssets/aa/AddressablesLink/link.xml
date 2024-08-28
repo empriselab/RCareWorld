@@ -48,25 +48,6 @@
     <type fullname="BioIK.BioJoint/Motion" preserve="nothing" serialized="true" />
     <type fullname="RFUniverse.GeneralGripper/FingerData" preserve="nothing" serialized="true" />
   </assembly>
-  <assembly fullname="RFUniverse.EditMode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-    <type fullname="MouseEvent" preserve="all" />
-    <type fullname="RFUniverse.EditMode.ColliderView" preserve="all" />
-    <type fullname="RFUniverse.EditMode.EditableUnit" preserve="all" />
-    <type fullname="RFUniverse.EditMode.EditAssetsData" preserve="all" />
-    <type fullname="RFUniverse.EditMode.EditMain" preserve="all" />
-    <type fullname="RFUniverse.EditMode.EditMainUI" preserve="all" />
-    <type fullname="RFUniverse.EditMode.JointLimitView" preserve="all" />
-    <type fullname="RFUniverse.EditMode.TransformAxis" preserve="all" />
-    <type fullname="RFUniverse.EditMode.EditAttrData" preserve="nothing" serialized="true" />
-    <type fullname="RFUniverse.EditMode.EditTypeData" preserve="nothing" serialized="true" />
-    <type fullname="ToggleButtonGroup/UxmlFactory" preserve="nothing" serialized="true" />
-    <type fullname="AttrWindow/UxmlFactory" preserve="nothing" serialized="true" />
-    <type fullname="CreateWindow/UxmlFactory" preserve="nothing" serialized="true" />
-    <type fullname="DialogWindow/UxmlFactory" preserve="nothing" serialized="true" />
-    <type fullname="FileWindow/UxmlFactory" preserve="nothing" serialized="true" />
-    <type fullname="ObjectWindow/UxmlFactory" preserve="nothing" serialized="true" />
-    <type fullname="ParentWindow/UxmlFactory" preserve="nothing" serialized="true" />
-  </assembly>
   <assembly fullname="RFUniverse.Extend, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="GelSlimAttr" preserve="all" />
     <type fullname="GelSlimCollider" preserve="all" />
@@ -127,10 +108,6 @@
     <type fullname="UnityEngine.Texture2D" preserve="all" />
     <type fullname="UnityEngine.Transform" preserve="all" />
     <type fullname="UnityEngine.Events.PersistentCallGroup" preserve="nothing" serialized="true" />
-    <type fullname="UnityEngine.Events.ArgumentCache" preserve="nothing" serialized="true" />
-    <type fullname="UnityEngine.Events.PersistentListenerMode" preserve="nothing" serialized="true" />
-    <type fullname="UnityEngine.Events.UnityEvent" preserve="nothing" serialized="true" />
-    <type fullname="UnityEngine.Events.UnityEvent`1[System.Boolean]" preserve="nothing" serialized="true" />
   </assembly>
   <assembly fullname="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="UnityEngine.ArticulationBody" preserve="all" />
@@ -145,8 +122,6 @@
     <type fullname="UnityEngine.Font" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-    <type fullname="UnityEngine.EventSystems.EventSystem" preserve="all" />
-    <type fullname="UnityEngine.EventSystems.StandaloneInputModule" preserve="all" />
     <type fullname="UnityEngine.UI.CanvasScaler" preserve="all" />
     <type fullname="UnityEngine.UI.GraphicRaycaster" preserve="all" />
     <type fullname="UnityEngine.UI.Image" preserve="all" />
@@ -175,9 +150,6 @@
     <type fullname="UnityEngine.UIElements.StyleSelector" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.UIElements.StyleSelectorPart" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.UIElements.StyleSheets.ScalableImage" preserve="nothing" serialized="true" />
-    <type fullname="UnityEngine.UIElements.FloatField/UxmlFactory" preserve="nothing" serialized="true" />
-    <type fullname="UnityEngine.UIElements.GroupBox/UxmlFactory" preserve="nothing" serialized="true" />
-    <type fullname="UnityEngine.UIElements.Toggle/UxmlFactory" preserve="nothing" serialized="true" />
   </assembly>
   <assembly fullname="UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="UnityEngine.Canvas" preserve="all" />
