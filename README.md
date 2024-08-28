@@ -82,6 +82,10 @@ Check the examples in the `pyrcareworld/pyrcareworld/demo/examples` folder.
 
 Go through the examples, run the examples, and read the comments in the code to understand the corresponding output and related APIs. 
 
+Specifically, we have examples for people interested in performing traditional motion planning using OMPL as well as reinforcement learning using Gym.
+- Motion planning: https://github.com/empriselab/RCareWorld/blob/phy-robo-care/pyrcareworld/pyrcareworld/demo/examples/example_ompl.py
+- RL: https://github.com/empriselab/RCareWorld/blob/phy-robo-care/pyrcareworld/pyrcareworld/demo/examples/example_rl.py
+
 # Starter Scripts for Bathing and Dressing Tasks
 Check out `RCareWorld/template/test_bathing.py` and `RCareWorld/template/test_dressing.py` to get an overall idea about how to use the simulation environments for the dressing and bathing tasks. 
 
