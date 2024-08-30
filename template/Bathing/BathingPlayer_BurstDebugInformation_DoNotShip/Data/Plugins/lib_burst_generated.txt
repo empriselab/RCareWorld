@@ -1,4 +1,4 @@
-Library: /home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/BurstOutput/Data/Plugins/lib_burst_generated
+Library: F:\Code\UnityProject\RCare2+Obi6\Temp\BurstOutput\Data\Plugins\lib_burst_generated
 --platform=Linux
 --backend=burst-llvm-16
 --target=X64_SSE2
@@ -7,12 +7,12 @@ Library: /home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/BurstOutput/Data/
 --dump=Function
 --float-precision=Standard
 --target-framework=NetFramework
---generate-link-xml=Temp/burst.link.xml
---temp-folder=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/Burst
+--generate-link-xml=Temp\burst.link.xml
+--temp-folder=F:\Code\UnityProject\RCare2+Obi6\Temp\Burst
 --debug=LineOnly
---key-folder=/home/cathy/Unity/Hub/Editor/2022.3.34f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport
---decode-folder=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Library/Burst
---output=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/BurstOutput/Data/Plugins/lib_burst_generated
+--key-folder=F:/Code/Unity/2022.3.34f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport
+--decode-folder=F:\Code\UnityProject\RCare2+Obi6\Library\Burst
+--output=F:\Code\UnityProject\RCare2+Obi6\Temp\BurstOutput\Data\Plugins\lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=Unity.Jobs.IJobParallelForExtensions+ParallelForJobStruct`1[[Unity.Barracuda.BurstCPUOps+Relu6Job_Full_Float, Unity.Barracuda, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(Unity.Barracuda.BurstCPUOps+Relu6Job_Full_Float&, Unity.Barracuda, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--db5dc6c8ea53410100f79e66afceabda
@@ -123,12 +123,12 @@ Library: /home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/BurstOutput/Data/
 --dump=Function
 --float-precision=Standard
 --target-framework=NetFramework
---generate-link-xml=Temp/burst.link.xml
---temp-folder=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/Burst
+--generate-link-xml=Temp\burst.link.xml
+--temp-folder=F:\Code\UnityProject\RCare2+Obi6\Temp\Burst
 --debug=LineOnly
---key-folder=/home/cathy/Unity/Hub/Editor/2022.3.34f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport
---decode-folder=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Library/Burst
---output=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/BurstOutput/Data/Plugins/lib_burst_generated
+--key-folder=F:/Code/Unity/2022.3.34f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport
+--decode-folder=F:\Code\UnityProject\RCare2+Obi6\Library\Burst
+--output=F:\Code\UnityProject\RCare2+Obi6\Temp\BurstOutput\Data\Plugins\lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=Unity.Jobs.IJobParallelForExtensions+ParallelForJobStruct`1[[Unity.Barracuda.BurstCPUOps+Relu6Job_Full_Float, Unity.Barracuda, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(Unity.Barracuda.BurstCPUOps+Relu6Job_Full_Float&, Unity.Barracuda, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--db5dc6c8ea53410100f79e66afceabda
@@ -239,12 +239,12 @@ Library: /home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/BurstOutput/Data/
 --dump=Function
 --float-precision=Standard
 --target-framework=NetFramework
---generate-link-xml=Temp/burst.link.xml
---temp-folder=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/Burst
+--generate-link-xml=Temp\burst.link.xml
+--temp-folder=F:\Code\UnityProject\RCare2+Obi6\Temp\Burst
 --debug=LineOnly
---key-folder=/home/cathy/Unity/Hub/Editor/2022.3.34f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport
---decode-folder=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Library/Burst
---output=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/BurstOutput/Data/Plugins/lib_burst_generated
+--key-folder=F:/Code/Unity/2022.3.34f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport
+--decode-folder=F:\Code\UnityProject\RCare2+Obi6\Library\Burst
+--output=F:\Code\UnityProject\RCare2+Obi6\Temp\BurstOutput\Data\Plugins\lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=Unity.Jobs.IJobParallelForExtensions+ParallelForJobStruct`1[[Unity.Barracuda.BurstCPUOps+ElementwiseMinJob_Full_Half, Unity.Barracuda, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(Unity.Barracuda.BurstCPUOps+ElementwiseMinJob_Full_Half&, Unity.Barracuda, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--29c9a32da97e10019f953470978e130e
@@ -294,12 +294,12 @@ Library: /home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/BurstOutput/Data/
 --dump=Function
 --float-precision=Standard
 --target-framework=NetFramework
---generate-link-xml=Temp/burst.link.xml
---temp-folder=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/Burst
+--generate-link-xml=Temp\burst.link.xml
+--temp-folder=F:\Code\UnityProject\RCare2+Obi6\Temp\Burst
 --debug=LineOnly
---key-folder=/home/cathy/Unity/Hub/Editor/2022.3.34f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport
---decode-folder=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Library/Burst
---output=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/BurstOutput/Data/Plugins/lib_burst_generated
+--key-folder=F:/Code/Unity/2022.3.34f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport
+--decode-folder=F:\Code\UnityProject\RCare2+Obi6\Library\Burst
+--output=F:\Code\UnityProject\RCare2+Obi6\Temp\BurstOutput\Data\Plugins\lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=Unity.Jobs.IJobParallelForExtensions+ParallelForJobStruct`1[[Unity.Barracuda.BurstCPUOps+ElementwiseMinJob_Full_Half, Unity.Barracuda, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(Unity.Barracuda.BurstCPUOps+ElementwiseMinJob_Full_Half&, Unity.Barracuda, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--29c9a32da97e10019f953470978e130e
@@ -350,12 +350,12 @@ Library: /home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/BurstOutput/Data/
 --float-precision=Low
 --target-framework=NetFramework
 --float-mode=Fast
---generate-link-xml=Temp/burst.link.xml
---temp-folder=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/Burst
+--generate-link-xml=Temp\burst.link.xml
+--temp-folder=F:\Code\UnityProject\RCare2+Obi6\Temp\Burst
 --debug=LineOnly
---key-folder=/home/cathy/Unity/Hub/Editor/2022.3.34f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport
---decode-folder=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Library/Burst
---output=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/BurstOutput/Data/Plugins/lib_burst_generated
+--key-folder=F:/Code/Unity/2022.3.34f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport
+--decode-folder=F:\Code\UnityProject\RCare2+Obi6\Library\Burst
+--output=F:\Code\UnityProject\RCare2+Obi6\Temp\BurstOutput\Data\Plugins\lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=Unity.Jobs.IJobParallelForExtensions+ParallelForJobStruct`1[[Unity.Barracuda.BurstCPUOps+ExpBiasReduceJob_Full_Half, Unity.Barracuda, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(Unity.Barracuda.BurstCPUOps+ExpBiasReduceJob_Full_Half&, Unity.Barracuda, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--270ed1e9cc63181baf35e9074fbf6e3e
@@ -401,12 +401,12 @@ Library: /home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/BurstOutput/Data/
 --float-precision=Low
 --target-framework=NetFramework
 --float-mode=Fast
---generate-link-xml=Temp/burst.link.xml
---temp-folder=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/Burst
+--generate-link-xml=Temp\burst.link.xml
+--temp-folder=F:\Code\UnityProject\RCare2+Obi6\Temp\Burst
 --debug=LineOnly
---key-folder=/home/cathy/Unity/Hub/Editor/2022.3.34f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport
---decode-folder=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Library/Burst
---output=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/BurstOutput/Data/Plugins/lib_burst_generated
+--key-folder=F:/Code/Unity/2022.3.34f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport
+--decode-folder=F:\Code\UnityProject\RCare2+Obi6\Library\Burst
+--output=F:\Code\UnityProject\RCare2+Obi6\Temp\BurstOutput\Data\Plugins\lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=Unity.Jobs.IJobParallelForExtensions+ParallelForJobStruct`1[[Unity.Barracuda.BurstCPUOps+ExpBiasReduceJob_Full_Half, Unity.Barracuda, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(Unity.Barracuda.BurstCPUOps+ExpBiasReduceJob_Full_Half&, Unity.Barracuda, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--270ed1e9cc63181baf35e9074fbf6e3e
@@ -451,12 +451,12 @@ Library: /home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/BurstOutput/Data/
 --dump=Function
 --float-precision=Standard
 --target-framework=NetFramework
---generate-link-xml=Temp/burst.link.xml
---temp-folder=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/Burst
+--generate-link-xml=Temp\burst.link.xml
+--temp-folder=F:\Code\UnityProject\RCare2+Obi6\Temp\Burst
 --debug=LineOnly
---key-folder=/home/cathy/Unity/Hub/Editor/2022.3.34f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport
---decode-folder=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Library/Burst
---output=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/BurstOutput/Data/Plugins/lib_burst_generated
+--key-folder=F:/Code/Unity/2022.3.34f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport
+--decode-folder=F:\Code\UnityProject\RCare2+Obi6\Library\Burst
+--output=F:\Code\UnityProject\RCare2+Obi6\Temp\BurstOutput\Data\Plugins\lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=Unity.Burst.BurstCompiler+BurstCompilerHelper, Unity.Burst, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::IsBurstEnabled()--8c2be93e18276203cbd918daa2748a10
@@ -567,12 +567,12 @@ Library: /home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/BurstOutput/Data/
 --dump=Function
 --float-precision=Standard
 --target-framework=NetFramework
---generate-link-xml=Temp/burst.link.xml
---temp-folder=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/Burst
+--generate-link-xml=Temp\burst.link.xml
+--temp-folder=F:\Code\UnityProject\RCare2+Obi6\Temp\Burst
 --debug=LineOnly
---key-folder=/home/cathy/Unity/Hub/Editor/2022.3.34f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport
---decode-folder=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Library/Burst
---output=/home/cathy/Desktop/github-shuaixing/RCare2+Obi6/Temp/BurstOutput/Data/Plugins/lib_burst_generated
+--key-folder=F:/Code/Unity/2022.3.34f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport
+--decode-folder=F:\Code\UnityProject\RCare2+Obi6\Library\Burst
+--output=F:\Code\UnityProject\RCare2+Obi6\Temp\BurstOutput\Data\Plugins\lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=Unity.Burst.BurstCompiler+BurstCompilerHelper, Unity.Burst, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::IsBurstEnabled()--8c2be93e18276203cbd918daa2748a10
