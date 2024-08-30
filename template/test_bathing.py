@@ -86,9 +86,42 @@ def _main(use_graphics=False):
         duration=2,
         speed_based=False,
     )
+    
+    """
+        The machine's movement speed is related to the time in the step() method, as well as the defined distance and speed.
+        
+        - If the time is too short, the machine will accelerate, which may cause the robot to break down and fall apart.
+        
+        - If the time is too long, the machine may experience friction, leading to slow drifting.
+        
+        - Therefore, when you want to achieve precise movement, make sure to calculate the appropriate time, which is a simple inverse and linear relationship with speed and distance.
+        
+        - If you notice that the machine isn't moving, it means the speed is too slow; please increase the speed.
+        
+        - If you observe significant stretching in the arm above the stretch, it indicates that the movement is too fast, which can lead to instability; please reduce the speed to seek stability.
+        
+        - If the robot jumps, it indicates that the initial speed is too high. Please reduce the speed, or move slightly toward the target direction first, then gradually increase the speed.
 
-    robot.TurnLeft(90, 30)
+        - If you notice that after the robot's movement has ended, the arm is retracting, and the robot is slowly rotating, 
+        # this is due to angular momentum and the inertia of the object. Reducing the number of steps can effectively alleviate this issue.
+
+        In summary, due to Unity's simulation characteristics, controlling the robot's movement won't be straightforward. Therefore, multiple attempts and adjustments to the parameters are required. Below is a simple movement example that has a lot of room for adjustment.
+    """
+    robot.TurnLeft(90, 8)
+    env.step(500)
+    
+    robot.StopMovement()
+    env.step(30)
+    
+    robot.TurnRight(90, 8)
+    env.step(500)
+    
+    robot.StopMovement()
+    env.step(30)
+    
+    robot.MoveForward(0.6, 0.2)
     env.step(300)
+
 
     # Additional simulation logic can be added here
     # For example:
