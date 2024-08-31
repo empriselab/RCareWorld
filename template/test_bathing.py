@@ -88,24 +88,21 @@ def _main(use_graphics=False):
     )
     
     """
-        The stretch's movement speed is related to the time in the step() method, as well as the defined distance and speed.
+        The Stretch's movement speed is related to the time in the step() method, as well as the defined distance and speed.
         
-        - If the time is too short, the machine will accelerate, which may cause the robot to break down and fall apart.
-        
-        - If the time is too long, the machine may experience friction, leading to slow drifting.
-        
-        - Therefore, when you want to achieve precise movement, make sure to calculate the appropriate time, which is a simple inverse and linear relationship with speed and distance.
-        
-        - If you notice that the machine isn't moving, it means the speed is too slow; please increase the speed.
-        
-        - If you observe significant stretching in the arm above the stretch, it indicates that the movement is too fast, which can lead to instability; please reduce the speed to seek stability.
-        
-        - If the robot jumps, it indicates that the initial speed is too high. Please reduce the speed, or move slightly toward the target direction first, then gradually increase the speed.
+        - If the `env.step` duration is too short, it can lead to incomplete turns and might cause the robot to move too quickly.
 
-        - If you notice that after the robot's movement has ended, the arm is retracting, and the robot is slowly rotating, 
-        # this is due to angular momentum and the inertia of the object. Reducing the number of steps can effectively alleviate this issue.
+        - If the `env.step` duration is too long, it can lead to slow drifting due to friction.
 
-        In summary, due to Unity's simulation characteristics, controlling the robot's movement won't be straightforward. Therefore, multiple attempts and adjustments to the parameters are required. Below is a simple movement example that has a lot of room for adjustment.
+        - If the speed is too fast, it can cause the robot to move too quickly and fall apart, and it may also result in the robot jumping and falling down.
+
+        - If the speed is too slow, it can lead to the robot not moving at all, only making slight movements, or quickly returning to its original position after moving.
+
+        - If you observe stretching and contracting in the robot's arm, this is due to angular momentum. Reducing speed can lessen this effect. Additionally, we recommend lowering the robot's arm during movement to lower the center of gravity, effectively reducing this issue and ensuring arm stability.
+
+        Below is a simple example where the robot can move smoothly using these parameters, though there is significant room for adjustment.
+
+        Particularly, we do not recommend continuous motion as it can lead to great instability. It is better to interrupt and halt movement intermittently to reduce continuous motion.
     """
     robot.TurnLeft(90, 1)
     env.step(600)
