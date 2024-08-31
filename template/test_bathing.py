@@ -88,7 +88,7 @@ def _main(use_graphics=False):
     )
     
     """
-        The machine's movement speed is related to the time in the step() method, as well as the defined distance and speed.
+        The stretch's movement speed is related to the time in the step() method, as well as the defined distance and speed.
         
         - If the time is too short, the machine will accelerate, which may cause the robot to break down and fall apart.
         
@@ -107,14 +107,14 @@ def _main(use_graphics=False):
 
         In summary, due to Unity's simulation characteristics, controlling the robot's movement won't be straightforward. Therefore, multiple attempts and adjustments to the parameters are required. Below is a simple movement example that has a lot of room for adjustment.
     """
-    robot.TurnLeft(90, 8)
-    env.step(500)
+    robot.TurnLeft(90, 2)
+    env.step(900)
     
     robot.StopMovement()
     env.step(30)
     
-    robot.TurnRight(90, 8)
-    env.step(500)
+    robot.TurnRight(90, 1)
+    env.step(900)
     
     robot.StopMovement()
     env.step(30)
