@@ -107,17 +107,17 @@ def _main(use_graphics=False):
 
         In summary, due to Unity's simulation characteristics, controlling the robot's movement won't be straightforward. Therefore, multiple attempts and adjustments to the parameters are required. Below is a simple movement example that has a lot of room for adjustment.
     """
-    robot.TurnLeft(90, 2)
-    env.step(900)
+    robot.TurnLeft(90, 1)
+    env.step(600)
     
-    robot.StopMovement()
-    env.step(30)
+    # robot.StopMovement()
+    # env.step(30)
     
     robot.TurnRight(90, 1)
-    env.step(900)
+    env.step(600)
     
-    robot.StopMovement()
-    env.step(30)
+    # robot.StopMovement()
+    # env.step(30)
     
     robot.MoveForward(0.6, 0.2)
     env.step(300)
