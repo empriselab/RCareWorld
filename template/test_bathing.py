@@ -3,6 +3,7 @@ from pyrcareworld.envs.bathing_env import BathingEnv
 import numpy as np
 import cv2
 import argparse
+
 def _main(use_graphics=False):
     if use_graphics:
         text = """
@@ -86,6 +87,11 @@ def _main(use_graphics=False):
         speed_based=False,
     )
     robot.WaitDo()
+    robot.IKTargetDoMove(
+        position=[position1[0], position1[1], position1[2]],
+        duration=2,
+        speed_based=False,
+    )
     env.step(300)
     
     """
