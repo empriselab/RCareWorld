@@ -35,7 +35,8 @@ def _main(use_graphics=False):
     env.step(300)
 
     gripper.GripperClose()
-    env.step()
+    env.step(300)
+    
 
     # Get the cloth attribute and perform a simulation step
     cloth = env.GetAttr(782563)
