@@ -22,7 +22,9 @@ def _main(use_graphics=False):
             
         print(text)
     # Initialize the environment
-    env = DressingEnv(graphics=use_graphics)
+    # env = DressingEnv(graphics=use_graphics)
+
+    env = Rcareworld()
     print(env.attrs)
 
     kinova_id = 315893
