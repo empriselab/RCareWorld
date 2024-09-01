@@ -54,8 +54,8 @@ def _main(use_graphics=False):
     cv2.imwrite("rgb_hand.png", rgb)
 
     # Move the robot to specified positions
-    position1 = (-0.657, 0.941, 1.645)
-    position2 = (-0.263, 1.063, 1.645)
+    position1 = (0.492, 0.644, 0.03)
+    position2 = (0.296, 0.849, 3.168)
 
     robot.IKTargetDoMove(
         position=[position1[0], position1[1] + 0.5, position1[2]],
@@ -76,7 +76,7 @@ def _main(use_graphics=False):
     )
     robot.WaitDo()
     robot.IKTargetDoMove(
-        position=[position2[0], position2[1] + 0.5, position2[2]],
+        position=[position2[0], position2[1] - 0.05, position2[2]],
         duration=4,
         speed_based=False,
     )
@@ -88,7 +88,7 @@ def _main(use_graphics=False):
     )
     robot.WaitDo()
     robot.IKTargetDoMove(
-        position=[position1[0], position1[1], position1[2]],
+        position=[position1[0], position1[1], position1[2]+1],
         duration=2,
         speed_based=False,
     )
