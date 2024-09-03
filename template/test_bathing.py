@@ -53,8 +53,8 @@ def _main(use_graphics=False):
     cv2.imwrite("rgb_hand.png", rgb)
 
     # Move the robot to specified positions
-    position1 = (-0.657, 0.941, 1.645)
-    position2 = (-0.263, 1.063, 1.645)
+    position1 = (0.492, 0.644, 0.03)
+    position2 = (0.296, 0.849, 3.168)
 
     robot.IKTargetDoMove(
         position=[position1[0], position1[1] + 0.5, position1[2]],
@@ -75,7 +75,7 @@ def _main(use_graphics=False):
     )
     robot.WaitDo()
     robot.IKTargetDoMove(
-        position=[position2[0], position2[1] + 0.5, position2[2]],
+        position=[position2[0], position2[1] - 0.05, position2[2]],
         duration=4,
         speed_based=False,
     )
@@ -85,9 +85,46 @@ def _main(use_graphics=False):
         duration=2,
         speed_based=False,
     )
-
-    robot.TurnLeft(90, 30)
+    robot.WaitDo()
+    robot.IKTargetDoMove(
+        position=[position1[0], position1[1], position1[2]+1],
+        duration=2,
+        speed_based=False,
+    )
     env.step(300)
+    
+    """
+        The Stretch's movement speed is related to the time in the step() method, as well as the defined distance and speed.
+        
+        - If the `env.step` duration is too short, it can lead to incomplete turns and might cause the robot to move too quickly.
+
+        - If the `env.step` duration is too long, it can lead to slow drifting due to friction.
+
+        - If the speed is too fast, it can cause the robot to move too quickly and fall apart, and it may also result in the robot jumping and falling down.
+
+        - If the speed is too slow, it can lead to the robot not moving at all, only making slight movements, or quickly returning to its original position after moving.
+
+        - If you observe stretching and contracting in the robot's arm, this is due to angular momentum. Reducing speed can lessen this effect. Additionally, we recommend lowering the robot's arm during movement to lower the center of gravity, effectively reducing this issue and ensuring arm stability.
+
+        Below is a simple example where the robot can move smoothly using these parameters, though there is significant room for adjustment.
+
+        Particularly, we do not recommend continuous motion as it can lead to great instability. It is better to interrupt and halt movement intermittently to reduce continuous motion.
+    """
+    robot.TurnLeft(90, 1)
+    env.step(600)
+    
+    # robot.StopMovement()
+    # env.step(30)
+    
+    robot.TurnRight(90, 1)
+    env.step(600)
+    
+    # robot.StopMovement()
+    # env.step(30)
+    
+    robot.MoveForward(0.6, 0.2)
+    env.step(300)
+
 
     # Additional simulation logic can be added here
     # For example:

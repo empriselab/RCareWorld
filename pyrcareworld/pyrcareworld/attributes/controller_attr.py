@@ -209,7 +209,8 @@ class ControllerAttr(attr.ColliderAttr):
         :param angle: Float, rotation angle.
         :param speed: Float, velocity.
         """
-        self._send_data("TurnLeft", float(angle), float(speed))
+        print("TurnLeft", angle, speed)
+        self._send_data("TurnLeft", float(angle), float(speed*2000))
 
     def TurnRight(self, angle: float, speed: float):
         """
@@ -218,7 +219,13 @@ class ControllerAttr(attr.ColliderAttr):
         :param angle: Float, rotation angle.
         :param speed: Float, velocity.
         """
-        self._send_data("TurnRight", float(angle), float(speed))
+        self._send_data("TurnRight", float(angle), float(speed*2000))
+        
+    def StopMovement(self):
+        """
+        Stop the robot movement. Only works if the robot controller has a mobile platform.
+        """
+        self._send_data("StopMovement")
 
     def GripperOpen(self):
         """
