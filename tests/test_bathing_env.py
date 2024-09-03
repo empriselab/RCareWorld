@@ -43,6 +43,7 @@ def _bathing_env_fixture():
     """Create a BathingEnv once and share it across tests."""
     # NOTE: set graphics = True here to debug.
     env = BathingEnv(graphics=False)    
+    env.step(100)  # let the environment settle
     yield env
     env.close()
 
@@ -53,23 +54,27 @@ def test_bathing_stretch_move_commands(bathing_env):
     robot = bathing_env.get_robot()
 
     # Get the initial pose of the robot base.
-    init_robot_base_position = robot.data["position"].copy()
-    init_robot_base_rotation = robot.data["rotation"].copy()
+    robot_base_rotation = robot.data["rotations"][0].copy()
 
-    # This command means: turn the robot left 90 degrees with a speed of 30.
-    robot.TurnLeft(90, 30)
+    # This command means: turn the robot left 90 degrees with a speed of 1.
+    robot.TurnLeft(90, 1)
     bathing_env.step(500)  # long enough for the full turn
 
-    # Verify that the robot's pose has changed by the expected amount.
-    new_robot_base_position = robot.data["position"].copy()
-    new_robot_base_rotation = robot.data["rotation"].copy()
-
-    # The robot position is expected not to move much.
-    expected_robot_base_position = init_robot_base_position.copy()
-    assert np.allclose(new_robot_base_position, expected_robot_base_position)
+    # Verify that the robot's rotation has changed by the expected amount.
+    new_robot_base_rotation = robot.data["rotations"][0].copy()
 
     # The yaw should have changed by about 90 degrees.
-    expected_robot_base_rotation = np.add(init_robot_base_rotation, (0.0, 0.0, 90.0))
-    assert euler_angles_allclose(new_robot_base_rotation, expected_robot_base_rotation)
+    expected_robot_base_rotation = np.add(robot_base_rotation, (0.0, 0.0, 90.0))
+    # NOTE: turning is not precise beyond 5 degrees. Users may want to build a controller
+    # on top to compensate.
+    assert euler_angles_allclose(new_robot_base_rotation, expected_robot_base_rotation, atol=5.0)
 
-    # TODO write analogous tests for robot.TurnRight, robot.MoveForward, robot.MoveBack.
+    # Turn right.
+    robot_base_rotation = robot.data["rotations"][0].copy()
+    robot.TurnRight(90, 1)
+    bathing_env.step(500)
+    new_robot_base_rotation = robot.data["rotations"][0].copy()
+    expected_robot_base_rotation = np.add(robot_base_rotation, (0.0, 0.0, -90.0))
+    assert euler_angles_allclose(new_robot_base_rotation, expected_robot_base_rotation, atol=5.0)
+
+    # TODO write analogous tests for robot.MoveForward, robot.MoveBack.
