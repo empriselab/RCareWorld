@@ -26,12 +26,11 @@ def _main(use_graphics=False):
     env = BathingEnv(graphics=use_graphics)
     print(env.attrs)
 
-    stretch_id = 221582
-    robot = env.GetAttr(stretch_id)
+    robot = env.get_robot()
     env.step()
 
     # Control the gripper
-    gripper = env.GetAttr(2215820)
+    gripper = env.get_gripper()
     gripper.GripperOpen()
     env.step(300)
 
@@ -39,7 +38,7 @@ def _main(use_graphics=False):
     env.step()
 
     # Obtain sponge data and simulate a step
-    sponge = env.GetAttr(91846)
+    sponge = env.get_sponge()
     env.step()
     print(sponge.data)
 
