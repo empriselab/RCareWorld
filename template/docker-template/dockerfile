@@ -1,0 +1,37 @@
+# Use the official Python 3.10 slim image
+FROM python:3.10-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Install git and other dependencies
+RUN apt-get update && \
+    apt-get install -y git curl libgl1-mesa-glx libglib2.0-0 && \
+    apt-get clean
+
+# Install Git Large File Storage
+RUN apt-get update && \
+    apt-get install -y curl && \
+    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && \
+    apt-get install -y git-lfs && \
+    apt-get clean && \
+    git lfs install
+
+# Clone the specified GitHub repository
+RUN git clone --depth=1 -b phy-robo-care https://github.com/empriselab/RCareWorld.git
+WORKDIR /app/RCareWorld
+
+# Install Python dependencies from requirements.txt
+WORKDIR /app/RCareWorld/pyrcareworld
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -e .
+RUN pip install opencv-python
+
+# Set the working directory for scripts
+WORKDIR /app/RCareWorld/template/docker-template
+
+# Ensure the shell script has execute permissions
+RUN chmod +x /app/RCareWorld/template/docker-template/run_python.shell
+
+# Command to run the shell script
+CMD ["bash", "/app/RCareWorld/template/docker-template/run_python.shell"]

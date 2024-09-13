@@ -1,107 +1,113 @@
 import pyrcareworld.attributes as attr
-from pyrcareworld.side_channel.side_channel import (
-    IncomingMessage,
-    OutgoingMessage,
-)
-import pyrcareworld.utils.utility as utility
 
+class HumanbodyAttr(attr.BaseAttr):
+    """
+    Human body Inverse Kinematic class.
+    
+    The data stored in self.data is a dictionary containing the following keys:
+    - 'move_done': Whether the movement has finished.
+    - 'rotate_done': Whether the rotation has finished.
+    """
 
-def parse_message(msg: IncomingMessage) -> dict:
-    this_object_data = attr.base_attr.parse_message(msg)
-    this_object_data["move_done"] = msg.read_bool()
-    this_object_data["rotate_done"] = msg.read_bool()
-    return this_object_data
+    def HumanIKTargetDoMove(
+        self,
+        index: int,
+        position: list,
+        duration: float,
+        speed_based: bool = True,
+        relative: bool = False,
+    ):
+        """
+        Human body Inverse Kinematics target movement.
 
+        :param index: Int, the target for movement. 0 for left hand, 1 for right hand, 2 for left foot, 3 for right foot, 4 for head.
+        :param position: A list of length 3, representing the position.
+        :param duration: Float, if `speed_based` is True, it represents movement duration; otherwise, it represents movement speed.
+        :param speed_based: Bool, if True, `duration` represents movement duration; otherwise, it represents movement speed.
+        :param relative: Bool, if True, `position` is relative; otherwise, `position` is absolute.
+        """
+        if position is not None:
+            assert len(position) == 3, "position length must be 3"
+            position = [float(i) for i in position]
+        self._send_data(
+            "HumanIKTargetDoMove",
+            index,
+            position,
+            float(duration),
+            speed_based,
+            relative,
+        )
 
-def HumanIKTargetDoMove(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "index", "position", "duration"]
-    optional_params = ["speed_based", "relative"]
-    utility.CheckKwargs(kwargs, compulsory_params)
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("HumanIKTargetDoMove")
-    msg.write_int32(kwargs["index"])
-    msg.write_float32(kwargs["position"][0])
-    msg.write_float32(kwargs["position"][1])
-    msg.write_float32(kwargs["position"][2])
-    msg.write_float32(kwargs["duration"])
-    if "speed_based" in kwargs:
-        msg.write_bool(kwargs["speed_based"])
-    else:
-        msg.write_bool(True)
-    if "relative" in kwargs:
-        msg.write_bool(kwargs["relative"])
-    else:
-        msg.write_bool(False)
-    return msg
+    def HumanIKTargetDoRotate(
+        self,
+        index: int,
+        rotation: list,
+        duration: float,
+        speed_based: bool = True,
+        relative: bool = False,
+    ):
+        """
+        Human body Inverse Kinematics target rotation.
 
+        :param index: Int, the target for movement. 0 for left hand, 1 for right hand, 2 for left foot, 3 for right foot, 4 for head.
+        :param rotation: A list of length 3, representing the rotation.
+        :param duration: Float, if `speed_based` is True, it represents movement duration; otherwise, it represents movement speed.
+        :param speed_based: Bool, if True, `duration` represents movement duration; otherwise, it represents movement speed.
+        :param relative: Bool, if True, `rotation` is relative; otherwise, `rotation` is absolute.
+        """
+        if rotation is not None:
+            assert len(rotation) == 3, "rotation length must be 3"
+            rotation = [float(i) for i in rotation]
+        self._send_data(
+            "HumanIKTargetDoRotate",
+            index,
+            rotation,
+            float(duration),
+            speed_based,
+            relative,
+        )
 
-def HumanIKTargetDoRotate(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "index", "vector3", "duration"]
-    optional_params = ["speed_based", "relative"]
-    utility.CheckKwargs(kwargs, compulsory_params)
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("HumanIKTargetDoRotateQuaternion")
-    msg.write_int32(kwargs["index"])
-    msg.write_float32(kwargs["vector3"][0])
-    msg.write_float32(kwargs["vector3"][1])
-    msg.write_float32(kwargs["vector3"][2])
-    msg.write_float32(kwargs["duration"])
-    if "speed_based" in kwargs:
-        msg.write_bool(kwargs["speed_based"])
-    else:
-        msg.write_bool(True)
-    if "relative" in kwargs:
-        msg.write_bool(kwargs["relative"])
-    else:
-        msg.write_bool(False)
-    return msg
+    def HumanIKTargetDoRotateQuaternion(
+        self,
+        index: int,
+        quaternion: list,
+        duration: float,
+        speed_based: bool = True,
+        relative: bool = False,
+    ):
+        """
+        Human body Inverse Kinematics target rotation using quaternion.
 
+        :param index: Int, the target for movement. 0 for left hand, 1 for right hand, 2 for left foot, 3 for right foot, 4 for head.
+        :param quaternion: A list of length 4, representing the quaternion.
+        :param duration: Float, if `speed_based` is True, it represents movement duration; otherwise, it represents movement speed.
+        :param speed_based: Bool, if True, `duration` represents movement duration; otherwise, it represents movement speed.
+        :param relative: Bool, if True, `quaternion` is relative; otherwise, `quaternion` is absolute.
+        """
+        if quaternion is not None:
+            assert len(quaternion) == 4, "quaternion length must be 4"
+            quaternion = [float(i) for i in quaternion]
+        self._send_data(
+            "HumanIKTargetDoRotateQuaternion",
+            index,
+            quaternion,
+            float(duration),
+            speed_based,
+            relative,
+        )
 
-def HumanIKTargetDoRotateQuaternion(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "index", "quaternion", "duration"]
-    optional_params = ["speed_based", "relative"]
-    utility.CheckKwargs(kwargs, compulsory_params)
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("HumanIKTargetDoRotateQuaternion")
-    msg.write_int32(kwargs["index"])
-    msg.write_float32(kwargs["quaternion"][0])
-    msg.write_float32(kwargs["quaternion"][1])
-    msg.write_float32(kwargs["quaternion"][2])
-    msg.write_float32(kwargs["quaternion"][3])
-    msg.write_float32(kwargs["duration"])
-    if "speed_based" in kwargs:
-        msg.write_bool(kwargs["speed_based"])
-    else:
-        msg.write_bool(True)
-    if "relative" in kwargs:
-        msg.write_bool(kwargs["relative"])
-    else:
-        msg.write_bool(False)
-    return msg
+    def HumanIKTargetDoComplete(self, index: int):
+        """
+        Make the human body IK target movement/rotation complete directly.
 
+        :param index: Int, the target for movement. 0 for left hand, 1 for right hand, 2 for left foot, 3 for right foot, 4 for head.
+        """
+        self._send_data("HumanIKTargetDoComplete", index)
 
-def HumanIKTargetDoComplete(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "index"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
+    def HumanIKTargetDoKill(self, index: int):
+        """
+        Make the human body IK target movement/rotation stop.
 
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("HumanIKTargetDoComplete")
-    msg.write_int32(kwargs["index"])
-    return msg
-
-
-def HumanIKTargetDoKill(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "index"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("HumanIKTargetDoKill")
-    msg.write_int32(kwargs["index"])
-    return msg
+        :param index: Int, the target for movement. 0 for left hand, 1 for right hand, 2 for left foot, 3 for right foot, 4 for head.
+        """
+        self._send_data("HumanIKTargetDoKill", index)

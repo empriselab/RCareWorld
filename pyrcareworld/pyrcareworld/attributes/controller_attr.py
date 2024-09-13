@@ -1,493 +1,382 @@
-import numpy as np
-
 import pyrcareworld.attributes as attr
-from pyrcareworld.side_channel.side_channel import (
-    IncomingMessage,
-    OutgoingMessage,
-)
-import pyrcareworld.utils.utility as utility
 
-
-def parse_message(msg: IncomingMessage) -> dict:
-    this_object_data = attr.collider_attr.parse_message(msg)
-    #
-    this_object_data["number_of_joints"] = msg.read_int32()
-    # Position
-    this_object_data["positions"] = (
-        np.array(msg.read_float32_list()).reshape([-1, 3]).tolist()
-    )
-    # RotationEuler
-    this_object_data["rotations"] = (
-        np.array(msg.read_float32_list()).reshape([-1, 3]).tolist()
-    )
-    # RotationQuaternion
-    this_object_data["quaternion"] = (
-        np.array(msg.read_float32_list()).reshape([-1, 4]).tolist()
-    )
-    # LocalPosition
-    this_object_data["local_positions"] = (
-        np.array(msg.read_float32_list()).reshape([-1, 3]).tolist()
-    )
-    # LocalRotationEuler
-    this_object_data["local_rotations"] = (
-        np.array(msg.read_float32_list()).reshape([-1, 3]).tolist()
-    )
-    # LocalRotationQuaternion
-    this_object_data["local_quaternion"] = (
-        np.array(msg.read_float32_list()).reshape([-1, 4]).tolist()
-    )
-    # Velocity
-    this_object_data["velocities"] = (
-        np.array(msg.read_float32_list()).reshape([-1, 3]).tolist()
-    )
-    #
-    this_object_data["number_of_movable_joints"] = msg.read_int32()
-    # Each joint position
-    this_object_data["joint_positions"] = msg.read_float32_list()
-    # Each joint velocity
-    this_object_data["joint_velocities"] = msg.read_float32_list()
-    # Whether all parts are stable
-    this_object_data["all_stable"] = msg.read_bool()
-    this_object_data["move_done"] = msg.read_bool()
-    this_object_data["rotate_done"] = msg.read_bool()
-    if msg.read_bool() is True:
-        this_object_data["gravity_forces"] = msg.read_float32_list()
-        this_object_data["coriolis_centrifugal_forces"] = msg.read_float32_list()
-        this_object_data["drive_forces"] = msg.read_float32_list()
-    return this_object_data
-
-
-# def _parse_raw_list_3(raw_list):
-#     length = len(raw_list)
-#     assert length % 3 == 0
-#     number_of_parts = length // 3
-#     norm_list = []
-#     for j in range(number_of_parts):
-#         transform = [raw_list[3 * j], raw_list[3 * j + 1], raw_list[3 * j + 2]]
-#         norm_list.append(transform)
-#     return norm_list
-#
-#
-# def _parse_raw_list_4(raw_list):
-#     length = len(raw_list)
-#     assert length % 4 == 0
-#     number_of_parts = length // 4
-#     norm_list = []
-#     for j in range(number_of_parts):
-#         transform = [raw_list[4 * j], raw_list[4 * j + 1], raw_list[4 * j + 2], raw_list[4 * j + 3]]
-#         norm_list.append(transform)
-#     return norm_list
-
-
-def SetJointPosition(kwargs: dict) -> OutgoingMessage:
-    """Set the target positions for each joint in a specified articulation body.
-    Args:
-        Compulsory:
-        index: The index of articulation body, specified in returned message.
-        joint_positions: A list inferring each joint's position in the specified acticulation body.
-
-        Optional:
-        speed_scales: A list inferring each joint's speed scale. The length must be the same with joint_positions.
+class ControllerAttr(attr.ColliderAttr):
     """
-    compulsory_params = ["id", "joint_positions"]
-    optional_params = ["speed_scales"]
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-    joint_positions = kwargs["joint_positions"]
-    num_joints = len(joint_positions)
-
-    msg.write_int32(kwargs["id"])
-    msg.write_string("SetJointPosition")
-    msg.write_int32(num_joints)
-    msg.write_float32_list(kwargs["joint_positions"])
-    if "speed_scales" in kwargs.keys():
-        assert num_joints == len(
-            kwargs["speed_scales"]
-        ), "The length of joint_positions and speed_scales are not equal."
-        msg.write_float32_list(kwargs["speed_scales"])
-    else:
-        msg.write_float32_list([1.0 for i in range(num_joints)])
-
-    return msg
-
-
-def SetJointPositionDirectly(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "joint_positions"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-    joint_positions = kwargs["joint_positions"]
-    num_joints = len(joint_positions)
-
-    msg.write_int32(kwargs["id"])
-    msg.write_string("SetJointPositionDirectly")
-    msg.write_int32(num_joints)
-    msg.write_float32_list(kwargs["joint_positions"])
-
-    return msg
-
-
-def SetIndexJointPosition(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "index", "joint_position"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-
-    msg.write_int32(kwargs["id"])
-    msg.write_string("SetIndexJointPosition")
-    msg.write_int32(kwargs["index"])
-    msg.write_float32(kwargs["joint_position"])
-
-    return msg
-
-
-def SetIndexJointPositionDirectly(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "index", "joint_position"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-
-    msg.write_int32(kwargs["id"])
-    msg.write_string("SetIndexJointPositionDirectly")
-    msg.write_int32(kwargs["index"])
-    msg.write_float32(kwargs["joint_position"])
-
-    return msg
-
-
-def SetJointPositionContinue(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "interval", "time_joint_positions"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-
-    time_joint_positions = kwargs["time_joint_positions"]
-    num_times = len(time_joint_positions)
-    # num_joints = len(time_joint_positions[0])
-    interval = kwargs["interval"]
-
-    msg.write_int32(kwargs["id"])
-    msg.write_string("SetJointPositionContinue")
-    msg.write_int32(num_times)
-    # msg.write_int32(num_joints)
-    msg.write_int32(interval)
-    for i in range(num_times):
-        msg.write_float32_list(time_joint_positions[i])
-
-    return msg
-
-
-def SetJointVelocity(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "joint_velocitys"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-    joint_velocitys = kwargs["joint_velocitys"]
-    num_joints = len(joint_velocitys)
-
-    msg.write_int32(kwargs["id"])
-    msg.write_string("SetJointVelocity")
-    msg.write_int32(num_joints)
-    msg.write_float32_list(kwargs["joint_velocitys"])
-
-    return msg
-
-
-def AddJointForce(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "joint_forces"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-    joint_forces = kwargs["joint_forces"]
-    num_joints = len(joint_forces)
-
-    msg.write_int32(kwargs["id"])
-    msg.write_string("AddJointForce")
-    msg.write_int32(num_joints)
-    for i in range(num_joints):
-        msg.write_float32(joint_forces[i][0])
-        msg.write_float32(joint_forces[i][1])
-        msg.write_float32(joint_forces[i][2])
-
-    return msg
-
-
-def AddJointForceAtPosition(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "joint_forces", "forces_position"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-    joint_forces = kwargs["joint_forces"]
-    forces_position = kwargs["forces_position"]
-    num_joints = len(joint_forces)
-
-    msg.write_int32(kwargs["id"])
-    msg.write_string("AddJointForceAtPosition")
-    msg.write_int32(num_joints)
-    for i in range(num_joints):
-        msg.write_float32(joint_forces[i][0])
-        msg.write_float32(joint_forces[i][1])
-        msg.write_float32(joint_forces[i][2])
-        msg.write_float32(forces_position[i][0])
-        msg.write_float32(forces_position[i][1])
-        msg.write_float32(forces_position[i][2])
-
-    return msg
-
-
-def AddJointTorque(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "joint_torque"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-    joint_torque = kwargs["joint_torque"]
-    num_joints = len(joint_torque)
-
-    msg.write_int32(kwargs["id"])
-    msg.write_string("AddRelativeTorque")
-    msg.write_int32(num_joints)
-    for i in range(num_joints):
-        msg.write_float32(joint_torque[i][0])
-        msg.write_float32(joint_torque[i][1])
-        msg.write_float32(joint_torque[i][2])
-
-    return msg
-
-
-# only work on unity 2022.1+
-def GetJointInverseDynamicsForce(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("GetJointInverseDynamicsForce")
-    return msg
-
-
-def SetImmovable(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "immovable"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("SetImmovable")
-    msg.write_bool(kwargs["immovable"])
-    return msg
-
-
-def MoveForward(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "distance", "speed"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("MoveForward")
-    msg.write_float32(kwargs["distance"])
-    msg.write_float32(kwargs["speed"])
-    return msg
-
-
-def MoveBack(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "distance", "speed"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("MoveBack")
-    msg.write_float32(kwargs["distance"])
-    msg.write_float32(kwargs["speed"])
-    return msg
-
-
-def TurnLeft(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "angle", "speed"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("TurnLeft")
-    msg.write_float32(kwargs["angle"])
-    msg.write_float32(kwargs["speed"])
-    return msg
-
-
-def TurnRight(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "angle", "speed"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("TurnRight")
-    msg.write_float32(kwargs["angle"])
-    msg.write_float32(kwargs["speed"])
-    return msg
-
-
-def GripperOpen(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("GripperOpen")
-    return msg
-
-
-def GripperClose(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("GripperClose")
-    return msg
-
-
-def EnabledNativeIK(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "enabled"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("EnabledNativeIK")
-    msg.write_bool(kwargs["enabled"])
-    return msg
-
-
-def IKTargetDoMove(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "position", "duration"]
-    optional_params = ["speed_based", "relative"]
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    if "speed_based" not in kwargs:
-        kwargs["speed_based"] = True
-    if "relative" not in kwargs:
-        kwargs["relative"] = False
-
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("IKTargetDoMove")
-    msg.write_float32(kwargs["position"][0])
-    msg.write_float32(kwargs["position"][1])
-    msg.write_float32(kwargs["position"][2])
-    msg.write_float32(kwargs["duration"])
-    msg.write_bool(kwargs["speed_based"])
-    msg.write_bool(kwargs["relative"])
-    return msg
-
-
-def IKTargetDoRotate(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "vector3", "duration"]
-    optional_params = ["speed_based", "relative"]
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    if "speed_based" not in kwargs:
-        kwargs["speed_based"] = True
-    if "relative" not in kwargs:
-        kwargs["relative"] = False
-
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("IKTargetDoRotate")
-    msg.write_float32(kwargs["vector3"][0])
-    msg.write_float32(kwargs["vector3"][1])
-    msg.write_float32(kwargs["vector3"][2])
-    msg.write_float32(kwargs["duration"])
-    msg.write_bool(kwargs["speed_based"])
-    msg.write_bool(kwargs["relative"])
-    return msg
-
-
-def IKTargetDoRotateQuaternion(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "quaternion", "duration"]
-    optional_params = ["speed_based", "relative"]
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    if "speed_based" not in kwargs:
-        kwargs["speed_based"] = True
-    if "relative" not in kwargs:
-        kwargs["relative"] = False
-
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("IKTargetDoRotateQuaternion")
-    msg.write_float32(kwargs["quaternion"][0])
-    msg.write_float32(kwargs["quaternion"][1])
-    msg.write_float32(kwargs["quaternion"][2])
-    msg.write_float32(kwargs["quaternion"][3])
-    msg.write_float32(kwargs["duration"])
-    msg.write_bool(kwargs["speed_based"])
-    msg.write_bool(kwargs["relative"])
-    return msg
-
-
-def IKTargetDoComplete(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("IKTargetDoComplete")
-    return msg
-
-
-def IKTargetDoKill(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("IKTargetDoKill")
-    return msg
-
-
-def SetIKTargetOffset(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id"]
-    optional_params = ["position", "rotation", "is_quaternion"]
-    utility.CheckKwargs(kwargs, compulsory_params)
-
-    if "position" not in kwargs:
-        kwargs["position"] = [0, 0, 0]
-    if "rotation" not in kwargs:
-        kwargs["rotation"] = [0, 0, 0, 0]
-    if "is_quaternion" not in kwargs:
-        kwargs["is_quaternion"] = False
-
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("SetIKTargetOffset")
-    msg.write_float32(kwargs["position"][0])
-    msg.write_float32(kwargs["position"][1])
-    msg.write_float32(kwargs["position"][2])
-    msg.write_bool(kwargs["is_quaternion"])
-    if kwargs["is_quaternion"]:
-        msg.write_float32(kwargs["rotation"][0])
-        msg.write_float32(kwargs["rotation"][1])
-        msg.write_float32(kwargs["rotation"][2])
-        msg.write_float32(kwargs["rotation"][2])
-    else:
-        msg.write_float32(kwargs["rotation"][0])
-        msg.write_float32(kwargs["rotation"][1])
-        msg.write_float32(kwargs["rotation"][2])
-    return msg
+    Robot controller class, which will control robot arms, hands, mobile manipulators, etc.
+    The data stored in self.data is a dictionary containing the following keys:
+        - 'number_of_joints': The number of joints in an articulation.
+        - 'names': The name of each part in an articulation.
+        - 'types': The joint type of each part in an articulation.
+        - 'positions': The position of each part in an articulation.
+        - 'rotations': The rotation of each part in an articulation.
+        - 'quaternion': The quaternion of each part in an articulation.
+        - 'local_positions': The local position of each part in an articulation.
+        - 'local_rotations': The local rotation of each part in an articulation.
+        - 'local_quaternion': The local quaternion of each part in an articulation.
+        - 'velocities': The velocity of each part in an articulation.
+        - 'angular_velocities': The angular velocity of each part in an articulation.
+        - 'number_of_moveable_joints': The number of moveable joints in an articulation.
+        - 'joint_positions': The joint position of each moveable joint in an articulation.
+        - 'joint_velocities': The joint velocity of each moveable joint in an articulation.
+        - 'joint_accelerations': The joint accelerations of each moveable joint in an articulation.
+        - 'joint_force': The joint force of each moveable joint in an articulation.
+        - 'joint_lower_limit': The joint lower limit of each moveable joint in an articulation.
+        - 'joint_upper_limit': The joint upper limit of each moveable joint in an articulation.
+        - 'joint_stiffness': The joint stiffness of each moveable joint in an articulation.
+        - 'joint_damping': The joint damping of each moveable joint in an articulation.
+        - 'move_done': Whether robot arm IK has finished moving.
+        - 'rotate_done': Whether robot arm IK has finished rotating.
+        - 'gravity_forces': Inverse dynamics force needed to counteract gravity.
+        - 'coriolis_centrifugal_forces': Inverse dynamics force needed to counteract coriolis centrifugal forces.
+        - 'drive_forces': Inverse dynamics drive forces.
+    """
+
+    def SetJointPosition(self, joint_positions: list):
+        """
+        Set the joint position for each moveable joint and move with PD control.
+
+        :param joint_positions: A list of float, representing the target joint positions.
+        """
+        joint_positions = [float(i) for i in joint_positions]
+        self._send_data("SetJointPosition", joint_positions)
+
+    def SetJointPositionDirectly(self, joint_positions: list):
+        """
+        Set the joint position for each moveable joint and move directly.
+
+        :param joint_positions: A list of float, representing the target joint positions.
+        """
+        joint_positions = [float(i) for i in joint_positions]
+        self._send_data("SetJointPositionDirectly", joint_positions)
+
+    def SetIndexJointPosition(self, index: int, joint_position: float):
+        """
+        Set the target joint position for a given joint and move with PD control.
+
+        :param index: Int, joint index.
+        :param joint_position: Float, the target joint position.
+        """
+        self._send_data("SetIndexJointPosition", index, float(joint_position))
+
+    def SetIndexJointPositionDirectly(self, index: int, joint_position: float):
+        """
+        Set the target joint position for a given joint and move directly.
+
+        :param index: Int, joint index.
+        :param joint_position: Float, the target joint position.
+        """
+        self._send_data("SetIndexJointPositionDirectly", index, float(joint_position))
+
+    def SetJointPositionContinue(self, interval: int, time_joint_positions: list):
+        """
+        Set the joint position for each moveable joint and move with PD control continuously.
+
+        :param interval: Float, the time interval.
+        :param time_joint_positions: A list of float list, representing the target joint positions at each time step.
+        """
+        for i in range(len(time_joint_positions)):
+            time_joint_positions[i] = [float(j) for j in time_joint_positions[i]]
+        self._send_data("SetJointPositionContinue", interval, time_joint_positions)
+
+    def SetJointStiffness(self, joint_stiffness: list):
+        """
+        Set the joint stiffness for each moveable joint.
+
+        :param joint_stiffness: A list of float, each moveable joint stiffness.
+        """
+        joint_stiffness = [float(i) for i in joint_stiffness]
+        self._send_data("SetJointStiffness", joint_stiffness)
+
+    def SetJointDamping(self, joint_damping: list):
+        """
+        Set the joint damping for each moveable joint.
+
+        :param joint_damping: A list of float, each moveable joint damping.
+        """
+        joint_damping = [float(i) for i in joint_damping]
+        self._send_data("SetJointDamping", joint_damping)
+
+    def SetJointLimit(self, joint_upper_limit: list, joint_lower_limit: list):
+        """
+        Set the joint limit for each moveable joint.
+
+        :param joint_upper_limit: A list of float, each moveable joint upper limit.
+        :param joint_lower_limit: A list of float, each moveable joint lower limit.
+        """
+        joint_upper_limit = [float(i) for i in joint_upper_limit]
+        joint_lower_limit = [float(i) for i in joint_lower_limit]
+        self._send_data("SetJointLimit", joint_upper_limit, joint_lower_limit)
+
+    def SetJointVelocity(self, joint_velocitys: list):
+        """
+        Set the joint velocity for each moveable joint.
+
+        :param joint_velocitys: A list of float, representing the target joint velocities.
+        """
+        joint_velocitys = [float(i) for i in joint_velocitys]
+        self._send_data("SetJointVelocity", joint_velocitys)
+
+    def SetIndexJointVelocity(self, index: int, joint_velocity: float):
+        """
+        Set the target joint velocity for a given joint.
+
+        :param index: Int, joint index.
+        :param joint_velocity: A list of float, representing the target joint velocities.
+        """
+        self._send_data("SetIndexJointVelocity", index, float(joint_velocity))
+
+    def SetJointUseGravity(self, use_gravity: bool):
+        """
+        Set all joints to use or not use gravity.
+
+        :param use_gravity: Bool, True to use gravity, False to not use gravity.
+        """
+        self._send_data("SetJointUseGravity", use_gravity)
+
+    def SetJointDriveForce(self, joint_drive_forces: list):
+        """
+        Set the joint drive forces for each moveable joint.
+
+        :param joint_drive_forces: A list of float, representing the joint drive forces.
+        """
+        joint_drive_forces = [float(i) for i in joint_drive_forces]
+        self._send_data('SetJointDriveForce', joint_drive_forces)
+
+    def AddJointForce(self, joint_forces: list):
+        """
+        Add force to each moveable joint.
+
+        :param joint_forces: A list of forces, representing the added forces.
+        """
+        joint_forces = [float(i) for i in joint_forces]
+        self._send_data("AddJointForce", joint_forces)
+
+    def AddJointForceAtPosition(self, joint_forces: list, force_positions: list):
+        """
+        Add force to each moveable joint at a given position.
+
+        :param joint_forces: A list of forces, representing the added forces.
+        :param force_positions: A list of positions, representing the positions for forces.
+        """
+        assert len(joint_forces) == len(force_positions), "The length of joint_forces and force_positions are not equal."
+        self._send_data("AddJointForceAtPosition", joint_forces, force_positions)
+
+    def AddJointTorque(self, joint_torques: list):
+        """
+        Add torque to each moveable joint.
+
+        :param joint_torques: A list of torques, representing the added torques.
+        """
+        self._send_data("AddJointTorque", joint_torques)
+
+    # only works on Unity 2022.1+
+    def GetJointInverseDynamicsForce(self):
+        """
+        Get the joint inverse dynamics force of each moveable joint. Note that this function only works in Unity version >= 2022.1.
+        """
+        self._send_data("GetJointInverseDynamicsForce")
+
+    def SetImmovable(self, immovable: bool):
+        """
+        Set whether the base of the articulation is immovable.
+
+        :param immovable: Bool, True for immovable, False for movable.
+        """
+        self._send_data("SetImmovable", immovable)
+
+    def MoveForward(self, distance: float, speed: float):
+        """
+        Move the robot forward. Only works if the robot controller has a mobile platform.
+
+        :param distance: Float, distance.
+        :param speed: Float, velocity.
+        """
+        self._send_data("MoveForward", float(distance), float(speed))
+
+    def MoveBack(self, distance: float, speed: float):
+        """
+        Move the robot backward. Only works if the robot controller has a mobile platform.
+
+        :param distance: Float, distance.
+        :param speed: Float, velocity.
+        """
+        self._send_data("MoveBack", float(distance), float(speed))
+
+    def TurnLeft(self, angle: float, speed: float):
+        """
+        Turn the robot left. Only works if the robot controller has a mobile platform.
+
+        :param angle: Float, rotation angle.
+        :param speed: Float, velocity.
+        """
+        self._send_data("TurnLeft", float(angle), float(speed*2000))
+
+    def TurnRight(self, angle: float, speed: float):
+        """
+        Turn the robot right. Only works if the robot controller has a mobile platform.
+
+        :param angle: Float, rotation angle.
+        :param speed: Float, velocity.
+        """
+        self._send_data("TurnRight", float(angle), float(speed*2000))
+        
+    def StopMovement(self):
+        """
+        Stop the robot movement. Only works if the robot controller has a mobile platform.
+        """
+        self._send_data("StopMovement")
+
+    def GripperOpen(self):
+        """
+        Open the gripper.
+        """
+        self._send_data("GripperOpen")
+
+    def GripperClose(self):
+        """
+        Close the gripper.
+        """
+        self._send_data("GripperClose")
+
+    def EnabledNativeIK(self, enabled: bool):
+        """
+        Enable or disable the native IK algorithm.
+
+        :param enabled: Bool, True to enable and False to disable. When enabled, use the IKTatGetDo*** interface to set the end pose. When disabled, use the SetJoint*** interface to move the joints. Native IK can only take effect when it is started during initialization.
+        """
+        self._send_data("EnabledNativeIK", enabled)
+
+    def IKTargetDoMove(self, position: list, duration: float, speed_based: bool = True, relative: bool = False):
+        """
+        Native IK target movement.
+
+        :param position: A list of length 3, representing the position.
+        :param duration: Float, if `speed_based` is True, it represents movement duration; otherwise, it represents movement speed.
+        :param speed_based: Bool.
+        :param relative: Bool, if True, `position` is relative; otherwise, `position` is absolute.
+        """
+        if position is not None:
+            assert len(position) == 3, "position length must be 3"
+            position = [float(i) for i in position]
+
+        self._send_data("IKTargetDoMove", position, float(duration), speed_based, relative)
+
+    def IKTargetDoRotate(self, rotation: list, duration: float, speed_based: bool = True, relative: bool = False):
+        """
+        Native IK target rotation.
+
+        :param rotation: A list of length 3, representing the rotation.
+        :param duration: Float, if `speed_based` is True, it represents movement duration; otherwise, it represents movement speed.
+        :param speed_based: Bool.
+        :param relative: Bool, if True, `rotation` is relative; otherwise, `rotation` is absolute.
+        """
+        if rotation is not None:
+            assert len(rotation) == 3, "rotation length must be 3"
+            rotation = [float(i) for i in rotation]
+
+        self._send_data("IKTargetDoRotate", rotation, float(duration), speed_based, relative)
+
+    def IKTargetDoRotateQuaternion(self, quaternion: list, duration: float, speed_based: bool = True, relative: bool = False):
+        """
+        Native IK target rotation using quaternion.
+
+        :param quaternion: A list of length 4, representing the quaternion.
+        :param duration: Float, if `speed_based` is True, it represents movement duration; otherwise, it represents movement speed.
+        :param speed_based: Bool.
+        :param relative: Bool, if True, `quaternion` is relative; otherwise, `quaternion` is absolute.
+        """
+        if quaternion is not None:
+            assert len(quaternion) == 4, "quaternion length must be 4"
+            quaternion = [float(i) for i in quaternion]
+
+        self._send_data("IKTargetDoRotateQuaternion", quaternion, float(duration), speed_based, relative)
+
+    def IKTargetDoComplete(self):
+        """
+        Complete native IK target movement/rotation directly.
+        """
+        self._send_data("IKTargetDoComplete")
+
+    def IKTargetDoKill(self):
+        """
+        Stop native IK target movement/rotation.
+        """
+        self._send_data("IKTargetDoKill")
+
+    def GetIKTargetJointPosition(self, position: list = None, rotation: list = None, quaternion: list = None, iterate: int = 100):
+        """
+        Input IK target pose and get the IK calculation results. After calling this method and stepping once, the result will be saved in self.data['result_joint_position']
+
+        :param position: A list of length 3, representing the position of the IK target.
+        :param rotation: A list of length 3, representing the euler angle of the IK target.
+        :param quaternion: A list of length 4, representing the quaternion of the IK target. If this parameter is specified, `rotation` will be ignored.
+        :param iterate: Int, the number of IK calculation iterations.
+        """
+        if position is not None:
+            assert len(position) == 3, "position length must be 3"
+            position = [float(i) for i in position]
+        if rotation is not None:
+            assert len(rotation) == 3, "rotation length must be 3"
+            rotation = [float(i) for i in rotation]
+        if quaternion is not None:
+            assert len(quaternion) == 4, "quaternion length must be 4"
+            quaternion = [float(i) for i in quaternion]
+        self._send_data("GetIKTargetJointPosition", position, rotation, quaternion, int(iterate))
+
+    def SetIKTargetOffset(self, position: list = None, rotation: list = None, quaternion: list = None):
+        """
+        Set the new IK target by setting offset to the original target of native IK.
+
+        :param position: A list of length 3, representing the position offset to the original target.
+        :param rotation: A list of length 3, representing the rotation offset to the original target.
+        :param quaternion: A list of length 4, representing the quaternion offset to the original target. If this parameter is specified, `rotation` will be ignored.
+        """
+        if position is not None:
+            assert len(position) == 3, "position length must be 3"
+            position = [float(i) for i in position]
+        if rotation is not None:
+            assert len(rotation) == 3, "rotation length must be 3"
+            rotation = [float(i) for i in rotation]
+        if quaternion is not None:
+            assert len(quaternion) == 4, "quaternion length must be 4"
+            quaternion = [float(i) for i in quaternion]
+
+        self._send_data("SetIKTargetOffset", position, rotation, quaternion)
+
+    def GetJointLocalPointFromWorld(self, joint_index: int, point: list):
+        """
+        Transform a point from joint local coordinates to world coordinates. After calling this method and stepping once, the result will be saved in self.data['result_joint_local_point']
+
+        :param joint_index: Int, index of the joint.
+        :param point: A list of length 3, representing the position of a point.
+        """
+        assert len(point) == 3, "point length must be 3"
+        point = [float(i) for i in point]
+
+        self._send_data("GetJointLocalPointFromWorld", int(joint_index), point)
+
+    def GetJointWorldPointFromLocal(self, joint_index: int, point: list):
+        """
+        Transform a point from world coordinates to joint local coordinates. After calling this method and stepping once, the result will be saved in self.data['result_joint_world_point']
+
+        :param joint_index: Int, index of the joint.
+        :param point: A list of length 3, representing the position of a point.
+        """
+        assert len(point) == 3, "point length must be 3"
+        point = [float(i) for i in point]
+
+        self._send_data("GetJointWorldPointFromLocal", int(joint_index), point)
+
+    def AddRoot6DOF(self, new_id: int = None):
+        """
+        Add a 6-DOF root joint to the articulation body. The articulation body is incapable of non-dynamic motion and requires the addition of a 6-DOF root joint for free motion.
+        This must be called when the object is first created.
+
+        :param new_id: Int, optional new ID for the root joint.
+        :return: The new root joint as a ControllerAttr instance.
+        """
+        if new_id is None:
+            new_id = int("1" + str(self.id))
+        self._send_data("AddRoot6DOF", new_id)
+        self.env.attrs[new_id] = ControllerAttr(self.env, new_id)
+        return self.env.attrs[new_id]

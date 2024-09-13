@@ -1,67 +1,44 @@
 import pyrcareworld.attributes as attr
-from pyrcareworld.side_channel.side_channel import (
-    IncomingMessage,
-    OutgoingMessage,
-)
-import pyrcareworld.utils.utility as utility
 
-
-def parse_message(msg: IncomingMessage) -> dict:
-    this_object_data = attr.base_attr.parse_message(msg)
-    return this_object_data
-
-
-def Translate(kwargs: dict) -> OutgoingMessage:
-    """Translate a game object by a given distance, in meter format. Note that this command will translate the
-       object relative to the current position.
-    Args:
-        Compulsory:
-        index: The index of object, specified in returned message.
-        translation: A 3-d list inferring the relative translation, in [x,y,z] order.
+class GameObjectAttr(attr.BaseAttr):
     """
-    compulsory_params = ["id", "translation"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-    msg = OutgoingMessage()
-
-    msg.write_int32(kwargs["id"])
-    msg.write_string("Translate")
-    for i in range(3):
-        msg.write_float32(kwargs["translation"][i])
-
-    return msg
-
-
-def Rotate(kwargs: dict) -> OutgoingMessage:
-    """Rotate a game object by a given rotation, in euler angle format. Note that this command will rotate the
-       object relative to the current state. The rotation order will be z axis first, x axis next, and z axis last.
-    Args:
-        Compulsory:
-        index: The index of object, specified in returned message.
-        rotation: A 3-d list inferring the relative rotation, in [x,y,z] order.
+    Basic game object attribute class.
+    
+    The data stored in self.data is a dictionary containing the following keys:
+     - '3d_bounding_box': The 3D bounding box of objects.
     """
-    compulsory_params = ["id", "rotation"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-    msg = OutgoingMessage()
-
-    msg.write_int32(kwargs["id"])
-    msg.write_string("Rotate")
-    for i in range(3):
-        msg.write_float32(kwargs["rotation"][i])
-
-    return msg
 
 
-def SetColor(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "color"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-    msg = OutgoingMessage()
+    def SetColor(self, color: list):
+        """
+        Set the object color.
 
-    msg.write_int32(kwargs["id"])
-    msg.write_string("SetColor")
-    for i in range(4):
-        msg.write_float32(kwargs["color"][i])
+        :param color: A list of length 4, representing r, g, b, and a. Each float is in the range (0, 1).
+        """
+        if color is not None:
+            assert len(color) == 4, "color length must be 4"
+            color = [float(i) for i in color]
 
-    return msg
+        self._send_data("SetColor", color)
+
+    def EnabledRender(self, enabled: bool):
+        """
+        Enable or disable the rendering system.
+
+        :param enabled: Bool, True to enable rendering and False to disable rendering.
+        """
+        self._send_data("EnabledRender", enabled)
+
+    def SetTexture(self, path: str):
+        """
+        Set the texture of the object.
+
+        :param path: Str, the absolute path for the texture file.
+        """
+        self._send_data("SetTexture", path)
+
+    def Get3DBBox(self):
+        """
+        Get the 3D bounding box of this object.
+        """
+        self._send_data("Get3DBBox")

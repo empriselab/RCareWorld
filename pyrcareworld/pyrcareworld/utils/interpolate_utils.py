@@ -1,4 +1,4 @@
-from pyrcareworld.envs import RCareWorldBaseEnv
+from pyrcareworld.envs.base_env import RCareWorld
 import numpy as np
 import math
 
@@ -82,7 +82,7 @@ def rotate_by_y_axis_interpolate(
 
 
 def joint_positions_interpolation(
-    env: RCareWorldBaseEnv, body_id, target_joint_positions, max_step_degree=3
+    env: RCareWorld, body_id, target_joint_positions, max_step_degree=3
 ):
     curr_jp = np.array(env.articulation_channel.data[body_id]["joint_positions"])
     target_jp = np.array(target_joint_positions)
@@ -90,7 +90,7 @@ def joint_positions_interpolation(
 
 
 def pos_interpolation(
-    env: RCareWorldBaseEnv, body_id, part_index, target_pos, max_step_length=0.05
+    env: RCareWorld, body_id, part_index, target_pos, max_step_length=0.05
 ):
     curr_pos = np.array(env.articulation_channel.data[body_id]["positions"][part_index])
     targ_pos = np.array(target_pos)

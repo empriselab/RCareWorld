@@ -7,8 +7,8 @@
 /[Oo]bj/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
-/[Dd]oc/
-/[Dd]ocs/
+# /[Dd]oc/
+# /[Dd]ocs/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
@@ -77,12 +77,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# C extensions
-*.so
+# # C extensions *.so
 
 # Distribution / packaging
 .Python
-build/
+# build/
 develop-eggs/
 dist/
 downloads/
@@ -143,7 +142,7 @@ instance/
 .scrapy
 
 # Sphinx documentation
-docs/_build/
+# docs/_build/
 
 # PyBuilder
 .pybuilder/
@@ -231,21 +230,15 @@ cython_debug/
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
-#.idea/
-# Ignore 3D Model files
-*.stl
-*.obj
-*.3ds
-*.fbx
-*.dae
-*.blend
-*.ply
-*.gltf
-*.glb
-*.x3d
-*.wrl
-*.step
-*.stp
-*.iges
-*.igs
-*.STL
+.idea/
+
+# Mac
+.DS_Store
+
+#Docker-build
+/template/docker-template/*.zip
+/template/docker-template/*.tar
+/template/docker-template/output
+template/rgb_hand.png
+template/rgb_hand.png
+pyrcareworld/pyrcareworld/demo/examples/example_save_obj.py

@@ -1,37 +1,26 @@
 import pyrcareworld.attributes as attr
-from pyrcareworld.side_channel.side_channel import (
-    IncomingMessage,
-    OutgoingMessage,
-)
-import pyrcareworld.utils.utility as utility
 
+class CustomAttr(attr.BaseAttr):
+    """
+    This is an example of a custom attribute class, without actual functions.
+    
+    The data stored in self.data is a dictionary containing the following keys:
+        - 'custom_message': a custom message.
+    """
 
-# Message parsing example
-def parse_message(msg: IncomingMessage) -> dict:
-    # First, read the data inherited from the base class
-    this_object_data = attr.base_attr.parse_message(msg)
-    # Read data in order
-    # The order of reading here corresponds to the writing order in the CollectData function of Unity's CustomAttr script
-    this_object_data["custom_message"] = msg.read_string()
-    return this_object_data
+    def parse_message(self, data: dict):
+        """
+        Parse messages. This function is called by an internal function.
 
+        data['custom_message']: A custom message.
+        """
+        super().parse_message(data)
 
-# New interface example
-def CustomMessage(kwargs: dict) -> OutgoingMessage:
-    # Mandatory parameters
-    compulsory_params = ["id", "message"]
-    # Optional parameters
-    optional_params = []
-    # Parameter check
-    utility.CheckKwargs(kwargs, compulsory_params)
+    # An example of a new API
+    def CustomMessage(self, message: str):
+        """
+        Send a custom message.
 
-    msg = OutgoingMessage()
-    # The first data must be ID
-    msg.write_int32(kwargs["id"])
-    # The second data must be message type. 
-    # Here, CustomMessage correspond to one branch of 'switch' in AnalysingMsg function from Unity's new Attr script
-    msg.write_string("CustomMessage")
-    # Write data in order
-    msg.write_string(kwargs["message"])
-
-    return msg
+        :param message: Str, the custom message to be sent.
+        """
+        self._send_data("CustomMessage", message)

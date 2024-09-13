@@ -1,0 +1,78 @@
+#!/bin/bash
+
+# Set Docker image name
+DOCKER_IMAGE_NAME="your_docker_name"
+
+echo "Building Docker image..."
+docker build -t $DOCKER_IMAGE_NAME .
+
+echo "Running Docker container..."
+CONTAINER_ID=$(docker run -d $DOCKER_IMAGE_NAME bash -c "/app/RCareWorld/template/docker-template/run_python.shell")
+
+echo "Docker container ID: $CONTAINER_ID"
+
+# Wait for the BathingPlayer JSON file to be created
+echo "Waiting for BathingPlayer JSON file to be created..."
+docker exec $CONTAINER_ID bash -c "while ! ls /root/.config/unity3d/RCareWorld/BathingPlayer/spongeScore.json >/dev/null 2>&1; do sleep 1; done"
+
+# Wait for the DressingPlayer JSON file to be created
+echo "Waiting for DressingPlayer JSON file to be created..."
+docker exec $CONTAINER_ID bash -c "while ! ls /root/.config/unity3d/RCareWorld/DressingPlayer/dressingScore.json >/dev/null 2>&1; do sleep 1; done"
+
+OUTPUT_DIR="./output"
+mkdir -p $OUTPUT_DIR
+
+docker ps
+
+echo "Copying JSON files from Docker container to host..."
+docker cp $CONTAINER_ID:/root/.config/unity3d/RCareWorld/BathingPlayer/spongeScore.json $OUTPUT_DIR/BathingScore.json
+docker cp $CONTAINER_ID:/root/.config/unity3d/RCareWorld/DressingPlayer/dressingScore.json $OUTPUT_DIR/DressingScore.json
+
+echo "Echoing JSON file contents..."
+echo "Contents of BathingScore.json:"
+cat $OUTPUT_DIR/BathingScore.json
+echo "Contents of DressingScore.json:"
+cat $OUTPUT_DIR/DressingScore.json
+
+echo "Done. JSON files are saved in the $OUTPUT_DIR directory."
+
+# Keep the container running
+# echo "Entering Docker container's bash shell..."
+# docker exec -it $CONTAINER_ID /bin/bash
+
+# echo "Waiting for the Docker container to finish..."
+# docker wait $CONTAINER_ID
+
+echo "Cleaning up Docker container..."
+docker rm -f $CONTAINER_ID
+
+echo "Echoing JSON file contents..."
+if [ -f "$OUTPUT_DIR/BathingScore.json" ]; then
+    echo "Contents of BathingScore.json:"
+    cat $OUTPUT_DIR/BathingScore.json
+else
+    echo "BathingScore.json not found in output directory."
+fi
+
+if [ -f "$OUTPUT_DIR/DressingScore.json" ]; then
+    echo "Contents of DressingScore.json:"
+    cat $OUTPUT_DIR/DressingScore.json
+else
+    echo "DressingScore.json not found in output directory."
+fi
+
+echo "Saving Docker image to tar file..."
+docker save -o $DOCKER_IMAGE_NAME.tar $DOCKER_IMAGE_NAME
+
+echo "Unpacking tar file..."
+mkdir temp_dir
+tar -xf $DOCKER_IMAGE_NAME.tar -C temp_dir
+
+echo "Repacking as zip file..."
+zip -r $DOCKER_IMAGE_NAME.zip temp_dir
+
+echo "Cleaning up tar and temporary files..."
+rm -rf temp_dir
+rm $DOCKER_IMAGE_NAME.tar
+
+echo "Final cleanup complete. JSON files are saved in the $OUTPUT_DIR directory and Docker image is saved as $DOCKER_IMAGE_NAME.zip."

@@ -1,71 +1,102 @@
 import pyrcareworld.attributes as attr
-from pyrcareworld.side_channel.side_channel import (
-    IncomingMessage,
-    OutgoingMessage,
-)
-import pyrcareworld.utils.utility as utility
 
-
-def parse_message(msg: IncomingMessage) -> dict:
-    this_object_data = attr.collider_attr.parse_message(msg)
-    this_object_data["velocity"] = [msg.read_float32() for i in range(3)]
-    this_object_data["angular_vel"] = [msg.read_float32() for i in range(3)]
-    return this_object_data
-
-
-def SetMass(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "mass"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-    msg = OutgoingMessage()
-
-    msg.write_int32(kwargs["id"])
-    msg.write_string("SetMass")
-    msg.write_float32(kwargs["mass"])
-
-    return msg
-
-
-def AddForce(kwargs: dict) -> OutgoingMessage:
-    """Add a constant force on a rigidbody. The rigidbody must be loaded into the scene and
-    is distinguished by index.
-    Args:
-        Compulsory:
-        id: The index of rigidbody, specified in returned message.
-        force: A 3-d list inferring the force, in [x,y,z] order.
+class RigidbodyAttr(attr.ColliderAttr):
     """
-    compulsory_params = ["id", "force"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-    msg = OutgoingMessage()
-
-    msg.write_int32(kwargs["id"])
-    msg.write_string("AddForce")
-    msg.write_float32(kwargs["force"][0])
-    msg.write_float32(kwargs["force"][1])
-    msg.write_float32(kwargs["force"][2])
-
-    return msg
-
-
-def SetVelocity(kwargs: dict) -> OutgoingMessage:
-    """Set the velocity of a rigidbody. The rigidbody must be loaded into the scene and
-    is distinguished by index.
-    Args:
-        Compulsory:
-        id: The index of rigidbody, specified in returned message.
-        velocity: A 3-d float list inferring the velocity, in [x,y,z] order.
+    Rigid body class.
+    
+    The data stored in self.data is a dictionary containing the following keys:
+    - 'velocity': The velocity of the object.
+    - 'angular_velocity': The angular velocity of the object.
     """
-    compulsory_params = ["index", "velocity"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
 
-    msg = OutgoingMessage()
+    def SetMass(self, mass: float):
+        """
+        Set the mass of this rigid body object.
 
-    msg.write_int32(kwargs["id"])
-    msg.write_string("SetVelocity")
-    msg.write_float32(kwargs["velocity"][0])
-    msg.write_float32(kwargs["velocity"][1])
-    msg.write_float32(kwargs["velocity"][2])
+        :param mass: Float, representing the mass of this rigid body.
+        """
+        self._send_data("SetMass", float(mass))
 
-    return msg
+    def SetDrag(self, drag: float):
+        """
+        Set the drag of this rigid body object.
+
+        :param drag: Float, representing the drag of this rigid body.
+        """
+        self._send_data("SetDrag", float(drag))
+
+    def SetAngularDrag(self, angular_drag: float):
+        """
+        Set the angular drag of this rigid body object.
+
+        :param angular_drag: Float, representing the angular drag of this rigid body.
+        """
+        self._send_data("SetAngularDrag", float(angular_drag))
+
+    def SetUseGravity(self, use_gravity: bool):
+        """
+        Set the rigid body to use gravity or not.
+
+        :param use_gravity: Bool, use gravity or not.
+        """
+        self._send_data("SetUseGravity", use_gravity)
+
+    def EnabledMouseDrag(self, enabled: bool):
+        """
+        Enable or disable the rigid body Mouse Drag.
+
+        :param enabled: Bool, enable Mouse Drag or not.
+        """
+        self._send_data("EnabledMouseDrag", enabled)
+
+    def AddForce(self, force: list):
+        """
+        Add force to this rigid body object.
+
+        :param force: A list of length 3, representing the force added to this rigid body.
+        """
+        if force is not None:
+            force = [float(i) for i in force]
+
+        self._send_data("AddForce", force)
+
+    def SetVelocity(self, velocity: list):
+        """
+        Set the velocity of this rigid body object.
+
+        :param velocity: A list of length 3, representing the velocity of this rigid body.
+        """
+        if velocity is not None:
+            velocity = [float(i) for i in velocity]
+
+        self._send_data("SetVelocity", velocity)
+
+    def SetAngularVelocity(self, angular_velocity: list):
+        """
+        Set the angular velocity of this rigid body object.
+
+        :param angular_velocity: A list of length 3, representing the angular velocity of this rigid body.
+        """
+        if angular_velocity is not None:
+            angular_velocity = [float(i) for i in angular_velocity]
+
+        self._send_data("SetAngularVelocity", angular_velocity)
+
+    def SetKinematic(self, is_kinematic: bool):
+        """
+        Set the Rigidbody to be kinematic or not.
+
+        :param is_kinematic: Bool, True if the Rigidbody is kinematic, False otherwise.
+        """
+        self._send_data("SetKinematic", is_kinematic)
+
+    def Link(self, target_id: int, joint_index: int = 0, mass_scale: float = 1, connected_mass_scale: float = 1):
+        """
+        Link this rigidbody to another rigidbody or ArticulationBody.
+
+        :param target_id: Int, the ID of another rigidbody or ControllerAttr.
+        :param joint_index: Int, the ID of the ControllerAttr joint.
+        :param mass_scale: Float, the scale to apply to the inverse mass and inertia tensor of the body prior to solving the constraints.
+        :param connected_mass_scale: Float, the scale to apply to the inverse mass and inertia tensor of the connected body prior to solving the constraints.
+        """
+        self._send_data("Link", int(target_id), int(joint_index), float(mass_scale), float(connected_mass_scale))

@@ -1,37 +1,33 @@
+import numpy as np
 import pyrcareworld.attributes as attr
-from pyrcareworld.side_channel.side_channel import (
-    IncomingMessage,
-    OutgoingMessage,
-)
-import pyrcareworld.utils.utility as utility
 
+class PointCloudAttr(attr.BaseAttr):
+    """
+    Point cloud rendering class.
+    """
 
-def parse_message(msg: IncomingMessage) -> dict:
-    this_object_data = {}
-    return this_object_data
+    def ShowPointCloud(
+        self,
+        positions: np.ndarray = None,
+        colors: np.ndarray = None,
+        ply_path: str = None,
+        radius: float = 0.01,
+    ):
+        """
+        Display point cloud in Unity.
 
+        :param positions: A list of positions of points in a point cloud.
+        :param colors: A list of colors of points (range [0, 1]) in a point cloud.
+        :param ply_path: Str, the absolute path of `.ply` file. If this parameter is specified, `positions`
+                         and `colors` will be ignored.
+        :param radius: Float, the radius of the point cloud.
+        """
+        self._send_data("ShowPointCloud", ply_path, positions, colors, radius)
 
-def ShowPointCloud(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "positions", "colors"]
-    optional_params = ["radius"]
-    utility.CheckKwargs(kwargs, compulsory_params)
-    msg = OutgoingMessage()
-    if "radius" not in kwargs:
-        kwargs["radius"] = 0.01
-    msg.write_int32(kwargs["id"])
-    msg.write_string("ShowPointCloud")
-    msg.write_float32_list(kwargs["positions"])
-    msg.write_float32_list(kwargs["colors"])
-    msg.write_float32(kwargs["radius"])
-    return msg
+    def SetRadius(self, radius: float):
+        """
+        Set the radius for points in a point cloud.
 
-
-def SetRadius(kwargs: dict) -> OutgoingMessage:
-    compulsory_params = ["id", "radius"]
-    optional_params = []
-    utility.CheckKwargs(kwargs, compulsory_params)
-    msg = OutgoingMessage()
-    msg.write_int32(kwargs["id"])
-    msg.write_string("SetRadius")
-    msg.write_float32(kwargs["radius"])
-    return msg
+        :param radius: Float, the radius.
+        """
+        self._send_data("SetRadius", radius)
