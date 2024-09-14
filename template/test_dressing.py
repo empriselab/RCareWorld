@@ -25,32 +25,28 @@ def _main(use_graphics=False):
     env = DressingEnv(graphics=use_graphics)
     print(env.attrs)
 
-    kinova_id = 315893
-    robot = env.GetAttr(kinova_id)
+    robot = env.get_robot()
     env.step()
 
     # Get the gripper attribute and open the gripper
-    gripper = env.GetAttr(3158930)
+    gripper = env.get_gripper()
     gripper.GripperOpen()
     env.step(300)
 
     gripper.GripperClose()
     env.step(300)
-    
 
     # Get the cloth attribute and perform a simulation step
-    cloth = env.GetAttr(782563)
-    env.step()
-    # print(cloth.data)
+    cloth = env.get_cloth()
+    print(cloth.data)
 
-    # Set the camera as a child of the robot's hand
-    # you can also load new cameras and set them as children of other objects in the scene
-    camera_hand = env.GetAttr(654321)
-    camera_hand.SetTransform(position=gripper.data['position'], rotation=[-90, 90, -90])
-    camera_hand.SetParent(3158930)
-    camera_hand.GetRGB(512, 512)
+    # Camera operations: Attach a camera to the robot's hand
+    camera = env.get_camera()
+    camera.SetTransform(position=gripper.data['position'], rotation=[-90, 90, -90])
+    camera.SetParent(3158930)
+    camera.GetRGB(512, 512)
     env.step()
-    rgb = np.frombuffer(camera_hand.data["rgb"], dtype=np.uint8)
+    rgb = np.frombuffer(camera.data["rgb"], dtype=np.uint8)
     env.step()
 
     # Random positions and rotation
