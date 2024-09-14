@@ -35,7 +35,7 @@ def _main(use_graphics=False):
     env.step(300)
 
     gripper.GripperClose()
-    env.step()
+    env.step(300)
 
     # Obtain sponge data and simulate a step
     sponge = env.get_sponge()
@@ -43,12 +43,12 @@ def _main(use_graphics=False):
     print(sponge.data)
 
     # Camera operations: Attach a camera to the robot's hand
-    camera_hand = env.GetAttr(654321)
-    camera_hand.SetTransform(position=gripper.data['position'], rotation=[0, 0, 0])
-    camera_hand.SetParent(2215820)
-    camera_hand.GetRGB(512, 512)
+    camera = env.get_camera()
+    camera.SetTransform(position=gripper.data['position'], rotation=[0, 0, 0])
+    camera.SetParent(2215820)
+    camera.GetRGB(512, 512)
     env.step()
-    rgb = np.frombuffer(camera_hand.data["rgb"], dtype=np.uint8)
+    rgb = np.frombuffer(camera.data["rgb"], dtype=np.uint8)
     rgb = cv2.imdecode(rgb, cv2.IMREAD_COLOR)
     cv2.imwrite("rgb_hand.png", rgb)
 
