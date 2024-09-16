@@ -46,7 +46,6 @@ attrs = {
 # "IntersectAttr": IntersectAttr,
 "ClothGrasperAttr": ClothGrasperAttr,
 "SpongeScoreAttr": SpongeScoreAttr,
-"GraspDetectionAttr": GraspDetectionAttr,
 "BathingScoreAttr": BathingScoreAttr,
 "DressingScoreAttr": DressingScoreAttr,
 "SpongeAttr": SpongeAttr,
