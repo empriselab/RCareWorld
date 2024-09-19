@@ -22,4 +22,5 @@ jobs:
           pip uninstall -y numpy
           conda install numpy
           cd ../
-          pytest tests/
+          pytest tests/test_angle_functions.py
+          pytest tests/ --ignore=tests/test_angle_functions.py
