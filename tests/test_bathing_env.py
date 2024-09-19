@@ -50,7 +50,7 @@ def test_bathing_stretch_move_commands(bathing_env):
     bathing_env.step(num_steps_per_command)  # long enough for the full turn
     # The yaw should have changed by about 90 degrees.
     new_robot_base_rotation = robot.data["rotations"][0].copy()
-    expected_robot_base_rotation = np.add(robot_base_rotation, (0.0, 0.0, 90.0))
+    expected_robot_base_rotation = np.add(robot_base_rotation, (0.0, -90.0, 0))
     # NOTE: turning is not precise beyond ~5 degrees. Users may want to build a controller
     # on top to compensate.
     assert euler_angles_allclose(new_robot_base_rotation, expected_robot_base_rotation, atol=5.0)
@@ -60,5 +60,5 @@ def test_bathing_stretch_move_commands(bathing_env):
     robot.TurnRight(90, 1)
     bathing_env.step(num_steps_per_command)
     new_robot_base_rotation = robot.data["rotations"][0].copy()
-    expected_robot_base_rotation = np.add(robot_base_rotation, (0.0, 0.0, -90.0))
+    expected_robot_base_rotation = np.add(robot_base_rotation, (0.0, 90.0, 0))
     assert euler_angles_allclose(new_robot_base_rotation, expected_robot_base_rotation, atol=5.0)
