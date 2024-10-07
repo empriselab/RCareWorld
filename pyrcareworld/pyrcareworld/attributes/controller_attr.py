@@ -209,7 +209,7 @@ class ControllerAttr(attr.ColliderAttr):
         :param angle: Float, rotation angle.
         :param speed: Float, velocity.
         """
-        self._send_data("TurnLeft", float(angle), float(speed*2000))
+        self._send_data("TurnLeft", float(angle), float(speed*100))
 
     def TurnRight(self, angle: float, speed: float):
         """
@@ -218,7 +218,7 @@ class ControllerAttr(attr.ColliderAttr):
         :param angle: Float, rotation angle.
         :param speed: Float, velocity.
         """
-        self._send_data("TurnRight", float(angle), float(speed*2000))
+        self._send_data("TurnRight", float(angle), float(speed*100))
         
     def StopMovement(self):
         """

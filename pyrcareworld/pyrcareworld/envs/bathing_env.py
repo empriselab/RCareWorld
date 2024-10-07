@@ -1,5 +1,8 @@
 """Bathing environment for the PhyRC competition."""
 
+from pyrcareworld.attributes.camera_attr import CameraAttr
+from pyrcareworld.attributes.controller_attr import ControllerAttr
+from pyrcareworld.attributes.sponge_attr import SpongeAttr
 from pyrcareworld.envs.base_env import RCareWorld
 from pathlib import Path
 
@@ -20,18 +23,18 @@ class BathingEnv(RCareWorld):
     def __init__(self, executable_file=str(_DEFAULT_EXECUTABLE_PATH), *args, **kwargs):
         super().__init__(executable_file=executable_file, *args, **kwargs)
 
-    def get_robot(self):
+    def get_robot(self) -> ControllerAttr:
         """Access the robot."""
         return self.GetAttr(self._robot_id)
     
-    def get_gripper(self):
+    def get_gripper(self) -> ControllerAttr:
         """Access the gripper."""
         return self.GetAttr(self._gripper_id)
     
-    def get_camera(self):
+    def get_camera(self) -> CameraAttr:
         """Access the camera."""
         return self.GetAttr(self._camera_id)
 
-    def get_sponge(self):
+    def get_sponge(self) -> SpongeAttr:
         """Access the sponge."""
         return self.GetAttr(self._sponge_id)
