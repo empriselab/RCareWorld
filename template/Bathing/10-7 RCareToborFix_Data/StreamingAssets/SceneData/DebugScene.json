@@ -1,0 +1,1781 @@
+{
+  "$type": "RFUniverse.Attributes.SceneData, RFUniverse",
+  "ground": true,
+  "cameraPosition": {
+    "$type": "System.Single[], mscorlib",
+    "$values": [
+      0.0,
+      1.0,
+      -3.0
+    ]
+  },
+  "cameraRotation": {
+    "$type": "System.Single[], mscorlib",
+    "$values": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "groundPosition": {
+    "$type": "System.Single[], mscorlib",
+    "$values": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "assetsData": {
+    "$type": "System.Collections.Generic.List`1[[RFUniverse.Attributes.BaseAttrData, RFUniverse]], mscorlib",
+    "$values": [
+      {
+        "$type": "RFUniverse.Attributes.ControllerData, RFUniverse",
+        "articulationDatas": {
+          "$type": "System.Collections.Generic.List`1[[RFUniverse.Attributes.ArticulationData, RFUniverse]], mscorlib",
+          "$values": [
+            {
+              "$type": "RFUniverse.Attributes.ArticulationData, RFUniverse",
+              "artIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0,
+                  1
+                ]
+              },
+              "anchorPosition": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "anchorRotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  -0.7071068,
+                  0.7071068
+                ]
+              },
+              "JointType": 2,
+              "linearLockX": 1,
+              "linearLockY": 0,
+              "linearLockZ": 0,
+              "swingYLock": 2,
+              "swingZLock": 2,
+              "twistLock": 1,
+              "xDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": -170.0023,
+                "upperLimit": 170.0023,
+                "stiffness": 100000.0,
+                "damping": 9000.0,
+                "forceLimit": 3.402823E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              },
+              "yDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": 0.0,
+                "upperLimit": 0.0,
+                "stiffness": 0.0,
+                "damping": 0.0,
+                "forceLimit": 3.40282347E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              },
+              "zDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": 0.0,
+                "upperLimit": 0.0,
+                "stiffness": 0.0,
+                "damping": 0.0,
+                "forceLimit": 3.40282347E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              }
+            },
+            {
+              "$type": "RFUniverse.Attributes.ArticulationData, RFUniverse",
+              "artIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0,
+                  1,
+                  1
+                ]
+              },
+              "anchorPosition": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "anchorRotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  -0.7071068,
+                  0.7071068
+                ]
+              },
+              "JointType": 2,
+              "linearLockX": 1,
+              "linearLockY": 0,
+              "linearLockZ": 0,
+              "swingYLock": 2,
+              "swingZLock": 2,
+              "twistLock": 1,
+              "xDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": -105.000244,
+                "upperLimit": 105.000244,
+                "stiffness": 100000.0,
+                "damping": 9000.0,
+                "forceLimit": 3.402823E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              },
+              "yDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": 0.0,
+                "upperLimit": 0.0,
+                "stiffness": 0.0,
+                "damping": 0.0,
+                "forceLimit": 3.40282347E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              },
+              "zDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": 0.0,
+                "upperLimit": 0.0,
+                "stiffness": 0.0,
+                "damping": 0.0,
+                "forceLimit": 3.40282347E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              }
+            },
+            {
+              "$type": "RFUniverse.Attributes.ArticulationData, RFUniverse",
+              "artIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0,
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "anchorPosition": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "anchorRotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  -0.7071068,
+                  0.7071068
+                ]
+              },
+              "JointType": 2,
+              "linearLockX": 1,
+              "linearLockY": 0,
+              "linearLockZ": 0,
+              "swingYLock": 2,
+              "swingZLock": 2,
+              "twistLock": 1,
+              "xDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": -170.0023,
+                "upperLimit": 170.0023,
+                "stiffness": 100000.0,
+                "damping": 9000.0,
+                "forceLimit": 3.402823E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              },
+              "yDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": 0.0,
+                "upperLimit": 0.0,
+                "stiffness": 0.0,
+                "damping": 0.0,
+                "forceLimit": 3.40282347E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              },
+              "zDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": 0.0,
+                "upperLimit": 0.0,
+                "stiffness": 0.0,
+                "damping": 0.0,
+                "forceLimit": 3.40282347E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              }
+            },
+            {
+              "$type": "RFUniverse.Attributes.ArticulationData, RFUniverse",
+              "artIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "anchorPosition": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "anchorRotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  -0.7071068,
+                  0.7071068
+                ]
+              },
+              "JointType": 2,
+              "linearLockX": 1,
+              "linearLockY": 0,
+              "linearLockZ": 0,
+              "swingYLock": 2,
+              "swingZLock": 2,
+              "twistLock": 1,
+              "xDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": -180.000427,
+                "upperLimit": 0.0,
+                "stiffness": 100000.0,
+                "damping": 9000.0,
+                "forceLimit": 3.402823E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              },
+              "yDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": 0.0,
+                "upperLimit": 0.0,
+                "stiffness": 0.0,
+                "damping": 0.0,
+                "forceLimit": 3.40282347E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              },
+              "zDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": 0.0,
+                "upperLimit": 0.0,
+                "stiffness": 0.0,
+                "damping": 0.0,
+                "forceLimit": 3.40282347E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              }
+            },
+            {
+              "$type": "RFUniverse.Attributes.ArticulationData, RFUniverse",
+              "artIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "anchorPosition": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "anchorRotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  -0.7071068,
+                  0.7071068
+                ]
+              },
+              "JointType": 2,
+              "linearLockX": 1,
+              "linearLockY": 0,
+              "linearLockZ": 0,
+              "swingYLock": 2,
+              "swingZLock": 2,
+              "twistLock": 1,
+              "xDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": -170.0023,
+                "upperLimit": 170.0023,
+                "stiffness": 100000.0,
+                "damping": 9000.0,
+                "forceLimit": 3.402823E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              },
+              "yDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": 0.0,
+                "upperLimit": 0.0,
+                "stiffness": 0.0,
+                "damping": 0.0,
+                "forceLimit": 3.40282347E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              },
+              "zDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": 0.0,
+                "upperLimit": 0.0,
+                "stiffness": 0.0,
+                "damping": 0.0,
+                "forceLimit": 3.40282347E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              }
+            },
+            {
+              "$type": "RFUniverse.Attributes.ArticulationData, RFUniverse",
+              "artIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "anchorPosition": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "anchorRotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  -0.7071068,
+                  0.7071068
+                ]
+              },
+              "JointType": 2,
+              "linearLockX": 1,
+              "linearLockY": 0,
+              "linearLockZ": 0,
+              "swingYLock": 2,
+              "swingZLock": 2,
+              "twistLock": 1,
+              "xDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": -5.00192165,
+                "upperLimit": 219.001663,
+                "stiffness": 100000.0,
+                "damping": 9000.0,
+                "forceLimit": 3.402823E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              },
+              "yDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": 0.0,
+                "upperLimit": 0.0,
+                "stiffness": 0.0,
+                "damping": 0.0,
+                "forceLimit": 3.40282347E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              },
+              "zDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": 0.0,
+                "upperLimit": 0.0,
+                "stiffness": 0.0,
+                "damping": 0.0,
+                "forceLimit": 3.40282347E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              }
+            },
+            {
+              "$type": "RFUniverse.Attributes.ArticulationData, RFUniverse",
+              "artIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "anchorPosition": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "anchorRotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  -0.7071068,
+                  0.7071068
+                ]
+              },
+              "JointType": 2,
+              "linearLockX": 1,
+              "linearLockY": 0,
+              "linearLockZ": 0,
+              "swingYLock": 2,
+              "swingZLock": 2,
+              "twistLock": 1,
+              "xDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": -170.0023,
+                "upperLimit": 170.0023,
+                "stiffness": 100000.0,
+                "damping": 9000.0,
+                "forceLimit": 3.402823E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              },
+              "yDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": 0.0,
+                "upperLimit": 0.0,
+                "stiffness": 0.0,
+                "damping": 0.0,
+                "forceLimit": 3.40282347E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              },
+              "zDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": 0.0,
+                "upperLimit": 0.0,
+                "stiffness": 0.0,
+                "damping": 0.0,
+                "forceLimit": 3.40282347E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              }
+            },
+            {
+              "$type": "RFUniverse.Attributes.ArticulationData, RFUniverse",
+              "artIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "anchorPosition": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "anchorRotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.7071068,
+                  0.7071068
+                ]
+              },
+              "JointType": 0,
+              "linearLockX": 2,
+              "linearLockY": 2,
+              "linearLockZ": 2,
+              "swingYLock": 2,
+              "swingZLock": 2,
+              "twistLock": 2,
+              "xDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": 0.0,
+                "upperLimit": 0.0,
+                "stiffness": 0.0,
+                "damping": 0.0,
+                "forceLimit": 3.40282347E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              },
+              "yDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": 0.0,
+                "upperLimit": 0.0,
+                "stiffness": 0.0,
+                "damping": 0.0,
+                "forceLimit": 3.40282347E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              },
+              "zDrive": {
+                "$type": "RFUniverse.Attributes.MyArticulationDrive, RFUniverse",
+                "lowerLimit": 0.0,
+                "upperLimit": 0.0,
+                "stiffness": 0.0,
+                "damping": 0.0,
+                "forceLimit": 3.40282347E+38,
+                "target": 0.0,
+                "targetVelocity": 0.0
+              }
+            }
+          ]
+        },
+        "colliderDatas": {
+          "$type": "System.Collections.Generic.List`1[[RFUniverse.Attributes.ColliderData, RFUniverse]], mscorlib",
+          "$values": [
+            {
+              "$type": "RFUniverse.Attributes.ColliderData, RFUniverse",
+              "renderIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0,
+                  0
+                ]
+              },
+              "type": 5,
+              "position": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "rotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "scale": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "radius": 1.0,
+              "height": 1.0,
+              "direction": 0,
+              "physicMateria": {
+                "$type": "RFUniverse.Attributes.PhysicMaterialData, RFUniverse",
+                "bounciness": 0.0,
+                "dynamicFriction": 0.6,
+                "staticFriction": 0.6,
+                "frictionCombine": 0,
+                "bounceCombine": 0
+              }
+            },
+            {
+              "$type": "RFUniverse.Attributes.ColliderData, RFUniverse",
+              "renderIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0,
+                  1,
+                  0
+                ]
+              },
+              "type": 5,
+              "position": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "rotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "scale": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "radius": 1.0,
+              "height": 1.0,
+              "direction": 0,
+              "physicMateria": {
+                "$type": "RFUniverse.Attributes.PhysicMaterialData, RFUniverse",
+                "bounciness": 0.0,
+                "dynamicFriction": 0.6,
+                "staticFriction": 0.6,
+                "frictionCombine": 0,
+                "bounceCombine": 0
+              }
+            },
+            {
+              "$type": "RFUniverse.Attributes.ColliderData, RFUniverse",
+              "renderIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0,
+                  1,
+                  1,
+                  0
+                ]
+              },
+              "type": 5,
+              "position": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "rotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "scale": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "radius": 1.0,
+              "height": 1.0,
+              "direction": 0,
+              "physicMateria": {
+                "$type": "RFUniverse.Attributes.PhysicMaterialData, RFUniverse",
+                "bounciness": 0.0,
+                "dynamicFriction": 0.6,
+                "staticFriction": 0.6,
+                "frictionCombine": 0,
+                "bounceCombine": 0
+              }
+            },
+            {
+              "$type": "RFUniverse.Attributes.ColliderData, RFUniverse",
+              "renderIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0,
+                  1,
+                  1,
+                  1,
+                  0
+                ]
+              },
+              "type": 5,
+              "position": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "rotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "scale": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "radius": 1.0,
+              "height": 1.0,
+              "direction": 0,
+              "physicMateria": {
+                "$type": "RFUniverse.Attributes.PhysicMaterialData, RFUniverse",
+                "bounciness": 0.0,
+                "dynamicFriction": 0.6,
+                "staticFriction": 0.6,
+                "frictionCombine": 0,
+                "bounceCombine": 0
+              }
+            },
+            {
+              "$type": "RFUniverse.Attributes.ColliderData, RFUniverse",
+              "renderIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0,
+                  1,
+                  1,
+                  1,
+                  1,
+                  0
+                ]
+              },
+              "type": 5,
+              "position": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "rotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "scale": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "radius": 1.0,
+              "height": 1.0,
+              "direction": 0,
+              "physicMateria": {
+                "$type": "RFUniverse.Attributes.PhysicMaterialData, RFUniverse",
+                "bounciness": 0.0,
+                "dynamicFriction": 0.6,
+                "staticFriction": 0.6,
+                "frictionCombine": 0,
+                "bounceCombine": 0
+              }
+            },
+            {
+              "$type": "RFUniverse.Attributes.ColliderData, RFUniverse",
+              "renderIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  0
+                ]
+              },
+              "type": 5,
+              "position": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "rotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "scale": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "radius": 1.0,
+              "height": 1.0,
+              "direction": 0,
+              "physicMateria": {
+                "$type": "RFUniverse.Attributes.PhysicMaterialData, RFUniverse",
+                "bounciness": 0.0,
+                "dynamicFriction": 0.6,
+                "staticFriction": 0.6,
+                "frictionCombine": 0,
+                "bounceCombine": 0
+              }
+            },
+            {
+              "$type": "RFUniverse.Attributes.ColliderData, RFUniverse",
+              "renderIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  0
+                ]
+              },
+              "type": 5,
+              "position": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "rotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "scale": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "radius": 1.0,
+              "height": 1.0,
+              "direction": 0,
+              "physicMateria": {
+                "$type": "RFUniverse.Attributes.PhysicMaterialData, RFUniverse",
+                "bounciness": 0.0,
+                "dynamicFriction": 0.6,
+                "staticFriction": 0.6,
+                "frictionCombine": 0,
+                "bounceCombine": 0
+              }
+            },
+            {
+              "$type": "RFUniverse.Attributes.ColliderData, RFUniverse",
+              "renderIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  0
+                ]
+              },
+              "type": 5,
+              "position": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "rotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "scale": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "radius": 1.0,
+              "height": 1.0,
+              "direction": 0,
+              "physicMateria": {
+                "$type": "RFUniverse.Attributes.PhysicMaterialData, RFUniverse",
+                "bounciness": 0.0,
+                "dynamicFriction": 0.6,
+                "staticFriction": 0.6,
+                "frictionCombine": 0,
+                "bounceCombine": 0
+              }
+            }
+          ]
+        },
+        "color": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "render": true,
+        "name": "franka_panda",
+        "id": 639787,
+        "type": "Controller",
+        "parentID": -1,
+        "parentName": "",
+        "position": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.094,
+            4.76837158E-07,
+            3.583
+          ]
+        },
+        "rotation": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "scale": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      },
+      {
+        "$type": "RFUniverse.Attributes.RigidbodyAttrData, RFUniverse",
+        "rigidbodyData": {
+          "$type": "RFUniverse.Attributes.RigidbodyData, RFUniverse",
+          "mass": 1.0,
+          "useGravity": true,
+          "isKinematic": false
+        },
+        "colliderDatas": {
+          "$type": "System.Collections.Generic.List`1[[RFUniverse.Attributes.ColliderData, RFUniverse]], mscorlib",
+          "$values": [
+            {
+              "$type": "RFUniverse.Attributes.ColliderData, RFUniverse",
+              "renderIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0
+                ]
+              },
+              "type": 2,
+              "position": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "rotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "scale": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "radius": 0.5,
+              "height": 1.0,
+              "direction": 0,
+              "physicMateria": {
+                "$type": "RFUniverse.Attributes.PhysicMaterialData, RFUniverse",
+                "bounciness": 0.0,
+                "dynamicFriction": 0.6,
+                "staticFriction": 0.6,
+                "frictionCombine": 0,
+                "bounceCombine": 0
+              }
+            }
+          ]
+        },
+        "color": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "render": true,
+        "name": "Rigidbody_Sphere",
+        "id": 179334,
+        "type": "Rigidbody",
+        "parentID": -1,
+        "parentName": "",
+        "position": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            -0.138,
+            1.334,
+            0.378
+          ]
+        },
+        "rotation": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "scale": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.341615021,
+            0.341615021,
+            0.341615021
+          ]
+        }
+      },
+      {
+        "$type": "RFUniverse.Attributes.RigidbodyAttrData, RFUniverse",
+        "rigidbodyData": {
+          "$type": "RFUniverse.Attributes.RigidbodyData, RFUniverse",
+          "mass": 1.0,
+          "useGravity": true,
+          "isKinematic": false
+        },
+        "colliderDatas": {
+          "$type": "System.Collections.Generic.List`1[[RFUniverse.Attributes.ColliderData, RFUniverse]], mscorlib",
+          "$values": [
+            {
+              "$type": "RFUniverse.Attributes.ColliderData, RFUniverse",
+              "renderIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0
+                ]
+              },
+              "type": 2,
+              "position": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "rotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "scale": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "radius": 0.5,
+              "height": 1.0,
+              "direction": 0,
+              "physicMateria": {
+                "$type": "RFUniverse.Attributes.PhysicMaterialData, RFUniverse",
+                "bounciness": 0.0,
+                "dynamicFriction": 0.6,
+                "staticFriction": 0.6,
+                "frictionCombine": 0,
+                "bounceCombine": 0
+              }
+            }
+          ]
+        },
+        "color": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "render": true,
+        "name": "Rigidbody_Sphere",
+        "id": 639375,
+        "type": "Rigidbody",
+        "parentID": -1,
+        "parentName": "",
+        "position": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.28,
+            1.334,
+            -0.56
+          ]
+        },
+        "rotation": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "scale": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.219434112,
+            0.219434112,
+            0.219434112
+          ]
+        }
+      },
+      {
+        "$type": "RFUniverse.Attributes.RigidbodyAttrData, RFUniverse",
+        "rigidbodyData": {
+          "$type": "RFUniverse.Attributes.RigidbodyData, RFUniverse",
+          "mass": 1.0,
+          "useGravity": true,
+          "isKinematic": false
+        },
+        "colliderDatas": {
+          "$type": "System.Collections.Generic.List`1[[RFUniverse.Attributes.ColliderData, RFUniverse]], mscorlib",
+          "$values": [
+            {
+              "$type": "RFUniverse.Attributes.ColliderData, RFUniverse",
+              "renderIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0
+                ]
+              },
+              "type": 2,
+              "position": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "rotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "scale": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "radius": 0.5,
+              "height": 1.0,
+              "direction": 0,
+              "physicMateria": {
+                "$type": "RFUniverse.Attributes.PhysicMaterialData, RFUniverse",
+                "bounciness": 0.0,
+                "dynamicFriction": 0.6,
+                "staticFriction": 0.6,
+                "frictionCombine": 0,
+                "bounceCombine": 0
+              }
+            }
+          ]
+        },
+        "color": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "render": true,
+        "name": "Rigidbody_Sphere",
+        "id": 674127,
+        "type": "Rigidbody",
+        "parentID": -1,
+        "parentName": "",
+        "position": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.03,
+            1.334,
+            -0.07
+          ]
+        },
+        "rotation": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "scale": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.4585779,
+            0.4585779,
+            0.4585779
+          ]
+        }
+      },
+      {
+        "$type": "RFUniverse.Attributes.RigidbodyAttrData, RFUniverse",
+        "rigidbodyData": {
+          "$type": "RFUniverse.Attributes.RigidbodyData, RFUniverse",
+          "mass": 1.0,
+          "useGravity": true,
+          "isKinematic": false
+        },
+        "colliderDatas": {
+          "$type": "System.Collections.Generic.List`1[[RFUniverse.Attributes.ColliderData, RFUniverse]], mscorlib",
+          "$values": [
+            {
+              "$type": "RFUniverse.Attributes.ColliderData, RFUniverse",
+              "renderIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0
+                ]
+              },
+              "type": 2,
+              "position": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "rotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "scale": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "radius": 0.5,
+              "height": 1.0,
+              "direction": 0,
+              "physicMateria": {
+                "$type": "RFUniverse.Attributes.PhysicMaterialData, RFUniverse",
+                "bounciness": 0.0,
+                "dynamicFriction": 0.6,
+                "staticFriction": 0.6,
+                "frictionCombine": 0,
+                "bounceCombine": 0
+              }
+            }
+          ]
+        },
+        "color": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "render": true,
+        "name": "Rigidbody_Sphere",
+        "id": 456567,
+        "type": "Rigidbody",
+        "parentID": -1,
+        "parentName": "",
+        "position": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.242,
+            1.334,
+            0.487
+          ]
+        },
+        "rotation": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "scale": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.29289,
+            0.29289,
+            0.29289
+          ]
+        }
+      },
+      {
+        "$type": "RFUniverse.Attributes.ColliderAttrData, RFUniverse",
+        "colliderDatas": {
+          "$type": "System.Collections.Generic.List`1[[RFUniverse.Attributes.ColliderData, RFUniverse]], mscorlib",
+          "$values": [
+            {
+              "$type": "RFUniverse.Attributes.ColliderData, RFUniverse",
+              "renderIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0
+                ]
+              },
+              "type": 1,
+              "position": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "rotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "scale": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "radius": 1.0,
+              "height": 1.0,
+              "direction": 0,
+              "physicMateria": {
+                "$type": "RFUniverse.Attributes.PhysicMaterialData, RFUniverse",
+                "bounciness": 0.0,
+                "dynamicFriction": 0.6,
+                "staticFriction": 0.6,
+                "frictionCombine": 0,
+                "bounceCombine": 0
+              }
+            }
+          ]
+        },
+        "color": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "render": true,
+        "name": "Collider_Box",
+        "id": 105473,
+        "type": "Collider",
+        "parentID": -1,
+        "parentName": "",
+        "position": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.199,
+            0.497,
+            0.0
+          ]
+        },
+        "rotation": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.0,
+            0.0,
+            326.882477
+          ]
+        },
+        "scale": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.1,
+            2.0,
+            2.0
+          ]
+        }
+      },
+      {
+        "$type": "RFUniverse.Attributes.ColliderAttrData, RFUniverse",
+        "colliderDatas": {
+          "$type": "System.Collections.Generic.List`1[[RFUniverse.Attributes.ColliderData, RFUniverse]], mscorlib",
+          "$values": [
+            {
+              "$type": "RFUniverse.Attributes.ColliderData, RFUniverse",
+              "renderIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0
+                ]
+              },
+              "type": 1,
+              "position": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "rotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "scale": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "radius": 1.0,
+              "height": 1.0,
+              "direction": 0,
+              "physicMateria": {
+                "$type": "RFUniverse.Attributes.PhysicMaterialData, RFUniverse",
+                "bounciness": 0.0,
+                "dynamicFriction": 0.6,
+                "staticFriction": 0.6,
+                "frictionCombine": 0,
+                "bounceCombine": 0
+              }
+            }
+          ]
+        },
+        "color": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "render": true,
+        "name": "Collider_Box",
+        "id": 748825,
+        "type": "Collider",
+        "parentID": -1,
+        "parentName": "",
+        "position": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.0,
+            0.5,
+            1.0
+          ]
+        },
+        "rotation": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "scale": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            2.0,
+            1.0,
+            0.1
+          ]
+        }
+      },
+      {
+        "$type": "RFUniverse.Attributes.ColliderAttrData, RFUniverse",
+        "colliderDatas": {
+          "$type": "System.Collections.Generic.List`1[[RFUniverse.Attributes.ColliderData, RFUniverse]], mscorlib",
+          "$values": [
+            {
+              "$type": "RFUniverse.Attributes.ColliderData, RFUniverse",
+              "renderIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0
+                ]
+              },
+              "type": 1,
+              "position": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "rotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "scale": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "radius": 1.0,
+              "height": 1.0,
+              "direction": 0,
+              "physicMateria": {
+                "$type": "RFUniverse.Attributes.PhysicMaterialData, RFUniverse",
+                "bounciness": 0.0,
+                "dynamicFriction": 0.6,
+                "staticFriction": 0.6,
+                "frictionCombine": 0,
+                "bounceCombine": 0
+              }
+            }
+          ]
+        },
+        "color": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "render": true,
+        "name": "Collider_Box",
+        "id": 223787,
+        "type": "Collider",
+        "parentID": -1,
+        "parentName": "",
+        "position": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.0,
+            0.5,
+            -1.0
+          ]
+        },
+        "rotation": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "scale": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            2.0,
+            1.0,
+            0.1
+          ]
+        }
+      },
+      {
+        "$type": "RFUniverse.Attributes.ColliderAttrData, RFUniverse",
+        "colliderDatas": {
+          "$type": "System.Collections.Generic.List`1[[RFUniverse.Attributes.ColliderData, RFUniverse]], mscorlib",
+          "$values": [
+            {
+              "$type": "RFUniverse.Attributes.ColliderData, RFUniverse",
+              "renderIndexQueue": {
+                "$type": "System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib",
+                "$values": [
+                  0
+                ]
+              },
+              "type": 1,
+              "position": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "rotation": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "scale": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "radius": 1.0,
+              "height": 1.0,
+              "direction": 0,
+              "physicMateria": {
+                "$type": "RFUniverse.Attributes.PhysicMaterialData, RFUniverse",
+                "bounciness": 0.0,
+                "dynamicFriction": 0.6,
+                "staticFriction": 0.6,
+                "frictionCombine": 0,
+                "bounceCombine": 0
+              }
+            }
+          ]
+        },
+        "color": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "render": true,
+        "name": "Collider_Box",
+        "id": 526441,
+        "type": "Collider",
+        "parentID": -1,
+        "parentName": "",
+        "position": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            -0.265,
+            0.533,
+            0.0
+          ]
+        },
+        "rotation": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.0,
+            0.0,
+            38.8151932
+          ]
+        },
+        "scale": {
+          "$type": "System.Single[], mscorlib",
+          "$values": [
+            0.1,
+            2.0,
+            2.0
+          ]
+        }
+      }
+    ]
+  }
+}

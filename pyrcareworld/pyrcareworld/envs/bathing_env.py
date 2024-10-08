@@ -8,7 +8,7 @@ from pathlib import Path
 
 
 _TEMPLATE_PATH = Path(__file__).parents[3] / "template"
-_DEFAULT_EXECUTABLE_PATH = _TEMPLATE_PATH / "Bathing" / "BathingPlayer.x86_64"
+_DEFAULT_EXECUTABLE_PATH = _TEMPLATE_PATH / "Bathing" / "10-7 RCareToborFix.x86_64"
 
 
 class BathingEnv(RCareWorld):
