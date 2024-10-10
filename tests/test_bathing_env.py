@@ -8,34 +8,7 @@ from pyrcareworld.envs.bathing_env import BathingEnv
 import pytest
 import numpy as np
 
-
-def degrees_to_radians(angle):
-    """Convert from degrees to radians."""
-    return np.pi * angle / 180
-
-def wrap_angle(angle):
-    """Wrap an angle in radians to [-pi, pi]."""
-    return np.arctan2(np.sin(angle), np.cos(angle))
-
-
-def get_signed_angle_distance(target, source):
-    """Given two angles between [-pi, pi], get the smallest signed angle d s.t.
-
-    source + d = target.
-    """
-    assert -np.pi <= source <= np.pi
-    assert -np.pi <= target <= np.pi
-    a = target - source
-    return (a + np.pi) % (2 * np.pi) - np.pi
-
-
-def euler_angles_allclose(euler1, euler2, atol = 1e-6):
-    """Compare two euler angles."""
-    wrapped_angles1 = [wrap_angle(degrees_to_radians(a)) for a in euler1]
-    wrapped_angles2 = [wrap_angle(degrees_to_radians(a)) for a in euler2]
-    dists = [get_signed_angle_distance(a, b)
-             for a, b in zip(wrapped_angles1, wrapped_angles2)]
-    return np.allclose(dists, 0, atol=atol)
+from .test_angle_functions import euler_angles_allclose
 
 
 @pytest.fixture(scope="session", name="bathing_env", autouse=True)
@@ -77,7 +50,7 @@ def test_bathing_stretch_move_commands(bathing_env):
     bathing_env.step(num_steps_per_command)  # long enough for the full turn
     # The yaw should have changed by about 90 degrees.
     new_robot_base_rotation = robot.data["rotations"][0].copy()
-    expected_robot_base_rotation = np.add(robot_base_rotation, (0.0, 0.0, 90.0))
+    expected_robot_base_rotation = np.add(robot_base_rotation, (0.0, -90.0, 0))
     # NOTE: turning is not precise beyond ~5 degrees. Users may want to build a controller
     # on top to compensate.
     assert euler_angles_allclose(new_robot_base_rotation, expected_robot_base_rotation, atol=5.0)
@@ -87,5 +60,5 @@ def test_bathing_stretch_move_commands(bathing_env):
     robot.TurnRight(90, 1)
     bathing_env.step(num_steps_per_command)
     new_robot_base_rotation = robot.data["rotations"][0].copy()
-    expected_robot_base_rotation = np.add(robot_base_rotation, (0.0, 0.0, -90.0))
+    expected_robot_base_rotation = np.add(robot_base_rotation, (0.0, 90.0, 0))
     assert euler_angles_allclose(new_robot_base_rotation, expected_robot_base_rotation, atol=5.0)

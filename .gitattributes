@@ -1,1 +1,2 @@
 .zip filter=lfs diff=lfs merge=lfs -text
+template/Bathing/10-7[[:space:]]RCareToborFix_Data/StreamingAssets/aa/StandaloneLinux64/user_assets_all_8a7e8c517c5bd193b6a83d9a3d7b4a7a.bundle filter=lfs diff=lfs merge=lfs -text

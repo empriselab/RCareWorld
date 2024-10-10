@@ -28,6 +28,7 @@ def _main(use_graphics=False):
 
     robot = env.get_robot()
     env.step()
+    print(robot.data)
 
     # Control the gripper
     gripper = env.get_gripper()
@@ -52,7 +53,8 @@ def _main(use_graphics=False):
     rgb = cv2.imdecode(rgb, cv2.IMREAD_COLOR)
     cv2.imwrite("rgb_hand.png", rgb)
 
-    # Move the robot to specified positions
+    # Move the robot to some radom pisitions
+    # to note, these positions might not be reachable. The robot will try to reach the closest possible position
     position1 = (0.492, 0.644, 0.03)
     position2 = (0.296, 0.849, 3.168)
 
@@ -68,30 +70,26 @@ def _main(use_graphics=False):
         speed_based=False,
     )
     robot.WaitDo()
+    robot.IKTargetDoKill()
+
+    # disable IK movement
+    # in this mode, you can directly control the robot's joints
+    robot.EnabledNativeIK(False)
+
     gripper.GripperClose()
     env.step(50)
-    robot.IKTargetDoMove(
-        position=[0, 0.5, 0], duration=2, speed_based=False, relative=True
-    )
-    robot.WaitDo()
-    robot.IKTargetDoMove(
-        position=[position2[0], position2[1] - 0.05, position2[2]],
-        duration=4,
-        speed_based=False,
-    )
-    robot.WaitDo()
-    robot.IKTargetDoMove(
-        position=[position2[0], position2[1] + 0.06, position2[2]],
-        duration=2,
-        speed_based=False,
-    )
-    robot.WaitDo()
-    robot.IKTargetDoMove(
-        position=[position1[0], position1[1], position1[2]+1],
-        duration=2,
-        speed_based=False,
-    )
-    env.step(300)
+    for i in range(200):
+        robot.SetJointVelocity([0, 0, 0, -0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+        env.step()
+
+    for i in range(200):
+        robot.SetJointVelocity([0, 0, 0, -0.5, -0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+        env.step()
+    
+    for i in range(200):
+        robot.SetJointVelocity([0, 0, 0, -0.5, -0.5, -0.5, 0, 0, 0, 0, 0, 0, 0, 0])
+        env.step()
+    
     
     """
         The Stretch's movement speed is related to the time in the step() method, as well as the defined distance and speed.
@@ -128,7 +126,7 @@ def _main(use_graphics=False):
 
     # Additional simulation logic can be added here
     # For example:
-    # print("Force", sponge.GetForce())
+    print("Force", sponge.GetForce())
     env.step()
 
 if __name__ == "__main__":
