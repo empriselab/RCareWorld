@@ -19,6 +19,9 @@ class BathingEnv(RCareWorld):
     _robot_id: int = 221582
     _camera_id: int = 654321
     _sponge_id: int = 91846
+    _bed_id: int = 758554
+    _drawer_id: int = 758666
+    _person_id: int = 573920
 
     def __init__(self, executable_file=str(_DEFAULT_EXECUTABLE_PATH), *args, **kwargs):
         super().__init__(executable_file=executable_file, *args, **kwargs)

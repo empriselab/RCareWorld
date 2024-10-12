@@ -20,7 +20,7 @@ def _bathing_env_fixture():
     env.close()
 
 
-def test_bathing_stretch_move_commands(bathing_env):
+def test_bathing_stretch_move_commands(bathing_env: BathingEnv):
     """Tests for turning and moving the stretch base in the bathing env."""
 
     num_steps_per_command = 300
@@ -62,3 +62,42 @@ def test_bathing_stretch_move_commands(bathing_env):
     new_robot_base_rotation = robot.data["rotations"][0].copy()
     expected_robot_base_rotation = np.add(robot_base_rotation, (0.0, 90.0, 0))
     assert euler_angles_allclose(new_robot_base_rotation, expected_robot_base_rotation, atol=5.0)
+
+def test_bathing_collision(bathing_env: BathingEnv):
+    """
+    Test for collision detection using GetCurrentCollisionPairs in the bathing env.
+    """
+
+    num_steps_per_command = 500
+    robot = bathing_env.get_robot()
+
+    # Drive against bed.
+    robot.MoveBack(6, 0.5)
+
+    bathing_env.step(num_steps_per_command)
+
+    bathing_env.GetCurrentCollisionPairs()
+    bathing_env.step()
+    assert len(bathing_env.data["collision_pairs"]) > 0
+    assert 221582 in bathing_env.data["collision_pairs"][0]
+    assert 758554 in bathing_env.data["collision_pairs"][0]
+    
+    # Drive against drawer.
+    robot.MoveForward(6, 0.5)
+
+    bathing_env.step(num_steps_per_command)
+
+    bathing_env.GetCurrentCollisionPairs()
+    bathing_env.step()
+    assert len(bathing_env.data["collision_pairs"]) > 0 
+    assert 221582 in bathing_env.data["collision_pairs"][0]
+    assert 758666 in bathing_env.data["collision_pairs"][0]
+
+    # Drive away from drawer.
+    robot.MoveBack(0.5, 0.5)
+
+    bathing_env.step(num_steps_per_command)
+
+    bathing_env.GetCurrentCollisionPairs()
+    bathing_env.step()
+    assert len(bathing_env.data["collision_pairs"]) == 0
