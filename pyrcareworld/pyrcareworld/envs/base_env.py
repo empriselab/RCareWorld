@@ -559,7 +559,7 @@ class RCareWorld(ABC):
 
     def GetCurrentCollisionPairs(self) -> None:
         """
-        Get the collision pairs of current collisions. After calling this method and stepping once, the result will be saved in env.data['CurrentCollisionPairs'].
+        Get the collision pairs of current collisions. After calling this method and stepping once, the result will be saved in env.data['collision_pairs'].
         """
         self._send_env_data("GetCurrentCollisionPairs")
 
