@@ -115,17 +115,17 @@ def test_target_angle_drive(bathing_env: BathingEnv):
         bathing_env.step()
 
     new_robot_base_position = robot.data["positions"][0].copy()
-    expected_robot_base_position = np.add(robot_base_position, (0, 0, 0.15))
-    assert np.allclose(new_robot_base_position, expected_robot_base_position, atol=0.05)
+    expected_robot_base_position = np.add(robot_base_position, (0, 0, 0.06))
+    assert np.allclose(new_robot_base_position, expected_robot_base_position, atol=0.03)
 
     # Drive backward by setting left and right velocities.
     robot_base_position = robot.data["positions"][0].copy()
     for _ in range(num_steps_per_command):
-        robot.TargetVelocity(0.1, -0.1)
+        robot.TargetVelocity(-0.1, -0.1)
         bathing_env.step()
 
     new_robot_base_position = robot.data["positions"][0].copy()
-    expected_robot_base_position = np.add(robot_base_position, (0, 0, -0.15))
+    expected_robot_base_position = np.add(robot_base_position, (0, 0, -0.12))
     assert np.allclose(new_robot_base_position, expected_robot_base_position, atol=0.05)
 
     # Drive left by setting left and right velocities.
@@ -135,7 +135,7 @@ def test_target_angle_drive(bathing_env: BathingEnv):
         bathing_env.step()
 
     new_robot_base_rotation = robot.data["rotations"][0].copy()
-    expected_robot_base_rotation = np.add(robot_base_rotation, (0, -15, 0))
+    expected_robot_base_rotation = np.add(robot_base_rotation, (0, -20, 0))
     assert euler_angles_allclose(new_robot_base_rotation, expected_robot_base_rotation, atol=5.0)
 
     # Drive right by setting left and right velocities.
@@ -145,5 +145,5 @@ def test_target_angle_drive(bathing_env: BathingEnv):
         bathing_env.step()
 
     new_robot_base_rotation = robot.data["rotations"][0].copy()
-    expected_robot_base_rotation = np.add(robot_base_rotation, (0, 15, 0))
+    expected_robot_base_rotation = np.add(robot_base_rotation, (0, 20, 0))
     assert euler_angles_allclose(new_robot_base_rotation, expected_robot_base_rotation, atol=5.0)
