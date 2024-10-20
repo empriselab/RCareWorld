@@ -101,3 +101,45 @@ def test_bathing_collision(bathing_env: BathingEnv):
     bathing_env.GetCurrentCollisionPairs()
     bathing_env.step()
     assert len(bathing_env.data["collision_pairs"]) == 0
+
+def test_target_angle_drive(bathing_env: BathingEnv):
+    """Tests for movement using `.TargetVelocity()` on the robot."""
+
+    robot = bathing_env.get_robot()
+    num_steps_per_command = 300
+
+    robot_base_position = robot.data["positions"][0].copy()
+    # Drive forward by setting left and right velocities.
+    robot.TargetVelocity(0.1, 0.1)
+    bathing_env.step(num_steps_per_command)
+
+    new_robot_base_position = robot.data["positions"][0].copy()
+    expected_robot_base_position = np.add(robot_base_position, (0, 0, 0.15))
+    assert np.allclose(new_robot_base_position, expected_robot_base_position, atol=0.05)
+
+    # Drive backward by setting left and right velocities.
+    robot_base_position = robot.data["positions"][0].copy()
+    robot.TargetVelocity(0.1, -0.1)
+    bathing_env.step(num_steps_per_command)
+
+    new_robot_base_position = robot.data["positions"][0].copy()
+    expected_robot_base_position = np.add(robot_base_position, (0, 0, -0.15))
+    assert np.allclose(new_robot_base_position, expected_robot_base_position, atol=0.05)
+
+    # Drive left by setting left and right velocities.
+    robot_base_rotation = robot.data["rotations"][0].copy()
+    robot.TargetVelocity(-0.1, 0.1)
+    bathing_env.step(num_steps_per_command)
+
+    new_robot_base_rotation = robot.data["rotations"][0].copy()
+    expected_robot_base_rotation = np.add(robot_base_rotation, (0, -15, 0))
+    assert euler_angles_allclose(new_robot_base_rotation, expected_robot_base_rotation, atol=5.0)
+
+    # Drive right by setting left and right velocities.
+    robot_base_rotation = robot.data["rotations"][0].copy()
+    robot.TargetVelocity(0.1, -0.1)
+    bathing_env.step(num_steps_per_command)
+
+    new_robot_base_rotation = robot.data["rotations"][0].copy()
+    expected_robot_base_rotation = np.add(robot_base_rotation, (0, 15, 0))
+    assert euler_angles_allclose(new_robot_base_rotation, expected_robot_base_rotation, atol=5.0)
