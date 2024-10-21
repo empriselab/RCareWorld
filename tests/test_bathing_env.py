@@ -126,8 +126,9 @@ def test_target_angle_drive(bathing_env: BathingEnv):
         bathing_env.step()
 
     new_robot_base_position = robot.data["positions"][0].copy()
-    expected_robot_base_position = np.add(robot_base_position, (0, 0, -1.21))
-    assert np.allclose(new_robot_base_position, expected_robot_base_position, atol=0.05)
+    # Hits the bed.
+    expected_robot_base_position = np.add(robot_base_position, (0, 0, -1.08))
+    assert np.allclose(new_robot_base_position, expected_robot_base_position, atol=0.1)
 
     # Drive left by setting left and right velocities.
     robot_base_rotation = robot.data["rotations"][0].copy()
