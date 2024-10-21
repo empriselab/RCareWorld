@@ -82,6 +82,8 @@ class ControllerAttr(attr.ColliderAttr):
         """
         Set the joint stiffness for each moveable joint.
 
+        The default stiffness on each joint is 100000.
+
         :param joint_stiffness: A list of float, each moveable joint stiffness.
         """
         joint_stiffness = [float(i) for i in joint_stiffness]
@@ -90,6 +92,8 @@ class ControllerAttr(attr.ColliderAttr):
     def SetJointDamping(self, joint_damping: list):
         """
         Set the joint damping for each moveable joint.
+
+        The default damping on each joint is 9000.
 
         :param joint_damping: A list of float, each moveable joint damping.
         """
@@ -111,6 +115,8 @@ class ControllerAttr(attr.ColliderAttr):
         """
         Set the joint velocity for each moveable joint.
 
+        NOTE: To make robot directly obey joint velocity, you must set the stiffness of each joint to 0 and the damping to 1e+25 (or some other very large number). This is because the robot in Unity has a default target position of 0 on each joint.
+
         :param joint_velocitys: A list of float, representing the target joint velocities.
         """
         joint_velocitys = [float(i) for i in joint_velocitys]
@@ -119,6 +125,8 @@ class ControllerAttr(attr.ColliderAttr):
     def SetIndexJointVelocity(self, index: int, joint_velocity: float):
         """
         Set the target joint velocity for a given joint.
+
+        NOTE: To make robot directly obey joint velocity, you must set the stiffness of each joint to 0 and the damping to 1e+25 (or some other very large number). This is because the robot in Unity has a default target position of 0 on each joint.
 
         :param index: Int, joint index.
         :param joint_velocity: A list of float, representing the target joint velocities.
