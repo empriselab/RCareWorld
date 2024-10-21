@@ -154,7 +154,7 @@ class RCareWorld(ABC):
         try:
             attr_type = attr.attrs[this_object_type]
         except Exception as e:
-            print(f"An error occurred: {e}")
+            print(f"An error occurred with attribute recognition: {e}")
             return
 
         if this_object_id not in self.attrs:
