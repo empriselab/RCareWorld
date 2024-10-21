@@ -102,7 +102,8 @@ def test_bathing_collision(bathing_env: BathingEnv):
     bathing_env.step()
     assert len(bathing_env.data["collision_pairs"]) == 0
 
-def test_seed(bathing_env: BathingEnv):
+@pytest.mark.repeat(3)
+def test_seed():
     """Test for the seed."""
 
     env = BathingEnv(graphics=False, seed=100)    

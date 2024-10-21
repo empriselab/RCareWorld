@@ -4,6 +4,7 @@ requests
 open3d
 pandas
 pytest>=7.2.2
+pytest-repeat
 
 # gym==0.21.0
 # cloudpickle
