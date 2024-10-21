@@ -111,7 +111,7 @@ def test_target_angle_drive(bathing_env: BathingEnv):
     # Drive forward by setting left and right velocities.
     robot_base_position = robot.data["positions"][0].copy()
     for _ in range(num_steps_per_command):
-        robot.TargetVelocity(0.1, 0.1)
+        robot.TargetVelocity(0.5, 0.5)
         bathing_env.step()
 
     new_robot_base_position = robot.data["positions"][0].copy()
