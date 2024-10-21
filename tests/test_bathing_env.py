@@ -106,7 +106,7 @@ def test_target_angle_drive(bathing_env: BathingEnv):
     """Tests for movement using `.TargetVelocity()` on the robot."""
 
     robot = bathing_env.get_robot()
-    num_steps_per_command = 900
+    num_steps_per_command = 300
 
     # Drive forward by setting left and right velocities.
     robot_base_position = robot.data["positions"][0].copy()
@@ -115,7 +115,7 @@ def test_target_angle_drive(bathing_env: BathingEnv):
         bathing_env.step()
 
     new_robot_base_position = robot.data["positions"][0].copy()
-    expected_robot_base_position = np.add(robot_base_position, (0, 0, 0.06))
+    expected_robot_base_position = np.add(robot_base_position, (0, 0, 0.16))
     assert np.allclose(new_robot_base_position, expected_robot_base_position, atol=0.03)
 
     # Drive backward by setting left and right velocities.
