@@ -4,6 +4,7 @@ from pyrcareworld.attributes.gameobject_attr import GameObjectAttr
 from pyrcareworld.attributes.light_attr import LightAttr
 from pyrcareworld.attributes.collider_attr import ColliderAttr
 from pyrcareworld.attributes.controller_attr import ControllerAttr
+from pyrcareworld.attributes.person_randomizer_attr import PersonRandomizerAttr
 from pyrcareworld.attributes.rigidbody_attr import RigidbodyAttr
 from pyrcareworld.attributes.cloth_attr import ClothAttr
 from pyrcareworld.attributes.pointcloud_attr import PointCloudAttr
@@ -48,5 +49,6 @@ attrs = {
 "BathingScoreAttr": BathingScoreAttr,
 "DressingScoreAttr": DressingScoreAttr,
 "SpongeAttr": SpongeAttr,
+"PersonRandomizerAttr": PersonRandomizerAttr,
 # "OMPLManagerAttr": OMPLManagerAttr
 }
