@@ -151,7 +151,7 @@ def test_target_angle_turn(bathing_env: BathingEnv):
     # Drive right by setting left and right velocities.
     robot_base_rotation = robot.data["rotations"][0].copy()
     for _ in range(num_steps_per_command):
-        robot.TargetVelocity(0.5, -0.5)
+        robot.TargetVelocity(0.25, -0.25)
         bathing_env.step()
 
     new_robot_base_rotation = robot.data["rotations"][0].copy()
