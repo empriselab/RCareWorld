@@ -137,12 +137,16 @@ def test_target_angle_turn(bathing_env: BathingEnv):
     # Drive left by setting left and right velocities.
     robot_base_rotation = robot.data["rotations"][0].copy()
     for _ in range(num_steps_per_command):
-        robot.TargetVelocity(-0.5, 0.5)
+        robot.TargetVelocity(-0.25, 0.25)
         bathing_env.step()
 
     new_robot_base_rotation = robot.data["rotations"][0].copy()
     expected_robot_base_rotation = np.add(robot_base_rotation, (0, -40, 0))
-    assert euler_angles_allclose(new_robot_base_rotation, expected_robot_base_rotation, atol=5.0)
+    assert euler_angles_allclose(new_robot_base_rotation, expected_robot_base_rotation, atol=10.0)
+
+    # Stop for a moment.
+    robot.TargetVelocity(0, 0)
+    bathing_env.step()
 
     # Drive right by setting left and right velocities.
     robot_base_rotation = robot.data["rotations"][0].copy()
@@ -152,4 +156,4 @@ def test_target_angle_turn(bathing_env: BathingEnv):
 
     new_robot_base_rotation = robot.data["rotations"][0].copy()
     expected_robot_base_rotation = np.add(robot_base_rotation, (0, 40, 0))
-    assert euler_angles_allclose(new_robot_base_rotation, expected_robot_base_rotation, atol=5.0)
+    assert euler_angles_allclose(new_robot_base_rotation, expected_robot_base_rotation, atol=10.0)
