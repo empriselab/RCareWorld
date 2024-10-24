@@ -102,6 +102,17 @@ def test_bathing_collision(bathing_env: BathingEnv):
     bathing_env.step()
     assert len(bathing_env.data["collision_pairs"]) == 0
 
+@pytest.mark.repeat(3)
+def test_seed():
+    """Test for the seed."""
+
+    env = BathingEnv(graphics=False, seed=100)    
+
+    env.step(300)
+
+    personCollider = env.GetAttr(env._person_id)
+    assert np.allclose(personCollider.data['position'], [-0.703722656,1.19400001,-0.026099354], atol=1e-4)
+
 def test_target_angle_drive(bathing_env: BathingEnv):
     """Tests for movement using `.TargetVelocity()` on the robot."""
 
