@@ -112,3 +112,59 @@ def test_seed():
 
     personCollider = env.GetAttr(env._person_id)
     assert np.allclose(personCollider.data['position'], [-0.703722656,1.19400001,-0.026099354], atol=1e-4)
+
+def test_target_angle_drive(bathing_env: BathingEnv):
+    """Tests for movement using `.TargetVelocity()` on the robot."""
+
+    robot = bathing_env.get_robot()
+    num_steps_per_command = 300
+
+    # Drive forward by setting left and right velocities.
+    robot_base_position = robot.data["positions"][0].copy()
+    for _ in range(num_steps_per_command):
+        robot.TargetVelocity(0.5, 0.5)
+        bathing_env.step()
+
+    new_robot_base_position = robot.data["positions"][0].copy()
+    # Hits the drawer.
+    expected_robot_base_position = np.add(robot_base_position, (0, 0, 0.51))
+    assert np.allclose(new_robot_base_position, expected_robot_base_position, atol=0.03)
+
+    # Drive backward by setting left and right velocities.
+    robot_base_position = robot.data["positions"][0].copy()
+    for _ in range(num_steps_per_command):
+        robot.TargetVelocity(-0.5, -0.5)
+        bathing_env.step()
+
+    new_robot_base_position = robot.data["positions"][0].copy()
+    # Hits the bed.
+    expected_robot_base_position = np.add(robot_base_position, (0, 0, -1.08))
+    assert np.allclose(new_robot_base_position, expected_robot_base_position, atol=0.1)
+
+def test_target_angle_turn(bathing_env: BathingEnv):
+    robot = bathing_env.get_robot()
+    num_steps_per_command = 300
+
+    # Drive left by setting left and right velocities.
+    robot_base_rotation = robot.data["rotations"][0].copy()
+    for _ in range(num_steps_per_command):
+        robot.TargetVelocity(-0.25, 0.25)
+        bathing_env.step()
+
+    new_robot_base_rotation = robot.data["rotations"][0].copy()
+    expected_robot_base_rotation = np.add(robot_base_rotation, (0, -40, 0))
+    assert euler_angles_allclose(new_robot_base_rotation, expected_robot_base_rotation, atol=10.0)
+
+    # Stop for a moment.
+    robot.TargetVelocity(0, 0)
+    bathing_env.step()
+
+    # Drive right by setting left and right velocities.
+    robot_base_rotation = robot.data["rotations"][0].copy()
+    for _ in range(num_steps_per_command):
+        robot.TargetVelocity(0.25, -0.25)
+        bathing_env.step()
+
+    new_robot_base_rotation = robot.data["rotations"][0].copy()
+    expected_robot_base_rotation = np.add(robot_base_rotation, (0, 40, 0))
+    assert euler_angles_allclose(new_robot_base_rotation, expected_robot_base_rotation, atol=10.0)

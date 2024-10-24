@@ -219,6 +219,19 @@ class ControllerAttr(attr.ColliderAttr):
         :param speed: Float, velocity.
         """
         self._send_data("TurnRight", float(angle), float(speed*100))
+
+    def TargetVelocity(self, vel_left: float = 0, vel_right: float = 0, duration: float = 0.1):
+        """
+        Sets the target velocity of the drive motors for a short time. If this is called while a different target velocity was set, it will be overwritten and the duration refreshed.
+
+        WARNING: May not work identically across different computers, depending on the framerate the simulation runs at.
+
+        :param vel_left: Float, left motor velocity.
+        :param vel_right: Float, right motor velocity.
+        :param duration: Float, duration in seconds. Default 0.1s.
+        """
+        self._send_data("TargetVelocity", float(vel_left), float(vel_right), float(duration))
+
         
     def StopMovement(self):
         """
