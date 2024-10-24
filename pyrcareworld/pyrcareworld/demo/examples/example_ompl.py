@@ -50,6 +50,7 @@ ompl_manager.modify_robot(123456)
 env.step()
 
 start_state = [0.0, -45.0, 0.0, -135.0, 0.0, 90.0, 45.0]
+# target_state = [6.0, -45.0, 0.0, -135.0, 0.0, 90.0, 45.0]
 # target_state = [ompl_manager.joint_upper_limit[j] * 0.9 for j in range(ompl_manager.joint_num)]
 target_state = [
     6.042808,
@@ -61,7 +62,7 @@ target_state = [
     -139.2552,
 ]
 
-planner = rfu_ompl.RFUOMPL(ompl_manager, time_unit=5)
+planner = rfu_ompl.RFUOMPL(ompl_manager, time_unit=10)
 
 ompl_manager.set_state(start_state)
 env.step(50)

@@ -61,6 +61,8 @@ class OmplManagerAttr(attr.BaseAttr):
 
         :return: List of current joint values.
         """
+        print("get_cur_state")
+        print(self.state)
         return copy.deepcopy(self.state)
 
     def set_state(self, state):
@@ -153,6 +155,7 @@ class RFUOMPL:
         self.si = self.ss.getSpaceInformation()
 
         self.set_planner("InformedRRTstar")
+        print("init")
 
     def is_state_valid(self, state):
         """
@@ -202,6 +205,7 @@ class RFUOMPL:
         :param allowed_time: Float, allowed planning time.
         :return: Tuple of (Bool, list of states)
         """
+        print("plan_start_goal")
         if allowed_time is None:
             allowed_time = self.time_unit
 
@@ -209,6 +213,7 @@ class RFUOMPL:
         print(self.planner.params())
 
         orig_robot_state = self.manager.get_cur_state()
+        print("orig_robot_state")
 
         s = ob.State(self.space)
         g = ob.State(self.space)
@@ -217,6 +222,7 @@ class RFUOMPL:
             g[i] = goal[i]
 
         self.ss.setStartAndGoalStates(s, g)
+        print("setStartAndGoalStates")
 
         res = False
         self.ss.solve(allowed_time)
