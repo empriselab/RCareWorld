@@ -22,7 +22,7 @@ from pyrcareworld.attributes.cloth_grasper_attr import ClothGrasperAttr
 from pyrcareworld.attributes.bathing_score_attr import BathingScoreAttr
 from pyrcareworld.attributes.dressing_score_attr import DressingScoreAttr
 from pyrcareworld.attributes.sponge_attr import SpongeAttr
-# from pyrcareworld.attributes.omplmanager_attr import OMPLManagerAttr
+from pyrcareworld.attributes.omplmanager_attr import OmplManagerAttr
 from pyrcareworld.attributes.sponge_score_attr import SpongeScoreAttr
 
 
@@ -50,5 +50,5 @@ attrs = {
 "DressingScoreAttr": DressingScoreAttr,
 "SpongeAttr": SpongeAttr,
 "PersonRandomizerAttr": PersonRandomizerAttr,
-# "OMPLManagerAttr": OMPLManagerAttr
+"OmplManagerAttr": OmplManagerAttr
 }
