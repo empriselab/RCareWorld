@@ -37,7 +37,7 @@ env.SetTimeStep(0.005)
 robot = env.InstanceObject(name="kinova_gen3_robotiq85", id=123456, attr_type=attr.ControllerAttr)
 robot.SetPosition([0,0,0])
 # robot.SetIKTargetOffset(position=[0, 0.105, 0])
-env.step()
+env.step(500)
 
 # Get the gripper attribute and open the gripper
 gripper = env.GetAttr(1234560)
