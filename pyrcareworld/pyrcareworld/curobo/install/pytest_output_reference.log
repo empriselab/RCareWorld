@@ -1,0 +1,60 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.16, pytest-8.3.5, pluggy-1.5.0
+rootdir: /home/dell/rcare/phyrc/pyrcareworld/pyrcareworld/curobo/curobo
+configfile: pyproject.toml
+plugins: repeat-0.9.4, dash-3.0.3, anyio-4.9.0
+collected 264 items / 4 skipped
+
+tests/cost_test.py .                                                     [  0%]
+tests/cuda_graph_test.py .                                               [  0%]
+tests/cuda_robot_generator_test.py ....                                  [  2%]
+tests/curobo_robot_world_model_test.py ............                      [  6%]
+tests/curobo_version_test.py .                                           [  7%]
+tests/geom_test.py ......                                                [  9%]
+tests/geom_types_test.py ......                                          [ 11%]
+tests/goal_test.py ..                                                    [ 12%]
+tests/ik_config_test.py ....                                             [ 14%]
+tests/ik_module_test.py ......                                           [ 16%]
+tests/ik_test.py .....                                                   [ 18%]
+tests/interpolation_test.py .                                            [ 18%]
+tests/kinematics_test.py .......                                         [ 21%]
+tests/mimic_joint_test.py ..                                             [ 21%]
+tests/motion_gen_api_test.py ...                                         [ 23%]
+tests/motion_gen_constrained_test.py ............................        [ 33%]
+tests/motion_gen_cuda_graph_test.py .............                        [ 38%]
+tests/motion_gen_eval_test.py ......                                     [ 40%]
+tests/motion_gen_goalset_test.py ...                                     [ 42%]
+tests/motion_gen_js_test.py ......                                       [ 44%]
+tests/motion_gen_module_test.py ...sss.s.....sss..........               [ 54%]
+tests/motion_gen_speed_test.py ..........................                [ 64%]
+tests/motion_gen_test.py ...                                             [ 65%]
+tests/mpc_test.py .....                                                  [ 67%]
+tests/multi_pose_test.py ......                                          [ 69%]
+tests/pose_reaching_test.py ..                                           [ 70%]
+tests/pose_test.py ..                                                    [ 70%]
+tests/robot_assets_test.py ...............                               [ 76%]
+tests/robot_config_test.py ...                                           [ 77%]
+tests/robot_world_model_test.py ............                             [ 82%]
+tests/self_collision_test.py ......                                      [ 84%]
+tests/trajopt_config_test.py ....                                        [ 85%]
+tests/trajopt_test.py ..........                                         [ 89%]
+tests/voxel_collision_test.py .........                                  [ 93%]
+tests/voxelization_test.py ..........                                    [ 96%]
+tests/warp_mesh_test.py ...                                              [ 98%]
+tests/world_config_test.py ...                                           [ 99%]
+tests/xrdf_test.py ..                                                    [100%]
+
+=============================== warnings summary ===============================
+tests/pose_test.py::test_pose_transform_point_grad
+  /home/dell/miniconda3/envs/rcareworld/lib/python3.10/site-packages/torch/autograd/gradcheck.py:919: UserWarning: Input #0 requires gradient and is not a double precision floating point or complex. This check will likely fail if all the inputs are not of double precision floating point or complex. 
+    warnings.warn(
+
+tests/pose_test.py::test_pose_transform_point_grad
+  /home/dell/miniconda3/envs/rcareworld/lib/python3.10/site-packages/torch/autograd/gradcheck.py:919: UserWarning: Input #1 requires gradient and is not a double precision floating point or complex. This check will likely fail if all the inputs are not of double precision floating point or complex. 
+    warnings.warn(
+
+tests/xrdf_test.py: 12 warnings
+    matrix = origin @ tra.rotation_matrix(float(q), joint.axis)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========== 257 passed, 11 skipped, 14 warnings in 253.00s (0:04:12) ===========
