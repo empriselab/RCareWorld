@@ -47,7 +47,7 @@ class KinovaCuroboGrasp:
             "collision_table.yml",
             self.tensor_args,
             trajopt_tsteps=32,
-            interpolation_dt=0.01,
+            interpolation_dt=0.02,
             collision_cache={"obb": 10, "mesh": 10},
         )
         self.motion_gen = MotionGen(self.motion_gen_config)
@@ -179,7 +179,7 @@ class KinovaCuroboGrasp:
         
         print("Pick and place cycle completed")
         
-    def run(self, num_cycles=10):
+    def run(self, num_cycles=1):
         """Run pick and place cycles for specified number of times"""
         print(f"Starting {num_cycles} pick and place cycles...")
         try:
@@ -259,5 +259,5 @@ class KinovaCuroboGrasp:
 if __name__ == "__main__":
     print("Starting KinovaCuroboGrasp program...")
     controller = KinovaCuroboGrasp()
-    controller.run(num_cycles=10)
+    controller.run(num_cycles=1)
     print("Program execution completed!")
