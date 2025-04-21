@@ -25,4 +25,7 @@ conda install -c conda-forge ninja libstdcxx-ng
 # check curobo
 python3 -m pytest . > pytest_results.log 2>&1
 # Check the output log against install-pytest_output_reference.log. The reference log shows successful execution with some warnings but no errors.
+
+# consistency diffusion
+pip install h5py
 ```
