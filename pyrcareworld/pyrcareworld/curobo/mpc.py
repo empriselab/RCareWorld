@@ -1,7 +1,6 @@
 import os
 import sys
 import time
-import random
 import numpy as np
 import torch
 import math
@@ -10,227 +9,331 @@ from curobo.types.math import Pose
 from curobo.types.robot import JointState
 from curobo.geom.types import WorldConfig
 from curobo.geom.sdf.world import CollisionCheckerType
-from curobo.geom.types import WorldConfig
 from curobo.rollout.rollout_base import Goal
 from curobo.wrap.reacher.mpc import MpcSolver, MpcSolverConfig
 from pyrcareworld.envs.base_env import RCareWorld
 
-class KinovaCuRoboMPCTracker:
-    def __init__(self):
-        # Initialize RCareWorld and robot
-        print("Initializing RCareWorld environment...")
+class KinovaCuRoboTracker:
+    """
+    A class that implements a Kinova robot tracking a cube using CuRobo's MPC controller.
+    Similar to the Storm-kit implementation but using CuRobo API instead.
+    """
+    
+    def __init__(self, robot_file="kinova_gen3.yml", world_file="collision_table.yml", move_cube=False):
+        """
+        Initialize the Kinova CuRobo tracker.
+        
+        Args:
+            robot_file: Configuration file for the robot
+            world_file: Configuration file for the world
+            move_cube: Whether the cube should move automatically
+        """
+        # Initialize RCare environment
         self.env = RCareWorld()
         self.env.step(10)
-        self.robot = self.env.GetAttr(315893)
+        self.robot = self.env.GetAttr(315893)  # Get robot by ID
         self.env.step(10)
-        self.robot.SetPosition([0, 0, 0])
-        self.env.step(10)
-
-        print("Setting initial robot pose...")
-        self.robot.IKTargetDoMove(position=[0, 0.5, 0.5], duration=0, speed_based=False)
-        self.robot.IKTargetDoRotate(rotation=[0, 45, 180], duration=0, speed_based=False)
-        self.robot.WaitDo()
-        self.env.step(10)
-        print("Initialization complete!")
-
-        # Initialize CuRobo MPC
-        self.tensor_args = TensorDeviceType()
         
+        # Initialize tensor arguments for CuRobo
+        self.tensor_args = TensorDeviceType(device="cuda:0", dtype=torch.float32)
+        
+        # Initialize MPC controller
+        self.setup_mpc_controller(robot_file, world_file)
+        
+        # Create the cube object
+        self.setup_cube_objects()
+        
+        # Initialize trajectory parameters
+        self.trajectory_params = {
+            'center': [0.0, 0.05, 0.5],  # 轨迹中心
+            'radius': 0.3,               # 圆形轨迹半径
+            'speed': 0.5,                # 移动速度（弧度/秒）
+            'current_angle': 0,          # 当前角度
+            'target_height': 0.05,       # 目标高度（Y值）
+            'move_cube': move_cube       # 是否移动cube
+        }
+        
+        # Set initial position
+        self.set_initial_position()
+    
+    def setup_mpc_controller(self, robot_file, world_file):
+        """Setup the CuRobo MPC controller"""
         print("Initializing CuRobo MPC controller...")
-        robot_file = "franka.yml"  # Using Franka model as a substitute for Kinova
-        world_file = "collision_table.yml"
-
+        
+        # Create MPC configuration
         mpc_config = MpcSolverConfig.load_from_robot_config(
             robot_file,
             world_file,
             use_cuda_graph=True,
             use_cuda_graph_metrics=True,
-            use_cuda_graph_full_step=False,
-            self_collision_check=True,
             collision_checker_type=CollisionCheckerType.PRIMITIVE,
+            self_collision_check=True,
+            collision_activation_distance=0.03,
             use_mppi=True,
             use_lbfgs=False,
             use_es=False,
-            store_rollouts=True,
             step_dt=0.02,
+            store_rollouts=True,
         )
+        
+        # Create MPC solver
         self.mpc = MpcSolver(mpc_config)
+        
+        # Get joint names
         self.joint_names = self.mpc.rollout_fn.joint_names
+        print(f"Robot joint names: {self.joint_names}")
         
-        # Initialize robot position
-        retract_cfg = self.mpc.rollout_fn.dynamics_model.retract_config.clone().unsqueeze(0)
+        # Get retract configuration
+        self.retract_cfg = self.mpc.rollout_fn.dynamics_model.retract_config.clone().unsqueeze(0)
         
-        state = self.mpc.rollout_fn.compute_kinematics(
-            JointState.from_position(retract_cfg, joint_names=self.joint_names)
-        )
-        self.current_state = JointState.from_position(retract_cfg, joint_names=self.joint_names)
+        # Initialize current state
+        self.current_state = JointState.from_position(self.retract_cfg, joint_names=self.joint_names)
+        
+        # Initialize goal buffer
+        state = self.mpc.rollout_fn.compute_kinematics(self.current_state)
         retract_pose = Pose(state.ee_pos_seq, quaternion=state.ee_quat_seq)
+        
         goal = Goal(
             current_state=self.current_state,
-            goal_state=JointState.from_position(retract_cfg, joint_names=self.joint_names),
+            goal_state=JointState.from_position(self.retract_cfg, joint_names=self.joint_names),
             goal_pose=retract_pose,
         )
-
+        
         self.goal_buffer = self.mpc.setup_solve_single(goal, 1)
         self.mpc.update_goal(self.goal_buffer)
+        
+        # Do an initial step
         mpc_result = self.mpc.step(self.current_state, max_attempts=2)
-
-        # Create cube object
-        self.cube = self.env.GetAttr(1)  # Get cube with ID 1
+        
+        print("CuRobo MPC controller initialized.")
+    
+    def setup_cube_objects(self):
+        """Create the cube objects in the environment"""
+        print("Creating cube objects...")
+        
+        # Try to get the original cube
+        self.cube = self.env.GetAttr(1)
+        
+        # If original cube not found, create a new one
         if self.cube is None:
-            print("Warning: Cube with ID 1 not found, creating new cube...")
             try:
-                # Try to create a new cube
                 self.cube = self.env.CreateEntity("cube", "rcw::basic_shape::box", overwrite=True)
                 self.cube.SetTransform(
-                    position=[0.0, 0.03, 0.5],
-                    scale=[0.02, 0.02, 0.02],
+                    position=[0.0, 0.5, 0.5],
+                    scale=[0.05, 0.05, 0.05],
                 )
             except Exception as e:
                 print(f"Failed to create cube: {e}")
                 sys.exit(1)
         
-        # Set parameters for cube trajectory
-        self.trajectory_params = {
-            'center': [0.0, 0.03, 0.5],  # Trajectory center
-            'radius_x': 0.3,             # X-axis radius
-            'radius_z': 0.2,             # Z-axis radius
-            'speed': 0.5,                # Movement speed (radians/s)
-            'current_angle': 0,          # Current angle
-            'target_height': 0.03,       # Target height (Y value)
-        }
-        
-        print("CuRobo MPC initialization complete.")
-
-    def get_joint_state(self):
-        """Get current robot joint state"""
-        joint_pos_deg = self.robot.data['joint_positions']
-        joint_pos_rad = [np.deg2rad(x) for x in joint_pos_deg]
-        return JointState.from_position(
-            torch.tensor(joint_pos_rad, dtype=torch.float32, device=self.tensor_args.device).unsqueeze(0), 
-            joint_names=self.joint_names
+        # Create a copy of the cube for movement
+        self.moving_cube = self.cube.Copy(111111)  # unique ID
+        self.moving_cube.SetTransform(
+            position=[0.0, 0.05, 0.5],
+            scale=[0.05, 0.05, 0.05],
         )
+        self.env.step(20)
+        
+        print("Cube objects created.")
+    
+    def set_initial_position(self):
+        """Set the initial position of the robot"""
+        print("Setting initial robot position...")
+        
+        self.robot.EnabledNativeIK(False)
+        self.env.step()
+        # Move robot to initial position
+        self.robot.IKTargetDoMove(position=[0, 0.5, 0.5], duration=0.5, speed_based=False)
+        self.robot.IKTargetDoRotate(rotation=[0, 0, 180], duration=0.5, speed_based=False)
+        self.robot.WaitDo()
+        self.env.step(50)
 
-    def move_cube_along_trajectory(self, dt):
-        """Move cube along a smooth trajectory"""
+        self.robot.EnabledNativeIK(True)
+        self.env.step()
+        
+        print("Initial position set.")
+    
+    def get_robot_state(self):
+        """Get current robot joint state"""
+        try:
+            # Get joint positions in degrees and convert to radians
+            joint_positions = np.radians(np.array(self.robot.data['joint_positions']) % 360.)
+            
+            # Normalize joint angles to [-pi, pi]
+            for i in range(len(joint_positions)):
+                if joint_positions[i] > np.pi:
+                    joint_positions[i] = joint_positions[i] - (2 * np.pi)
+            
+            # Create JointState for CuRobo
+            joint_state = JointState.from_position(
+                torch.tensor(joint_positions, device=self.tensor_args.device, dtype=self.tensor_args.dtype).unsqueeze(0),
+                joint_names=self.joint_names
+            )
+            
+            # Compute forward kinematics
+            state = self.mpc.rollout_fn.compute_kinematics(joint_state)
+            
+            return joint_state, state
+            
+        except Exception as e:
+            print(f"Error in get_robot_state: {e}")
+            raise
+    
+    def calculate_cube_position(self, dt):
+        """Calculate new position for the cube along trajectory"""
         params = self.trajectory_params
         
-        # Update current angle
+        if not params['move_cube']:
+            return self.moving_cube.data['position']
+            
+        # 更新当前角度
         params['current_angle'] += params['speed'] * dt
         
-        # Calculate new position (elliptical trajectory)
-        x = params['center'][0] + params['radius_x'] * math.cos(params['current_angle'])
+        # 计算新位置（圆形轨迹）
+        x = params['center'][0] + params['radius'] * math.cos(params['current_angle'])
         y = params['target_height']
-        z = params['center'][2] + params['radius_z'] * math.sin(params['current_angle'])
+        z = params['center'][2] + params['radius'] * math.sin(params['current_angle'])
         
-        # Set cube position
-        self.cube.SetTransform(
-            position=[x, y, z],
-            scale=[0.02, 0.02, 0.02],
-        )
-        
-        # Return new position
         return [x, y, z]
-
-    def update_mpc_goal(self, target_position):
+    
+    def update_cube_position(self, position):
+        """Update the cube position in the environment"""
+        self.moving_cube.SetTransform(
+            position=position,
+            scale=[0.05, 0.05, 0.05],
+        )
+        self.env.step(1)  # Small step to update visuals
+        return position
+    
+    def update_target_pose(self, position):
         """Update MPC controller's target position"""
-        # Convert to curobo coordinate system
-        target_pos_curobo = target_position.copy()
-        target_pos_curobo[1] += 0.1  # Y-axis offset to keep robot end above cube
-        
-        # Use current orientation
-        target_quat_curobo = [1, 0, 0, 0]  # Default orientation
-        
-        # Update goal
-        ik_goal = Pose(
-            position=self.tensor_args.to_device(torch.tensor(target_pos_curobo, dtype=torch.float32)),
-            quaternion=self.tensor_args.to_device(torch.tensor(target_quat_curobo, dtype=torch.float32)),
-        )
-        self.goal_buffer.goal_pose.copy_(ik_goal)
-        self.mpc.update_goal(self.goal_buffer)
-        
-        return target_pos_curobo
-
-    def execute_step(self, current_joint_state, target_joint_positions):
-        """Execute one control step, moving robot joints to target positions"""
-        # Convert to degrees
-        joint_positions_deg = [np.rad2deg(x) for x in target_joint_positions.cpu().numpy()[0]]
-        
-        # Get end effector position from robot data
-        ee_position = self.robot.data['position']
-        
-        # Send control commands to robot using IKTargetDoMove
-        self.robot.IKTargetDoMove(
-            position=ee_position,
-            duration=0.5,  # Use a reasonable duration
-            speed_based=False
-        )
-        
-        # Wait for action to complete
-        self.robot.WaitDo()
-        self.env.step(5)  # Let environment run for a few steps
-
-    def run(self, max_iterations=1000, dt=0.05):
-        """Run MPC tracking control main loop"""
-        print(f"Starting tracking control, will run {max_iterations} iterations...")
-        
         try:
-            for i in range(max_iterations):
-                print(f"\nStarting cycle {i+1}...")
-                
-                # Phase 1: Move cube to new position
-                print("Moving cube to new position...")
-                cube_pos = self.move_cube_along_trajectory(dt)
-                self.env.step(100)  # Wait for cube movement to complete
-                
-                # Phase 2: Move robot above cube
-                print("Moving robot above cube...")
-                target_pos = self.update_mpc_goal(cube_pos)
-                current_joint_state = self.get_joint_state()
-                mpc_result = self.mpc.step(current_joint_state, max_attempts=1)
-                
-                if hasattr(mpc_result, 'action') and mpc_result.action is not None:
-                    self.execute_step(current_joint_state, mpc_result.action.position)
-                    self.env.step(1000)  # Wait for robot movement to complete
-                
-                # Phase 3: Move cube to new position
-                print("Moving cube to new position...")
-                cube_pos = self.move_cube_along_trajectory(dt)
-                self.env.step(100)  # Wait for cube movement to complete
-                
-                # Phase 4: Robot follows to new position
-                print("Robot following to new position...")
-                target_pos = self.update_mpc_goal(cube_pos)
-                current_joint_state = self.get_joint_state()
-                mpc_result = self.mpc.step(current_joint_state, max_attempts=1)
-                
-                if hasattr(mpc_result, 'action') and mpc_result.action is not None:
-                    self.execute_step(current_joint_state, mpc_result.action.position)
-                    self.env.step(1000)  # Wait for robot movement to complete
-                
-                print(f"Cycle {i+1} completed!")
-                
-                # Add a short pause between cycles
-                time.sleep(1.0)
-                
-        except KeyboardInterrupt:
-            print("\nExecution interrupted by user")
-        finally:
-            print("Cleaning up resources...")
-            self.close()
+            # Create target pose
+            # Adjust for height to position end-effector above the cube
+            target_position = position.copy()
+            target_position = [-target_position[0], -target_position[2], target_position[1]]
+            # target_position[1] += 0.2  # Offset in Y direction (height)
             
+            # Default downward-facing orientation (adjust as needed)
+            target_quaternion = [0, 0, 1, 0]  # Orientation pointing downward
+            
+            # Create pose object
+            target_pose = Pose(
+                position=torch.tensor(target_position, device=self.tensor_args.device, dtype=self.tensor_args.dtype),
+                quaternion=torch.tensor(target_quaternion, device=self.tensor_args.device, dtype=self.tensor_args.dtype),
+            )
+            
+            # Update goal buffer
+            self.goal_buffer.goal_pose.copy_(target_pose)
+            self.mpc.update_goal(self.goal_buffer)
+            
+            return target_position
+            
+        except Exception as e:
+            print(f"Error updating target pose: {e}")
+            raise
+    
+    def move_robot(self, joint_positions):
+        """Move robot to target joint positions"""
+        try:
+            # Convert to degrees for RCareWorld
+            joint_positions_deg = np.degrees(joint_positions.cpu().numpy()[0])
+            
+            # Send control commands
+            self.robot.SetJointPositionDirectly(joint_positions_deg)
+            self.env.step()
+            
+        except Exception as e:
+            print(f"Error moving robot: {e}")
+            raise
+    
+    def step(self, dt=0.02):
+        """Perform one control step"""
+        try:
+            cube_position = self.moving_cube.data['position']
+
+            self.env.step()
+            
+            # 3. 获取当前机器人状态
+            joint_state, _ = self.get_robot_state()
+            
+            # 4. 更新MPC的目标位置
+            target_position = self.update_target_pose(cube_position)
+            
+            # 5. 求解MPC并获取动作
+            mpc_result = self.mpc.step(joint_state, max_attempts=2)
+            
+            # 6. 应用动作到机器人
+            if hasattr(mpc_result, 'action') and mpc_result.action is not None:
+                # 打印调试信息
+                print(f"\nTarget position: {target_position}")
+                print(f"Current joint positions: {np.degrees(joint_state.position.cpu().numpy()[0])}")
+                print(f"New joint positions: {np.degrees(mpc_result.action.position.cpu().numpy()[0])}")
+                
+                self.move_robot(mpc_result.action.position)
+            
+            # 7. 获取更新后的机器人状态
+            joint_state, state = self.get_robot_state()
+            
+            # 8. 返回当前状态用于监控
+            return {
+                'cube_position': cube_position,
+                'target_position': target_position,
+                'current_ee_position': state.ee_pos_seq.cpu().numpy()[0],
+                'current_ee_orientation': state.ee_quat_seq.cpu().numpy()[0],
+                'joint_positions': joint_state.position.cpu().numpy()[0]
+            }
+            
+        except Exception as e:
+            print(f"Error in step: {e}")
+            raise
+    
     def close(self):
         """Close environment and release resources"""
+        if hasattr(self, 'moving_cube'):
+            self.moving_cube.Destroy()
         self.env.close()
-        print("Environment closed!")
+        print("Environment closed")
 
-if __name__ == "__main__":
+def track_cube_demo():
+    """Demo function to show cube tracking"""
     print("Starting Kinova CuRobo MPC tracking demonstration...")
     
     try:
-        tracker = KinovaCuRoboMPCTracker()
-        tracker.run(max_iterations=1000, dt=0.05)
+        # Create tracker
+        tracker = KinovaCuRoboTracker()
+        
+        # Run for some steps
+        for i in range(1000):
+            print(f"\nStep {i+1}:")
+            
+            # Perform one control step
+            result = tracker.step(dt=0.02)
+            
+            # Print information every few steps
+            if (i+1) % 10 == 0:
+                print("Cube position:", result['cube_position'])
+                print("Target position:", result['target_position'])
+                print("Current end-effector position:", result['current_ee_position'])
+                print("Position error:", np.linalg.norm(result['target_position'] - result['current_ee_position']))
+            
+            # Wait to visualize movement
+            # time.sleep(0.05)
+            
+            # Check for keyboard interrupt
+            if i % 10 == 0:
+                sys.stdout.write("Press Ctrl+C to stop...\r")
+                sys.stdout.flush()
+                
+    except KeyboardInterrupt:
+        print("\nDemonstration interrupted by user")
     except Exception as e:
-        print(f"Error occurred during execution: {e}")
+        print(f"Error in demonstration: {e}")
+    finally:
+        if 'tracker' in locals():
+            tracker.close()
     
     print("Demonstration completed!")
+
+if __name__ == "__main__":
+    track_cube_demo()
