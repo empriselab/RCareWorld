@@ -1,5 +1,6 @@
 import numpy as np
 import pyrcareworld.attributes as attr
+from scipy.spatial.transform import Rotation as R
 
 class CameraAttr(attr.BaseAttr):
     """
@@ -23,6 +24,53 @@ class CameraAttr(attr.BaseAttr):
         Make the camera in rcareworld align with the current view in GUI.
         """
         self._send_data("AlignView")
+    
+    def GetIntrinsic(self, width: int = 512, height: int = 512, fov: float = 60.0) -> np.ndarray:
+        """
+        Calculate the intrinsic camera matrix based on image size and field of view.
+
+        :param width: Image width in pixels.
+        :param height: Image height in pixels.
+        :param fov: Field of view in degrees.
+        :return: 3x3 numpy array representing the intrinsic matrix.
+        """
+        # Convert FOV from degrees to radians
+        fov_rad = np.deg2rad(fov)
+
+        # Calculate focal length in pixels
+        f = 0.5 * width / np.tan(0.5 * fov_rad)
+
+        # Assume principal point is at the image center
+        cx = width / 2
+        cy = height / 2
+
+        intrinsic_matrix = np.array([
+            [f, 0, cx],
+            [0, f, cy],
+            [0, 0, 1]
+        ])
+
+        return intrinsic_matrix
+    
+    def GetExtrinsic(self, position: np.ndarray, quaternion: np.ndarray) -> np.ndarray:
+        """
+        Calculate the camera extrinsic matrix from position and orientation (quaternion).
+
+        :param position: Camera position in world coordinates (3,).
+        :param quaternion: Camera orientation as a quaternion (x, y, z, w).
+        :return: 4x4 numpy array representing the extrinsic matrix.
+        """
+        # Convert quaternion to rotation matrix
+        rotation = R.from_quat(quaternion).as_matrix()
+
+        # Build the extrinsic matrix [R | t]
+        extrinsic = np.eye(4)
+        extrinsic[:3, :3] = rotation
+        extrinsic[:3, 3] = position
+
+        return extrinsic
+    
+
 
     def GetRGB(self, width: int = None, height: int = None, fov: float = 60.0, intrinsic_matrix: np.ndarray = None):
         """
