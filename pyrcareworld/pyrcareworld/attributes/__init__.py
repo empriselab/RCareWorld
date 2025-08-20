@@ -23,6 +23,7 @@ from pyrcareworld.attributes.bathing_score_attr import BathingScoreAttr
 from pyrcareworld.attributes.dressing_score_attr import DressingScoreAttr
 from pyrcareworld.attributes.sponge_attr import SpongeAttr
 from pyrcareworld.attributes.sponge_score_attr import SpongeScoreAttr
+from pyrcareworld.attributes.collision_force_attr import CollisionForceAttr
 
 # THIS IS AN OPTIONAL FUNCTION, WON'T AFFECT YOUR USE
 try:
@@ -55,6 +56,7 @@ attrs = {
 "DressingScoreAttr": DressingScoreAttr,
 "SpongeAttr": SpongeAttr,
 "PersonRandomizerAttr": PersonRandomizerAttr,
+"CollisionForceAttr": CollisionForceAttr,
 }
 
 if "OmplManagerAttr" in locals():
