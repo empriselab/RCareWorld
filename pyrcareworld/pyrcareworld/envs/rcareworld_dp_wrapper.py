@@ -50,26 +50,21 @@ class RCareWorldWrapper(RCareWorld, gym.Env):
         image_shape=(3, 512, 512),
         seed: int = 42
     ):
-        # Ensure unique port assignment
-        if proc_id > 0:
-            port = port + proc_id
+
         
         # Additional check: find an available port if the specified one is in use
         import socket
         original_port = port
-        max_attempts = 100
-        for attempt in range(max_attempts):
-            try:
-                # Test if port is available
-                test_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                test_socket.bind(("localhost", port))
-                test_socket.close()
-                break  # Port is available
-            except OSError:
-                # Port is in use, try next one
-                port += 1
-                if attempt == max_attempts - 1:
-                    raise RuntimeError(f"Could not find available port after {max_attempts} attempts starting from {original_port}")
+
+        try:
+            # Test if port is available
+            test_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            test_socket.bind(("localhost", port))
+            test_socket.close()
+        except OSError:
+            # Port is in use, try next one
+            port += 1
+            raise RuntimeError(f"Could not find available port after attempts starting from {original_port}")
         
         super().__init__(
             executable_file=executable_file,
