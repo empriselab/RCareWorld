@@ -16,9 +16,12 @@ Requirements:
 import sys
 import time
 
+<<<<<<< HEAD
 # # Add RCareWorld to Python path - modify as needed
 # sys.path.append('/home/dell/github/rcarew/pyrcareworld')
 
+=======
+>>>>>>> 397045b607452c2e6d799be3c96243509c779797
 from pyrcareworld.envs.base_env import RCareWorld
 from pyrcareworld.attributes.articulated_joint_attr import ArticulatedJointAttr
 
@@ -160,13 +163,25 @@ def main() -> None:
     """Main execution function."""
     # Configuration
     TARGET_ID = 250823  # Unity object ID to control
+    USE_REMOTE = False
     
     print("Initializing RCareWorld environment...")
+<<<<<<< HEAD
     env = RCareWorld()
         # bind_address="0.0.0.0",
         # remote_mode=True,
         # port=5004
     # )
+=======
+    if USE_REMOTE:
+        env = RCareWorld(
+            bind_address="0.0.0.0",
+                remote_mode=True,
+                port=5004
+            )
+    else:
+        env = RCareWorld()
+>>>>>>> 397045b607452c2e6d799be3c96243509c779797
     
     try:
         # Setup joint control
@@ -175,7 +190,7 @@ def main() -> None:
         
         # Enable control
         joint_ctrl.set_control_enabled(True)
-        joint_ctrl.set_log_interval(0.2)
+        joint_ctrl.set_log_interval(0.001)
         
         print("Connection established!")
         print("=== Simple Joint Control Test ===")
