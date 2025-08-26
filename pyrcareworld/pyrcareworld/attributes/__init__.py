@@ -25,6 +25,7 @@ from pyrcareworld.attributes.sponge_attr import SpongeAttr
 from pyrcareworld.attributes.sponge_score_attr import SpongeScoreAttr
 from pyrcareworld.attributes.collision_force_attr import CollisionForceAttr
 from pyrcareworld.attributes.articulated_joint_attr import ArticulatedJointAttr
+from pyrcareworld.attributes.arm_pose_iou_attr import ArmPoseIoUAttr
 
 # THIS IS AN OPTIONAL FUNCTION, WON'T AFFECT YOUR USE
 try:
@@ -59,6 +60,7 @@ attrs = {
 "PersonRandomizerAttr": PersonRandomizerAttr,
 "CollisionForceAttr": CollisionForceAttr,
 "ArticulatedJointAttr": ArticulatedJointAttr,
+"ArmPoseIoUAttr": ArmPoseIoUAttr,
 }
 
 if "OmplManagerAttr" in locals():
