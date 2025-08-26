@@ -176,7 +176,7 @@ def main() -> None:
         
         # Enable control
         joint_ctrl.set_control_enabled(True)
-        joint_ctrl.set_log_interval(0.2)
+        joint_ctrl.set_log_interval(0.001)
         
         print("Connection established!")
         print("=== Simple Joint Control Test ===")

@@ -97,11 +97,11 @@ def main() -> None:
     """Main execution function for arm pose IoU monitoring."""
     
     # Configuration
-    USE_REMOTE = False          # Set to True to bind to specific address
+    USE_REMOTE = True          # Set to True to bind to specific address
     BIND_ADDRESS = "0.0.0.0"    # Address to bind server (0.0.0.0 for all interfaces)
     PORT = 5004                 # RCareWorld port
     TARGET_ID = 250826          # Unity object ID with ArmPoseIoUAttr
-    UPDATE_INTERVAL = 5       # Seconds between updates
+    UPDATE_INTERVAL = 0.001       # Seconds between updates
     RECORD_TARGET_AT_STEP = 10  # Step to record target pose
     
     # Initialize RCareWorld environment

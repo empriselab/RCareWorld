@@ -441,7 +441,7 @@ def main() -> None:
     ENABLE_GIF_RECORDING = False    # Enable/disable GIF generation  
     ENABLE_MP4_RECORDING = False    # Enable/disable MP4 generation
     MAX_DATA_POINTS = 200          # Maximum points displayed on chart
-    UPDATE_INTERVAL = 0.1          # Seconds between data updates
+    UPDATE_INTERVAL = 0.001          # Seconds between data updates
     TARGET_ID = 250820             # Unity object ID to monitor
     USE_REMOTE = False
     
@@ -467,7 +467,7 @@ def main() -> None:
     try:
         # Configure collision force monitoring
         collision_obj = env.GetAttr(TARGET_ID).SetType(CollisionForceAttr)
-        collision_obj.set_detection_interval(0.5)
+        collision_obj.set_detection_interval(0.001)
         collision_obj.set_min_force_threshold(0.1)
         collision_obj.set_enable_logging(True)
         
