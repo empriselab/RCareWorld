@@ -6,7 +6,7 @@ in Unity through RCareWorld. It features a beautiful Catppuccin Latte themed
 matplotlib interface with optional GIF and MP4 recording capabilities.
 
 Usage:
-    python force_monitor.py
+    python test_collision_force.py
 
 Requirements:
     - Unity Editor running with RCareWorld
@@ -40,9 +40,6 @@ import queue
 import cv2
 import os
 from typing import Optional, List, Tuple
-
-# Add RCareWorld to Python path
-sys.path.append('/home/dell/github/rcarew/pyrcareworld')
 
 from pyrcareworld.envs.base_env import RCareWorld
 from pyrcareworld.attributes.collision_force_attr import CollisionForceAttr
@@ -440,15 +437,23 @@ def main() -> None:
     Modify the configuration constants below to customize behavior.
     """
     # Configuration constants - modify these to customize behavior
-    ENABLE_VISUALIZATION = True    # Enable/disable real-time plotting
-    ENABLE_GIF_RECORDING = True    # Enable/disable GIF generation  
-    ENABLE_MP4_RECORDING = True    # Enable/disable MP4 generation
+    ENABLE_VISUALIZATION = False    # Enable/disable real-time plotting
+    ENABLE_GIF_RECORDING = False    # Enable/disable GIF generation  
+    ENABLE_MP4_RECORDING = False    # Enable/disable MP4 generation
     MAX_DATA_POINTS = 200          # Maximum points displayed on chart
     UPDATE_INTERVAL = 0.1          # Seconds between data updates
     TARGET_ID = 250820             # Unity object ID to monitor
+    USE_REMOTE = False
     
     # Initialize RCareWorld environment (None = use Unity Editor)
-    env = RCareWorld(executable_file=None)
+    if USE_REMOTE:
+        env = RCareWorld(
+            bind_address="0.0.0.0",
+            remote_mode=True,
+            port=5004
+        )
+    else:
+        env = RCareWorld()
     
     # Initialize visualizer if enabled
     visualizer: Optional[ForceVisualizer] = None
