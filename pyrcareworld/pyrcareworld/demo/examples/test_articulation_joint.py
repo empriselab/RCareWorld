@@ -16,12 +16,9 @@ Requirements:
 import sys
 import time
 
-<<<<<<< HEAD
 # # Add RCareWorld to Python path - modify as needed
 # sys.path.append('/home/dell/github/rcarew/pyrcareworld')
 
-=======
->>>>>>> 397045b607452c2e6d799be3c96243509c779797
 from pyrcareworld.envs.base_env import RCareWorld
 from pyrcareworld.attributes.articulated_joint_attr import ArticulatedJointAttr
 
@@ -166,13 +163,11 @@ def main() -> None:
     USE_REMOTE = False
     
     print("Initializing RCareWorld environment...")
-<<<<<<< HEAD
     env = RCareWorld()
         # bind_address="0.0.0.0",
         # remote_mode=True,
         # port=5004
     # )
-=======
     if USE_REMOTE:
         env = RCareWorld(
             bind_address="0.0.0.0",
@@ -181,7 +176,6 @@ def main() -> None:
             )
     else:
         env = RCareWorld()
->>>>>>> 397045b607452c2e6d799be3c96243509c779797
     
     try:
         # Setup joint control
