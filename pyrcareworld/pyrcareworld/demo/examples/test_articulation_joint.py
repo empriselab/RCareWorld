@@ -16,6 +16,9 @@ Requirements:
 import sys
 import time
 
+# # Add RCareWorld to Python path - modify as needed
+# sys.path.append('/home/dell/github/rcarew/pyrcareworld')
+
 from pyrcareworld.envs.base_env import RCareWorld
 from pyrcareworld.attributes.articulated_joint_attr import ArticulatedJointAttr
 
@@ -160,6 +163,11 @@ def main() -> None:
     USE_REMOTE = False
     
     print("Initializing RCareWorld environment...")
+    env = RCareWorld()
+        # bind_address="0.0.0.0",
+        # remote_mode=True,
+        # port=5004
+    # )
     if USE_REMOTE:
         env = RCareWorld(
             bind_address="0.0.0.0",
