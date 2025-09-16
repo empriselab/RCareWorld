@@ -29,6 +29,9 @@ else:
     # Local mode: Unity runs on the same machine
     env = RCareWorld()
 
+# Set high frequency time step for smooth simulation (0.01s = 100Hz)
+env.SetTimeStep(0.01)
+
 # Create an instance of the Franka Panda robot and set its IK target offset
 robot = env.GetAttr(315893)
 

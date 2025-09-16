@@ -13,23 +13,18 @@ Key Features:
 - Thread-safe operation with background saving
 - Standard ./data/ output directory
 
-Data Structure:
+Data Structure (DiffusionPolicy Compatible):
 ./data/bathing_task_YYYYMMDD_HHMMSS.zarr/
 ├── data/
-│   ├── action (N, Da) float32          # Robot actions
-│   ├── obs/
-│   │   ├── camera_91601 (N, H, W, 3) uint8    # Camera 1 images
-│   │   ├── camera_91602 (N, H, W, 3) uint8    # Camera 2 images
-│   │   ├── joint_positions (N, 7) float32      # Robot joint positions
-│   │   ├── joint_velocities (N, 7) float32     # Robot joint velocities
-│   │   ├── end_effector_pos (N, 3) float32     # End effector position
-│   │   ├── end_effector_rot (N, 3) float32     # End effector rotation
-│   │   └── gripper_state (N, 1) float32        # Gripper open/close
-│   └── ...
+│   ├── action (N, 7) float32           # Robot joint actions
+│   ├── img (N, 96, 96, 3) float32      # Camera images [0,255] pixel values
+│   ├── state (N, 13) float32           # Robot state (7 joints + 3 pos + 3 rot)
+│   └── gripper (N, 1) float32          # Gripper state
 └── meta/
     └── episode_ends (E,) int64         # Episode end indices
 
 Where N = total frames across all episodes, E = number of episodes
+Note: Images stored as float32 with original [0,255] pixel values, not normalized
 """
 
 import os
@@ -56,7 +51,7 @@ class DiffusionPolicyDataSaver:
     """
 
     def __init__(self, enabled: bool = True, save_dir: str = "./data",
-                 task_name: str = "bathing_task"):
+                 task_name: str = "bathing_task", save_frequency: int = 100):
         """
         Initialize the DiffusionPolicy data saver.
 
@@ -64,6 +59,7 @@ class DiffusionPolicyDataSaver:
             enabled: Whether to enable data saving (default: True)
             save_dir: Base directory for data storage (default: "./data")
             task_name: Name of the task for dataset naming
+            save_frequency: Save data every N steps (100=every 1 second at 0.01s timestep, default=100)
         """
         self.enabled = enabled
         if not self.enabled:
@@ -89,6 +85,10 @@ class DiffusionPolicyDataSaver:
         self.current_episode = 0
         self.total_frames = 0
 
+        # Save frequency control
+        self.save_frequency = save_frequency
+        self.step_counter = 0  # Internal step counter for frequency control
+
         # Data buffers for efficient batch writing
         self.frame_buffer = []
         self.buffer_size = 50  # Flush buffer every N frames
@@ -99,9 +99,9 @@ class DiffusionPolicyDataSaver:
         self.gripper = None
         self.cameras = {}
 
-        # Image settings
-        self.image_width = 256
-        self.image_height = 256
+        # Image settings (match DiffusionPolicy standard)
+        self.image_width = 96
+        self.image_height = 96
         self.image_channels = 3
 
         # Thread safety
@@ -112,6 +112,7 @@ class DiffusionPolicyDataSaver:
         print(f"[DiffusionPolicy DataSaver] Initialized")
         print(f"[DataSaver] Dataset: {self.dataset_name}")
         print(f"[DataSaver] Save path: {self.zarr_path}")
+        print(f"[DataSaver] Save frequency: every {self.save_frequency} step(s)")
         print(f"[DataSaver] Data saving is {'ENABLED' if self.enabled else 'DISABLED'}")
 
     def initialize(self, env, robot_id: int = 315893, gripper_id: int = 3158930):
@@ -224,6 +225,13 @@ class DiffusionPolicyDataSaver:
         if not self.enabled:
             return
 
+        # Increment internal step counter
+        self.step_counter += 1
+
+        # Check if we should save this step based on frequency
+        if self.step_counter % self.save_frequency != 0:
+            return
+
         # Create step data dictionary
         step_data = {
             'step': step_num,
@@ -231,11 +239,12 @@ class DiffusionPolicyDataSaver:
             'additional': additional_data or {}
         }
 
-        # Capture camera images
-        images = {}
-        for cam_id, camera in self.cameras.items():
+        # Capture primary camera image (96x96 for DiffusionPolicy)
+        img = None
+        primary_camera_id = 91601  # Use first camera as primary
+        if primary_camera_id in self.cameras:
             try:
-                # Capture RGB image with specified resolution
+                camera = self.cameras[primary_camera_id]
                 camera.GetRGB(width=self.image_width, height=self.image_height)
                 self.env.step()  # Need step for image capture
 
@@ -244,16 +253,16 @@ class DiffusionPolicyDataSaver:
                     rgb_bytes = camera.data["rgb"]
 
                     # Save to temporary file and read with OpenCV
-                    temp_path = f"/tmp/temp_img_{cam_id}.jpg"
+                    temp_path = f"/tmp/temp_img_{primary_camera_id}.jpg"
                     with open(temp_path, 'wb') as f:
                         f.write(rgb_bytes)
 
-                    # Read image and resize if necessary
-                    img = cv2.imread(temp_path)
-                    if img is not None:
-                        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # Convert BGR to RGB
+                    # Read image and resize to 96x96
+                    img_bgr = cv2.imread(temp_path)
+                    if img_bgr is not None:
+                        img = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)  # Convert BGR to RGB
                         img = cv2.resize(img, (self.image_width, self.image_height))
-                        images[f'camera_{cam_id}'] = img.astype(np.uint8)
+                        img = img.astype(np.float32)  # Keep original pixel values [0,255] as float32
 
                     # Cleanup temp file
                     try:
@@ -262,70 +271,64 @@ class DiffusionPolicyDataSaver:
                         pass
 
             except Exception as e:
-                print(f"[DataSaver] Warning: Failed to capture image from camera {cam_id}: {e}")
+                print(f"[DataSaver] Warning: Failed to capture image from camera {primary_camera_id}: {e}")
 
-        # Collect robot state
-        robot_state = {}
+        # Default image if capture failed (white background like pusht)
+        if img is None:
+            img = np.full((self.image_height, self.image_width, self.image_channels), 255.0, dtype=np.float32)
+
+        # Collect robot state (DiffusionPolicy format: flat arrays)
+        joint_positions = np.zeros(7, dtype=np.float32)
+        end_effector_pos = np.zeros(3, dtype=np.float32)
+        end_effector_rot = np.zeros(3, dtype=np.float32)
+        action = np.zeros(7, dtype=np.float32)  # Robot actions
+        gripper_state = np.array([0.0], dtype=np.float32)
+
         if self.robot:
             try:
                 robot_data = self.robot.data
 
-                # Joint states (assuming 7-DOF robot)
-                joint_positions = robot_data.get('joint_positions', [])[:7]
-                joint_velocities = robot_data.get('joint_velocities', [])[:7]
+                # Joint positions (7-DOF)
+                joints = robot_data.get('joint_positions', [])[:7]
+                for i, joint_val in enumerate(joints):
+                    if i < 7:
+                        joint_positions[i] = joint_val
 
-                # Pad to 7 DOF if necessary
-                while len(joint_positions) < 7:
-                    joint_positions.append(0.0)
-                while len(joint_velocities) < 7:
-                    joint_velocities.append(0.0)
-
-                robot_state['joint_positions'] = np.array(joint_positions, dtype=np.float32)
-                robot_state['joint_velocities'] = np.array(joint_velocities, dtype=np.float32)
+                # Joint velocities as actions
+                joint_vels = robot_data.get('joint_velocities', [])[:7]
+                for i, vel in enumerate(joint_vels):
+                    if i < 7:
+                        action[i] = vel
 
                 # End effector pose
                 positions = robot_data.get('positions', [])
                 rotations = robot_data.get('rotations', [])
 
                 if len(positions) > 6:
-                    robot_state['end_effector_pos'] = np.array(positions[6][:3], dtype=np.float32)
-                else:
-                    robot_state['end_effector_pos'] = np.zeros(3, dtype=np.float32)
+                    end_effector_pos = np.array(positions[6][:3], dtype=np.float32)
 
                 if len(rotations) > 6:
-                    robot_state['end_effector_rot'] = np.array(rotations[6][:3], dtype=np.float32)
-                else:
-                    robot_state['end_effector_rot'] = np.zeros(3, dtype=np.float32)
+                    end_effector_rot = np.array(rotations[6][:3], dtype=np.float32)
 
                 # Gripper state
                 if self.gripper:
                     gripper_data = self.gripper.data
                     gripper_open = gripper_data.get('gripper_open', 0.0)
-                    robot_state['gripper_state'] = np.array([gripper_open], dtype=np.float32)
-                else:
-                    robot_state['gripper_state'] = np.array([0.0], dtype=np.float32)
+                    gripper_state = np.array([gripper_open], dtype=np.float32)
 
             except Exception as e:
                 print(f"[DataSaver] Warning: Failed to collect robot state: {e}")
-                # Set default values
-                robot_state = {
-                    'joint_positions': np.zeros(7, dtype=np.float32),
-                    'joint_velocities': np.zeros(7, dtype=np.float32),
-                    'end_effector_pos': np.zeros(3, dtype=np.float32),
-                    'end_effector_rot': np.zeros(3, dtype=np.float32),
-                    'gripper_state': np.array([0.0], dtype=np.float32)
-                }
 
-        # Create action (for now, use joint velocities as proxy action)
-        # In actual implementation, this should be the commanded action
-        action = robot_state.get('joint_velocities', np.zeros(7, dtype=np.float32))
+        # Concatenate all state into single array (13 dims: 7 joints + 3 pos + 3 rot)
+        state = np.concatenate([joint_positions, end_effector_pos, end_effector_rot], dtype=np.float32)
 
-        # Combine all data for this step
+        # Combine all data for this step (DiffusionPolicy format)
         frame_data = {
             'step': step_num,
-            'images': images,
-            'robot_state': robot_state,
-            'action': action,
+            'img': img,              # (96, 96, 3) float32
+            'action': action,        # (7,) float32
+            'state': state,          # (13,) float32
+            'gripper': gripper_state, # (1,) float32
             'additional': step_data['additional']
         }
 
@@ -389,18 +392,11 @@ class DiffusionPolicyDataSaver:
 
             frame_idx = self.total_frames
 
-            # Save images
-            for img_key, img_data in frame['images'].items():
-                if img_key in self.data_group:
-                    self.data_group[img_key][frame_idx] = img_data
-
-            # Save robot state
-            for state_key, state_data in frame['robot_state'].items():
-                if state_key in self.data_group:
-                    self.data_group[state_key][frame_idx] = state_data
-
-            # Save action
+            # Save data in DiffusionPolicy format
+            self.data_group['img'][frame_idx] = frame['img']
             self.data_group['action'][frame_idx] = frame['action']
+            self.data_group['state'][frame_idx] = frame['state']
+            self.data_group['gripper'][frame_idx] = frame['gripper']
 
         except Exception as e:
             print(f"[DataSaver] Error appending frame to Zarr: {e}")
@@ -411,37 +407,49 @@ class DiffusionPolicyDataSaver:
             # Estimate total capacity (conservative estimate)
             max_capacity = 50000  # Adjust based on expected dataset size
 
-            # Initialize image arrays
-            for img_key, img_data in sample_frame['images'].items():
-                shape = (max_capacity,) + img_data.shape
-                self.data_group.create_dataset(
-                    img_key,
-                    shape=shape,
-                    dtype=img_data.dtype,
-                    chunks=(1,) + img_data.shape,
-                    compression='lz4'
-                )
+            # Initialize arrays in DiffusionPolicy format
+            # Image array: (N, 96, 96, 3) float32
+            img_shape = (max_capacity,) + sample_frame['img'].shape
+            self.data_group.create_dataset(
+                'img',
+                shape=img_shape,
+                dtype=sample_frame['img'].dtype,
+                chunks=(1,) + sample_frame['img'].shape,
+                compression='lz4'
+            )
 
-            # Initialize robot state arrays
-            for state_key, state_data in sample_frame['robot_state'].items():
-                shape = (max_capacity,) + state_data.shape
-                self.data_group.create_dataset(
-                    state_key,
-                    shape=shape,
-                    dtype=state_data.dtype,
-                    chunks=(100,) + state_data.shape
-                )
-
-            # Initialize action array
+            # Action array: (N, 7) float32
             action_shape = (max_capacity,) + sample_frame['action'].shape
             self.data_group.create_dataset(
                 'action',
                 shape=action_shape,
                 dtype=sample_frame['action'].dtype,
-                chunks=(100,) + sample_frame['action'].shape
+                chunks=(100,) + sample_frame['action'].shape,
+                compression='lz4'
+            )
+
+            # State array: (N, 13) float32
+            state_shape = (max_capacity,) + sample_frame['state'].shape
+            self.data_group.create_dataset(
+                'state',
+                shape=state_shape,
+                dtype=sample_frame['state'].dtype,
+                chunks=(100,) + sample_frame['state'].shape,
+                compression='lz4'
+            )
+
+            # Gripper array: (N, 1) float32
+            gripper_shape = (max_capacity,) + sample_frame['gripper'].shape
+            self.data_group.create_dataset(
+                'gripper',
+                shape=gripper_shape,
+                dtype=sample_frame['gripper'].dtype,
+                chunks=(100,) + sample_frame['gripper'].shape,
+                compression='lz4'
             )
 
             print(f"[DataSaver] Zarr arrays initialized with capacity {max_capacity}")
+            print(f"[DataSaver] Arrays: img{img_shape[1:]}, action{action_shape[1:]}, state{state_shape[1:]}, gripper{gripper_shape[1:]}")
 
         except Exception as e:
             print(f"[DataSaver] Error initializing Zarr arrays: {e}")
@@ -531,17 +539,17 @@ class DiffusionPolicyDataSaver:
 _global_saver = None
 
 def get_data_saver(enabled: bool = True, save_dir: str = "./data",
-                   task_name: str = "bathing_task") -> DiffusionPolicyDataSaver:
+                   task_name: str = "bathing_task", save_frequency: int = 100) -> DiffusionPolicyDataSaver:
     """Get or create global data saver instance."""
     global _global_saver
     if _global_saver is None:
-        _global_saver = DiffusionPolicyDataSaver(enabled=enabled, save_dir=save_dir, task_name=task_name)
+        _global_saver = DiffusionPolicyDataSaver(enabled=enabled, save_dir=save_dir, task_name=task_name, save_frequency=save_frequency)
     return _global_saver
 
 def init_data_saver(env, robot_id: int = 315893, gripper_id: int = 3158930,
-                   enabled: bool = True, task_name: str = "bathing_task"):
+                   enabled: bool = True, task_name: str = "bathing_task", save_frequency: int = 100):
     """Initialize data saver with environment."""
-    saver = get_data_saver(enabled=enabled, task_name=task_name)
+    saver = get_data_saver(enabled=enabled, task_name=task_name, save_frequency=save_frequency)
     saver.initialize(env, robot_id, gripper_id)
     return saver
 
