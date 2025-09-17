@@ -23,7 +23,7 @@ from datetime import datetime
 USE_REMOTE = False
 
 # Model checkpoint path
-CHECKPOINT_PATH = '/home/cathy/Workspace/diffusion_policy/data/outputs/2025.09.17/14.03.33_bathing_diffusion_policy'
+CHECKPOINT_PATH = '/home/cathy/Workspace/diffusion_policy/data/outputs/2025.09.17/19.21.39_bathing_diffusion_policy'
 
 # Number of inference episodes to run
 INFERENCE_EPISODES = 3
@@ -147,7 +147,7 @@ class DiffusionPolicyInference:
 
             # Get primary camera image (96x96 for DiffusionPolicy)
             img = np.zeros((96, 96, 3), dtype=np.uint8)
-            primary_camera_id = 91601  # Use first camera as primary
+            primary_camera_id = 91602  # Use first camera as primary
             if primary_camera_id in cameras:
                 try:
                     camera = cameras[primary_camera_id]
@@ -179,47 +179,39 @@ class DiffusionPolicyInference:
 
     def predict_action(self, obs):
         """Predict action using the diffusion policy."""
-        try:
-            # Add observation to history
-            self.obs_history.append(obs)
+        # Add observation to history
+        self.obs_history.append(obs)
 
-            # Keep only the required number of observation steps
-            if len(self.obs_history) > self.n_obs_steps:
-                self.obs_history = self.obs_history[-self.n_obs_steps:]
+        # Keep only the required number of observation steps
+        if len(self.obs_history) > self.n_obs_steps:
+            self.obs_history = self.obs_history[-self.n_obs_steps:]
 
-            # Pad with the first observation if we don't have enough history
-            while len(self.obs_history) < self.n_obs_steps:
-                self.obs_history.insert(0, self.obs_history[0] if self.obs_history else obs)
+        # Pad with the first observation if we don't have enough history
+        while len(self.obs_history) < self.n_obs_steps:
+            self.obs_history.insert(0, self.obs_history[0] if self.obs_history else obs)
 
-            # Stack observations
-            obs_dict = {}
-            for key in obs.keys():
-                obs_dict[key] = torch.stack([obs_step[key] for obs_step in self.obs_history])
+        # Stack observations
+        obs_dict = {}
+        for key in obs.keys():
+            obs_dict[key] = torch.stack([obs_step[key] for obs_step in self.obs_history])
 
-            # Add batch dimension and move to device
-            obs_dict = dict_apply(obs_dict, lambda x: x.unsqueeze(0).to(self.device))
+        # Add batch dimension and move to device
+        obs_dict = dict_apply(obs_dict, lambda x: x.unsqueeze(0).to(self.device))
 
-            # Predict actions
-            with torch.no_grad():
-                action_pred = self.policy.predict_action(obs_dict)
+        # Predict actions
+        with torch.no_grad():
+            action_pred = self.policy.predict_action(obs_dict)
 
-            # Extract action from result (action_pred is a dict with 'action' key)
-            if isinstance(action_pred, dict) and 'action' in action_pred:
-                action_tensor = action_pred['action']
-            else:
-                action_tensor = action_pred
+        # Extract action from result (action_pred is a dict with 'action' key)
+        if isinstance(action_pred, dict) and 'action' in action_pred:
+            action_tensor = action_pred['action']
+        else:
+            action_tensor = action_pred
 
-            # Convert to numpy and take first action step
-            action = action_tensor.cpu().numpy()[0, 0]  # (batch=1, action_step=0, action_dim=7)
+        # Convert to numpy and take first action step
+        action = action_tensor.cpu().numpy()[0, 0]  # (batch=1, action_step=0, action_dim=7)
 
-            return action
-
-        except Exception as e:
-            print(f"❌ [DiffusionPolicy] Error predicting action: {e}")
-            import traceback
-            traceback.print_exc()
-            # Return zero action as fallback
-            return np.zeros(7, dtype=np.float32)
+        return action
 
 # Initialize the diffusion policy inference engine
 print("🚀 [DiffusionPolicy] Initializing inference engine...")
@@ -254,8 +246,6 @@ for episode in range(INFERENCE_EPISODES):
     for _ in range(100):
         env.step()
 
-    robot.EnabledNativeIK(False)
-    env.step()
 
     print(f"🤖 [Episode {episode + 1}] Robot initialized, starting diffusion policy inference...")
 
@@ -272,32 +262,34 @@ for episode in range(INFERENCE_EPISODES):
         # Predict action using diffusion policy
         action = diffusion_policy.predict_action(obs)
 
+        print(action.tolist())
+
         # Debug output every 20 steps
-        if step % 20 == 0:
-            # Get current robot state for debugging
-            robot_data = robot.data
-            current_joint_pos = robot_data.get('joint_positions', [])[:7]
-            current_joint_vel = robot_data.get('joint_velocities', [])[:7]
+        # if step % 20 == 0:
+        #     # Get current robot state for debugging
+        #     robot_data = robot.data
+        #     current_joint_pos = robot_data.get('joint_positions', [])[:7]
+        #     current_joint_vel = robot_data.get('joint_velocities', [])[:7]
 
-            print(f"\\n📊 [Episode {episode + 1}] Step {step} Debug Info:")
-            print(f"    🔍 Observation:")
-            print(f"        - Image shape: {obs['image'].shape}")
-            print(f"        - Agent pos (full): {obs['agent_pos'].numpy()}")
-            print(f"        - Joint positions: [{', '.join([f'{v:.3f}' for v in current_joint_pos])}]")
-            print(f"        - Joint velocities: [{', '.join([f'{v:.3f}' for v in current_joint_vel])}]")
-            print(f"    🎯 Predicted Action: {action}")
-            print(f"    🎮 Applied joint velocities: [{', '.join([f'{v:.3f}' for v in action[:7]])}]")
+        #     print(f"\\n📊 [Episode {episode + 1}] Step {step} Debug Info:")
+        #     print(f"    🔍 Observation:")
+        #     print(f"        - Image shape: {obs['image'].shape}")
+        #     print(f"        - Agent pos (full): {obs['agent_pos'].numpy()}")
+        #     print(f"        - Joint positions: [{', '.join([f'{v:.3f}' for v in current_joint_pos])}]")
+        #     print(f"        - Joint velocities: [{', '.join([f'{v:.3f}' for v in current_joint_vel])}]")
+        #     print(f"    🎯 Predicted Action: {action}")
+        # Execute the predicted action (assumed to be end-effector position delta)
+        robot.IKTargetDoMove(
+            position=action.tolist(),
+            duration=0.1,
+            speed_based=True,
+            relative=True
+        )
+        for i in range(10):
+            env.step()
+    
+        # robot.IKTargetDoRotate(rotation=[0, 45, 180], duration=0, speed_based=True)
 
-        # Convert action to joint velocities and apply to robot
-        try:
-            # Scale action if needed (actions are typically normalized)
-            joint_velocities = action.tolist()[:7]  # Take first 7 dimensions
-
-            # Apply joint velocities to robot
-            robot.SetJointVelocity(joint_velocities)
-
-        except Exception as e:
-            print(f"⚠️  [Episode {episode + 1}] Step {step}: Action application warning: {e}")
 
         # Step the simulation
         env.step()
