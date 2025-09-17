@@ -43,7 +43,7 @@ gripper = env.GetAttr(3158930)
 gripper.GripperOpen()
 
 # Number of episodes to collect (default: 20)
-EPISODE_NUMBER = 1  # Test with 1 episode first
+EPISODE_NUMBER = 50  # Test with 1 episode first
 
 # Initialize data saver for bathing dry task (save every 10 steps)
 data_saver = init_data_saver(env, robot_id=315893, gripper_id=3158930,
