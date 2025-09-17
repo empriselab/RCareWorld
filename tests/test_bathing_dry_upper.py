@@ -46,9 +46,9 @@ env.step(200)
 gripper = env.GetAttr(3158930)
 gripper.GripperOpen()
 
-# Initialize data saver for bathing dry task
+# Initialize data saver for bathing dry task (save every 10 steps)
 data_saver = init_data_saver(env, robot_id=315893, gripper_id=3158930,
-                             enabled=ENABLE_DATA_SAVING, task_name="bathing_dry_upper")
+                             enabled=ENABLE_DATA_SAVING, task_name="bathing_dry_upper", save_frequency=10)
 
 print(f"🚀 Starting data collection for {EPISODE_NUMBER} episodes...")
 
