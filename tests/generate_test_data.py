@@ -182,8 +182,8 @@ def create_test_dataset(save_dir="./data", task_name="test_bathing",
         all_states.append(states)
         all_grippers.append(robot_data['gripper_state'])
 
-        # Calculate episode end index
-        episode_end_idx = (ep + 1) * steps_per_episode - 1
+        # Calculate episode end index (should be the last frame index + 1)
+        episode_end_idx = (ep + 1) * steps_per_episode
         episode_ends.append(episode_end_idx)
 
     # Concatenate all episodes

@@ -51,7 +51,8 @@ class DiffusionPolicyDataSaver:
     """
 
     def __init__(self, enabled: bool = True, save_dir: str = "./data",
-                 task_name: str = "bathing_task", save_frequency: int = 100):
+                 task_name: str = "bathing_task", save_frequency: int = 100,
+                 image_width: int = 96, image_height: int = 96):
         """
         Initialize the DiffusionPolicy data saver.
 
@@ -60,6 +61,8 @@ class DiffusionPolicyDataSaver:
             save_dir: Base directory for data storage (default: "./data")
             task_name: Name of the task for dataset naming
             save_frequency: Save data every N steps (100=every 1 second at 0.01s timestep, default=100)
+            image_width: Width of captured images (default=96 for DiffusionPolicy standard)
+            image_height: Height of captured images (default=96 for DiffusionPolicy standard)
         """
         self.enabled = enabled
         if not self.enabled:
@@ -99,9 +102,9 @@ class DiffusionPolicyDataSaver:
         self.gripper = None
         self.cameras = {}
 
-        # Image settings (match DiffusionPolicy standard)
-        self.image_width = 96
-        self.image_height = 96
+        # Image settings (configurable, default matches DiffusionPolicy standard)
+        self.image_width = image_width
+        self.image_height = image_height
         self.image_channels = 3
 
         # Thread safety
@@ -539,17 +542,21 @@ class DiffusionPolicyDataSaver:
 _global_saver = None
 
 def get_data_saver(enabled: bool = True, save_dir: str = "./data",
-                   task_name: str = "bathing_task", save_frequency: int = 100) -> DiffusionPolicyDataSaver:
+                   task_name: str = "bathing_task", save_frequency: int = 100,
+                   image_width: int = 96, image_height: int = 96) -> DiffusionPolicyDataSaver:
     """Get or create global data saver instance."""
     global _global_saver
     if _global_saver is None:
-        _global_saver = DiffusionPolicyDataSaver(enabled=enabled, save_dir=save_dir, task_name=task_name, save_frequency=save_frequency)
+        _global_saver = DiffusionPolicyDataSaver(enabled=enabled, save_dir=save_dir, task_name=task_name,
+                                                 save_frequency=save_frequency, image_width=image_width, image_height=image_height)
     return _global_saver
 
 def init_data_saver(env, robot_id: int = 315893, gripper_id: int = 3158930,
-                   enabled: bool = True, task_name: str = "bathing_task", save_frequency: int = 100):
+                   enabled: bool = True, task_name: str = "bathing_task", save_frequency: int = 100,
+                   image_width: int = 96, image_height: int = 96):
     """Initialize data saver with environment."""
-    saver = get_data_saver(enabled=enabled, task_name=task_name, save_frequency=save_frequency)
+    saver = get_data_saver(enabled=enabled, task_name=task_name, save_frequency=save_frequency,
+                          image_width=image_width, image_height=image_height)
     saver.initialize(env, robot_id, gripper_id)
     return saver
 
