@@ -31,6 +31,7 @@ class ControllerAttr(attr.ColliderAttr):
         - 'coriolis_centrifugal_forces': Inverse dynamics force needed to counteract coriolis centrifugal forces.
         - 'drive_forces': Inverse dynamics drive forces.
         - 'grasp_point_position': The position of the grasp point link.
+        - 'grasp_point_rotation': The rotation of the grasp point link.
     """
 
     def __init__(self, env, id: int, data: dict = {}):
