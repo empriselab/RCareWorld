@@ -30,6 +30,7 @@ class ControllerAttr(attr.ColliderAttr):
         - 'gravity_forces': Inverse dynamics force needed to counteract gravity.
         - 'coriolis_centrifugal_forces': Inverse dynamics force needed to counteract coriolis centrifugal forces.
         - 'drive_forces': Inverse dynamics drive forces.
+        - 'grasp_point_position': The position of the grasp point link.
     """
 
     def __init__(self, env, id: int, data: dict = {}):
@@ -401,7 +402,7 @@ class ControllerAttr(attr.ColliderAttr):
         self.env.attrs[new_id] = ControllerAttr(self.env, new_id)
         return self.env.attrs[new_id]
     
-    def GetGraspPoint(self, link_name: str = "link_grasp_center", fallback: str = "grasp", euler: bool = False) -> Tuple[list, list]:
+    def GetGraspPoint(self, link_name: str = "link_grasp_center", fallback: str = "grasp_point", euler: bool = False) -> Tuple[list, list]:
         """
         Get the grasp point's position and rotation as a tuple `(pos, rot)`. May not provide useful data for the first few steps, in which case `(None, None)` will be returned.
 
