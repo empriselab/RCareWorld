@@ -9,8 +9,12 @@ from pyrcareworld.demo import executable_path
 from pyrcareworld.envs.base_env import RCareWorld
 from test_save_data_diffpolicy import init_data_saver, save_step_data, start_new_episode, finalize_data_saving
 
+# ================ CONFIGURATION PARAMETERS ================
 # Enable data saving (set to False to disable)
 ENABLE_DATA_SAVING = True
+
+# Number of episodes to collect (default: 20)
+EPISODE_NUMBER = 20
 
 # Enable SSH remote connection (set to True to use remote Unity)
 USE_REMOTE = False
@@ -45,11 +49,18 @@ gripper.GripperOpen()
 # Initialize data saver for bathing dry task
 data_saver = init_data_saver(env, robot_id=315893, gripper_id=3158930,
                              enabled=ENABLE_DATA_SAVING, task_name="bathing_dry_upper")
-step_counter = 0
 
-# Start first episode
-if ENABLE_DATA_SAVING:
-    start_new_episode()
+print(f"🚀 Starting data collection for {EPISODE_NUMBER} episodes...")
+
+# Execute multiple episodes
+for episode in range(EPISODE_NUMBER):
+    print(f"📊 Episode {episode + 1}/{EPISODE_NUMBER}")
+
+    # Start new episode
+    if ENABLE_DATA_SAVING:
+        start_new_episode()
+
+    step_counter = 0
 
 initialize_target = env.GetAttr(5678)
 env.step()
@@ -147,14 +158,13 @@ for i in range(150):
     if i % 10 == 0:  # Save every 10 steps
         save_step_data(step_counter, {'phase': 'move_to_elbow'})
 # 150 steps for 3 seconds (3/0.02)
-for i in range(150):
-    env.step()
-    step_counter += 1
-    if i % 10 == 0:  # Save every 10 steps
-        save_step_data(step_counter, {'phase': 'final_movement'})
+    for i in range(150):
+        env.step()
+        step_counter += 1
+        if i % 10 == 0:  # Save every 10 steps
+            save_step_data(step_counter, {'phase': 'final_movement', 'episode': episode})
 
-
-
+print(f"✅ Completed {EPISODE_NUMBER} episodes of dry_upper data collection")
 
 # Finalize data saving before closing
 finalize_data_saving()

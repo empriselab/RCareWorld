@@ -9,8 +9,12 @@ from pyrcareworld.demo import executable_path
 from pyrcareworld.envs.base_env import RCareWorld
 from test_save_data_diffpolicy import init_data_saver, save_step_data, start_new_episode, finalize_data_saving
 
+# ================ CONFIGURATION PARAMETERS ================
 # Enable data saving (set to False to disable)
 ENABLE_DATA_SAVING = True
+
+# Number of episodes to collect (default: 20)
+EPISODE_NUMBER = 20
 
 # Enable SSH remote connection (set to True to use remote Unity)
 USE_REMOTE = False
@@ -45,11 +49,18 @@ gripper.GripperOpen()
 # Initialize data saver for bathing wash task
 data_saver = init_data_saver(env, robot_id=315893, gripper_id=3158930,
                              enabled=ENABLE_DATA_SAVING, task_name="bathing_wash_upper")
-step_counter = 0
 
-# Start first episode
-if ENABLE_DATA_SAVING:
-    start_new_episode()
+print(f"🚀 Starting data collection for {EPISODE_NUMBER} episodes...")
+
+# Execute multiple episodes
+for episode in range(EPISODE_NUMBER):
+    print(f"📊 Episode {episode + 1}/{EPISODE_NUMBER}")
+
+    # Start new episode
+    if ENABLE_DATA_SAVING:
+        start_new_episode()
+
+    step_counter = 0
 
 initialize_target = env.GetAttr(5678)
 env.step()
@@ -86,7 +97,7 @@ for i in range(150):
     env.step()
     step_counter += 1
     if i % 10 == 0:  # Save every 10 steps
-        save_step_data(step_counter, {'phase': 'shoulder_position'})
+        save_step_data(step_counter, {'phase': 'shoulder_position', 'episode': episode})
 robot.IKTargetDoMove(
         position=[elbow_position[0], elbow_position[1]+0.1, elbow_position[2]],
         duration=3,
@@ -96,7 +107,7 @@ for i in range(150):
     env.step()
     step_counter += 1
     if i % 10 == 0:  # Save every 10 steps
-        save_step_data(step_counter, {'phase': 'elbow_position'})
+        save_step_data(step_counter, {'phase': 'elbow_position', 'episode': episode})
 # elbow to shoulder
 robot.IKTargetDoMove(
         position=[shoulder_position[0], shoulder_position[1]+0.1, shoulder_position[2]],
@@ -107,18 +118,20 @@ for i in range(150):
     env.step()
     step_counter += 1
     if i % 10 == 0:  # Save every 10 steps
-        save_step_data(step_counter, {'phase': 'elbow_to_shoulder'})
+        save_step_data(step_counter, {'phase': 'elbow_to_shoulder', 'episode': episode})
 
 robot.IKTargetDoMove(
         position=initialize_position,
         duration=3,
         speed_based=False,
     )
-for i in range(150):
-    env.step()
-    step_counter += 1
-    if i % 10 == 0:  # Save every 10 steps
-        save_step_data(step_counter, {'phase': 'return_to_initial'})
+    for i in range(150):
+        env.step()
+        step_counter += 1
+        if i % 10 == 0:  # Save every 10 steps
+            save_step_data(step_counter, {'phase': 'return_to_initial', 'episode': episode})
+
+print(f"✅ Completed {EPISODE_NUMBER} episodes of wash_upper data collection")
 
 # Finalize data saving before closing
 finalize_data_saving()

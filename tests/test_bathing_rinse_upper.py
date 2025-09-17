@@ -9,11 +9,15 @@ from pyrcareworld.demo import executable_path
 from pyrcareworld.envs.base_env import RCareWorld
 from test_save_data_diffpolicy import init_data_saver, save_step_data, start_new_episode, finalize_data_saving
 
+# ================ CONFIGURATION PARAMETERS ================
 # Enable data saving (set to False to disable)
 ENABLE_DATA_SAVING = True
 
+# Number of episodes to collect (default: 20)
+EPISODE_NUMBER = 20
+
 # Enable SSH remote connection (set to True to use remote Unity)
-USE_REMOTE = False
+USE_REMOTE = True
 
 # Configure environment based on connection mode
 if USE_REMOTE:
@@ -45,93 +49,116 @@ gripper.GripperOpen()
 # Initialize data saver for bathing rinse task
 data_saver = init_data_saver(env, robot_id=315893, gripper_id=3158930,
                              enabled=ENABLE_DATA_SAVING, task_name="bathing_rinse_upper")
-step_counter = 0
 
-# Start first episode
-if ENABLE_DATA_SAVING:
-    start_new_episode()
+print(f"🚀 Starting data collection for {EPISODE_NUMBER} episodes...")
 
-initialize_target = env.GetAttr(5678)
-env.step()
-initialize_position = initialize_target.data["position"]
+# Execute multiple episodes
+for episode in range(EPISODE_NUMBER):
+    print(f"📊 Episode {episode + 1}/{EPISODE_NUMBER}")
 
-robot.IKTargetDoMove(
-        position=initialize_position,
-        duration=0,
-        speed_based=False,
-    )
-robot.IKTargetDoRotate(rotation=[0, 45, 180], duration=0, speed_based=False)
+    # Start new episode
+    if ENABLE_DATA_SAVING:
+        start_new_episode()
 
-shoulder_id = 3001
-elbow_id = 3002
-wrist_id = 3003
+    step_counter = 0
 
-shoulder = env.GetAttr(shoulder_id)
-elbow = env.GetAttr(elbow_id)
-wrist = env.GetAttr(wrist_id)
-
-shoulder_position = shoulder.data["position"]
-elbow_position = elbow.data["position"]
-wrist_position = wrist.data["position"]
-env.step()
-
-# shoulder to elbow
-robot.IKTargetDoMove(
-        position=[shoulder_position[0], shoulder_position[1]+0.1, shoulder_position[2]],
-        duration=3,
-        speed_based=False,
-    )
-
-robot.IKTargetDoMove(
-        position=[elbow_position[0], elbow_position[1]+0.1, elbow_position[2]],
-        duration=3,
-        speed_based=False,
-    )
-for i in range(150):
+    # Reset robot to initial position
+    initialize_target = env.GetAttr(5678)
     env.step()
-    step_counter += 1
-    if i % 10 == 0:  # Save every 10 steps
-        save_step_data(step_counter, {'phase': 'shoulder_to_elbow'})
-# 150 steps for 3 seconds (3/0.02)
-for i in range(150):
-    env.step()
-    step_counter += 1
-    if i % 10 == 0:  # Save every 10 steps
-        save_step_data(step_counter, {'phase': 'elbow_position'})
+    initialize_position = initialize_target.data["position"]
 
-# move above elbow
-robot.IKTargetDoMove(
-        position=[elbow_position[0], elbow_position[1]+0.3, elbow_position[2]],
-        duration=3,
-        speed_based=False,
-    )
-for i in range(150):
-    env.step()
-    step_counter += 1
-    if i % 10 == 0:  # Save every 10 steps
-        save_step_data(step_counter, {'phase': 'move_above_elbow'})
-# elbow to shoulder
-robot.IKTargetDoMove(
-        position=[shoulder_position[0], shoulder_position[1]+0.1, shoulder_position[2]],
-        duration=3,
-        speed_based=False,
-    )
-for i in range(150):
-    env.step()
-    step_counter += 1
-    if i % 10 == 0:  # Save every 10 steps
-        save_step_data(step_counter, {'phase': 'elbow_to_shoulder'})
+    robot.IKTargetDoMove(
+            position=initialize_position,
+            duration=0,
+            speed_based=False,
+        )
+    robot.IKTargetDoRotate(rotation=[0, 45, 180], duration=0, speed_based=False)
 
-robot.IKTargetDoMove(
-        position=[elbow_position[0], elbow_position[1]+0.1, elbow_position[2]],
-        duration=3,
-        speed_based=False,
-    )
-for i in range(150):
+    # Get body part positions
+    shoulder_id = 3001
+    elbow_id = 3002
+    wrist_id = 3003
+
+    shoulder = env.GetAttr(shoulder_id)
+    elbow = env.GetAttr(elbow_id)
+    wrist = env.GetAttr(wrist_id)
+
+    shoulder_position = shoulder.data["position"]
+    elbow_position = elbow.data["position"]
+    wrist_position = wrist.data["position"]
+
+    # Add small random variations to make episodes diverse
+    shoulder_noise = [random.uniform(-0.02, 0.02) for _ in range(3)]
+    elbow_noise = [random.uniform(-0.02, 0.02) for _ in range(3)]
+
+    shoulder_position = [p + n for p, n in zip(shoulder_position, shoulder_noise)]
+    elbow_position = [p + n for p, n in zip(elbow_position, elbow_noise)]
+
     env.step()
-    step_counter += 1
-    if i % 10 == 0:  # Save every 10 steps
-        save_step_data(step_counter, {'phase': 'final_elbow_position'})
+
+    # Execution sequence for this episode
+    # Phase 1: shoulder to elbow
+    robot.IKTargetDoMove(
+            position=[shoulder_position[0], shoulder_position[1]+0.1, shoulder_position[2]],
+            duration=3,
+            speed_based=False,
+        )
+
+    robot.IKTargetDoMove(
+            position=[elbow_position[0], elbow_position[1]+0.1, elbow_position[2]],
+            duration=3,
+            speed_based=False,
+        )
+    for i in range(150):
+        env.step()
+        step_counter += 1
+        if i % 10 == 0:  # Save every 10 steps
+            save_step_data(step_counter, {'phase': 'shoulder_to_elbow', 'episode': episode})
+
+    # Phase 2: elbow position
+    for i in range(150):
+        env.step()
+        step_counter += 1
+        if i % 10 == 0:  # Save every 10 steps
+            save_step_data(step_counter, {'phase': 'elbow_position', 'episode': episode})
+
+    # Phase 3: move above elbow
+    robot.IKTargetDoMove(
+            position=[elbow_position[0], elbow_position[1]+0.3, elbow_position[2]],
+            duration=3,
+            speed_based=False,
+        )
+    for i in range(150):
+        env.step()
+        step_counter += 1
+        if i % 10 == 0:  # Save every 10 steps
+            save_step_data(step_counter, {'phase': 'move_above_elbow', 'episode': episode})
+
+    # Phase 4: elbow to shoulder
+    robot.IKTargetDoMove(
+            position=[shoulder_position[0], shoulder_position[1]+0.1, shoulder_position[2]],
+            duration=3,
+            speed_based=False,
+        )
+    for i in range(150):
+        env.step()
+        step_counter += 1
+        if i % 10 == 0:  # Save every 10 steps
+            save_step_data(step_counter, {'phase': 'elbow_to_shoulder', 'episode': episode})
+
+    # Phase 5: final elbow position
+    robot.IKTargetDoMove(
+            position=[elbow_position[0], elbow_position[1]+0.1, elbow_position[2]],
+            duration=3,
+            speed_based=False,
+        )
+    for i in range(150):
+        env.step()
+        step_counter += 1
+        if i % 10 == 0:  # Save every 10 steps
+            save_step_data(step_counter, {'phase': 'final_elbow_position', 'episode': episode})
+
+print(f"✅ Completed {EPISODE_NUMBER} episodes of rinse_upper data collection")
 
 # Finalize data saving before closing
 finalize_data_saving()
