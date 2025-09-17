@@ -338,11 +338,8 @@ class DiffusionPolicyDataSaver:
         # Add to current episode
         with self.data_lock:
             self.current_episode_data.append(frame_data)
-
-        # Add to buffer for batch saving
-        self.frame_buffer.append(frame_data)
-        if len(self.frame_buffer) >= self.buffer_size:
-            self._flush_buffer()
+            # Immediately write to zarr arrays
+            self._append_frame_to_zarr(frame_data)
 
     def _flush_buffer(self):
         """Flush frame buffer to background saving queue."""
@@ -400,6 +397,9 @@ class DiffusionPolicyDataSaver:
             self.data_group['action'][frame_idx] = frame['action']
             self.data_group['state'][frame_idx] = frame['state']
             self.data_group['gripper'][frame_idx] = frame['gripper']
+
+            # 更新总帧数
+            self.total_frames += 1
 
         except Exception as e:
             print(f"[DataSaver] Error appending frame to Zarr: {e}")
@@ -463,10 +463,12 @@ class DiffusionPolicyDataSaver:
             return
 
         episode_length = len(self.current_episode_data)
-        episode_end_idx = self.total_frames + episode_length - 1
+        # ✅ 修复：使用累积帧数，不是索引
+        # total_frames会在实际写入zarr时更新，这里只计算episode_ends
+        cumulative_frames = self.total_frames + episode_length
 
-        self.episode_ends.append(episode_end_idx)
-        print(f"[DataSaver] Finalized episode {self.current_episode} with {episode_length} frames (end_idx: {episode_end_idx})")
+        self.episode_ends.append(cumulative_frames)
+        print(f"[DataSaver] Finalized episode {self.current_episode} with {episode_length} frames (cumulative: {cumulative_frames})")
 
     def finalize(self):
         """Finalize data saving and create final dataset."""
@@ -475,24 +477,21 @@ class DiffusionPolicyDataSaver:
 
         print("[DataSaver] Finalizing dataset...")
 
-        # Flush remaining buffer
-        if self.frame_buffer:
-            self._flush_buffer()
-
-        # Finalize current episode
+        # ✅ 修复：确保所有数据都被保存
+        # 1. 完成当前episode（如果有的话）
         with self.data_lock:
             if self.current_episode_data:
+                # Data is already written to zarr, just finalize the episode
                 self._finalize_current_episode()
 
-        # Signal background thread to save final metadata
-        self.save_queue.put(('finalize', None))
+        # 2. 无需处理缓冲区，所有数据已经实时写入zarr
 
-        # Wait for background thread to finish
+        # 3. 停止后台线程
         if self.save_thread and self.save_thread.is_alive():
             self.save_queue.put(None)  # Shutdown signal
-            self.save_thread.join(timeout=5.0)
+            self.save_thread.join(timeout=2.0)
 
-        # Resize arrays to actual data size and save episode_ends
+        # 4. 保存最终metadata
         self._finalize_zarr_store()
 
         print(f"[DataSaver] Dataset finalized: {self.zarr_path}")
@@ -501,38 +500,39 @@ class DiffusionPolicyDataSaver:
 
     def _save_episode_metadata(self):
         """Save episode_ends metadata."""
-        if self.episode_ends:
+        # ✅ 修复：避免重复创建episode_ends
+        if self.episode_ends and 'episode_ends' not in self.meta_group:
             self.meta_group.create_dataset(
                 'episode_ends',
                 data=np.array(self.episode_ends, dtype=np.int64),
                 compression='lz4'
             )
+            print(f"[DataSaver] Background saved episode_ends: {self.episode_ends}")
 
     def _finalize_zarr_store(self):
         """Resize Zarr arrays to actual data size."""
         try:
-            if self.total_frames > 0 and self.data_group is not None:
-                # Resize all arrays to actual size
-                for key in self.data_group.keys():
-                    array = self.data_group[key]
-                    if len(array) > self.total_frames:
-                        # Create new array with correct size
-                        new_array = self.data_group.create_dataset(
-                            f"{key}_resized",
-                            data=array[:self.total_frames],
-                            compression='lz4'
-                        )
-                        # Replace old array
-                        del self.data_group[key]
-                        self.data_group[key] = new_array
+            # Use the last episode_end as the actual total frames
+            actual_total_frames = self.episode_ends[-1] if self.episode_ends else self.total_frames
 
-            # Save final episode_ends
-            if self.episode_ends:
+            if actual_total_frames > 0 and self.data_group is not None:
+                # ✅ 修复：正确调整数组大小，避免创建重复数组
+                keys_to_resize = list(self.data_group.keys())
+                for key in keys_to_resize:
+                    array = self.data_group[key]
+                    if array.shape[0] > actual_total_frames:
+                        # 直接调整数组大小，而不是创建新数组
+                        array.resize(actual_total_frames, *array.shape[1:])
+                        print(f"[DataSaver] Resized {key} array to {actual_total_frames} frames")
+
+            # Save final episode_ends (只创建一次)
+            if self.episode_ends and 'episode_ends' not in self.meta_group:
                 self.meta_group.create_dataset(
                     'episode_ends',
                     data=np.array(self.episode_ends, dtype=np.int64),
                     compression='lz4'
                 )
+                print(f"[DataSaver] Saved episode_ends: {self.episode_ends}")
 
         except Exception as e:
             print(f"[DataSaver] Error finalizing Zarr store: {e}")
