@@ -244,3 +244,5 @@ template/rgb_hand.png
 pyrcareworld/pyrcareworld/demo/examples/example_save_obj.py
 
 *.history
+
+data/

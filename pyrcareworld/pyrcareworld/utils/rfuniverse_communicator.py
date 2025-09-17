@@ -12,6 +12,7 @@ class RFUniverseCommunicator(threading.Thread):
     def __init__(
             self,
             port: int = 5004,
+            bind_address: str = "localhost",
             receive_data_callback=None,
             proc_type="editor",
     ):
@@ -21,6 +22,7 @@ class RFUniverseCommunicator(threading.Thread):
         threading.Thread.__init__(self)
         self.read_offset = 0
         self.on_receive_data = receive_data_callback
+        self.bind_address = bind_address
         # self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         # send_buffer_size = 1024 * 1024 * 10
@@ -29,10 +31,13 @@ class RFUniverseCommunicator(threading.Thread):
         # self.server.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, recv_buffer_size)
         self.port = port
         if proc_type == "editor":
-            # self.server.bind(("localhost", self.port))
+            # self.server.bind((self.bind_address, self.port))
             pass
         elif proc_type == "release":
             self._get_port()
+        # ssh -L 5004:localhost:5004 -N root@10.220.5.172 -p 32167
+        elif proc_type == "remote": 
+            pass
         else:
             raise ValueError(f"Unknown proc_type: {proc_type}")
 
@@ -41,7 +46,7 @@ class RFUniverseCommunicator(threading.Thread):
             self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             while self.port < 65536:
                 try:
-                    self.server.bind(("localhost", self.port))
+                    self.server.bind((self.bind_address, self.port))
                     self.server.close()
                     return
                 except OSError:
@@ -52,8 +57,8 @@ class RFUniverseCommunicator(threading.Thread):
         try:
             self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            self.server.bind(("localhost", self.port))
-            print(f"Waiting for connections on port: {self.port}...")
+            self.server.bind((self.bind_address, self.port))
+            print(f"Waiting for connections on {self.bind_address}:{self.port}...")
             self.server.listen(1)
             self.client, _ = self.server.accept()
             print(f"Connected successfully")

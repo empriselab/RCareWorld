@@ -41,7 +41,9 @@ class RCareWorld(ABC):
             proc_id=0,
             log_level=0,
             ext_attr: list = [],
-            check_version: bool = False
+            check_version: bool = False,
+            bind_address: str = "localhost",
+            remote_mode: bool = False
     ):
         """
         Initialize the RCareWorld base environment class.
@@ -55,6 +57,8 @@ class RCareWorld(ABC):
         :param log_level: Int, the log level for the Unity environment. 0 for no log, 1 for error logs, 2 for warnings and errors, 3 for all logs.
         :param ext_attr: List, the list of extended attributes. All extended attributes will be added to the environment. (Deprecated in RCareWorld 1.5.0)
         :param check_version: Bool, True for checking the version of the Unity environment and the pyrcareworld library, False for not checking the version.
+        :param bind_address: Str, the bind address for the server socket. Use "0.0.0.0" for distributed deployment.
+        :param remote_mode: Bool, True for distributed deployment mode where Unity runs on a different machine.
         """
         # time step
         self.t = 0
@@ -66,6 +70,8 @@ class RCareWorld(ABC):
         self.listen_object = {}
         self.port = port
         self.check_version = check_version
+        self.bind_address = bind_address
+        self.remote_mode = remote_mode
         for i in ext_attr:
             if i.__name__ in attr.attrs:
                 raise ValueError(f"ext_attr {i.__name__} already exists")
@@ -78,7 +84,11 @@ class RCareWorld(ABC):
         if executable_file is None:
             executable_file = pyrcareworld.executable_file
 
-        if executable_file == "" or executable_file == "@editor":  # editor
+        if remote_mode or executable_file == "@remote":
+            executable_file = "@remote"
+            print(f"Remote mode: waiting for Unity connection on {bind_address}:{self.port}")
+            PROC_TYPE = "remote"
+        elif executable_file == "" or executable_file == "@editor":  # editor
             assert proc_id == 0, "proc_id must be 0 when using editor"
             print("Waiting for UnityEditor play...")
             PROC_TYPE = "editor"
@@ -90,12 +100,15 @@ class RCareWorld(ABC):
 
         self.communicator = RFUniverseCommunicator(
             port=self.port,
+            bind_address=bind_address,
             receive_data_callback=self._receive_data,
             proc_type=PROC_TYPE,
         )
         self.port = self.communicator.port  # update port
         if PROC_TYPE == "release":
             self.process = self._start_unity_env(executable_file, self.port)
+        elif PROC_TYPE == "remote":
+            self.process = None
         self.communicator.online()
         self.WaitSceneInit()
         if len(assets) > 0:
