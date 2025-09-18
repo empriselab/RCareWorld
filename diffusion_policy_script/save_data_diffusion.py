@@ -408,7 +408,6 @@ class DiffusionPolicyDataSaver:
             self.data_group['state'][frame_idx] = frame['state']
             self.data_group['gripper'][frame_idx] = frame['gripper']
 
-            # 更新总帧数
             self.total_frames += 1
 
         except Exception as e:

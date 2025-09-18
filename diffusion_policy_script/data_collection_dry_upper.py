@@ -48,7 +48,7 @@ EPISODE_NUMBER = 200  # Test with 1 episode first
 
 # Initialize data saver for bathing dry task (save every 10 steps)
 data_saver = init_data_saver(env, robot_id=315893, gripper_id=3158930,
-                             enabled=ENABLE_DATA_SAVING, task_name="bathing_dry_upper", save_frequency=10)
+                             enabled=ENABLE_DATA_SAVING, task_name="bathing_dry_upper", save_frequency=1)
 
 print(f"🚀 Starting data collection for {EPISODE_NUMBER} episodes...")
 
