@@ -12,6 +12,8 @@ from save_data_diffusion import init_data_saver, save_step_data, start_new_episo
 # Enable data saving (set to False to disable)
 ENABLE_DATA_SAVING = True
 
+offset = 0.05  # offset to avoid collision with the arm
+
 # Enable SSH remote connection (set to True to use remote Unity)
 USE_REMOTE = False
 
@@ -35,7 +37,7 @@ else:
 # Create an instance of the Franka Panda robot and set its IK target offset
 robot = env.GetAttr(315893)
 
-env.step(200)
+env.step()
 
 # Get the gripper attribute and open the gripper
 gripper = env.GetAttr(3158930)
@@ -46,7 +48,7 @@ EPISODE_NUMBER = 200  # Test with 1 episode first
 
 # Initialize data saver for bathing dry task (save every 10 steps)
 data_saver = init_data_saver(env, robot_id=315893, gripper_id=3158930,
-                             enabled=ENABLE_DATA_SAVING, task_name="bathing_dry_upper", save_frequency=1)
+                             enabled=ENABLE_DATA_SAVING, task_name="bathing_dry_upper", save_frequency=10)
 
 print(f"🚀 Starting data collection for {EPISODE_NUMBER} episodes...")
 
@@ -89,10 +91,10 @@ for episode in range(EPISODE_NUMBER):
     wrist_position = wrist.data["position"]
     pad_dry_wp_position = pad_dry_wp.data["position"]
 
-    # Add small random variations to make episodes diverse
-    shoulder_noise = [random.uniform(-0.02, 0.02) for _ in range(3)]
-    elbow_noise = [random.uniform(-0.02, 0.02) for _ in range(3)]
-    pad_dry_wp_noise = [random.uniform(-0.01, 0.01) for _ in range(3)]
+    # only randomize x and z for shoulder and elbow
+    shoulder_noise = [random.uniform(-0.02, 0.02), 0.0, random.uniform(-0.02, 0.02)]
+    elbow_noise = [random.uniform(-0.02, 0.02), 0.0, random.uniform(-0.02, 0.02)]
+    pad_dry_wp_noise = [random.uniform(-0.02, 0.02) for _ in range(3)]
 
     shoulder_position = [p + n for p, n in zip(shoulder_position, shoulder_noise)]
     elbow_position = [p + n for p, n in zip(elbow_position, elbow_noise)]
@@ -104,18 +106,18 @@ for episode in range(EPISODE_NUMBER):
     # move to shoulder
     print(f"🎯 [Episode {episode + 1}] Phase 1: Moving to shoulder position")
     robot.IKTargetDoMove(
-            position=[shoulder_position[0], shoulder_position[1]+0.1, shoulder_position[2]],
-            duration=3,
+            position=[shoulder_position[0], shoulder_position[1]+0.05, shoulder_position[2]],
+            duration=1,
             speed_based=False,
         )
 
-    for i in range(150):
+    for i in range(50):
         env.step()
-        step_counter += 1
-        save_step_data(step_counter, {'phase': 'move_to_shoulder', 'episode': episode})
-        print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'move_to_shoulder' data")
+    #     step_counter += 1
+    #     save_step_data(step_counter, {'phase': 'move_to_shoulder', 'episode': episode})
+    #     print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'move_to_shoulder' data")
 
-    print(f"🎯 [Episode {episode + 1}] Phase 2: Hopping up to waypoint")
+    # print(f"🎯 [Episode {episode + 1}] Phase 2: Hopping up to waypoint")
     # hop to wp
     # hop up
     up_hopping_point_1 = [0.5*(shoulder_position[0]+pad_dry_wp_position[0]),
@@ -123,64 +125,55 @@ for episode in range(EPISODE_NUMBER):
                           0.5*(shoulder_position[2]+pad_dry_wp_position[2])]
     robot.IKTargetDoMove(
             position=up_hopping_point_1,
-            duration=3,
+            duration=1,
             speed_based=False,
         )
 
-    for i in range(150):
+    for i in range(50):
         env.step()
         step_counter += 1
         save_step_data(step_counter, {'phase': 'hop_up_1', 'episode': episode})
         print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'hop_up_1' data")
-
-    print(f"🎯 [Episode {episode + 1}] Phase 3: Hopping down to target")
     # hop down
     robot.IKTargetDoMove(
-            position=pad_dry_wp_position,
-            duration=3,
+            position=[pad_dry_wp_position[0], pad_dry_wp_position[1]+offset, pad_dry_wp_position[2]],
+            duration=1,
             speed_based=False,
         )
-    for i in range(150):
+    for i in range(50):
         env.step()
         step_counter += 1
         save_step_data(step_counter, {'phase': 'hop_down', 'episode': episode})
         print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'hop_down' data")
 
-    print(f"🎯 [Episode {episode + 1}] Phase 4: Hopping up again")
+
     # hop up again
     up_hopping_point_2 = [0.5*(elbow_position[0]+pad_dry_wp_position[0]),
                           0.5*(elbow_position[1]+pad_dry_wp_position[1])+0.2,
                           0.5*(elbow_position[2]+pad_dry_wp_position[2])]
     robot.IKTargetDoMove(
             position=up_hopping_point_2,
-            duration=3,
+            duration=1,
             speed_based=False,
         )
-    for i in range(150):
+    for i in range(50):
         env.step()
         step_counter += 1
         save_step_data(step_counter, {'phase': 'hop_up_2', 'episode': episode})
         print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'hop_up_2' data")
 
-    print(f"🎯 [Episode {episode + 1}] Phase 5: Moving to elbow position")
     robot.IKTargetDoMove(
-            position=[elbow_position[0], elbow_position[1]+0.1, elbow_position[2]],
-            duration=3,
+            position=[elbow_position[0], elbow_position[1]+offset, elbow_position[2]],
+            duration=1,
             speed_based=False,
         )
-    for i in range(150):
+    for i in range(50):
         env.step()
         step_counter += 1
         save_step_data(step_counter, {'phase': 'move_to_elbow', 'episode': episode})
         print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'move_to_elbow' data")
 
-    print(f"🎯 [Episode {episode + 1}] Phase 6: Final movement sequence")
-    # final movement (150 steps for 3 seconds)
-    for i in range(150):
-        env.step()
-        step_counter += 1
-        save_step_data(step_counter, {'phase': 'final_movement', 'episode': episode})
-        print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'final_movement' data")
+
 
     print(f"🏁 [Episode {episode + 1}] Completed! Total steps saved: {step_counter}")
     print(f"🎬 ====== Episode {episode + 1}/{EPISODE_NUMBER} Finished ======\n")

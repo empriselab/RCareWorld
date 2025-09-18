@@ -112,6 +112,8 @@ class DiffusionPolicyDataSaver:
         self.save_queue = queue.Queue()
         self.save_thread = None
 
+        self.prev_ee_pos = np.zeros(3, dtype=np.float32)  # To compute delta actions
+
         print(f"[DiffusionPolicy DataSaver] Initialized")
         print(f"[DataSaver] Dataset: {self.dataset_name}")
         print(f"[DataSaver] Save path: {self.zarr_path}")
@@ -279,15 +281,12 @@ class DiffusionPolicyDataSaver:
             except Exception as e:
                 print(f"[DataSaver] Warning: Failed to capture image from camera {primary_camera_id}: {e}")
 
-        # Default image if capture failed (white background like pusht)
-        if img is None:
-            img = np.full((self.image_height, self.image_width, self.image_channels), 255.0, dtype=np.float32)
+
 
         # Collect robot state (DiffusionPolicy format: flat arrays)
         joint_positions = np.zeros(7, dtype=np.float32)
         end_effector_pos = np.zeros(3, dtype=np.float32)
         end_effector_rot = np.zeros(3, dtype=np.float32)
-        action = np.zeros(3, dtype=np.float32)  # Robot actions, change to ee position
         gripper_state = np.array([0.0], dtype=np.float32)
 
         if self.robot:
@@ -312,7 +311,14 @@ class DiffusionPolicyDataSaver:
                 end_effector_rot = robot_data.get('grasp_point_rotation', [])
                 # print(f"Rotations: {rotations}")
 
-                action = np.array(end_effector_pos, dtype=np.float32)  # Use EE position as action
+                # elementwise subtraction to get delta
+                delta_action = np.zeros(3, dtype=np.float32)
+                if self.prev_ee_pos is not None and len(end_effector_pos) == 3:
+                    delta_action = np.array(end_effector_pos, dtype=np.float32) - np.array(self.prev_ee_pos, dtype=np.float32)
+                self.prev_ee_pos = end_effector_pos
+
+                print(f"Action (Delta EE Position): {delta_action}")
+
                 # print(f"Action (EE Position): {action}")
                 
                 # Gripper state
@@ -333,7 +339,7 @@ class DiffusionPolicyDataSaver:
         frame_data = {
             'step': step_num,
             'img': img,              # (96, 96, 3) float32
-            'action': action,        # (3,) float32
+            'action': delta_action,  # (3,) float32
             'state': state,          # (13,) float32
             'gripper': gripper_state, # (1,) float32
             'additional': step_data['additional']
