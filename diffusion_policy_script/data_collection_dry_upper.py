@@ -112,7 +112,6 @@ for episode in range(EPISODE_NUMBER):
     for i in range(150):
         env.step()
         step_counter += 1
-        # if i % 10 == 0:  # Save every 10 steps
         save_step_data(step_counter, {'phase': 'move_to_shoulder', 'episode': episode})
         print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'move_to_shoulder' data")
 
@@ -131,9 +130,8 @@ for episode in range(EPISODE_NUMBER):
     for i in range(150):
         env.step()
         step_counter += 1
-        if i % 10 == 0:  # Save every 10 steps
-            save_step_data(step_counter, {'phase': 'hop_up_1', 'episode': episode})
-            print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'hop_up_1' data")
+        save_step_data(step_counter, {'phase': 'hop_up_1', 'episode': episode})
+        print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'hop_up_1' data")
 
     print(f"🎯 [Episode {episode + 1}] Phase 3: Hopping down to target")
     # hop down
@@ -145,9 +143,8 @@ for episode in range(EPISODE_NUMBER):
     for i in range(150):
         env.step()
         step_counter += 1
-        if i % 10 == 0:  # Save every 10 steps
-            save_step_data(step_counter, {'phase': 'hop_down', 'episode': episode})
-            print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'hop_down' data")
+        save_step_data(step_counter, {'phase': 'hop_down', 'episode': episode})
+        print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'hop_down' data")
 
     print(f"🎯 [Episode {episode + 1}] Phase 4: Hopping up again")
     # hop up again
@@ -162,9 +159,8 @@ for episode in range(EPISODE_NUMBER):
     for i in range(150):
         env.step()
         step_counter += 1
-        if i % 10 == 0:  # Save every 10 steps
-            save_step_data(step_counter, {'phase': 'hop_up_2', 'episode': episode})
-            print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'hop_up_2' data")
+        save_step_data(step_counter, {'phase': 'hop_up_2', 'episode': episode})
+        print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'hop_up_2' data")
 
     print(f"🎯 [Episode {episode + 1}] Phase 5: Moving to elbow position")
     robot.IKTargetDoMove(
@@ -175,18 +171,16 @@ for episode in range(EPISODE_NUMBER):
     for i in range(150):
         env.step()
         step_counter += 1
-        if i % 10 == 0:  # Save every 10 steps
-            save_step_data(step_counter, {'phase': 'move_to_elbow', 'episode': episode})
-            print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'move_to_elbow' data")
+        save_step_data(step_counter, {'phase': 'move_to_elbow', 'episode': episode})
+        print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'move_to_elbow' data")
 
     print(f"🎯 [Episode {episode + 1}] Phase 6: Final movement sequence")
     # final movement (150 steps for 3 seconds)
     for i in range(150):
         env.step()
         step_counter += 1
-        if i % 10 == 0:  # Save every 10 steps
-            save_step_data(step_counter, {'phase': 'final_movement', 'episode': episode})
-            print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'final_movement' data")
+        save_step_data(step_counter, {'phase': 'final_movement', 'episode': episode})
+        print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'final_movement' data")
 
     print(f"🏁 [Episode {episode + 1}] Completed! Total steps saved: {step_counter}")
     print(f"🎬 ====== Episode {episode + 1}/{EPISODE_NUMBER} Finished ======\n")
