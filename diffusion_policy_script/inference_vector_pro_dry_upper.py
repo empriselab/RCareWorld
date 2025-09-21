@@ -18,42 +18,7 @@ import hydra
 from omegaconf import OmegaConf
 from datetime import datetime
 
-# ================ CONFIGURATION PARAMETERS ================
-# Enable SSH remote connection (set to True to use remote Unity)
-USE_REMOTE = False
-
-# Model checkpoint path
-CHECKPOINT_PATH = '/home/cathy/Workspace/diffusion_policy/data/outputs/2025.09.17/19.21.39_bathing_diffusion_policy'
-
-# Number of inference episodes to run
-INFERENCE_EPISODES = 3
-
-# Configure environment based on connection mode
-if USE_REMOTE:
-    # Remote mode: Unity runs on a different machine
-    env = RCareWorld(
-        bind_address="0.0.0.0",
-        remote_mode=True,
-        port=5004
-    )
-    print("[Remote Mode] Waiting for Unity connection on 0.0.0.0:5004")
-    print("[Remote Mode] Make sure Unity is running and configured to connect to this server")
-else:
-    # Local mode: Unity runs on the same machine
-    env = RCareWorld()
-
-
-# Create an instance of the Franka Panda robot and set its IK target offset
-robot = env.GetAttr(315893)
-
-# robot.SetIKTargetOffset(position=[0, 0.105, 0])
-env.step(200)
-
-# Get the gripper attribute and open the gripper
-gripper = env.GetAttr(3158930)
-gripper.GripperOpen()
-
-print(f"🤖 Starting Diffusion Policy Inference for {INFERENCE_EPISODES} episodes...")
+import cv2
 
 class DiffusionPolicyInference:
     def __init__(self, checkpoint_path):
@@ -96,15 +61,7 @@ class DiffusionPolicyInference:
         if not os.path.exists(checkpoint_dir):
             raise FileNotFoundError(f"No checkpoints directory found in {self.checkpoint_path}")
 
-        checkpoint_files = [f for f in os.listdir(checkpoint_dir) if f.endswith('.ckpt')]
-        if not checkpoint_files:
-            raise FileNotFoundError(f"No checkpoint files found in {checkpoint_dir}")
-
-        # Use the latest checkpoint (prefer latest.ckpt if available)
-        if 'latest.ckpt' in checkpoint_files:
-            checkpoint_file = 'latest.ckpt'
-        else:
-            checkpoint_file = sorted(checkpoint_files)[-1]
+        checkpoint_file = 'epoch=0600-test_mean_score=0.500.ckpt'
 
         checkpoint_path = os.path.join(checkpoint_dir, checkpoint_file)
 
@@ -124,56 +81,40 @@ class DiffusionPolicyInference:
 
     def get_observation(self, env, robot, gripper, cameras):
         """Extract observation from the environment in the same format as training data."""
-        try:
-            # Get robot state (same as in data collection)
-            robot_data = robot.data
+        # Get robot state (same as in data collection)
+        robot_data = robot.data
 
-            # Initialize state array (13 dimensions: 7 joint positions + 6 joint velocities)
-            state = np.zeros(13, dtype=np.float32)
+        # Joint positions (7-DOF)
+        joint_positions = robot_data.get('joint_positions', [])[:7]
+        end_effector_pos = robot_data.get('grasp_point_position')
+        # print(f"Positions: {positions}")
+        end_effector_rot = robot_data.get('grasp_point_rotation')
+        state = np.concatenate([joint_positions, end_effector_pos, end_effector_rot], dtype=np.float32)
 
-            # Joint positions (7-DOF)
-            joints = robot_data.get('joint_positions', [])[:7]
-            for i, joint_val in enumerate(joints):
-                if i < 7:
-                    state[i] = joint_val
+        # Get primary camera image (96x96 for DiffusionPolicy)
+        img = np.zeros((96, 96, 3), dtype=np.uint8)
+        primary_camera_id = 91602  # Use first camera as primary
+        camera = cameras[primary_camera_id]
+        camera.GetRGB(96, 96)
+        env.step()
+        img_bytes = camera.data['rgb']
+        img_array = np.frombuffer(img_bytes, dtype=np.uint8)
+        img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
 
-            # Joint velocities (6-DOF, first 6 joints for state)
-            joint_vels = robot_data.get('joint_velocities', [])[:6]
-            for i, vel in enumerate(joint_vels):
-                if i < 6:
-                    state[7 + i] = vel
+        cv2.imshow("Camera View", img)
+        cv2.waitKey(1)  # Display the image for 1 ms
+        if img.shape == (96, 96, 3):
+            img = img
+            print("yyyyyyyyyyyyyyyyyyyyyyyyy")
 
-            # Get primary camera image (96x96 for DiffusionPolicy)
-            img = np.zeros((96, 96, 3), dtype=np.uint8)
-            primary_camera_id = 91602  # Use first camera as primary
-            if primary_camera_id in cameras:
-                try:
-                    camera = cameras[primary_camera_id]
-                    env.step()  # Update camera
-                    camera.GetRGB(96, 96)
-                    if 'rgb' in camera.data:
-                        img_bytes = camera.data['rgb']
-                        img_array = np.frombuffer(img_bytes, dtype=np.uint8)
-                        if img_array.size == 96 * 96 * 3:
-                            img = img_array.reshape(96, 96, 3)
-                except Exception as e:
-                    print(f"⚠️  [DiffusionPolicy] Camera capture warning: {e}")
+        # Convert to torch tensors
+        obs = {
+            'image': torch.from_numpy(img).float().permute(2, 0, 1) / 255.0,  # (3, 96, 96)
+            'agent_pos': torch.from_numpy(state).float()  # (13,)
+        }
 
-            # Convert to torch tensors
-            obs = {
-                'image': torch.from_numpy(img).float().permute(2, 0, 1) / 255.0,  # (3, 96, 96)
-                'agent_pos': torch.from_numpy(state).float()  # (13,)
-            }
-
-            return obs
-
-        except Exception as e:
-            print(f"❌ [DiffusionPolicy] Error getting observation: {e}")
-            # Return dummy observation
-            return {
-                'image': torch.zeros(3, 96, 96, dtype=torch.float32),
-                'agent_pos': torch.zeros(13, dtype=torch.float32)
-            }
+        return obs
+    
 
     def predict_action(self, obs):
         """Predict action using the diffusion policy."""
@@ -196,6 +137,8 @@ class DiffusionPolicyInference:
         # Add batch dimension and move to device
         obs_dict = dict_apply(obs_dict, lambda x: x.unsqueeze(0).to(self.device))
 
+        print(obs_dict)
+
         # Predict actions
         with torch.no_grad():
             action_pred = self.policy.predict_action(obs_dict)
@@ -211,13 +154,52 @@ class DiffusionPolicyInference:
 
         return action
 
+# ================ CONFIGURATION PARAMETERS ================
+# Enable SSH remote connection (set to True to use remote Unity)
+USE_REMOTE = False
+
+# Model checkpoint path
+CHECKPOINT_PATH = '/home/cathy/Workspace/diffusion_policy/data/outputs/2025.09.18/11.20.23_bathing_diffusion_policy'
+
+# Number of inference episodes to run
+INFERENCE_EPISODES = 3
+
+# Configure environment based on connection mode
+if USE_REMOTE:
+    # Remote mode: Unity runs on a different machine
+    env = RCareWorld(
+        bind_address="0.0.0.0",
+        remote_mode=True,
+        port=5004
+    )
+    print("[Remote Mode] Waiting for Unity connection on 0.0.0.0:5004")
+    print("[Remote Mode] Make sure Unity is running and configured to connect to this server")
+else:
+    # Local mode: Unity runs on the same machine
+    env = RCareWorld()
+
+
+# Create an instance of the Franka Panda robot and set its IK target offset
+robot = env.GetAttr(315893)
+
+# robot.SetIKTargetOffset(position=[0, 0.105, 0])
+env.step()
+
+# Get the gripper attribute and open the gripper
+gripper = env.GetAttr(3158930)
+gripper.GripperOpen()
+
+print(f"🤖 Starting Diffusion Policy Inference for {INFERENCE_EPISODES} episodes...")
+
+
+
 # Initialize the diffusion policy inference engine
 print("🚀 [DiffusionPolicy] Initializing inference engine...")
 diffusion_policy = DiffusionPolicyInference(CHECKPOINT_PATH)
 
 # Initialize cameras for observation
 cameras = {}
-cameras[91601] = env.GetAttr(91601)  # Primary camera
+cameras[91602] = env.GetAttr(91602)  # Primary camera
 
 print(f"🎬 Starting {INFERENCE_EPISODES} inference episodes...")
 
@@ -241,7 +223,31 @@ for episode in range(INFERENCE_EPISODES):
     robot.IKTargetDoRotate(rotation=[0, 45, 180], duration=0, speed_based=False)
 
     # Wait for initialization
-    for _ in range(100):
+    for _ in range(10):
+        env.step()
+
+    shoulder_id = 3001
+    elbow_id = 3002
+    wrist_id = 3003
+    pad_dry_wp_id = 3004
+
+    shoulder = env.GetAttr(shoulder_id)
+    elbow = env.GetAttr(elbow_id)
+    wrist = env.GetAttr(wrist_id)
+    pad_dry_wp = env.GetAttr(pad_dry_wp_id)
+
+    shoulder_position = shoulder.data["position"]
+    elbow_position = elbow.data["position"]
+    wrist_position = wrist.data["position"]
+    pad_dry_wp_position = pad_dry_wp.data["position"]
+
+    robot.IKTargetDoMove(
+            position=[shoulder_position[0], shoulder_position[1]+0.1, shoulder_position[2]],
+            duration=1,
+            speed_based=False,
+        )
+
+    for i in range(50):
         env.step()
 
 
@@ -251,7 +257,7 @@ for episode in range(INFERENCE_EPISODES):
     diffusion_policy.obs_history = []
 
     # Run inference for a fixed number of steps
-    max_steps = 200  # Run for 2 seconds at 100Hz
+    max_steps = 2000  # Run for 2 seconds at 100Hz
 
     for step in range(max_steps):
         # Get current observation
@@ -279,11 +285,12 @@ for episode in range(INFERENCE_EPISODES):
         # Execute the predicted action (assumed to be end-effector position delta)
         robot.IKTargetDoMove(
             position=action.tolist(),
-            duration=0.1,
-            speed_based=True,
+            duration=0,
+            speed_based=False,
             relative=True
         )
-        for i in range(10):
+        robot.IKTargetDoRotate(rotation=[0, 45, 180], duration=0, speed_based=False)
+        for i in range(2):
             env.step()
     
         # robot.IKTargetDoRotate(rotation=[0, 45, 180], duration=0, speed_based=True)

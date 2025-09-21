@@ -44,11 +44,11 @@ gripper = env.GetAttr(3158930)
 gripper.GripperOpen()
 
 # Number of episodes to collect (default: 20)
-EPISODE_NUMBER = 200  # Test with 1 episode first
+EPISODE_NUMBER = 10  # Test with 1 episode first
 
 # Initialize data saver for bathing dry task (save every 10 steps)
 data_saver = init_data_saver(env, robot_id=315893, gripper_id=3158930,
-                             enabled=ENABLE_DATA_SAVING, task_name="bathing_dry_upper", save_frequency=10)
+                             enabled=ENABLE_DATA_SAVING, task_name="bathing_dry_upper", save_frequency=1)
 
 print(f"🚀 Starting data collection for {EPISODE_NUMBER} episodes...")
 
@@ -92,13 +92,13 @@ for episode in range(EPISODE_NUMBER):
     pad_dry_wp_position = pad_dry_wp.data["position"]
 
     # only randomize x and z for shoulder and elbow
-    shoulder_noise = [random.uniform(-0.02, 0.02), 0.0, random.uniform(-0.02, 0.02)]
-    elbow_noise = [random.uniform(-0.02, 0.02), 0.0, random.uniform(-0.02, 0.02)]
-    pad_dry_wp_noise = [random.uniform(-0.02, 0.02) for _ in range(3)]
+    # shoulder_noise = [random.uniform(-0.02, 0.02), 0.0, random.uniform(-0.02, 0.02)]
+    # elbow_noise = [random.uniform(-0.02, 0.02), 0.0, random.uniform(-0.02, 0.02)]
+    # pad_dry_wp_noise = [random.uniform(-0.02, 0.02) for _ in range(3)]
 
-    shoulder_position = [p + n for p, n in zip(shoulder_position, shoulder_noise)]
-    elbow_position = [p + n for p, n in zip(elbow_position, elbow_noise)]
-    pad_dry_wp_position = [p + n for p, n in zip(pad_dry_wp_position, pad_dry_wp_noise)]
+    # shoulder_position = [p + n for p, n in zip(shoulder_position, shoulder_noise)]
+    # elbow_position = [p + n for p, n in zip(elbow_position, elbow_noise)]
+    # pad_dry_wp_position = [p + n for p, n in zip(pad_dry_wp_position, pad_dry_wp_noise)]
 
     env.step()
     print(f"🤖 [Episode {episode + 1}] Robot initialized, starting movements...")
@@ -107,11 +107,11 @@ for episode in range(EPISODE_NUMBER):
     print(f"🎯 [Episode {episode + 1}] Phase 1: Moving to shoulder position")
     robot.IKTargetDoMove(
             position=[shoulder_position[0], shoulder_position[1]+0.05, shoulder_position[2]],
-            duration=1,
+            duration=0.5,
             speed_based=False,
         )
 
-    for i in range(50):
+    for i in range(100):
         env.step()
     #     step_counter += 1
     #     save_step_data(step_counter, {'phase': 'move_to_shoulder', 'episode': episode})
