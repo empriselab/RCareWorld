@@ -24,6 +24,7 @@ from pyrcareworld.attributes.dressing_score_attr import DressingScoreAttr
 from pyrcareworld.attributes.sponge_attr import SpongeAttr
 from pyrcareworld.attributes.sponge_score_attr import SpongeScoreAttr
 from pyrcareworld.attributes.collision_force_attr import CollisionForceAttr
+from pyrcareworld.attributes.sponge_force_attr import SpongeForceAttr
 from pyrcareworld.attributes.articulated_joint_attr import ArticulatedJointAttr
 from pyrcareworld.attributes.arm_pose_iou_attr import ArmPoseIoUAttr
 
@@ -59,6 +60,7 @@ attrs = {
 "SpongeAttr": SpongeAttr,
 "PersonRandomizerAttr": PersonRandomizerAttr,
 "CollisionForceAttr": CollisionForceAttr,
+"SpongeForceAttr": SpongeForceAttr,
 "ArticulatedJointAttr": ArticulatedJointAttr,
 "ArmPoseIoUAttr": ArmPoseIoUAttr,
 }
