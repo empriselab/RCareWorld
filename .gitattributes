@@ -6,3 +6,4 @@ pyrcareworld/pyrcareworld/demo/executable/Player/Player_Data/StreamingAssets/aa/
 template/Bathing/BathingPlayer_Data/StreamingAssets/aa/StandaloneLinux64/user_assets_all_752a0ed37435299b38372bf214d395b3.bundle filter=lfs diff=lfs merge=lfs -text
 template/Bathing/BathingPlayer_Data/StreamingAssets/aa/StandaloneLinux64/user_assets_all_2308b64dbb01817506c542159ebf007a.bundle filter=lfs diff=lfs merge=lfs -text
 template/Bathing/BathingPlayer_Data/StreamingAssets/aa/StandaloneLinux64/*.bundle filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
