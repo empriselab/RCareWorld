@@ -88,11 +88,11 @@ for episode in range(EPISODE_NUMBER):
     wrist_position = wrist.data["position"]
 
     # Add small random variations to make episodes diverse
-    shoulder_noise = [random.uniform(-0.02, 0.02) for _ in range(3)]
-    elbow_noise = [random.uniform(-0.02, 0.02) for _ in range(3)]
+    # shoulder_noise = [random.uniform(-0.02, 0.02) for _ in range(3)]
+    # elbow_noise = [random.uniform(-0.02, 0.02) for _ in range(3)]
 
-    shoulder_position = [p + n for p, n in zip(shoulder_position, shoulder_noise)]
-    elbow_position = [p + n for p, n in zip(elbow_position, elbow_noise)]
+    # shoulder_position = [p + n for p, n in zip(shoulder_position, shoulder_noise)]
+    # elbow_position = [p + n for p, n in zip(elbow_position, elbow_noise)]
 
     env.step()
     print(f"🤖 [Episode {episode + 1}] Robot initialized, starting wash movements...")
@@ -100,8 +100,8 @@ for episode in range(EPISODE_NUMBER):
     # Phase 1: Move to shoulder position
     print(f"🎯 [Episode {episode + 1}] Phase 1: Moving to shoulder position")
     robot.IKTargetDoMove(
-            position=[shoulder_position[0], shoulder_position[1]+0.1, shoulder_position[2]],
-            duration=3,
+            position=[shoulder_position[0], shoulder_position[1]+0.08, shoulder_position[2]],
+            duration=1,
             speed_based=False,
         )
 
@@ -115,8 +115,8 @@ for episode in range(EPISODE_NUMBER):
     # Phase 2: Move to elbow position
     print(f"🎯 [Episode {episode + 1}] Phase 2: Moving to elbow position")
     robot.IKTargetDoMove(
-            position=[elbow_position[0], elbow_position[1]+0.1, elbow_position[2]],
-            duration=3,
+            position=[elbow_position[0], elbow_position[1]+0.08, elbow_position[2]],
+            duration=1,
             speed_based=False,
         )
     for i in range(150):
@@ -129,8 +129,8 @@ for episode in range(EPISODE_NUMBER):
     # Phase 3: Elbow to shoulder movement
     print(f"🎯 [Episode {episode + 1}] Phase 3: Elbow to shoulder movement")
     robot.IKTargetDoMove(
-            position=[shoulder_position[0], shoulder_position[1]+0.1, shoulder_position[2]],
-            duration=3,
+            position=[shoulder_position[0], shoulder_position[1]+0.08, shoulder_position[2]],
+            duration=1,
             speed_based=False,
         )
     for i in range(150):
@@ -144,7 +144,7 @@ for episode in range(EPISODE_NUMBER):
     print(f"🎯 [Episode {episode + 1}] Phase 4: Returning to initial position")
     robot.IKTargetDoMove(
             position=initialize_position,
-            duration=3,
+            duration=1,
             speed_based=False,
         )
     for i in range(150):

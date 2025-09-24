@@ -268,6 +268,7 @@ class DiffusionPolicyDataSaver:
                         img = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)  # Convert BGR to RGB
                         img = cv2.resize(img, (self.image_width, self.image_height))
                         img = img.astype(np.float32)  # Keep original pixel values [0,255] as float32
+                    print(img)
 
                     # show image
                     cv2.imshow("Captured Image", img_bgr)
@@ -335,11 +336,13 @@ class DiffusionPolicyDataSaver:
         # print state shape
         # convert state to array
         state = np.array(state, dtype=np.float32)
+
+        end_effector_pos = np.array(end_effector_pos, dtype=np.float32)
         # Combine all data for this step (DiffusionPolicy format)
         frame_data = {
             'step': step_num,
             'img': img,              # (96, 96, 3) float32
-            'action': delta_action,  # (3,) float32
+            'action': end_effector_pos,  # (3,) float32
             'state': state,          # (13,) float32
             'gripper': gripper_state, # (1,) float32
             'additional': step_data['additional']

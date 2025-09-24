@@ -88,12 +88,12 @@ for episode in range(EPISODE_NUMBER):
     elbow_position = elbow.data["position"]
     wrist_position = wrist.data["position"]
 
-    # Add small random variations to make episodes diverse
-    shoulder_noise = [random.uniform(-0.02, 0.02) for _ in range(3)]
-    elbow_noise = [random.uniform(-0.02, 0.02) for _ in range(3)]
+    # # Add small random variations to make episodes diverse
+    # shoulder_noise = [random.uniform(-0.02, 0.02) for _ in range(3)]
+    # elbow_noise = [random.uniform(-0.02, 0.02) for _ in range(3)]
 
-    shoulder_position = [p + n for p, n in zip(shoulder_position, shoulder_noise)]
-    elbow_position = [p + n for p, n in zip(elbow_position, elbow_noise)]
+    # shoulder_position = [p + n for p, n in zip(shoulder_position, shoulder_noise)]
+    # elbow_position = [p + n for p, n in zip(elbow_position, elbow_noise)]
 
     env.step()
     print(f"🤖 [Episode {episode + 1}] Robot initialized, starting rinse movements...")
@@ -101,8 +101,8 @@ for episode in range(EPISODE_NUMBER):
     # Phase 1: Move to shoulder position
     print(f"🎯 [Episode {episode + 1}] Phase 1: Moving to shoulder position")
     robot.IKTargetDoMove(
-            position=[shoulder_position[0], shoulder_position[1]+0.1, shoulder_position[2]],
-            duration=3,
+            position=[shoulder_position[0], shoulder_position[1]+0.08, shoulder_position[2]],
+            duration=1,
             speed_based=False,
         )
     # Wait for movement to complete (3 seconds = 300 steps at 0.01s/step)
@@ -113,20 +113,24 @@ for episode in range(EPISODE_NUMBER):
             save_step_data(step_counter, {'phase': 'shoulder_to_elbow', 'episode': episode})
             print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'shoulder_to_elbow' data")
 
-    # Phase 2: Elbow position
-    print(f"🎯 [Episode {episode + 1}] Phase 2: Elbow position")
+    # Phase 3: Move above elbow
+    print(f"🎯 [Episode {episode + 1}] Phase 3: Move above elbow")
+    robot.IKTargetDoMove(
+            position=[elbow_position[0], elbow_position[1]+0.08, elbow_position[2]],
+            duration=1,
+            speed_based=False,
+        )
     for i in range(150):
         env.step()
         step_counter += 1
         if i % 10 == 0:  # Save every 10 steps
-            save_step_data(step_counter, {'phase': 'elbow_position', 'episode': episode})
-            print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'elbow_position' data")
+            save_step_data(step_counter, {'phase': 'move_above_elbow', 'episode': episode})
+            print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'move_above_elbow' data")
 
-    # Phase 3: Move above elbow
     print(f"🎯 [Episode {episode + 1}] Phase 3: Move above elbow")
     robot.IKTargetDoMove(
-            position=[elbow_position[0], elbow_position[1]+0.3, elbow_position[2]],
-            duration=3,
+            position=[elbow_position[0], elbow_position[1]+0.2, elbow_position[2]],
+            duration=1,
             speed_based=False,
         )
     for i in range(150):
@@ -139,8 +143,8 @@ for episode in range(EPISODE_NUMBER):
     # Phase 4: Elbow to shoulder
     print(f"🎯 [Episode {episode + 1}] Phase 4: Elbow to shoulder")
     robot.IKTargetDoMove(
-            position=[shoulder_position[0], shoulder_position[1]+0.1, shoulder_position[2]],
-            duration=3,
+            position=[shoulder_position[0], shoulder_position[1]+0.08, shoulder_position[2]],
+            duration=1,
             speed_based=False,
         )
     for i in range(150):
@@ -153,8 +157,8 @@ for episode in range(EPISODE_NUMBER):
     # Phase 5: Final elbow position
     print(f"🎯 [Episode {episode + 1}] Phase 5: Final elbow position")
     robot.IKTargetDoMove(
-            position=[elbow_position[0], elbow_position[1]+0.1, elbow_position[2]],
-            duration=3,
+            position=[elbow_position[0], elbow_position[1]+0.08,elbow_position[2]],
+            duration=1,
             speed_based=False,
         )
     for i in range(150):
