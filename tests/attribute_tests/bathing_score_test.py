@@ -6,9 +6,8 @@ from pyrcareworld import attributes as attr
 
 def main():
     ap = argparse.ArgumentParser(description="Full BathingScoreAttr method coverage test")
-    # default to your new build path; override with --player if different
     default_player = (
-        Path(__file__).resolve().parents[1] / "executable" / "Attribute_Tests" / "Attribute_Tests.x86_64"
+        Path(__file__).resolve().parents[2] / "executable" / "Attribute_Tests" / "Attribute_Tests.x86_64"
     )
     ap.add_argument("--player", default=str(default_player),
                     help="Path to Unity player (Attribute_Tests.x86_64 or .exe)")
@@ -22,15 +21,11 @@ def main():
     obj_name = args.name
     env = RCareWorld(executable_file=player)
     try:
-        # Warmup so Unity finishes initializing
         env.step()
 
-        # Bind/attach attribute to the named object
         bathing = env.InstanceObject(name=obj_name, attr_type=attr.BathingScoreAttr)
 
-        # -----------------------------
-        # 1) get_scores()
-        # -----------------------------
+        # get_scores()
         try:
             scores_initial = bathing.get_scores()
             print("get_scores() ->", scores_initial)
@@ -39,14 +34,11 @@ def main():
             print("FAIL: get_scores() raised:", e)
             scores_initial = {}
 
-        # -----------------------------
-        # 2) get_score_for_task(task_name)
-        # Try an existing key if present; otherwise a known-missing key.
-        # -----------------------------
+        # get_score_for_task()
         if scores_initial:
             some_task = next(iter(scores_initial.keys()))
         else:
-            # deliberately missing key (should return 0 per your implementation)
+            # deliberately missing key (should return 0)
             some_task = "RinseArms"
         try:
             val = bathing.get_score_for_task(some_task)
@@ -55,10 +47,8 @@ def main():
         except Exception as e:
             print("FAIL: get_score_for_task() raised:", e)
 
-        # -----------------------------
-        # 3) load_scores_from_file(path)
+        # load_scores_from_file()
         # Provide dummy values, load, then read back with get_scores()
-        # -----------------------------
         dummy = {"RinseArms": 0.2, "RinseLegs": 0.5, "RinseTorso": 0.8}
         tmp_in = Path("bathing_scores_dummy_in.json").resolve()
         tmp_in.write_text(json.dumps(dummy, indent=4))
@@ -66,11 +56,9 @@ def main():
 
         try:
             bathing.load_scores_from_file(str(tmp_in))
-            # your method calls env._step() internally; we also tick a bit for good measure
             env.step()
             after_load = bathing.get_scores()
             print("After load, get_scores() ->", after_load)
-            # Compare to dummy to see if Unity honored LoadScores
             if after_load == dummy:
                 print("PASS: load_scores_from_file applied (engine echoes loaded scores).")
             else:
@@ -79,10 +67,7 @@ def main():
         except Exception as e:
             print("FAIL: load_scores_from_file() raised:", e)
 
-        # -----------------------------
-        # 4) save_scores_to_file(path)
-        # Save whatever the engine currently thinks the scores are, then show file contents.
-        # -----------------------------
+        # save_scores_to_file()
         tmp_out = Path("bathing_scores_dummy_out.json").resolve()
         try:
             bathing.save_scores_to_file(str(tmp_out))
