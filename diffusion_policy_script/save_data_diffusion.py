@@ -271,8 +271,8 @@ class DiffusionPolicyDataSaver:
                     print(img)
 
                     # show image
-                    cv2.imshow("Captured Image", img_bgr)
-                    cv2.waitKey(1)
+                    # cv2.imshow("Captured Image", img_bgr)
+                    # cv2.waitKey(1)
                     # Cleanup temp file
                     try:
                         os.remove(temp_path)
@@ -398,76 +398,71 @@ class DiffusionPolicyDataSaver:
 
     def _append_frame_to_zarr(self, frame: Dict):
         """Append a single frame to Zarr arrays."""
-        try:
-            # Initialize arrays if this is the first frame
-            if self.total_frames == 0:
-                self._initialize_zarr_arrays(frame)
+        # Initialize arrays if this is the first frame
+        if self.total_frames == 0:
+            self._initialize_zarr_arrays(frame)
 
-            frame_idx = self.total_frames
+        frame_idx = self.total_frames
 
-            # Save data in DiffusionPolicy format
-            self.data_group['img'][frame_idx] = frame['img']
-            self.data_group['action'][frame_idx] = frame['action']
-            self.data_group['state'][frame_idx] = frame['state']
-            self.data_group['gripper'][frame_idx] = frame['gripper']
+        # Save data in DiffusionPolicy format
+        self.data_group['img'][frame_idx] = frame['img']
+        self.data_group['action'][frame_idx] = frame['action']
+        self.data_group['state'][frame_idx] = frame['state']
+        self.data_group['gripper'][frame_idx] = frame['gripper']
 
-            self.total_frames += 1
+        self.total_frames += 1
 
-        except Exception as e:
-            print(f"[DataSaver] Error appending frame to Zarr: {e}")
 
     def _initialize_zarr_arrays(self, sample_frame: Dict):
         """Initialize Zarr arrays based on first frame structure."""
-        try:
-            # Estimate total capacity (conservative estimate)
-            max_capacity = 50000  # Adjust based on expected dataset size
+        # Estimate total capacity (conservative estimate)
+        max_capacity = 50000  # Adjust based on expected dataset size
 
-            # Initialize arrays in DiffusionPolicy format
-            # Image array: (N, 96, 96, 3) float32
-            img_shape = (max_capacity,) + sample_frame['img'].shape
-            self.data_group.create_dataset(
-                'img',
-                shape=img_shape,
-                dtype=sample_frame['img'].dtype,
-                chunks=(1,) + sample_frame['img'].shape,
-                compression='lz4'
-            )
+        # Initialize arrays in DiffusionPolicy format
+        # Image array: (N, 96, 96, 3) float32
+        img_shape = (max_capacity,) + sample_frame['img'].shape
+        self.data_group.create_dataset(
+            'img',
+            shape=img_shape,
+            dtype=sample_frame['img'].dtype,
+            chunks=(1,) + sample_frame['img'].shape,
+            compression='lz4'
+        )
 
-            # Action array: (N, 3) float32
-            action_shape = (max_capacity,) + sample_frame['action'].shape
-            self.data_group.create_dataset(
-                'action',
-                shape=action_shape,
-                dtype=sample_frame['action'].dtype,
-                chunks=(100,) + sample_frame['action'].shape,
-                compression='lz4'
-            )
+        # Action array: (N, 3) float32
+        action_shape = (max_capacity,) + sample_frame['action'].shape
+        self.data_group.create_dataset(
+            'action',
+            shape=action_shape,
+            dtype=sample_frame['action'].dtype,
+            chunks=(100,) + sample_frame['action'].shape,
+            compression='lz4'
+        )
 
-            # State array: (N, 13) float32
-            state_shape = (max_capacity,) + sample_frame['state'].shape
-            self.data_group.create_dataset(
-                'state',
-                shape=state_shape,
-                dtype=sample_frame['state'].dtype,
-                chunks=(100,) + sample_frame['state'].shape,
-                compression='lz4'
-            )
+        # State array: (N, 13) float32
+        state_shape = (max_capacity,) + sample_frame['state'].shape
+        self.data_group.create_dataset(
+            'state',
+            shape=state_shape,
+            dtype=sample_frame['state'].dtype,
+            chunks=(100,) + sample_frame['state'].shape,
+            compression='lz4'
+        )
 
-            # Gripper array: (N, 1) float32
-            gripper_shape = (max_capacity,) + sample_frame['gripper'].shape
-            self.data_group.create_dataset(
-                'gripper',
-                shape=gripper_shape,
-                dtype=sample_frame['gripper'].dtype,
-                chunks=(100,) + sample_frame['gripper'].shape,
-                compression='lz4'
-            )
+        # Gripper array: (N, 1) float32
+        gripper_shape = (max_capacity,) + sample_frame['gripper'].shape
+        self.data_group.create_dataset(
+            'gripper',
+            shape=gripper_shape,
+            dtype=sample_frame['gripper'].dtype,
+            chunks=(100,) + sample_frame['gripper'].shape,
+            compression='lz4'
+        )
 
-            print(f"[DataSaver] Zarr arrays initialized with capacity {max_capacity}")
-            print(f"[DataSaver] Arrays: img{img_shape[1:]}, action{action_shape[1:]}, state{state_shape[1:]}, gripper{gripper_shape[1:]}")
+        print(f"[DataSaver] Zarr arrays initialized with capacity {max_capacity}")
+        print(f"[DataSaver] Arrays: img{img_shape[1:]}, action{action_shape[1:]}, state{state_shape[1:]}, gripper{gripper_shape[1:]}")
 
-        except Exception as e:
-            print(f"[DataSaver] Error initializing Zarr arrays: {e}")
+
 
     def _finalize_current_episode(self):
         """Finalize current episode and update episode_ends."""

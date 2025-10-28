@@ -303,6 +303,7 @@ class DiffusionPolicyDataSaver:
                     if i < 7:
                         action[i] = vel
 
+                
                 # End effector pose
                 positions = robot_data.get('positions', [])
                 rotations = robot_data.get('rotations', [])
