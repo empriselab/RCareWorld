@@ -223,11 +223,6 @@ def main():
         step(env, 6)
         print("AddRoot6DOF executed")
 
-        # GetGraspPoint
-        pos, rot = ctrl.GetGraspPoint()
-        step(env, 100)
-        print("GetGraspPoint executed:", pos, rot)
-
         print("\nAll ControllerAttr methods invoked successfully")
     finally:
         env.Pend(); env.close()

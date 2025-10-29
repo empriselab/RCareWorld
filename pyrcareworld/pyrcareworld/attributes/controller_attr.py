@@ -400,25 +400,3 @@ class ControllerAttr(attr.ColliderAttr):
         self._send_data("AddRoot6DOF", new_id)
         self.env.attrs[new_id] = ControllerAttr(self.env, new_id)
         return self.env.attrs[new_id]
-    
-    def GetGraspPoint(self, link_name: str = "link_grasp_center", fallback: str = "grasp", euler: bool = False) -> Tuple[list, list]:
-        """
-        Get the grasp point's position and rotation as a tuple `(pos, rot)`. May not provide useful data for the first few steps, in which case `(None, None)` will be returned.
-
-        :param link_name: Str, name of the grasp point link. For the stretch 3, it is named `"link_grasp_center"`.
-        :param fallback: Str, a substring of the grasp link name to find the grasp point link if `link_name` exactly is not found.
-        :param euler: Bool, whether to use euler angles instead of quaternions.
-        :return: A list of length 3, representing the position of the grasp point.
-        """
-        self._send_data("SetGraspLink", link_name, fallback)
-
-        pos_reading = self.data.get("grasp_point_position", self.last_grasp_position)
-        rot_reading = self.data.get("grasp_point_rotation", self.last_grasp_rotation) if not euler else self.data.get("grasp_point_euler", self.last_grasp_rotation)
-
-        if pos_reading is None:
-            self.last_grasp_position = pos_reading
-
-        if rot_reading is None:
-            self.last_grasp_rotation = rot_reading
-
-        return pos_reading, rot_reading
