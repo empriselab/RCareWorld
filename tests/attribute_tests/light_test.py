@@ -16,8 +16,9 @@ def step(env, n=1, delay=0.05):
 def main():
     ap = argparse.ArgumentParser(description="Test LightAttr methods")
     default_player = (
-        Path(__file__).resolve().parents[2] /
-        "executable" / "Attribute_Tests" / "Attribute_Tests.x86_64"
+    Path(__file__).resolve().parents[2]
+    / "pyrcareworld" / "pyrcareworld" / "demo" / "executable"
+    / "Attribute_Tests" / "Attribute_Tests.x86_64"
     )
     ap.add_argument("--player", default=str(default_player))
     ap.add_argument("--name", default="LightTestObject")
@@ -39,7 +40,7 @@ def main():
         print(f"Bound LightAttr to object '{args.name}'")
 
         # SetColor
-        light.SetColor([1.0, 0.8, 0.6])
+        light.SetColor([1.0, 0, 0])
         step(env, 3)
         print("SetColor executed")
 

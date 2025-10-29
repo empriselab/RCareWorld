@@ -9,13 +9,14 @@ from pyrcareworld import attributes as attr
 def main():
     ap = argparse.ArgumentParser(description="Test ActiveLightSensorAttr end-to-end")
     default_player = (
-        Path(__file__).resolve().parents[2] /
-        "executable" / "Attribute_Tests" / "Attribute_Tests.x86_64"
+    Path(__file__).resolve().parents[2]
+    / "pyrcareworld" / "pyrcareworld" / "demo" / "executable"
+    / "Attribute_Tests" / "Attribute_Tests.x86_64"
     )
     ap.add_argument("--player", default=str(default_player),
-                    help="Path to Unity player (Attribute_Tests.x86_64 or .exe)")
+                    help="Path to Unity player (Attribute_Tests.x86_64)")
     ap.add_argument("--name", default="ActiveLightSensor",
-                    help="Scene object name (default: ActiveLightSensor)")
+                    help="Scene object name (default:ActiveLightSensor)")
     ap.add_argument("--warmup", type=int, default=20)
     args = ap.parse_args()
 
@@ -30,7 +31,7 @@ def main():
 
         # Bind the attribute
         sensor = env.InstanceObject(name=args.name, attr_type=attr.ActiveLightSensorAttr)
-        print(">>> Bound ActiveLightSensorAttr")
+        print(">>> Bound ActiveLightSensorAttr to ", args.name)
 
         # Intrinsic matrices (fake identity just for test)
         main_intr = np.array([[600,0,320],[0,600,240],[0,0,1]], dtype=np.float32)
@@ -40,7 +41,7 @@ def main():
         print(">>> Requesting active depth...")
         sensor.GetActiveDepth(main_intr, ir_intr)
 
-        # Stepto receive data
+        # Step to receive data
         for _ in range(10):
             try: env.step()
             except Exception: pass

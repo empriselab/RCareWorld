@@ -7,7 +7,9 @@ from pyrcareworld import attributes as attr
 def main():
     ap = argparse.ArgumentParser(description="Full BathingScoreAttr method coverage test")
     default_player = (
-        Path(__file__).resolve().parents[2] / "executable" / "Attribute_Tests" / "Attribute_Tests.x86_64"
+    Path(__file__).resolve().parents[2]
+    / "pyrcareworld" / "pyrcareworld" / "demo" / "executable"
+    / "Attribute_Tests" / "Attribute_Tests.x86_64"
     )
     ap.add_argument("--player", default=str(default_player),
                     help="Path to Unity player (Attribute_Tests.x86_64 or .exe)")
