@@ -61,7 +61,7 @@ class DiffusionPolicyInference:
         if not os.path.exists(checkpoint_dir):
             raise FileNotFoundError(f"No checkpoints directory found in {self.checkpoint_path}")
 
-        checkpoint_file = 'epoch=0600-test_mean_score=0.500.ckpt'
+        checkpoint_file = 'epoch=0350-test_mean_score=0.500.ckpt'
 
         checkpoint_path = os.path.join(checkpoint_dir, checkpoint_file)
 
@@ -101,8 +101,8 @@ class DiffusionPolicyInference:
         img_array = np.frombuffer(img_bytes, dtype=np.uint8)
         img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
 
-        cv2.imshow("Camera View", img)
-        cv2.waitKey(1)  # Display the image for 1 ms
+        # cv2.imshow("Camera View", img)
+        # cv2.waitKey(1)  # Display the image for 1 ms
         if img.shape == (96, 96, 3):
             img = img
             print("yyyyyyyyyyyyyyyyyyyyyyyyy")
@@ -137,7 +137,7 @@ class DiffusionPolicyInference:
         # Add batch dimension and move to device
         obs_dict = dict_apply(obs_dict, lambda x: x.unsqueeze(0).to(self.device))
 
-        print(obs_dict)
+        # print(obs_dict)
 
         # Predict actions
         with torch.no_grad():
@@ -159,7 +159,7 @@ class DiffusionPolicyInference:
 USE_REMOTE = False
 
 # Model checkpoint path
-CHECKPOINT_PATH = '/home/cathy/Workspace/diffusion_policy/data/outputs/2025.09.18/11.20.23_bathing_diffusion_policy'
+CHECKPOINT_PATH = '/home/cathy/Workspace/diffusion_policy/data/outputs/2025.10.28/16.11.23_bathing_diffusion_policy'
 
 # Number of inference episodes to run
 INFERENCE_EPISODES = 3
@@ -226,29 +226,7 @@ for episode in range(INFERENCE_EPISODES):
     for _ in range(10):
         env.step()
 
-    shoulder_id = 3001
-    elbow_id = 3002
-    wrist_id = 3003
-    pad_dry_wp_id = 3004
-
-    shoulder = env.GetAttr(shoulder_id)
-    elbow = env.GetAttr(elbow_id)
-    wrist = env.GetAttr(wrist_id)
-    pad_dry_wp = env.GetAttr(pad_dry_wp_id)
-
-    shoulder_position = shoulder.data["position"]
-    elbow_position = elbow.data["position"]
-    wrist_position = wrist.data["position"]
-    pad_dry_wp_position = pad_dry_wp.data["position"]
-
-    robot.IKTargetDoMove(
-            position=[shoulder_position[0], shoulder_position[1]+0.1, shoulder_position[2]],
-            duration=1,
-            speed_based=False,
-        )
-
-    for i in range(50):
-        env.step()
+    
 
 
     print(f"🤖 [Episode {episode + 1}] Robot initialized, starting diffusion policy inference...")
@@ -257,7 +235,7 @@ for episode in range(INFERENCE_EPISODES):
     diffusion_policy.obs_history = []
 
     # Run inference for a fixed number of steps
-    max_steps = 2000  # Run for 2 seconds at 100Hz
+    max_steps = 100  # Run for 2 seconds at 100Hz
 
     for step in range(max_steps):
         # Get current observation
@@ -287,11 +265,11 @@ for episode in range(INFERENCE_EPISODES):
             position=action.tolist(),
             duration=0,
             speed_based=False,
-            relative=True
+            relative=False
         )
         robot.IKTargetDoRotate(rotation=[0, 45, 180], duration=0, speed_based=False)
-        for i in range(2):
-            env.step()
+        # for i in range(2):
+        #     env.step()
     
         # robot.IKTargetDoRotate(rotation=[0, 45, 180], duration=0, speed_based=True)
 

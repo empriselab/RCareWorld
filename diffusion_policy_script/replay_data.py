@@ -7,7 +7,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 from pyrcareworld.envs.base_env import RCareWorld
 
 # Path to your saved dataset
-ZARR_PATH = "data/bathing_rinse_upper_20251027_200014.zarr"
+ZARR_PATH = "data/bathing_simple_line_20251028_155711.zarr"
 
 ROBOT_ID   = 315893
 GRIPPER_ID = 3158930
@@ -47,6 +47,7 @@ def main():
                 s = states[i]
                 ee_pos = s[7:10].tolist()
                 ee_rot = s[10:13].tolist()
+                print(ee_pos[0])
                 print(ee_rot)
 
                 # Teleport move using EE pose only

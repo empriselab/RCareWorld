@@ -1,6 +1,7 @@
 import os
 import sys
 import random
+import numpy as np
 import pyrcareworld.attributes as attr
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
@@ -12,41 +13,30 @@ from save_data_diffusion import init_data_saver, save_step_data, start_new_episo
 # Enable data saving (set to False to disable)
 ENABLE_DATA_SAVING = True
 
-offset = 0.05  # offset to avoid collision with the arm
+offset = 0.1  # offset to avoid collision with the arm (unused below; keep if needed)
 
 # Enable SSH remote connection (set to True to use remote Unity)
 USE_REMOTE = False
 
 # Configure environment based on connection mode
 if USE_REMOTE:
-    # Remote mode: Unity runs on a different machine
-    env = RCareWorld(
-        bind_address="0.0.0.0",
-        remote_mode=True,
-        port=5004
-    )
+    env = RCareWorld(bind_address="0.0.0.0", remote_mode=True, port=5004)
     print("[Remote Mode] Waiting for Unity connection on 0.0.0.0:5004")
-    print("[Remote Mode] Make sure Unity is running and configured to connect to this server")
 else:
-    # Local mode: Unity runs on the same machine
     env = RCareWorld()
 
-# # Set high frequency time step for smooth simulation (0.01s = 100Hz)
-# env.SetTimeStep(0.01)
-
-# Create an instance of the Franka Panda robot and set its IK target offset
+# Create an instance of the Franka Panda robot
 robot = env.GetAttr(315893)
-
 env.step()
 
 # Get the gripper attribute and open the gripper
 gripper = env.GetAttr(3158930)
 gripper.GripperOpen()
 
-# Number of episodes to collect (default: 20)
-EPISODE_NUMBER = 5  # Test with 1 episode first
+# Number of episodes to collect
+EPISODE_NUMBER = 3
 
-# Initialize data saver for bathing dry task (save every 10 steps)
+# Initialize data saver (save every 5 steps)
 data_saver = init_data_saver(env, robot_id=315893, gripper_id=3158930,
                              enabled=ENABLE_DATA_SAVING, task_name="bathing_simple_line", save_frequency=5)
 
@@ -68,54 +58,47 @@ for episode in range(EPISODE_NUMBER):
     env.step()
     initialize_position = initialize_target.data["position"]
 
-    robot.IKTargetDoMove(
-            position=initialize_position,
-            duration=0,
-            speed_based=False,
-        )
+    # Teleport to the initial pose and set a fixed tool orientation
+    robot.IKTargetDoMove(position=initialize_position, duration=0, speed_based=False)
     robot.IKTargetDoRotate(rotation=[0, 45, 180], duration=0, speed_based=False)
-
-    
-
-    # only randomize x and z for shoulder and elbow
-    # shoulder_noise = [random.uniform(-0.02, 0.02), 0.0, random.uniform(-0.02, 0.02)]
-    # elbow_noise = [random.uniform(-0.02, 0.02), 0.0, random.uniform(-0.02, 0.02)]
-    # pad_dry_wp_noise = [random.uniform(-0.02, 0.02) for _ in range(3)]
-
-    # shoulder_position = [p + n for p, n in zip(shoulder_position, shoulder_noise)]
-    # elbow_position = [p + n for p, n in zip(elbow_position, elbow_noise)]
-    # pad_dry_wp_position = [p + n for p, n in zip(pad_dry_wp_position, pad_dry_wp_noise)]
-
     env.step()
     print(f"🤖 [Episode {episode + 1}] Robot initialized, starting movements...")
 
-    # move to shoulder
-    print(f"🎯 [Episode {episode + 1}] Phase 1: Moving to shoulder position")
-    robot.IKTargetDoMove(
-            position=[initialize_position[0], initialize_position[1]+0.05, initialize_position[2]],
-            duration=0.5,
-            speed_based=False,
-        )
+    # ------- Interpolate 100 absolute waypoints along a straight line -------
+    # Target pose: +0.3 m on X (keep Y,Z same). Modify as needed.
+    target_position = [initialize_position[0] + 0.3,
+                       initialize_position[1],
+                       initialize_position[2]]
 
-    for i in range(100):
+    # Generate 100 waypoints including the end point (shape: (100, 3))
+    waypoints = np.linspace(initialize_position, target_position, num=100, endpoint=True)
+
+    print(f"🎯 [Episode {episode + 1}] Interpolating 100 waypoints from {initialize_position} -> {target_position}")
+
+    # Execute waypoints (skip index 0 since we're already at initialize_position)
+    for i in range(1, len(waypoints)):
+        wp = waypoints[i].tolist()
+
+        # Teleport move to absolute waypoint
+        robot.IKTargetDoMove(position=wp, duration=0, speed_based=False)
+        robot.IKTargetDoRotate(rotation=[0, 45, 180], duration=0, speed_based=False)
+
+        # Advance sim one tick so the motion applies and sensors update
         env.step()
+
+        # Save data once per step; step_counter advances each waypoint
         step_counter += 1
-        save_step_data(step_counter, {'phase': 'test', 'episode': episode})
-        print(f"💾 [Episode {episode + 1}] Step {step_counter}: Saved 'move simple line' data")
+        save_step_data(step_counter, {'phase': 'interp_line', 'episode': episode, 'wp_idx': i})
 
-
+        if i % 10 == 0 or i == len(waypoints) - 1:
+            print(f"  • Waypoint {i}/99 at {wp}")
 
     print(f"🏁 [Episode {episode + 1}] Completed! Total steps saved: {step_counter}")
     print(f"🎬 ====== Episode {episode + 1}/{EPISODE_NUMBER} Finished ======\n")
 
-print(f"\n🎉 ✅ Completed ALL {EPISODE_NUMBER} episodes of dry_upper data collection! 🎉")
+print(f"\n🎉 ✅ Completed ALL {EPISODE_NUMBER} episodes of simple-line data collection! 🎉")
 
 # Finalize data saving before closing
 finalize_data_saving()
 
 env.Pend()
-
-
-
-
-
