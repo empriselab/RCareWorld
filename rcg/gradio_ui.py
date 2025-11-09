@@ -1,16 +1,3 @@
-"""
-Gradio UI for LLM-Controlled Kinova Robot
-==========================================
-
-This module provides a web-based interface using Gradio for controlling
-the Kinova Gen3 robot with both direct button controls and natural language.
-
-Layout:
-    - Top: Real-time camera feed (~10 FPS)
-    - Bottom Left: Direct control buttons (Move Up/Down/Left/Right, Grasp, Release)
-    - Bottom Right: Chat interface for natural language commands
-"""
-
 import gradio as gr
 import numpy as np
 import time
@@ -29,6 +16,17 @@ _global_llm_controller = None
 # Camera feed state
 _camera_running = False
 _latest_frame = None
+
+# Thread safety - prevent camera and control operations from conflicting
+_unity_lock = threading.Lock()
+
+# Control settings
+MOVEMENT_DISTANCE = 0.25  # Movement distance in meters (25cm)
+
+
+def get_unity_lock():
+    """Get the Unity communication lock for thread safety."""
+    return _unity_lock
 
 
 # ============================================================================
@@ -69,16 +67,18 @@ def start_camera_feed():
         global _latest_frame
         while _camera_running:
             try:
-                # Capture image from camera
-                _global_camera.GetRGB(width=640, height=480)
-                _global_env.step(1)  # Single step to update
+                # Use lock to prevent conflicts with control operations
+                with _unity_lock:
+                    # Capture image from camera
+                    _global_camera.GetRGB(width=640, height=480)
+                    _global_env.step(1)  # Single step to update
 
-                # Get image bytes
-                image_bytes = _global_camera.data.get("rgb")
-                if image_bytes:
-                    # Convert bytes to PIL Image
-                    image = Image.open(io.BytesIO(image_bytes))
-                    _latest_frame = np.array(image)
+                    # Get image bytes
+                    image_bytes = _global_camera.data.get("rgb")
+                    if image_bytes:
+                        # Convert bytes to PIL Image
+                        image = Image.open(io.BytesIO(image_bytes))
+                        _latest_frame = np.array(image)
 
                 # ~10 FPS = ~0.1 second delay
                 time.sleep(0.1)
@@ -116,82 +116,104 @@ def get_latest_frame():
 # ============================================================================
 
 def move_up() -> str:
-    """Move robot up by 10cm."""
+    """Move robot up by configured distance."""
     try:
-        _global_robot.IKTargetDoMove(
-            position=[0, 0.1, 0],  # 10cm up
-            duration=1.0,
-            speed_based=False,
-            relative=True
-        )
-        _global_robot.WaitDo()
-        return "✓ Moved up 10cm"
+        with _unity_lock:  # Thread safety
+            _global_robot.IKTargetDoMove(
+                position=[0, MOVEMENT_DISTANCE, 0],
+                duration=1.0,
+                speed_based=False,
+                relative=True
+            )
+            _global_robot.WaitDo()
+            _global_env.step(50)  # Let the environment update
+        return f"✓ Moved up {int(MOVEMENT_DISTANCE*100)}cm"
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         return f"✗ Error: {str(e)}"
 
 
 def move_down() -> str:
-    """Move robot down by 10cm."""
+    """Move robot down by configured distance."""
     try:
-        _global_robot.IKTargetDoMove(
-            position=[0, -0.1, 0],  # 10cm down
-            duration=1.0,
-            speed_based=False,
-            relative=True
-        )
-        _global_robot.WaitDo()
-        return "✓ Moved down 10cm"
+        with _unity_lock:  # Thread safety
+            _global_robot.IKTargetDoMove(
+                position=[0, -MOVEMENT_DISTANCE, 0],
+                duration=1.0,
+                speed_based=False,
+                relative=True
+            )
+            _global_robot.WaitDo()
+            _global_env.step(50)  # Let the environment update
+        return f"✓ Moved down {int(MOVEMENT_DISTANCE*100)}cm"
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         return f"✗ Error: {str(e)}"
 
 
 def move_left() -> str:
-    """Move robot left by 10cm."""
+    """Move robot left by configured distance."""
     try:
-        _global_robot.IKTargetDoMove(
-            position=[-0.1, 0, 0],  # 10cm left
-            duration=1.0,
-            speed_based=False,
-            relative=True
-        )
-        _global_robot.WaitDo()
-        return "✓ Moved left 10cm"
+        with _unity_lock:  # Thread safety
+            _global_robot.IKTargetDoMove(
+                position=[-MOVEMENT_DISTANCE, 0, 0],
+                duration=1.0,
+                speed_based=False,
+                relative=True
+            )
+            _global_robot.WaitDo()
+            _global_env.step(50)  # Let the environment update
+        return f"✓ Moved left {int(MOVEMENT_DISTANCE*100)}cm"
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         return f"✗ Error: {str(e)}"
 
 
 def move_right() -> str:
-    """Move robot right by 10cm."""
+    """Move robot right by configured distance."""
     try:
-        _global_robot.IKTargetDoMove(
-            position=[0.1, 0, 0],  # 10cm right
-            duration=1.0,
-            speed_based=False,
-            relative=True
-        )
-        _global_robot.WaitDo()
-        return "✓ Moved right 10cm"
+        with _unity_lock:  # Thread safety
+            _global_robot.IKTargetDoMove(
+                position=[MOVEMENT_DISTANCE, 0, 0],
+                duration=1.0,
+                speed_based=False,
+                relative=True
+            )
+            _global_robot.WaitDo()
+            _global_env.step(50)  # Let the environment update
+        return f"✓ Moved right {int(MOVEMENT_DISTANCE*100)}cm"
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         return f"✗ Error: {str(e)}"
 
 
 def grasp_action() -> str:
     """Close the gripper."""
     try:
-        _global_gripper.GripperClose()
-        _global_env.step(50)
+        with _unity_lock:  # Thread safety
+            _global_gripper.GripperClose()
+            _global_env.step(50)
         return "✓ Gripper closed"
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         return f"✗ Error: {str(e)}"
 
 
 def release_action() -> str:
     """Open the gripper."""
     try:
-        _global_gripper.GripperOpen()
-        _global_env.step(50)
+        with _unity_lock:  # Thread safety
+            _global_gripper.GripperOpen()
+            _global_env.step(50)
         return "✓ Gripper opened"
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         return f"✗ Error: {str(e)}"
 
 
@@ -199,13 +221,13 @@ def release_action() -> str:
 # Chat Interface Functions
 # ============================================================================
 
-def process_chat_message(message: str, history: List[List[str]]) -> Tuple[List[List[str]], str]:
+def process_chat_message(message: str, history: List[dict]) -> Tuple[List[dict], str]:
     """
     Process user message through LLM controller.
 
     Args:
         message: User input message
-        history: Chat history (list of [user_msg, bot_msg] pairs)
+        history: Chat history (list of message dicts with 'role' and 'content')
 
     Returns:
         Tuple of (updated_history, status_message)
@@ -240,14 +262,16 @@ def process_chat_message(message: str, history: List[List[str]]) -> Tuple[List[L
             bot_response = f"Error: {result.get('error', 'Unknown error')}"
             status = "✗ Command failed"
 
-        # Update history
-        history.append([message, bot_response])
+        # Update history with messages format
+        history.append({"role": "user", "content": message})
+        history.append({"role": "assistant", "content": bot_response})
 
         return history, status
 
     except Exception as e:
         error_msg = f"Error processing command: {str(e)}"
-        history.append([message, error_msg])
+        history.append({"role": "user", "content": message})
+        history.append({"role": "assistant", "content": error_msg})
         return history, f"✗ {error_msg}"
 
 
@@ -269,53 +293,88 @@ def create_interface() -> gr.Blocks:
         Gradio Blocks interface
     """
 
-    with gr.Blocks(title="Kinova Robot Control", theme=gr.themes.Soft()) as interface:
+    with gr.Blocks(
+        title="RCareGen",
+        theme=gr.themes.Soft(),
+        css="""
+        * {
+            font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', 'Times New Roman', serif !important;
+            font-style: italic;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', 'Times New Roman', serif !important;
+            font-style: italic;
+        }
+        /* Fixed width for direction buttons and fill container */
+        .direction-btn button {
+            width: 100% !important;
+            min-width: 100px !important;
+        }
+        /* Make movement control rows fill full width */
+        .movement-controls-grid {
+            width: 100% !important;
+        }
+        .movement-controls-grid > .row {
+            width: 100% !important;
+        }
+        """
+    ) as interface:
 
         # Title
-        gr.Markdown("# 🤖 Kinova Robot Control Interface")
-        gr.Markdown("Control the robot using direct buttons or natural language commands")
+        gr.Markdown("# RCareGen")
 
         # Top: Camera Feed
         with gr.Row():
             camera_feed = gr.Image(
                 label="Robot Camera Feed (~10 FPS)",
-                type="numpy",
-                streaming=True,
-                every=0.1  # Update every 100ms (~10 FPS)
+                type="numpy"
             )
+
+        # Timer for periodic camera updates (Gradio 4.0 style)
+        timer = gr.Timer(value=0.1, active=True)
 
         # Bottom: Control Panels
         with gr.Row():
 
             # Left Panel: Control Buttons
             with gr.Column(scale=1):
-                gr.Markdown("### 🎮 Direct Control")
+                gr.Markdown("### Direct Control")
 
                 with gr.Group():
-                    gr.Markdown("**Movement Controls** (10cm increments)")
+                    gr.Markdown(f"**Movement Controls** ({int(MOVEMENT_DISTANCE*100)}cm increments)")
 
-                    # Up button
+                    # 3x3 Grid for directional controls with equal-width columns
+                    # Row 1: Empty, Up, Empty
                     with gr.Row():
-                        gr.Column(scale=1)  # Spacer
-                        btn_up = gr.Button("⬆️ Up", variant="primary", scale=2)
-                        gr.Column(scale=1)  # Spacer
+                        with gr.Column(scale=1):
+                            gr.HTML("")  # Empty spacer
+                        with gr.Column(scale=1):
+                            btn_up = gr.Button("⬆️ Up", variant="primary", elem_classes=["direction-btn"])
+                        with gr.Column(scale=1):
+                            gr.HTML("")  # Empty spacer
 
-                    # Left/Right buttons
+                    # Row 2: Left, Empty, Right
                     with gr.Row():
-                        btn_left = gr.Button("⬅️ Left", variant="primary", scale=1)
-                        gr.Column(scale=1)  # Spacer
-                        btn_right = gr.Button("➡️ Right", variant="primary", scale=1)
+                        with gr.Column(scale=1):
+                            btn_left = gr.Button("⬅️ Left", variant="primary", elem_classes=["direction-btn"])
+                        with gr.Column(scale=1):
+                            gr.HTML("")  # Empty spacer
+                        with gr.Column(scale=1):
+                            btn_right = gr.Button("➡️ Right", variant="primary", elem_classes=["direction-btn"])
 
-                    # Down button
+                    # Row 3: Empty, Down, Empty
                     with gr.Row():
-                        gr.Column(scale=1)  # Spacer
-                        btn_down = gr.Button("⬇️ Down", variant="primary", scale=2)
-                        gr.Column(scale=1)  # Spacer
+                        with gr.Column(scale=1):
+                            gr.HTML("")  # Empty spacer
+                        with gr.Column(scale=1):
+                            btn_down = gr.Button("⬇️ Down", variant="primary", elem_classes=["direction-btn"])
+                        with gr.Column(scale=1):
+                            gr.HTML("")  # Empty spacer
 
                 with gr.Group():
                     gr.Markdown("**Gripper Controls**")
-                    btn_grasp = gr.Button("🤏 Grasp (Close)", variant="secondary")
-                    btn_release = gr.Button("🖐️ Release (Open)", variant="secondary")
+                    btn_grasp = gr.Button("Grasp (Close)", variant="secondary")
+                    btn_release = gr.Button("Release (Open)", variant="secondary")
 
                 # Status display for button actions
                 btn_status = gr.Textbox(
@@ -327,13 +386,14 @@ def create_interface() -> gr.Blocks:
 
             # Right Panel: Chat Interface
             with gr.Column(scale=2):
-                gr.Markdown("### 💬 Natural Language Control")
+                gr.Markdown("### Natural Language Control")
 
                 # Chat history
                 chatbot = gr.Chatbot(
                     label="Conversation",
                     height=400,
-                    show_label=True
+                    show_label=True,
+                    type='messages'  # Use new messages format for Gradio 5.x
                 )
 
                 # User input
@@ -368,24 +428,22 @@ def create_interface() -> gr.Blocks:
         # Event Handlers
         # ========================================================================
 
-        # Camera feed update
-        camera_feed.stream(
+        # Camera feed update (Gradio 4.0 Timer-based update)
+        timer.tick(
             fn=get_latest_frame,
-            inputs=[],
-            outputs=camera_feed,
-            every=0.1,
-            show_progress=False
+            inputs=None,
+            outputs=camera_feed
         )
 
         # Movement button handlers
-        btn_up.click(fn=move_up, inputs=[], outputs=btn_status)
-        btn_down.click(fn=move_down, inputs=[], outputs=btn_status)
-        btn_left.click(fn=move_left, inputs=[], outputs=btn_status)
-        btn_right.click(fn=move_right, inputs=[], outputs=btn_status)
+        btn_up.click(fn=move_up, inputs=None, outputs=btn_status)
+        btn_down.click(fn=move_down, inputs=None, outputs=btn_status)
+        btn_left.click(fn=move_left, inputs=None, outputs=btn_status)
+        btn_right.click(fn=move_right, inputs=None, outputs=btn_status)
 
         # Gripper button handlers
-        btn_grasp.click(fn=grasp_action, inputs=[], outputs=btn_status)
-        btn_release.click(fn=release_action, inputs=[], outputs=btn_status)
+        btn_grasp.click(fn=grasp_action, inputs=None, outputs=btn_status)
+        btn_release.click(fn=release_action, inputs=None, outputs=btn_status)
 
         # Chat interface handlers
         chat_submit.click(
@@ -394,7 +452,7 @@ def create_interface() -> gr.Blocks:
             outputs=[chatbot, chat_status]
         ).then(
             lambda: "",  # Clear input after sending
-            inputs=[],
+            inputs=None,
             outputs=chat_input
         )
 
@@ -405,7 +463,7 @@ def create_interface() -> gr.Blocks:
             outputs=[chatbot, chat_status]
         ).then(
             lambda: "",  # Clear input after sending
-            inputs=[],
+            inputs=None,
             outputs=chat_input
         )
 

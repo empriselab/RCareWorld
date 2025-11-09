@@ -1,13 +1,5 @@
 #!/usr/bin/env python3
 """
-Main Entry Point for LLM-Controlled Kinova Robot
-=================================================
-
-Simplified main entry that:
-1. Initializes Unity environment (keeps connection open)
-2. Initializes LLM controller
-3. Runs interactive terminal loop OR Gradio web interface
-
 Usage:
     python -m rcg.main                    # Launch with Gradio (default)
     python -m rcg.main --no-gradio        # Launch terminal only
@@ -25,7 +17,7 @@ sys.path.insert(0, str(_PROJECT_ROOT))
 
 from rcg.env import KinovaTestEnv
 from rcg import llm
-from rcg import gradio
+from rcg import gradio_ui as gradio
 
 
 # ============================================================================
@@ -208,11 +200,26 @@ def main():
         env.close()
         return
 
+    # Register banana objects for LLM access
+    print("\n[2.5/4] Registering banana objects...")
+    try:
+        banana1 = env.get_banana1()
+        banana2 = env.get_banana2()
+        banana3 = env.get_banana3()
+        print("[Success] Registered 3 banana objects (IDs: 111111, 222222, 333333)")
+    except Exception as e:
+        print(f"[Warning] Failed to register bananas: {e}")
+        print("Bananas will not be visible to get_info() until registered in Unity")
+        print("To fix: Set Instance IDs in Unity Inspector to 111111, 222222, 333333")
+
     # Step 3: Initialize LLM
     print("\n[3/4] Initializing LLM controller...")
     try:
-        # Initialize LLM functions
-        llm.initialize(env, robot, gripper)
+        # Get Unity lock for thread safety
+        unity_lock = gradio.get_unity_lock()
+
+        # Initialize LLM functions with shared lock
+        llm.initialize(env, robot, gripper, unity_lock=unity_lock)
 
         # Create LLM controller
         llm_controller = llm.LLMController()

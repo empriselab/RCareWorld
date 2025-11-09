@@ -26,7 +26,7 @@ sys.path.insert(0, str(_PROJECT_ROOT))
 from pyrcareworld.envs.base_env import RCareWorld
 import pyrcareworld.attributes as attr
 from rcg import llm
-from rcg import gradio
+from rcg import gradio_ui as gradio
 
 
 # ============================================================================

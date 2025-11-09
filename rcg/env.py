@@ -1,28 +1,3 @@
-"""
-Kinova Robot Test Environment for RCareWorld
-=============================================
-
-This environment is designed to communicate with Unity Editor for testing and development.
-It provides a clean interface to interact with a Kinova robot and related objects.
-
-Usage:
-    # Connect to Unity Editor (default)
-    from rcg.env import KinovaTestEnv
-    env = KinovaTestEnv()
-    env.step(100)
-
-    # Access robot
-    kinova = env.get_kinova()
-    kinova.SetJointPosition([0, 0, 0, 0, 0, 0, 0])
-    env.step()
-
-Architecture:
-    - Inherits from RCareWorld base environment
-    - Automatically connects to Unity Editor on port 5004
-    - Uses relative paths for cross-platform compatibility
-    - IDs will be populated as Unity scene is configured
-"""
-
 import sys
 from pathlib import Path
 from typing import Optional
@@ -57,6 +32,11 @@ class KinovaTestEnv(RCareWorld):
     _kinova_id: int = 315893
     _gripper_id: int = 3158930
     _camera_id: int = 35181
+
+    # Banana objects
+    _banana1_id: int = 111111
+    _banana2_id: int = 222222
+    _banana3_id: int = 333333
     
     def __init__(
         self,
@@ -114,8 +94,35 @@ class KinovaTestEnv(RCareWorld):
         except AssertionError:
             print(f"Error: Camera with ID {self._camera_id} not found")
             raise
-    
-    
+
+    def get_banana1(self):
+        """Get banana1 object."""
+        try:
+            return self.GetAttr(self._banana1_id)
+        except AssertionError:
+            print(f"Error: Banana1 with ID {self._banana1_id} not found")
+            print(f"Make sure the object exists in Unity with Instance ID = {self._banana1_id}")
+            raise
+
+    def get_banana2(self):
+        """Get banana2 object."""
+        try:
+            return self.GetAttr(self._banana2_id)
+        except AssertionError:
+            print(f"Error: Banana2 with ID {self._banana2_id} not found")
+            print(f"Make sure the object exists in Unity with Instance ID = {self._banana2_id}")
+            raise
+
+    def get_banana3(self):
+        """Get banana3 object."""
+        try:
+            return self.GetAttr(self._banana3_id)
+        except AssertionError:
+            print(f"Error: Banana3 with ID {self._banana3_id} not found")
+            print(f"Make sure the object exists in Unity with Instance ID = {self._banana3_id}")
+            raise
+
+
     
     def _apply_seed(self, seed: int):
         """Apply random seed for reproducibility."""
@@ -162,6 +169,9 @@ class KinovaTestEnv(RCareWorld):
         print(f"Kinova Robot ID:     {self._kinova_id}")
         print(f"Gripper ID:          {self._gripper_id}")
         print(f"Camera ID:           {self._camera_id}")
+        print(f"Banana1 ID:          {self._banana1_id}")
+        print(f"Banana2 ID:          {self._banana2_id}")
+        print(f"Banana3 ID:          {self._banana3_id}")
         print("="*70 + "\n")
     
     def test_connection(self):

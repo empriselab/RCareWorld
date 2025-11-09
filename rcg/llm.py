@@ -1,22 +1,6 @@
-"""
-LLM Controller for Kinova Robot
-================================
-
-This module handles all LLM-related functionality including:
-    - OpenAI API configuration and calls
-    - Function execution (get_info, move_to_object, grasp_object, etc.)
-    - Conversation management
-    - Integration with prompt.py for all prompts
-
-Key Features:
-    - Configurable API key and base URL
-    - Complete OpenAI function calling implementation
-    - Robot control functions
-    - Error handling and retries
-"""
-
 import os
 import json
+import threading
 from typing import Optional, Dict, Any
 
 # Import prompts from prompt.py
@@ -29,10 +13,11 @@ from rcg.prompt import (
 
 # Try to import OpenAI
 try:
-    import openai
+    from openai import OpenAI
     OPENAI_AVAILABLE = True
 except ImportError:
     OPENAI_AVAILABLE = False
+    OpenAI = None
     print("[Warning] OpenAI package not installed. Install with: pip install openai")
 
 
@@ -41,34 +26,48 @@ except ImportError:
 # ============================================================================
 class LLMConfig:
     """Configuration for LLM API."""
-    
-    # OpenAI API settings
-    API_KEY = os.getenv("OPENAI_API_KEY", None)
-    BASE_URL = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")
-    MODEL = os.getenv("OPENAI_MODEL", "gpt-4")
-    
+
+    # OpenAI API settings (using custom Qwen3 API endpoint)
+    API_KEY = os.getenv("OPENAI_API_KEY", "")
+    BASE_URL = os.getenv("OPENAI_BASE_URL", "")
+    MODEL = os.getenv("OPENAI_MODEL", "")
+
     # Temperature and other params
     TEMPERATURE = 0.7
     MAX_TOKENS = None  # None = no limit
-    
+
     # Verbose logging
     VERBOSE = True
     SHOW_FUNCTION_CALLS = True
-    
+
+    # OpenAI client instance (v1.0+ API)
+    _client = None
+
+    @classmethod
+    def get_client(cls):
+        """Get or create OpenAI client instance."""
+        if not OPENAI_AVAILABLE:
+            raise RuntimeError("OpenAI package not available")
+
+        if cls._client is None:
+            cls._client = OpenAI(
+                api_key=cls.API_KEY,
+                base_url=cls.BASE_URL
+            )
+        return cls._client
+
     @classmethod
     def set_api_key(cls, api_key: str):
         """Set OpenAI API key."""
         cls.API_KEY = api_key
-        if OPENAI_AVAILABLE:
-            openai.api_key = api_key
-    
+        cls._client = None  # Reset client to use new key
+
     @classmethod
     def set_base_url(cls, base_url: str):
         """Set OpenAI base URL."""
         cls.BASE_URL = base_url
-        if OPENAI_AVAILABLE:
-            openai.api_base = base_url
-    
+        cls._client = None  # Reset client to use new URL
+
     @classmethod
     def set_model(cls, model: str):
         """Set OpenAI model."""
@@ -82,43 +81,59 @@ _global_env = None
 _global_robot = None
 _global_gripper = None
 
+# Thread safety - share lock with gradio_ui if available
+_unity_lock = None
 
-def initialize(env, robot, gripper, api_key: Optional[str] = None, base_url: Optional[str] = None):
+
+def initialize(env, robot, gripper, unity_lock=None, api_key: Optional[str] = None, base_url: Optional[str] = None):
     """
     Initialize LLM system with environment and API settings.
-    
+
     Args:
         env: KinovaTestEnv instance
         robot: Robot ControllerAttr instance
         gripper: Gripper ControllerAttr instance
+        unity_lock: Optional threading.Lock for Unity communication thread safety
         api_key: Optional OpenAI API key (uses env variable if not provided)
         base_url: Optional OpenAI base URL (uses default if not provided)
-    
+
     Example:
         from rcg.env import KinovaTestEnv
         from rcg import llm
-        
+
         env = KinovaTestEnv()
         robot = env.get_kinova()
         gripper = env.get_gripper()
         llm.initialize(env, robot, gripper, api_key="sk-...")
     """
-    global _global_env, _global_robot, _global_gripper
-    
+    global _global_env, _global_robot, _global_gripper, _unity_lock
+
     # Set environment references
     _global_env = env
     _global_robot = robot
     _global_gripper = gripper
-    
+
+    # Set thread lock (create new one if not provided)
+    _unity_lock = unity_lock if unity_lock is not None else threading.Lock()
+
+    # Ensure IK is enabled for the robot
+    try:
+        print("[LLM] Ensuring robot IK is enabled...")
+        _global_robot.EnabledNativeIK(True)
+        _global_env.step(10)
+        print("[LLM] Robot IK enabled")
+    except Exception as e:
+        print(f"[LLM Warning] Could not enable IK: {e}")
+
     # Configure API
     if api_key:
         LLMConfig.set_api_key(api_key)
     elif LLMConfig.API_KEY:
         LLMConfig.set_api_key(LLMConfig.API_KEY)
-    
+
     if base_url:
         LLMConfig.set_base_url(base_url)
-    
+
     print(f"[LLM] Initialized")
     print(f"[LLM] Model: {LLMConfig.MODEL}")
     print(f"[LLM] Base URL: {LLMConfig.BASE_URL}")
@@ -137,44 +152,159 @@ def _check_initialization():
 # Robot Control Functions
 # ============================================================================
 
-def get_info(name: Optional[str] = None) -> Dict[str, Any]:
-    """Get information about objects in the scene."""
+def register_unity_object(instance_id: int, attr_type=None) -> Dict[str, Any]:
+    """
+    Register an existing Unity object with Python environment.
+
+    This is useful for objects that already exist in the Unity scene
+    but haven't been created via Python's InstanceObject().
+
+    Args:
+        instance_id: The Instance ID of the object in Unity (find in Inspector)
+        attr_type: Optional attribute type (default: BaseAttr)
+
+    Returns:
+        Dictionary with success status and object info
+    """
     _check_initialization()
-    
+
     try:
-        _global_env.step()
-        all_objects = []
-        
-        for obj_id, obj_attr in _global_env.attrs.items():
-            obj_data = obj_attr.data
-            obj_info = {
-                "id": obj_id,
-                "name": obj_data.get("name", f"Object_{obj_id}"),
-                "position": obj_data.get("position", [0.0, 0.0, 0.0]),
-                "rotation": obj_data.get("rotation", [0.0, 0.0, 0.0]),
-                "quaternion": obj_data.get("quaternion", [0.0, 0.0, 0.0, 1.0]),
+        # Import BaseAttr if attr_type not specified
+        if attr_type is None:
+            from pyrcareworld.attributes import BaseAttr
+            attr_type = BaseAttr
+
+        print(f"[Register] Attempting to register object ID {instance_id}...")
+
+        # Try to get the object
+        obj = _global_env.GetAttr(instance_id)
+
+        if obj:
+            obj_name = obj.data.get("name", f"Object_{instance_id}")
+            print(f"[Register] Successfully registered: {obj_name} (ID: {instance_id})")
+            return {
+                "success": True,
+                "message": f"Registered object '{obj_name}'",
+                "data": {
+                    "id": instance_id,
+                    "name": obj_name,
+                    "type": type(obj).__name__
+                }
             }
-            
-            if name is not None:
-                if name.lower() in obj_info["name"].lower():
-                    all_objects.append(obj_info)
-            else:
-                all_objects.append(obj_info)
-        
-        if name is not None and len(all_objects) == 0:
+        else:
             return {
                 "success": False,
-                "message": f"Object with name '{name}' not found in scene",
-                "data": {"total_objects": 0, "objects": []}
+                "message": f"Object with ID {instance_id} not found in Unity scene",
+                "data": {}
             }
-        
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return {
+            "success": False,
+            "message": f"Error registering object: {str(e)}",
+            "data": {}
+        }
+
+
+def get_info(name: Optional[str] = None) -> Dict[str, Any]:
+    """Get information about objects in the scene.
+
+    This function retrieves all objects tracked by the environment.
+    Only objects with BaseAttr components are included.
+
+    Note: Objects in Unity must be registered with the Python environment.
+    Use env.GetAttr(instance_id) to register existing Unity objects.
+    """
+    _check_initialization()
+
+    try:
+        # Update environment to get latest state (with thread safety)
+        if _unity_lock:
+            with _unity_lock:
+                _global_env.step(10)  # Multiple steps to ensure data is updated
+        else:
+            _global_env.step(10)
+
+        all_objects = []
+
+        print(f"[GetInfo] Scanning {len(_global_env.attrs)} registered objects...")
+
+        # Filter by BaseAttr - check if object has BaseAttr-specific attributes
+        for obj_id, obj_attr in _global_env.attrs.items():
+            try:
+                # Check if this is a BaseAttr object (has data attribute)
+                if not hasattr(obj_attr, 'data'):
+                    print(f"[GetInfo] Skipping {obj_id} - no data attribute")
+                    continue
+
+                obj_data = obj_attr.data
+                obj_name = obj_data.get("name", f"Object_{obj_id}")
+                obj_type = type(obj_attr).__name__
+
+                # Only include objects that have actual game object data
+                if "position" not in obj_data:
+                    print(f"[GetInfo] Skipping {obj_name} - no position data")
+                    continue
+
+                obj_info = {
+                    "id": obj_id,
+                    "name": obj_name,
+                    "type": obj_type,
+                    "position": obj_data.get("position", [0.0, 0.0, 0.0]),
+                    "rotation": obj_data.get("rotation", [0.0, 0.0, 0.0]),
+                    "quaternion": obj_data.get("quaternion", [0.0, 0.0, 0.0, 1.0]),
+                }
+
+                # Add type-specific information
+                if "scale" in obj_data:
+                    obj_info["scale"] = obj_data["scale"]
+                if "velocity" in obj_data:
+                    obj_info["velocity"] = obj_data["velocity"]
+
+                print(f"[GetInfo]   ✓ {obj_name} (ID: {obj_id}, Type: {obj_type}, Pos: {obj_info['position']})")
+
+                if name is not None:
+                    if name.lower() in obj_name.lower():
+                        all_objects.append(obj_info)
+                else:
+                    all_objects.append(obj_info)
+
+            except Exception as e:
+                print(f"[GetInfo] Warning: Failed to get data for object {obj_id}: {e}")
+                continue
+
+        # Build list of all object names for debugging
+        all_names = [obj['name'] for obj in all_objects]
+
+        if name is not None and len(all_objects) == 0:
+            available_names = all_names[:10]  # Show first 10
+            return {
+                "success": False,
+                "message": f"Object '{name}' not found. Available: {available_names}",
+                "data": {
+                    "total_objects": 0,
+                    "objects": [],
+                    "searched_name": name,
+                    "available_objects": all_names
+                }
+            }
+
         return {
             "success": True,
-            "message": f"Found {len(all_objects)} object(s)" + (f" matching '{name}'" if name else ""),
-            "data": {"total_objects": len(all_objects), "objects": all_objects}
+            "message": f"Found {len(all_objects)} object(s)" + (f" matching '{name}'" if name else " in scene"),
+            "data": {
+                "total_objects": len(all_objects),
+                "objects": all_objects,
+                "searched_name": name if name else None,
+                "all_object_names": all_names
+            }
         }
-    
+
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         return {
             "success": False,
             "message": f"Error getting scene info: {str(e)}",
@@ -192,44 +322,87 @@ def move_to_object(
 ) -> Dict[str, Any]:
     """Move robot end-effector to a specified object with offset."""
     _check_initialization()
-    
+
     try:
-        _global_env.step()
-        target_obj = None
-        target_obj_id = None
-        
-        for obj_id, obj_attr in _global_env.attrs.items():
-            obj_name = obj_attr.data.get("name", "")
-            if name.lower() in obj_name.lower():
-                target_obj = obj_attr
-                target_obj_id = obj_id
-                break
-        
-        if target_obj is None:
-            return {
-                "success": False,
-                "message": f"Object '{name}' not found in scene",
-                "data": {}
-            }
-        
-        obj_position = target_obj.data.get("position", [0.0, 0.0, 0.0])
-        target_position = [
-            obj_position[0] + offset_x,
-            obj_position[1] + offset_y,
-            obj_position[2] + offset_z
-        ]
-        
-        print(f"[Move] Object '{name}' (ID: {target_obj_id}) at {obj_position}")
-        print(f"[Move] Moving to target position: {target_position}")
-        
-        _global_robot.IKTargetDoMove(
-            position=target_position,
-            duration=duration,
-            speed_based=speed_based
-        )
-        _global_robot.WaitDo()
-        
-        print(f"[Move] Movement completed")
+        # All Unity operations need to be protected by lock
+        if _unity_lock:
+            with _unity_lock:
+                _global_env.step()
+                target_obj = None
+                target_obj_id = None
+
+                for obj_id, obj_attr in _global_env.attrs.items():
+                    obj_name = obj_attr.data.get("name", "")
+                    if name.lower() in obj_name.lower():
+                        target_obj = obj_attr
+                        target_obj_id = obj_id
+                        break
+
+                if target_obj is None:
+                    return {
+                        "success": False,
+                        "message": f"Object '{name}' not found in scene",
+                        "data": {}
+                    }
+
+                obj_position = target_obj.data.get("position", [0.0, 0.0, 0.0])
+                target_position = [
+                    obj_position[0] + offset_x,
+                    obj_position[1] + offset_y,
+                    obj_position[2] + offset_z
+                ]
+
+                print(f"[Move] Object '{name}' (ID: {target_obj_id}) at {obj_position}")
+                print(f"[Move] Moving to target position: {target_position}")
+
+                _global_robot.IKTargetDoMove(
+                    position=target_position,
+                    duration=duration,
+                    speed_based=speed_based
+                )
+                _global_robot.WaitDo()
+                _global_env.step(50)  # Let environment update after movement
+
+                print(f"[Move] Movement completed")
+        else:
+            # Fallback without lock
+            _global_env.step()
+            target_obj = None
+            target_obj_id = None
+
+            for obj_id, obj_attr in _global_env.attrs.items():
+                obj_name = obj_attr.data.get("name", "")
+                if name.lower() in obj_name.lower():
+                    target_obj = obj_attr
+                    target_obj_id = obj_id
+                    break
+
+            if target_obj is None:
+                return {
+                    "success": False,
+                    "message": f"Object '{name}' not found in scene",
+                    "data": {}
+                }
+
+            obj_position = target_obj.data.get("position", [0.0, 0.0, 0.0])
+            target_position = [
+                obj_position[0] + offset_x,
+                obj_position[1] + offset_y,
+                obj_position[2] + offset_z
+            ]
+
+            print(f"[Move] Object '{name}' (ID: {target_obj_id}) at {obj_position}")
+            print(f"[Move] Moving to target position: {target_position}")
+
+            _global_robot.IKTargetDoMove(
+                position=target_position,
+                duration=duration,
+                speed_based=speed_based
+            )
+            _global_robot.WaitDo()
+            _global_env.step(50)
+
+            print(f"[Move] Movement completed")
         
         return {
             "success": True,
@@ -288,22 +461,25 @@ def grasp_object(
         print(f"[Grasp] Step 1: Moving to approach position {approach_position}")
         _global_robot.IKTargetDoMove(position=approach_position, duration=2, speed_based=False)
         _global_robot.WaitDo()
-        
+        _global_env.step(50)
+
         # Step 2: Descend
         grasp_position = [obj_position[0], obj_position[1] + grasp_offset_y, obj_position[2]]
         print(f"[Grasp] Step 2: Moving down to grasp position {grasp_position}")
         _global_robot.IKTargetDoMove(position=grasp_position, duration=2, speed_based=False)
         _global_robot.WaitDo()
-        
+        _global_env.step(50)
+
         # Step 3: Close gripper
         print(f"[Grasp] Step 3: Closing gripper")
         _global_gripper.GripperClose()
         _global_env.step(50)
-        
+
         # Step 4: Lift
         print(f"[Grasp] Step 4: Lifting object by {lift_height}m")
         _global_robot.IKTargetDoMove(position=[0, lift_height, 0], duration=2, speed_based=False, relative=True)
         _global_robot.WaitDo()
+        _global_env.step(50)
         
         final_position = [grasp_position[0], grasp_position[1] + lift_height, grasp_position[2]]
         
@@ -341,7 +517,8 @@ def release_object(lift_before_release: bool = True, lift_height: float = 0.1) -
             print(f"[Release] Lifting {lift_height}m before release")
             _global_robot.IKTargetDoMove(position=[0, lift_height, 0], duration=1, speed_based=False, relative=True)
             _global_robot.WaitDo()
-        
+            _global_env.step(50)
+
         print(f"[Release] Opening gripper")
         _global_gripper.GripperOpen()
         _global_env.step(50)
@@ -377,7 +554,7 @@ def move_to_position(
         target_position = [x, y, z]
         
         print(f"[Move] Moving to {'relative' if relative else 'absolute'} position: {target_position}")
-        
+
         _global_robot.IKTargetDoMove(
             position=target_position,
             duration=duration,
@@ -385,7 +562,8 @@ def move_to_position(
             relative=relative
         )
         _global_robot.WaitDo()
-        
+        _global_env.step(50)  # Let environment update after movement
+
         print(f"[Move] Movement completed")
         
         return {
@@ -471,21 +649,22 @@ class LLMController:
         self.conversation_history.append({"role": "user", "content": user_input})
         
         try:
-            # Call OpenAI API
-            response = openai.ChatCompletion.create(
+            # Call OpenAI API (v1.0+ API)
+            client = LLMConfig.get_client()
+            response = client.chat.completions.create(
                 model=LLMConfig.MODEL,
                 messages=self.conversation_history,
                 functions=FUNCTION_SCHEMAS,
                 function_call="auto",
                 temperature=LLMConfig.TEMPERATURE
             )
-            
-            message = response["choices"][0]["message"]
-            
+
+            message = response.choices[0].message
+
             # Check for function call
-            if message.get("function_call"):
-                function_name = message["function_call"]["name"]
-                function_args = json.loads(message["function_call"]["arguments"])
+            if hasattr(message, 'function_call') and message.function_call:
+                function_name = message.function_call.name
+                function_args = json.loads(message.function_call.arguments)
                 
                 if LLMConfig.SHOW_FUNCTION_CALLS:
                     print(f"\n[LLM] Calling function: {function_name}")
@@ -508,13 +687,13 @@ class LLMController:
                 })
                 
                 # Get final response
-                final_response = openai.ChatCompletion.create(
+                final_response = client.chat.completions.create(
                     model=LLMConfig.MODEL,
                     messages=self.conversation_history,
                     temperature=LLMConfig.TEMPERATURE
                 )
-                
-                final_message = final_response["choices"][0]["message"]["content"]
+
+                final_message = final_response.choices[0].message.content
                 self.conversation_history.append({"role": "assistant", "content": final_message})
                 
                 return {
@@ -526,7 +705,7 @@ class LLMController:
                 }
             else:
                 # No function call
-                assistant_message = message["content"]
+                assistant_message = message.content
                 self.conversation_history.append({"role": "assistant", "content": assistant_message})
                 
                 return {

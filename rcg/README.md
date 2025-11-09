@@ -43,22 +43,23 @@ export OPENAI_API_KEY="sk-your-key"
 
 ## Usage
 
-### Test Mode
+### 1. Configure Unity Object Instance IDs
 
-Creates test scene with robot + 2 boxes:
+Set the following Instance IDs in Unity Inspector (RFUniverse Attr component):
 
-```bash
-# Web interface at http://localhost:7860
-python -m rcg.test
+**Required Objects:**
+- Kinova Robot: `315893`
+- Gripper: `3158930`
+- Camera: `35181`
 
-# Terminal only
-python -m rcg.test --no-gradio
+**Optional Objects (for testing LLM get_info functionality):**
+- Banana1: `111111`
+- Banana2: `222222`
+- Banana3: `333333`
 
-# Custom port
-python -m rcg.test --gradio-port 8080
-```
+> **Important:** Objects must have correct Instance IDs set in Unity, otherwise Python cannot access them. After setting IDs, restart the program to detect these objects via `get_info()`.
 
-### Production Mode
+### 2. Production Mode
 
 Connect to custom Unity scene:
 
@@ -74,7 +75,7 @@ rcg/
 ├── env.py       # Unity environment wrapper
 ├── llm.py       # LLM controller and robot functions
 ├── prompt.py    # System prompts and function schemas
-├── gradio.py    # Web interface
+├── gradio_ui.py # Web interface
 ├── main.py      # Production entry point
 └── test.py      # Test environment
 ```
@@ -88,9 +89,22 @@ Find IDs in Unity Inspector → RFUniverse Attr → Instance ID:
 ```python
 # rcg/env.py
 class KinovaTestEnv(RCareWorld):
-    _kinova_id: int = 123456
-    _gripper_id: int = 1234560
-    _camera_id: int = 888888
+    _kinova_id: int = 315893
+    _gripper_id: int = 3158930
+    _camera_id: int = 35181
+
+    # Optional objects for LLM testing
+    _banana1_id: int = 111111
+    _banana2_id: int = 222222
+    _banana3_id: int = 333333
+```
+
+Accessing these objects:
+
+```python
+env = KinovaTestEnv()
+robot = env.get_kinova()
+banana1 = env.get_banana1()  # Automatically registered to env.attrs, detectable by get_info()
 ```
 
 ### Adding Robot Functions
@@ -223,5 +237,5 @@ python -m rcg.test --gradio-port 8080
 
 Control buttons:
 - ⬆️⬇️⬅️➡️ 10cm movements
-- 🤏 Close gripper
-- 🖐️ Open gripper
+- Close gripper
+- Open gripper
