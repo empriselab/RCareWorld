@@ -31,7 +31,7 @@ Unity executes → Camera updates → Gradio shows result
 ```bash
 # Clone and install dependencies
 cd rcg
-pip install gradio pillow openai
+pip install gradio pillow openai python-dotenv
 
 # Install pyrcareworld
 cd ../pyrcareworld

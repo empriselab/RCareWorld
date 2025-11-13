@@ -29,8 +29,8 @@ class LLMConfig:
 
     # OpenAI API settings (using custom Qwen3 API endpoint)
     API_KEY = os.getenv("OPENAI_API_KEY", "")
-    BASE_URL = os.getenv("OPENAI_BASE_URL", "")
-    MODEL = os.getenv("OPENAI_MODEL", "")
+    BASE_URL = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")
+    MODEL = os.getenv("OPENAI_MODEL", "gpt-3.5-turbo")
 
     # Temperature and other params
     TEMPERATURE = 0.7
