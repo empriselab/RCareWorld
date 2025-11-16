@@ -28,9 +28,14 @@ class LLMConfig:
     """Configuration for LLM API."""
 
     # OpenAI API settings (using custom Qwen3 API endpoint)
-    API_KEY = os.getenv("OPENAI_API_KEY", "")
-    BASE_URL = os.getenv("OPENAI_BASE_URL", "")
-    MODEL = os.getenv("OPENAI_MODEL", "")
+    # 警告：不安全的做法，仅供临时调试。
+    API_KEY = "sk-c08mNwKla9cisD3t5SdEAbKcl8lwXyhHqbaT0A62OBI6kIkb"
+
+    # 注意：BASE_URL 通常只需要到 /v1
+    BASE_URL = "http://10.220.5.151:30500/v1"
+
+    # 你提供了 'sqz-qwq-32b' 和 'QwQ-32B'，这里使用了第一个
+    MODEL = "sqz-qwq-32b"
 
     # Temperature and other params
     TEMPERATURE = 0.7
@@ -120,7 +125,7 @@ def initialize(env, robot, gripper, unity_lock=None, api_key: Optional[str] = No
     try:
         print("[LLM] Ensuring robot IK is enabled...")
         _global_robot.EnabledNativeIK(True)
-        _global_env.step(10)
+        _global_env.step()
         print("[LLM] Robot IK enabled")
     except Exception as e:
         print(f"[LLM Warning] Could not enable IK: {e}")
@@ -169,26 +174,33 @@ def register_unity_object(instance_id: int, attr_type=None) -> Dict[str, Any]:
     _check_initialization()
 
     try:
-        # Import BaseAttr if attr_type not specified
         if attr_type is None:
             from pyrcareworld.attributes import BaseAttr
             attr_type = BaseAttr
 
-        print(f"[Register] Attempting to register object ID {instance_id}...")
+        def _register_object():
+            obj = _global_env.GetAttr(instance_id)
+            if obj:
+                obj_name = obj.data.get("name", f"Object_{instance_id}")
+                obj_type = type(obj).__name__
+                return obj_name, obj_type
+            return None, None
 
-        # Try to get the object
-        obj = _global_env.GetAttr(instance_id)
+        # Execute with thread safety
+        if _unity_lock:
+            with _unity_lock:
+                obj_name, obj_type = _register_object()
+        else:
+            obj_name, obj_type = _register_object()
 
-        if obj:
-            obj_name = obj.data.get("name", f"Object_{instance_id}")
-            print(f"[Register] Successfully registered: {obj_name} (ID: {instance_id})")
+        if obj_name:
             return {
                 "success": True,
                 "message": f"Registered object '{obj_name}'",
                 "data": {
                     "id": instance_id,
                     "name": obj_name,
-                    "type": type(obj).__name__
+                    "type": obj_type
                 }
             }
         else:
@@ -220,69 +232,60 @@ def get_info(name: Optional[str] = None) -> Dict[str, Any]:
     _check_initialization()
 
     try:
-        # Update environment to get latest state (with thread safety)
-        if _unity_lock:
-            with _unity_lock:
-                _global_env.step(10)  # Multiple steps to ensure data is updated
-        else:
-            _global_env.step(10)
-
         all_objects = []
 
-        print(f"[GetInfo] Scanning {len(_global_env.attrs)} registered objects...")
+        # All Unity operations must be protected by lock
+        def _collect_objects():
+            _global_env.step()
+            objects = []
 
-        # Filter by BaseAttr - check if object has BaseAttr-specific attributes
-        for obj_id, obj_attr in _global_env.attrs.items():
-            try:
-                # Check if this is a BaseAttr object (has data attribute)
-                if not hasattr(obj_attr, 'data'):
-                    print(f"[GetInfo] Skipping {obj_id} - no data attribute")
+            for obj_id, obj_attr in _global_env.attrs.items():
+                try:
+                    if not hasattr(obj_attr, 'data'):
+                        continue
+
+                    obj_data = obj_attr.data
+                    obj_name = obj_data.get("name", f"Object_{obj_id}")
+                    obj_type = type(obj_attr).__name__
+
+                    if "position" not in obj_data:
+                        continue
+
+                    obj_info = {
+                        "id": obj_id,
+                        "name": obj_name,
+                        "type": obj_type,
+                        "position": obj_data.get("position", [0.0, 0.0, 0.0]),
+                        "rotation": obj_data.get("rotation", [0.0, 0.0, 0.0]),
+                        "quaternion": obj_data.get("quaternion", [0.0, 0.0, 0.0, 1.0]),
+                    }
+
+                    if "scale" in obj_data:
+                        obj_info["scale"] = obj_data["scale"]
+                    if "velocity" in obj_data:
+                        obj_info["velocity"] = obj_data["velocity"]
+
+                    if name is None or name.lower() in obj_name.lower():
+                        objects.append(obj_info)
+
+                except Exception as e:
                     continue
 
-                obj_data = obj_attr.data
-                obj_name = obj_data.get("name", f"Object_{obj_id}")
-                obj_type = type(obj_attr).__name__
+            return objects
 
-                # Only include objects that have actual game object data
-                if "position" not in obj_data:
-                    print(f"[GetInfo] Skipping {obj_name} - no position data")
-                    continue
+        # Execute with thread safety
+        if _unity_lock:
+            with _unity_lock:
+                all_objects = _collect_objects()
+        else:
+            all_objects = _collect_objects()
 
-                obj_info = {
-                    "id": obj_id,
-                    "name": obj_name,
-                    "type": obj_type,
-                    "position": obj_data.get("position", [0.0, 0.0, 0.0]),
-                    "rotation": obj_data.get("rotation", [0.0, 0.0, 0.0]),
-                    "quaternion": obj_data.get("quaternion", [0.0, 0.0, 0.0, 1.0]),
-                }
-
-                # Add type-specific information
-                if "scale" in obj_data:
-                    obj_info["scale"] = obj_data["scale"]
-                if "velocity" in obj_data:
-                    obj_info["velocity"] = obj_data["velocity"]
-
-                print(f"[GetInfo]   ✓ {obj_name} (ID: {obj_id}, Type: {obj_type}, Pos: {obj_info['position']})")
-
-                if name is not None:
-                    if name.lower() in obj_name.lower():
-                        all_objects.append(obj_info)
-                else:
-                    all_objects.append(obj_info)
-
-            except Exception as e:
-                print(f"[GetInfo] Warning: Failed to get data for object {obj_id}: {e}")
-                continue
-
-        # Build list of all object names for debugging
         all_names = [obj['name'] for obj in all_objects]
 
         if name is not None and len(all_objects) == 0:
-            available_names = all_names[:10]  # Show first 10
             return {
                 "success": False,
-                "message": f"Object '{name}' not found. Available: {available_names}",
+                "message": f"Object '{name}' not found. Available: {all_names[:10]}",
                 "data": {
                     "total_objects": 0,
                     "objects": [],
@@ -324,48 +327,7 @@ def move_to_object(
     _check_initialization()
 
     try:
-        # All Unity operations need to be protected by lock
-        if _unity_lock:
-            with _unity_lock:
-                _global_env.step()
-                target_obj = None
-                target_obj_id = None
-
-                for obj_id, obj_attr in _global_env.attrs.items():
-                    obj_name = obj_attr.data.get("name", "")
-                    if name.lower() in obj_name.lower():
-                        target_obj = obj_attr
-                        target_obj_id = obj_id
-                        break
-
-                if target_obj is None:
-                    return {
-                        "success": False,
-                        "message": f"Object '{name}' not found in scene",
-                        "data": {}
-                    }
-
-                obj_position = target_obj.data.get("position", [0.0, 0.0, 0.0])
-                target_position = [
-                    obj_position[0] + offset_x,
-                    obj_position[1] + offset_y,
-                    obj_position[2] + offset_z
-                ]
-
-                print(f"[Move] Object '{name}' (ID: {target_obj_id}) at {obj_position}")
-                print(f"[Move] Moving to target position: {target_position}")
-
-                _global_robot.IKTargetDoMove(
-                    position=target_position,
-                    duration=duration,
-                    speed_based=speed_based
-                )
-                _global_robot.WaitDo()
-                _global_env.step(50)  # Let environment update after movement
-
-                print(f"[Move] Movement completed")
-        else:
-            # Fallback without lock
+        def _execute_move():
             _global_env.step()
             target_obj = None
             target_obj_id = None
@@ -378,11 +340,7 @@ def move_to_object(
                     break
 
             if target_obj is None:
-                return {
-                    "success": False,
-                    "message": f"Object '{name}' not found in scene",
-                    "data": {}
-                }
+                return None, None, None, None
 
             obj_position = target_obj.data.get("position", [0.0, 0.0, 0.0])
             target_position = [
@@ -390,9 +348,6 @@ def move_to_object(
                 obj_position[1] + offset_y,
                 obj_position[2] + offset_z
             ]
-
-            print(f"[Move] Object '{name}' (ID: {target_obj_id}) at {obj_position}")
-            print(f"[Move] Moving to target position: {target_position}")
 
             _global_robot.IKTargetDoMove(
                 position=target_position,
@@ -402,8 +357,22 @@ def move_to_object(
             _global_robot.WaitDo()
             _global_env.step(50)
 
-            print(f"[Move] Movement completed")
-        
+            return target_obj, target_obj_id, obj_position, target_position
+
+        # Execute with thread safety
+        if _unity_lock:
+            with _unity_lock:
+                target_obj, target_obj_id, obj_position, target_position = _execute_move()
+        else:
+            target_obj, target_obj_id, obj_position, target_position = _execute_move()
+
+        if target_obj is None:
+            return {
+                "success": False,
+                "message": f"Object '{name}' not found in scene",
+                "data": {}
+            }
+
         return {
             "success": True,
             "message": f"Successfully moved to object '{name}' with offset",
@@ -415,7 +384,7 @@ def move_to_object(
                 "offset_applied": [offset_x, offset_y, offset_z]
             }
         }
-    
+
     except Exception as e:
         return {
             "success": False,
@@ -432,59 +401,66 @@ def grasp_object(
 ) -> Dict[str, Any]:
     """Grasp a specified object using the gripper."""
     _check_initialization()
-    
+
     try:
-        _global_env.step()
-        target_obj = None
-        target_obj_id = None
-        
-        for obj_id, obj_attr in _global_env.attrs.items():
-            obj_name = obj_attr.data.get("name", "")
-            if name.lower() in obj_name.lower():
-                target_obj = obj_attr
-                target_obj_id = obj_id
-                break
-        
+        def _execute_grasp():
+            _global_env.step()
+            target_obj = None
+            target_obj_id = None
+
+            for obj_id, obj_attr in _global_env.attrs.items():
+                obj_name = obj_attr.data.get("name", "")
+                if name.lower() in obj_name.lower():
+                    target_obj = obj_attr
+                    target_obj_id = obj_id
+                    break
+
+            if target_obj is None:
+                return None, None, None, None, None, None
+
+            obj_position = target_obj.data.get("position", [0.0, 0.0, 0.0])
+
+            # Step 1: Approach
+            approach_position = [obj_position[0], obj_position[1] + approach_height, obj_position[2]]
+            _global_robot.IKTargetDoMove(position=approach_position, duration=2, speed_based=False)
+            _global_robot.WaitDo()
+            _global_env.step(50)
+
+            # Step 2: Descend
+            grasp_position = [obj_position[0], obj_position[1] + grasp_offset_y, obj_position[2]]
+            _global_robot.IKTargetDoMove(position=grasp_position, duration=2, speed_based=False)
+            _global_robot.WaitDo()
+            _global_env.step(50)
+
+            # Step 3: Close gripper
+            _global_gripper.GripperClose()
+            _global_env.step(50)
+
+            # Step 4: Lift
+            _global_robot.IKTargetDoMove(position=[0, lift_height, 0], duration=2, speed_based=False, relative=True)
+            _global_robot.WaitDo()
+            _global_env.step(50)
+
+            final_position = [grasp_position[0], grasp_position[1] + lift_height, grasp_position[2]]
+
+            return target_obj, target_obj_id, obj_position, approach_position, grasp_position, final_position
+
+        # Execute with thread safety
+        if _unity_lock:
+            with _unity_lock:
+                result = _execute_grasp()
+        else:
+            result = _execute_grasp()
+
+        target_obj, target_obj_id, obj_position, approach_position, grasp_position, final_position = result
+
         if target_obj is None:
             return {
                 "success": False,
                 "message": f"Object '{name}' not found in scene",
                 "data": {}
             }
-        
-        obj_position = target_obj.data.get("position", [0.0, 0.0, 0.0])
-        
-        print(f"[Grasp] Starting grasp sequence for '{name}' (ID: {target_obj_id})")
-        
-        # Step 1: Approach
-        approach_position = [obj_position[0], obj_position[1] + approach_height, obj_position[2]]
-        print(f"[Grasp] Step 1: Moving to approach position {approach_position}")
-        _global_robot.IKTargetDoMove(position=approach_position, duration=2, speed_based=False)
-        _global_robot.WaitDo()
-        _global_env.step(50)
 
-        # Step 2: Descend
-        grasp_position = [obj_position[0], obj_position[1] + grasp_offset_y, obj_position[2]]
-        print(f"[Grasp] Step 2: Moving down to grasp position {grasp_position}")
-        _global_robot.IKTargetDoMove(position=grasp_position, duration=2, speed_based=False)
-        _global_robot.WaitDo()
-        _global_env.step(50)
-
-        # Step 3: Close gripper
-        print(f"[Grasp] Step 3: Closing gripper")
-        _global_gripper.GripperClose()
-        _global_env.step(50)
-
-        # Step 4: Lift
-        print(f"[Grasp] Step 4: Lifting object by {lift_height}m")
-        _global_robot.IKTargetDoMove(position=[0, lift_height, 0], duration=2, speed_based=False, relative=True)
-        _global_robot.WaitDo()
-        _global_env.step(50)
-        
-        final_position = [grasp_position[0], grasp_position[1] + lift_height, grasp_position[2]]
-        
-        print(f"[Grasp] Grasp sequence completed")
-        
         return {
             "success": True,
             "message": f"Successfully grasped object '{name}' and lifted",
@@ -497,7 +473,7 @@ def grasp_object(
                 "final_position": final_position
             }
         }
-    
+
     except Exception as e:
         return {
             "success": False,
@@ -509,28 +485,30 @@ def grasp_object(
 def release_object(lift_before_release: bool = True, lift_height: float = 0.1) -> Dict[str, Any]:
     """Release the currently grasped object."""
     _check_initialization()
-    
+
     try:
-        print(f"[Release] Releasing object")
-        
-        if lift_before_release:
-            print(f"[Release] Lifting {lift_height}m before release")
-            _global_robot.IKTargetDoMove(position=[0, lift_height, 0], duration=1, speed_based=False, relative=True)
-            _global_robot.WaitDo()
+        def _execute_release():
+            if lift_before_release:
+                _global_robot.IKTargetDoMove(position=[0, lift_height, 0], duration=1, speed_based=False, relative=True)
+                _global_robot.WaitDo()
+                _global_env.step(50)
+
+            _global_gripper.GripperOpen()
             _global_env.step(50)
 
-        print(f"[Release] Opening gripper")
-        _global_gripper.GripperOpen()
-        _global_env.step(50)
-        
-        print(f"[Release] Object released")
-        
+        # Execute with thread safety
+        if _unity_lock:
+            with _unity_lock:
+                _execute_release()
+        else:
+            _execute_release()
+
         return {
             "success": True,
             "message": "Successfully released object",
             "data": {"lift_before_release": lift_before_release, "lift_height": lift_height}
         }
-    
+
     except Exception as e:
         return {
             "success": False,
@@ -549,29 +527,33 @@ def move_to_position(
 ) -> Dict[str, Any]:
     """Move robot to an absolute or relative position."""
     _check_initialization()
-    
+
     try:
         target_position = [x, y, z]
-        
-        print(f"[Move] Moving to {'relative' if relative else 'absolute'} position: {target_position}")
 
-        _global_robot.IKTargetDoMove(
-            position=target_position,
-            duration=duration,
-            speed_based=speed_based,
-            relative=relative
-        )
-        _global_robot.WaitDo()
-        _global_env.step(50)  # Let environment update after movement
+        def _execute_move():
+            _global_robot.IKTargetDoMove(
+                position=target_position,
+                duration=duration,
+                speed_based=speed_based,
+                relative=relative
+            )
+            _global_robot.WaitDo()
+            _global_env.step(50)
 
-        print(f"[Move] Movement completed")
-        
+        # Execute with thread safety
+        if _unity_lock:
+            with _unity_lock:
+                _execute_move()
+        else:
+            _execute_move()
+
         return {
             "success": True,
             "message": f"Successfully moved to position {target_position}",
             "data": {"target_position": target_position, "relative": relative}
         }
-    
+
     except Exception as e:
         return {
             "success": False,
