@@ -324,7 +324,8 @@ class RCareWorld(ABC):
         while "scene_init" not in self.data:
             self._step(simulate=False)
         self.data.pop("scene_init")
-        self._send_debug_data("SetPythonVersion", pyrcareworld.__version__)
+        version = getattr(pyrcareworld, '__version__', '1.5.0')
+        self._send_debug_data("SetPythonVersion", version)
 
     def WaitLoadDone(self) -> None:
         """
