@@ -81,7 +81,7 @@ def start_camera_feed():
                         _latest_frame = np.array(image)
 
                 # ~10 FPS = ~0.1 second delay
-                time.sleep(0.1)
+                # time.sleep(0.01)
 
             except Exception as e:
                 print(f"[Camera Feed Error] {e}")
@@ -112,7 +112,7 @@ def get_latest_frame():
 
 
 # ============================================================================
-# Control Button Functions
+# Movement Control Button Functions
 # ============================================================================
 
 def move_up() -> str:
@@ -158,7 +158,7 @@ def move_left() -> str:
     try:
         with _unity_lock:  # Thread safety
             _global_robot.IKTargetDoMove(
-                position=[-MOVEMENT_DISTANCE, 0, 0],
+                position=[MOVEMENT_DISTANCE, 0, 0],
                 duration=1.0,
                 speed_based=False,
                 relative=True
@@ -177,7 +177,7 @@ def move_right() -> str:
     try:
         with _unity_lock:  # Thread safety
             _global_robot.IKTargetDoMove(
-                position=[MOVEMENT_DISTANCE, 0, 0],
+                position=[-MOVEMENT_DISTANCE, 0, 0],
                 duration=1.0,
                 speed_based=False,
                 relative=True
@@ -211,6 +211,110 @@ def release_action() -> str:
             _global_gripper.GripperOpen()
             _global_env.step(50)
         return "✓ Gripper opened"
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return f"✗ Error: {str(e)}"
+
+# ============================================================================
+# Camera Control Button Functions
+# ============================================================================
+
+def move_camera_up() -> str:
+    """Move camera up by configured distance."""
+    try:
+        with _unity_lock:  # Thread safety
+            _global_camera.DoMove(
+                position=[0, MOVEMENT_DISTANCE, 0],
+                duration=1.0,
+                speed_based=False,
+                relative=True
+            )
+        return f"✓ Moved camera up {int(MOVEMENT_DISTANCE*100)}cm"
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return f"✗ Error: {str(e)}"
+
+
+def move_camera_down() -> str:
+    """Move camera down by configured distance."""
+    try:
+        with _unity_lock:  # Thread safety
+            _global_camera.DoMove(
+                position=[0, -MOVEMENT_DISTANCE, 0],
+                duration=1.0,
+                speed_based=False,
+                relative=True
+            )
+        return f"✓ Moved camera down {int(MOVEMENT_DISTANCE*100)}cm"
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return f"✗ Error: {str(e)}"
+
+
+def move_camera_left() -> str:
+    """Move camera left by configured distance."""
+    try:
+        with _unity_lock:  # Thread safety
+            _global_camera.DoMove(
+                position=[MOVEMENT_DISTANCE, 0, 0],
+                duration=1.0,
+                speed_based=False,
+                relative=True
+            )
+        return f"✓ Moved camera left {int(MOVEMENT_DISTANCE*100)}cm"
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return f"✗ Error: {str(e)}"
+
+
+def move_camera_right() -> str:
+    """Move camera right by configured distance."""
+    try:
+        with _unity_lock:  # Thread safety
+            _global_camera.DoMove(
+                position=[-MOVEMENT_DISTANCE, 0, 0],
+                duration=1.0,
+                speed_based=False,
+                relative=True
+            )
+        return f"✓ Moved camera right {int(MOVEMENT_DISTANCE*100)}cm"
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return f"✗ Error: {str(e)}"
+
+def move_camera_forward() -> str:
+    """Move camera forward by configured distance."""
+    try:
+        with _unity_lock:  # Thread safety
+            _global_camera.DoMove(
+                position=[0, 0, -MOVEMENT_DISTANCE],
+                duration=1.0,
+                speed_based=False,
+                relative=True
+            )
+        return f"✓ Moved camera forward {int(MOVEMENT_DISTANCE*100)}cm"
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return f"✗ Error: {str(e)}"
+
+
+def move_camera_back() -> str:
+    """Move camera back by configured distance."""
+    try:
+        with _unity_lock:  # Thread safety
+            _global_camera.DoMove(
+                position=[0, 0, MOVEMENT_DISTANCE],
+                duration=1.0,
+                speed_based=False,
+                relative=True
+            )
+        return f"✓ Moved camera back {int(MOVEMENT_DISTANCE*100)}cm"
     except Exception as e:
         import traceback
         traceback.print_exc()
@@ -323,12 +427,42 @@ def create_interface() -> gr.Blocks:
         # Title
         gr.Markdown("# RCareGen")
 
-        # Top: Camera Feed
+        # Top: Camera Feed and controls
         with gr.Row():
-            camera_feed = gr.Image(
-                label="Robot Camera Feed (~10 FPS)",
-                type="numpy"
-            )
+            with gr.Column(scale=1):
+                with gr.Group():
+                    gr.Markdown(f"**Camera Controls** ({int(MOVEMENT_DISTANCE*100)}cm increments)")
+
+                    # 3x3 Grid for directional controls with equal-width columns
+                    # Row 1: Empty, Up, Empty
+                    with gr.Row():
+                            gr.HTML("<div></div>")  # Empty spacer
+                            camera_up = gr.Button("⬆️ Up", variant="primary", elem_classes=["direction-btn"])
+                            gr.HTML("<div></div>")  # Empty spacer
+
+                    # Row 2: Left, Empty, Right
+                    with gr.Row():
+                            camera_left = gr.Button("⬅️ Left", variant="primary", elem_classes=["direction-btn"])
+                            gr.HTML("")  # Empty spacer
+                            camera_right = gr.Button("➡️ Right", variant="primary", elem_classes=["direction-btn"])
+
+                    # Row 3: Empty, Down, Empty
+                    with gr.Row():
+                            gr.HTML("")  # Empty spacer
+                            camera_down = gr.Button("⬇️ Down", variant="primary", elem_classes=["direction-btn"])
+                            gr.HTML("")  # Empty spacer
+
+                    # Row 4: Forward, Back
+                    with gr.Row():
+                            camera_forward = gr.Button("Forward", variant="primary", elem_classes=["direction-btn"])
+                            camera_back = gr.Button("Back", variant="primary", elem_classes=["direction-btn"])
+            
+            # Right Panel: Camera Feed    
+            with gr.Column(scale=2):
+                camera_feed = gr.Image(
+                    label="Robot Camera Feed (~10 FPS)",
+                    type="numpy"
+                )
 
         # Timer for periodic camera updates (Gradio 4.0 style)
         timer = gr.Timer(value=0.1, active=True)
@@ -346,29 +480,20 @@ def create_interface() -> gr.Blocks:
                     # 3x3 Grid for directional controls with equal-width columns
                     # Row 1: Empty, Up, Empty
                     with gr.Row():
-                        with gr.Column(scale=1):
                             gr.HTML("")  # Empty spacer
-                        with gr.Column(scale=1):
                             btn_up = gr.Button("⬆️ Up", variant="primary", elem_classes=["direction-btn"])
-                        with gr.Column(scale=1):
                             gr.HTML("")  # Empty spacer
 
                     # Row 2: Left, Empty, Right
                     with gr.Row():
-                        with gr.Column(scale=1):
                             btn_left = gr.Button("⬅️ Left", variant="primary", elem_classes=["direction-btn"])
-                        with gr.Column(scale=1):
                             gr.HTML("")  # Empty spacer
-                        with gr.Column(scale=1):
                             btn_right = gr.Button("➡️ Right", variant="primary", elem_classes=["direction-btn"])
 
                     # Row 3: Empty, Down, Empty
                     with gr.Row():
-                        with gr.Column(scale=1):
                             gr.HTML("")  # Empty spacer
-                        with gr.Column(scale=1):
                             btn_down = gr.Button("⬇️ Down", variant="primary", elem_classes=["direction-btn"])
-                        with gr.Column(scale=1):
                             gr.HTML("")  # Empty spacer
 
                 with gr.Group():
@@ -434,6 +559,14 @@ def create_interface() -> gr.Blocks:
             inputs=None,
             outputs=camera_feed
         )
+
+        # Camera movement button handlers
+        camera_up.click(fn=move_camera_up, inputs=None, outputs=btn_status)
+        camera_down.click(fn=move_camera_down, inputs=None, outputs=btn_status)
+        camera_left.click(fn=move_camera_left, inputs=None, outputs=btn_status)
+        camera_right.click(fn=move_camera_right, inputs=None, outputs=btn_status)
+        camera_forward.click(fn=move_camera_forward, inputs=None, outputs=btn_status)
+        camera_back.click(fn=move_camera_back, inputs=None, outputs=btn_status)
 
         # Movement button handlers
         btn_up.click(fn=move_up, inputs=None, outputs=btn_status)
