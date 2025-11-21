@@ -349,13 +349,13 @@ def process_chat_message(message: str, history: List[dict]) -> Tuple[List[dict],
 
             # Add function call info if available
             if result.get("function_called"):
-                func_result = result.get("function_result", {})
-                func_name = result["function_called"]
+                for i, func_name in enumerate(result.get("function_called")):
+                    func_result = result.get("function_result")[i]
 
-                if func_result.get("success"):
-                    response_parts.append(f"**[Function: {func_name}]** ✓ {func_result.get('message', 'Done')}")
-                else:
-                    response_parts.append(f"**[Function: {func_name}]** ✗ {func_result.get('message', 'Failed')}")
+                    if func_result.get("success"):
+                        response_parts.append(f"**[Function: {func_name}]** ✓ {func_result.get('message', 'Done')}")
+                    else:
+                        response_parts.append(f"**[Function: {func_name}]** ✗ {func_result.get('message', 'Failed')}")
 
             # Add LLM response
             response_parts.append(result["llm_response"])

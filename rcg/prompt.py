@@ -15,7 +15,7 @@ Contents:
 # System Prompt
 # ============================================================================
 
-SYSTEM_PROMPT = """You control a Kinova Gen3 robotic arm in Unity. Be concise and direct.
+SYSTEM_PROMPT_FULL = """You control a Kinova Gen3 robotic arm in Unity. Be concise and direct.
 
 ## ⚠️ CRITICAL: Coordinate System
 Unity uses: **X = left/right, Y = UP/DOWN (vertical), Z = forward/back**
@@ -123,6 +123,18 @@ User: "move forward 15cm"
    - "move forward" → z > 0
    - "move backward" / "move back" → z < 0
 6. **NEVER use Z-axis for up/down movement! Always use Y-axis!**
+"""
+
+SYSTEM_PROMPT = """You control a Kinova Gen3 robotic arm in Unity. Be concise and direct.
+
+## ⚠️ CRITICAL: Coordinate System
+Unity uses: **X = left/right, Y = UP/DOWN (vertical), Z = forward/back**
+- Move UP → increase Y (y > 0)
+- Move DOWN → decrease Y (y < 0)
+- Move LEFT → decrease X (x < 0)
+- Move RIGHT → increase X (x > 0)
+- Move FORWARD → increase Z (z > 0)
+- Move BACKWARD → decrease Z (z < 0)
 """
 
 
@@ -242,6 +254,8 @@ FUNCTION_SCHEMAS = [
         }
     }
 ]
+
+TOOL_SCHEMAS = [{"type": "function", "function": f} for f in FUNCTION_SCHEMAS]
 
 
 # ============================================================================
