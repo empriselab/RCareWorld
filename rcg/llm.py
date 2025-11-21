@@ -39,7 +39,7 @@ class LLMConfig:
     BASE_URL = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")
     
     # Use models supportting function calling
-    MODEL = os.getenv("OPENAI_MODEL", "gpt-3.5-turbo")
+    MODEL = os.getenv("OPENAI_MODEL", "gpt-5.1")
 
     # Temperature and other params
     TEMPERATURE = 0.7
@@ -814,11 +814,17 @@ class LLMController:
                     self.conversation_history.append({
                         "role": "assistant",
                         "content": None,
-                        "function_call": {"name": function_name, "arguments": json.dumps(function_args)}
+                        "tool_calls": [{
+                            "function": {"name": function_name, "arguments": json.dumps(function_args)}, 
+                            "type": call.type, 
+                            "id": call.id
+                        }]
                     })
                     
                     self.conversation_history.append({
-                        "role": "function",
+                        "tool_call_id": call.id,
+                        "role": "tool",
+                        "type": "function_tool_output",
                         "name": function_name,
                         "content": json.dumps(function_result)
                     })
