@@ -773,7 +773,6 @@ class LLMController:
             )
 
             message = response.choices[0].message
-            print(message)
 
             # Check for function call
             if hasattr(message, 'tool_calls') and message.tool_calls:
@@ -849,18 +848,18 @@ class LLMController:
                 }
             else:
                 # No function call at all
-                self.conversation_history.append({"role": "assistant", "content": assistant_message})
+                self.conversation_history.append({"role": "assistant", "content": message.content})
 
                 # Log LLM response
                 if self.enable_logging:
                     self._write_log(f"LLM RESPONSE (no function call):")
-                    self._write_log(assistant_message)
+                    self._write_log(message.content)
                     self._write_log("")
 
                 return {
                     "success": True,
                     "function_called": None,
-                    "llm_response": assistant_message
+                    "llm_response": message.content
                 }
         
         except Exception as e:

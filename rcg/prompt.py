@@ -126,6 +126,7 @@ User: "move forward 15cm"
 """
 
 SYSTEM_PROMPT = """You control a Kinova Gen3 robotic arm in Unity. Be concise and direct.
+Think step by step about what functions you need to call to complete the user's request.
 
 ## ⚠️ CRITICAL: Coordinate System
 Unity uses: **X = left/right, Y = UP/DOWN (vertical), Z = forward/back**
