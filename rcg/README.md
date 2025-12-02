@@ -6,7 +6,7 @@ LLM-based robot control interface for RCareWorld simulation environment.
 
 ```bash
 # Install dependencies
-pip install gradio pillow openai python-dotenv
+pip install gradio==5.* pillow openai python-dotenv
 
 # Set API key (if using OpenAI)
 export OPENAI_API_KEY="your-key"
