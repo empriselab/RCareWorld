@@ -43,7 +43,7 @@ class LLMConfig:
 
     # Temperature and other params
     TEMPERATURE = 0.7
-    MAX_TOKENS = None  # None = no limit
+    MAX_TOKENS = 2048  # None = no limit
 
     # Verbose logging
     VERBOSE = True
@@ -769,7 +769,8 @@ class LLMController:
                 tools=TOOL_SCHEMAS,
                 tool_choice="auto",
                 parallel_tool_calls=True,
-                temperature=LLMConfig.TEMPERATURE
+                temperature=LLMConfig.TEMPERATURE,
+                max_completion_tokens=LLMConfig.MAX_TOKENS
             )
 
             message = response.choices[0].message
@@ -833,7 +834,8 @@ class LLMController:
                 final_response = client.chat.completions.create(
                     model=LLMConfig.MODEL,
                     messages=self.conversation_history,
-                    temperature=LLMConfig.TEMPERATURE
+                    temperature=LLMConfig.TEMPERATURE,
+                    max_completion_tokens=LLMConfig.MAX_TOKENS
                 )
 
                 final_message = final_response.choices[0].message.content

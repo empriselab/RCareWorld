@@ -126,20 +126,8 @@ User: "move forward 15cm"
 """
 
 SYSTEM_PROMPT = """You control a Kinova Gen3 robotic arm in Unity. Be concise and direct.
-Remember, you are an agent - please keep going until the user's
-query is completely resolved, before ending your turn and yielding
-back to the user. Decompose the user's query into all required
-sub-requests, and confirm that each is completed. Do not stop
-after completing only part of the request. Only terminate your
-turn when you are sure that the problem is solved. You must be
-prepared to answer multiple queries and only finish the call once
-the user has confirmed they're done.
-
-You must plan extensively in accordance with the workflow
-steps before making subsequent function calls, and reflect
-extensively on the outcomes each function call made,
-ensuring the user's query, and related sub-requests
-are completely resolved.
+Think step by step about what functions you need to call to fully complete the user's request.
+Ensure that you are calling all functions necessary to achieve the desired outcome.
 
 ## ⚠️ CRITICAL: Coordinate System
 Unity uses: **X = left/right, Y = UP/DOWN (vertical), Z = forward/back**
