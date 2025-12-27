@@ -29,6 +29,7 @@ from pyrcareworld.attributes.articulated_joint_attr import ArticulatedJointAttr
 from pyrcareworld.attributes.arm_pose_iou_attr import ArmPoseIoUAttr
 from pyrcareworld.attributes.collision_painter_attr import CollisionPainterAttr
 from pyrcareworld.attributes.ink_canvas_attr import InkCanvasAttr
+from pyrcareworld.attributes.sponge_attr import FMActionAttr
 
 # THIS IS AN OPTIONAL FUNCTION, WON'T AFFECT YOUR USE
 try:
@@ -67,6 +68,7 @@ attrs = {
 "ArmPoseIoUAttr": ArmPoseIoUAttr,
 "CollisionPainterAttr": CollisionPainterAttr,
 "InkCanvasAttr": InkCanvasAttr,
+"FMActionAttr": FMActionAttr,
 }
 
 if "OmplManagerAttr" in locals():
