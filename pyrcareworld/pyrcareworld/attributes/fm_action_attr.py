@@ -61,16 +61,7 @@ class FMActionAttr(BaseAttr):
             distance: Distance to brush (default: 0.1)
         """
         # Send command to Unity to perform brushing action with specified parameters
-        cmd_map = {
-            "left": "brush_left",
-            "right": "brush_right",
-            "front": "brush_front",
-            "back": "brush_back",
-        }
-        cmd = cmd_map.get(affordance)
-        if cmd is None:
-            raise ValueError(f"Unknown affordance: {affordance}")
-        self._send_command(cmd)
+        self._send_data("brush", affordance, distance)
 
     # Task: Drinking
     
