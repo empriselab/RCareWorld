@@ -56,15 +56,15 @@ def _find_target(env, name_hint=None, target_id=None, wait_seconds=5.0):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Test FMActionAttr brush in Grooming scene.")
+    parser = argparse.ArgumentParser(description="Test FMActionAttr drinking actions.")
     parser.add_argument("--port", type=int, default=5004)
     parser.add_argument("--simulate", action="store_true")
     parser.add_argument("--id", type=int, default=None)
-    parser.add_argument("--name", type=str, default="GroomingRemote")
+    parser.add_argument("--name", type=str, default="DrinkingRemote")
     args = parser.parse_args()
 
-    # Ensure Unity class name "GroomingRemote" is recognized as FMActionAttr.
-    attr.attrs["GroomingRemote"] = FMActionAttr
+    # Ensure Unity class name "DrinkingRemote" is recognized as FMActionAttr.
+    attr.attrs["DrinkingRemote"] = FMActionAttr
     # Provide a fallback for Unity-only attrs not defined in Python.
     attr.attrs.setdefault("HumanArticulationAttr", BaseAttr)
 
@@ -77,7 +77,7 @@ def main():
 
     target = _find_target(env, name_hint=args.name, target_id=args.id)
     if target is None:
-        print("No GroomingRemote attr found. Available attrs:")
+        print("No DrinkingRemote attr found. Available attrs:")
         for attr_id, inst in env.attrs.items():
             name = inst.data.get("name", "")
             print(f"  id={attr_id} type={inst.__class__.__name__} name={name}")
@@ -86,16 +86,26 @@ def main():
         env.close()
         return
 
-    # Force type for API availability if needed.
     if not isinstance(target, FMActionAttr):
         target = target.SetType(FMActionAttr)
 
     print(f"Using attr id={target.id} name={target.data.get('name', '')}")
+    actions = [
+        ("drink_acquisition", lambda: target.drink_acquisition("Handle")),
+        ("move_to_mouth", lambda: target.move_to_mouth([0.0, 0.0, 0.0])),
+        ("tilt_cup", lambda: target.tilt_cup(30.0)),
+        ("level_cup", lambda: target.level_cup(0.0)),
+    ]
 
-    for affordance in ["right"]:
-        print(f"Brush: {affordance}")
-        target.brush(affordance, 0.1)
-        time.sleep(50.0)
+    for name, fn in actions:
+        try:
+            input(f"Press Enter to run {name} (Ctrl+C to quit) ")
+        except (EOFError, KeyboardInterrupt):
+            break
+        print(f"Run: {name}")
+        fn()
+
+        time.sleep(6)
 
     stepper.stop()
     env.close()
