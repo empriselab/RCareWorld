@@ -278,7 +278,7 @@ class FMActionAttr(BaseAttr):
         cmd = cmd_map.get(affordance)
         if cmd is None:
             raise ValueError(f"Unknown affordance: {affordance}")
-        self._send_command(cmd)
+        self._send_data(cmd, float(distance))
 
     def ot_left(self):
         """
