@@ -263,10 +263,8 @@ class FMActionAttr(BaseAttr):
             affordance: The wiping affordance. List of valid options:
                 - "left_arm"
                 - "right_arm"
-                - "front"
-                - "back"
-                - "right leg"
-                - "left leg"
+                - "right_leg"
+                - "left_leg"
             You might want to add more body parts here.
             distance: Distance to wipe (default: 0.1)
         """
@@ -276,73 +274,24 @@ class FMActionAttr(BaseAttr):
             "right leg": "bath_right_leg",
             "left leg": "bath_left_leg",
             "left_arm": "bath_left_arm",
-            "front": "bath_right_arm",
-            "back": "bath_left_arm",
         }
         cmd = cmd_map.get(affordance)
         if cmd is None:
             raise ValueError(f"Unknown affordance: {affordance}")
         self._send_command(cmd)
-    
-    def rinse(self, affordance: str, distance: float = 0.1):
+
+    def ot_left(self):
         """
-        Perform a rinsing action using the FMActionAttr.
-        
-        Args:
-            affordance: The rinsing affordance. List of valid options:
-                - "left_arm"
-                - "right_arm"
-                - "front"
-                - "back"
-                - "right leg"
-                - "left leg"
-            You might want to add more body parts here.
-            distance: Distance to rinse (default: 0.1)
+        Move the wheelchair (OT) to the left side in bathing task.
         """
-        # Send command to Unity to perform rinsing action with specified parameters
-        cmd_map = {
-            "right_arm": "bath_right_arm",
-            "right leg": "bath_right_leg",
-            "left leg": "bath_left_leg",
-            "left_arm": "bath_left_arm",
-            "front": "bath_right_arm",
-            "back": "bath_left_arm",
-        }
-        cmd = cmd_map.get(affordance)
-        if cmd is None:
-            raise ValueError(f"Unknown affordance: {affordance}")
-        self._send_command(cmd)
-    
-    def dry(self, affordance: str, distance: float = 0.1):
+        self._send_data("ot_left")
+
+    def ot_right(self):
         """
-        Perform a drying action using the FMActionAttr.
-        
-        Args:
-            affordance: The drying affordance. List of valid options:
-                - "left_arm"
-                - "right_arm"
-                - "front"
-                - "back"
-                - "right leg"
-                - "left leg"
-            You might want to add more body parts here.
-            distance: Distance to dry (default: 0.1)
+        Move the wheelchair (OT) to the right side in bathing task.
         """
-        # Send command to Unity to perform drying action with specified parameters
-        # Send command to Unity to perform drying action with specified parameters
-        cmd_map = {
-            "right_arm": "bath_right_arm",
-            "right leg": "bath_right_leg",
-            "left leg": "bath_left_leg",
-            "left_arm": "bath_left_arm",
-            "front": "bath_right_arm",
-            "back": "bath_left_arm",
-        }
-        cmd = cmd_map.get(affordance)
-        if cmd is None:
-            raise ValueError(f"Unknown affordance: {affordance}")
-        self._send_command(cmd)
-    
+        self._send_data("ot_right")
+
     # Task: Transferring
     def align_lift_to_bed(self, affordance: str, distance: float = 0.1):
         """
@@ -421,9 +370,7 @@ class FMActionAttr(BaseAttr):
         # Send command to Unity to remove the lift from the patient with specified parameters
         self._send_command("remove_lift")
         
-    
 
-    # Dressing
 
     
 
