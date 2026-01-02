@@ -100,6 +100,11 @@ def main():
         print(f"Brush: {affordance}")
         target.brush(affordance, 0.1)
 
+    try:
+        input("All actions queued. Press Enter to exit (Ctrl+C to quit) ")
+    except (EOFError, KeyboardInterrupt):
+        pass
+
     stepper.stop()
     env.close()
 

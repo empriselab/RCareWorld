@@ -135,7 +135,10 @@ class FMActionAttr(BaseAttr):
         """
         # Send command to Unity to open the fridge door with specified parameters
         # if distance is none, use a default distance
-        self._send_command("open_fridge")
+        if distance is None:
+            self._send_data("open_fridge", affordance)
+        else:
+            self._send_data("open_fridge", affordance, float(distance))
     
     def pick_plate(self, affordance: str, position: Optional[List[float]] = None):
         """
@@ -147,7 +150,10 @@ class FMActionAttr(BaseAttr):
         """
         # Send command to Unity to pick up the plate with specified parameters
         # if position is none, get the position from unity side
-        self._send_command("pick_plate")
+        if position is None:
+            self._send_data("pick_plate", affordance)
+        else:
+            self._send_data("pick_plate", affordance, position)
     
     def close_fridge(self, affordance: str, distance: float = 0.1):
         """
@@ -162,7 +168,10 @@ class FMActionAttr(BaseAttr):
         """
         # Send command to Unity to close the fridge door with specified parameters
         # if distance is none, use a default distance
-        self._send_command("close_fridge")
+        if distance is None:
+            self._send_data("close_fridge", affordance)
+        else:
+            self._send_data("close_fridge", affordance, float(distance))
     
     def pick_utensil(self, affordance: str, position: Optional[List[float]] = None):
         """
@@ -185,7 +194,10 @@ class FMActionAttr(BaseAttr):
         cmd = utensil_map.get(affordance)
         if cmd is None:
             raise ValueError(f"Unsupported utensil affordance: {affordance}")
-        self._send_command(cmd)
+        if position is None:
+            self._send_data(cmd, affordance)
+        else:
+            self._send_data(cmd, affordance, position)
     
     def move_towards_plate(self, target_position: Optional[List[float]]):
         """
@@ -195,7 +207,10 @@ class FMActionAttr(BaseAttr):
             target_position: Target plate position [x, y, z]
         """
         # Send command to Unity to move the utensil towards the specified plate position
-        self._send_command("move_toward_plate")
+        if target_position is None:
+            self._send_data("move_toward_plate")
+        else:
+            self._send_data("move_toward_plate", target_position)
     
     def bite_acquisition(self, affordance: str, target_position: Optional[List[float]]):
         """
@@ -209,7 +224,10 @@ class FMActionAttr(BaseAttr):
         """
         # Send command to Unity to perform bite acquisition action with specified parameters
         # if position is none, get the position from unity side
-        self._send_command("pick_up_food")
+        if target_position is None:
+            self._send_data("pick_up_food", affordance)
+        else:
+            self._send_data("pick_up_food", affordance, target_position)
     
     def bite_transfer(self, target_position: Optional[List[float]]):
         """
@@ -220,7 +238,10 @@ class FMActionAttr(BaseAttr):
         """
         # Send command to Unity to transfer the bite to the specified mouth position
         # if position is none, get the position from unity side
-        self._send_command("bite_transfer")
+        if target_position is None:
+            self._send_data("bite_transfer")
+        else:
+            self._send_data("bite_transfer", target_position)
     
     def bite_release(self, distance: float = 0.1):
         """
@@ -228,7 +249,10 @@ class FMActionAttr(BaseAttr):
         """
         # Send command to Unity to release the bite
         # if distance is none, use a default distance, distance means how much to bring in the mouth
-        self._send_command("bring_to_mouth")
+        if distance is None:
+            self._send_data("bring_to_mouth")
+        else:
+            self._send_data("bring_to_mouth", float(distance))
     
     # Task: Bathing
     def wipe(self, affordance: str, distance: float = 0.1):

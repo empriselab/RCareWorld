@@ -56,15 +56,15 @@ def _find_target(env, name_hint=None, target_id=None, wait_seconds=5.0):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Test FMActionAttr drinking actions.")
+    parser = argparse.ArgumentParser(description="Test FMActionAttr feeding actions.")
     parser.add_argument("--port", type=int, default=5004)
     parser.add_argument("--simulate", action="store_true")
     parser.add_argument("--id", type=int, default=None)
-    parser.add_argument("--name", type=str, default="DrinkingRemote")
+    parser.add_argument("--name", type=str, default="FeedingRemote")
     args = parser.parse_args()
 
-    # Ensure Unity class name "DrinkingRemote" is recognized as FMActionAttr.
-    attr.attrs["DrinkingRemote"] = FMActionAttr
+    # Ensure Unity class name "FeedingRemote" is recognized as FMActionAttr.
+    attr.attrs["FeedingRemote"] = FMActionAttr
     # Provide a fallback for Unity-only attrs not defined in Python.
     attr.attrs.setdefault("HumanArticulationAttr", BaseAttr)
 
@@ -77,7 +77,7 @@ def main():
 
     target = _find_target(env, name_hint=args.name, target_id=args.id)
     if target is None:
-        print("No DrinkingRemote attr found. Available attrs:")
+        print("No FeedingRemote attr found. Available attrs:")
         for attr_id, inst in env.attrs.items():
             name = inst.data.get("name", "")
             print(f"  id={attr_id} type={inst.__class__.__name__} name={name}")
@@ -91,10 +91,14 @@ def main():
 
     print(f"Using attr id={target.id} name={target.data.get('name', '')}")
     actions = [
-        ("drink_acquisition", lambda: target.drink_acquisition("Handle")),
-        ("move_to_mouth", lambda: target.move_to_mouth()),
-        ("tilt_cup", lambda: target.tilt_cup()),
-        ("level_cup", lambda: target.level_cup()),
+        ("open_fridge", lambda: target.open_fridge("Handle", 0.1)),
+        ("pick_plate", lambda: target.pick_plate("Plate")),
+        ("close_fridge", lambda: target.close_fridge("Handle", 0.1)),
+        ("pick_utensil", lambda: target.pick_utensil("Fork")),
+        ("move_towards_plate", lambda: target.move_towards_plate(None)),
+        ("bite_acquisition", lambda: target.bite_acquisition("Food", None)),
+        ("bite_transfer", lambda: target.bite_transfer(None)),
+        ("bite_release", lambda: target.bite_release(0.1)),
     ]
 
     for name, fn in actions:
@@ -104,8 +108,6 @@ def main():
             break
         print(f"Run: {name}")
         fn()
-
-        time.sleep(6)
 
     try:
         input("All actions queued. Press Enter to exit (Ctrl+C to quit) ")
