@@ -77,9 +77,12 @@ class FMActionAttr(BaseAttr):
         """
         # Send command to Unity to perform drinking acquisition action with specified parameters
         # if position is none, get the position from unity side
-        self._send_command("acquisition")
+        if target_position is None:
+            self._send_data("acquisition")
+        else:
+            self._send_data("acquisition", target_position)
     
-    def move_to_mouth(self, target_position: List[float]):
+    def move_to_mouth(self, target_position: Optional[List[float]] = None):
         """
         Move the drinking object to the mouth position.
         
@@ -88,9 +91,12 @@ class FMActionAttr(BaseAttr):
         """
         # Send command to Unity to move the object to the specified mouth position
         # if position is none, get the position from unity side
-        self._send_command("move_to_mouth")
+        if target_position is None:
+            self._send_data("move_to_mouth")
+        else:
+            self._send_data("move_to_mouth", target_position)
     
-    def tilt_cup(self, angle: float):
+    def tilt_cup(self, angle: Optional[float] = None):
         """
         Tilt the cup for drinking.
         
@@ -98,16 +104,22 @@ class FMActionAttr(BaseAttr):
             angle: Angle in degrees to tilt the cup
         """
         # Send command to Unity to tilt the cup by the specified angle
-        # if angle if none, use a default angle
-        self._send_command("tilt_cup")
+        # if angle is none, use a default angle
+        if angle is None:
+            self._send_data("tilt_cup")
+        else:
+            self._send_data("tilt_cup", float(angle))
     
-    def level_cup(self, angle: float):
+    def level_cup(self, angle: Optional[float] = None):
         """
         Level the cup back to upright position after drinking.
         """
         # Send command to Unity to level the cup back to upright position
-        # if angle if none, use a default angle
-        self._send_command("level_cup")
+        # if angle is none, use a default angle
+        if angle is None:
+            self._send_data("level_cup")
+        else:
+            self._send_data("level_cup", float(angle))
     
     # Task: Feeding
     def open_fridge(self, affordance: str, distance: float = 0.1):

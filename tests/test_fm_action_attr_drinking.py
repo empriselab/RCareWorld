@@ -92,9 +92,9 @@ def main():
     print(f"Using attr id={target.id} name={target.data.get('name', '')}")
     actions = [
         ("drink_acquisition", lambda: target.drink_acquisition("Handle")),
-        ("move_to_mouth", lambda: target.move_to_mouth([0.0, 0.0, 0.0])),
-        ("tilt_cup", lambda: target.tilt_cup(30.0)),
-        ("level_cup", lambda: target.level_cup(0.0)),
+        ("move_to_mouth", lambda: target.move_to_mouth()),
+        ("tilt_cup", lambda: target.tilt_cup()),
+        ("level_cup", lambda: target.level_cup()),
     ]
 
     for name, fn in actions:
