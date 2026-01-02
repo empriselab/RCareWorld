@@ -92,10 +92,13 @@ def main():
 
     print(f"Using attr id={target.id} name={target.data.get('name', '')}")
 
-    for affordance in ["right"]:
+    for affordance in ["left", "right", "front", "back"]:
+        try:
+            input(f"Press Enter to run brush {affordance} (Ctrl+C to quit) ")
+        except (EOFError, KeyboardInterrupt):
+            break
         print(f"Brush: {affordance}")
         target.brush(affordance, 0.1)
-        time.sleep(50.0)
 
     stepper.stop()
     env.close()
