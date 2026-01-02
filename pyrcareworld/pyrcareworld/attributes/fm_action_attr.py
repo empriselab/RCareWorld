@@ -293,17 +293,20 @@ class FMActionAttr(BaseAttr):
         self._send_data("ot_right")
 
     # Task: Transferring
-    def align_lift_to_bed(self, affordance: str, distance: float = 0.1):
+    def align_lift_to_bed(self, affordance: str, distance: Optional[float] = None):
         """
         Align and lift the patient to the bed using the FMActionAttr.
         
         Args:
             affordance: The bed affordance. List of valid options:
                 - "Bed"
-            distance: Distance between bed and lift (default: 0.1)
+            distance: Distance between bed and lift (default: use Unity side default)
         """
         # Send command to Unity to align and lift the patient to the bed with specified parameters
-        self._send_command("align_lift_to_bed")
+        if distance is None:
+            self._send_data("align_lift_to_bed", affordance)
+        else:
+            self._send_data("align_lift_to_bed", affordance, float(distance))
     
     def load_patient_on_lift(self):
         """
@@ -312,17 +315,20 @@ class FMActionAttr(BaseAttr):
         # Send command to Unity to load the patient onto the lift
         self._send_command("load_patient_on_lift")
     
-    def raise_lift(self, height: float = 0.5):
+    def raise_lift(self, height: Optional[float] = None):
         """
         Raise the lift to a specified height using the FMActionAttr.
         
         Args:
-            height: Height to raise the lift (default: 0.5)
+            height: Height to raise the lift (default: use Unity side default)
         """
         # Send command to Unity to raise the lift to the specified height
-        self._send_command("raise_patient")
+        if height is None:
+            self._send_data("raise_patient")
+        else:
+            self._send_data("raise_patient", float(height))
     
-    def align_lift_to_destination(self, affordance: str, distance: float = 0.1):
+    def align_lift_to_destination(self, affordance: str, distance: Optional[float] = None):
         """
         Align the lift to the destination using the FMActionAttr.
         
@@ -330,7 +336,7 @@ class FMActionAttr(BaseAttr):
             affordance: The destination affordance. List of valid options:
                 - "Wheelchair"
                 - "Bed"
-            distance: Distance between lift and destination (default: 0.1)
+            distance: Distance between lift and destination (default: use Unity side default)
         """
         # Send command to Unity to align the lift to the destination with specified parameters
         cmd_map = {
@@ -340,17 +346,23 @@ class FMActionAttr(BaseAttr):
         cmd = cmd_map.get(affordance)
         if cmd is None:
             raise ValueError(f"Unknown affordance: {affordance}")
-        self._send_command(cmd)
+        if distance is None:
+            self._send_data(cmd, affordance)
+        else:
+            self._send_data(cmd, affordance, float(distance))
     
-    def lower_lift(self, height: float = 0.5):
+    def lower_lift(self, height: Optional[float] = None):
         """
         Lower the lift to a specified height using the FMActionAttr.
         
         Args:
-            height: Height to lower the lift (default: 0.5)
+            height: Height to lower the lift (default: use Unity side default)
         """
         # Send command to Unity to lower the lift to the specified height
-        self._send_command("lower_patient")
+        if height is None:
+            self._send_data("lower_patient")
+        else:
+            self._send_data("lower_patient", float(height))
     def unload_patient_from_lift(self):
         """
         Unload the patient from the lift using the FMActionAttr.
@@ -358,17 +370,20 @@ class FMActionAttr(BaseAttr):
         # Send command to Unity to unload the patient from the lift
         self._send_command("unload_patient")
     
-    def remove_lift(self, affordance: str, distance: float = 0.1):
+    def remove_lift(self, affordance: str, distance: Optional[float] = None):
         """
         Remove the lift from the patient using the FMActionAttr.
         
         Args:
             affordance: The lift affordance. List of valid options:
                 - "Lift"
-            distance: Distance to move away from the patient (default: 0.1)
+            distance: Distance to move away from the patient (default: use Unity side default)
         """
         # Send command to Unity to remove the lift from the patient with specified parameters
-        self._send_command("remove_lift")
+        if distance is None:
+            self._send_data("remove_lift", affordance)
+        else:
+            self._send_data("remove_lift", affordance, float(distance))
         
 
 
