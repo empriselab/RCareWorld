@@ -8,7 +8,7 @@ from pathlib import Path
 # Import prompts from prompt.py
 from rcg.prompt import (
     SYSTEM_PROMPT,
-    FUNCTION_SCHEMAS,
+    TOOL_SCHEMAS,
     get_error_message,
     get_success_message
 )
@@ -22,6 +22,9 @@ except ImportError:
     OpenAI = None
     print("[Warning] OpenAI package not installed. Install with: pip install openai")
 
+# Load environment variables
+from dotenv import load_dotenv
+load_dotenv()
 
 # ============================================================================
 # Configuration
@@ -29,19 +32,18 @@ except ImportError:
 class LLMConfig:
     """Configuration for LLM API."""
 
-    # OpenAI API settings
-    # WARNING: Hardcoded API key for debugging only. Should use environment variables in production.
-    API_KEY = "sk-"
+    # OpenAI API settings (using custom Qwen3 API endpoint)
+    API_KEY = os.getenv("OPENAI_API_KEY", "")
 
     # NOTE: BASE_URL typically ends with /v1
-    BASE_URL = "
-
+    BASE_URL = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")
+    
     # Use models supportting function calling
-    MODEL = "sqz-qwen3-235b"
+    MODEL = os.getenv("OPENAI_MODEL", "gpt-5.1")
 
     # Temperature and other params
     TEMPERATURE = 0.7
-    MAX_TOKENS = None  # None = no limit
+    MAX_TOKENS = 2048  # None = no limit
 
     # Verbose logging
     VERBOSE = True
@@ -764,59 +766,76 @@ class LLMController:
             response = client.chat.completions.create(
                 model=LLMConfig.MODEL,
                 messages=self.conversation_history,
-                functions=FUNCTION_SCHEMAS,
-                function_call="auto",
-                temperature=LLMConfig.TEMPERATURE
+                tools=TOOL_SCHEMAS,
+                tool_choice="auto",
+                parallel_tool_calls=True,
+                temperature=LLMConfig.TEMPERATURE,
+                max_completion_tokens=LLMConfig.MAX_TOKENS
             )
 
             message = response.choices[0].message
 
             # Check for function call
-            if hasattr(message, 'function_call') and message.function_call:
-                function_name = message.function_call.name
-                function_args = json.loads(message.function_call.arguments)
+            if hasattr(message, 'tool_calls') and message.tool_calls:
+                function_names = []
+                function_args_list = []
+                function_results = []
 
-                # Log function call
-                if self.enable_logging:
-                    self._write_log(f"FUNCTION CALL: {function_name}")
-                    self._write_log(f"Arguments: {json.dumps(function_args, indent=2, ensure_ascii=False)}")
-                    self._write_log("")
+                for call in message.tool_calls:
+                    function_name = call.function.name
+                    function_names.append(function_name)
+                    function_args = json.loads(call.function.arguments)
+                    function_args_list.append(function_args)
 
-                if LLMConfig.SHOW_FUNCTION_CALLS:
-                    print(f"\n[LLM] Calling function: {function_name}")
-                    print(f"[LLM] Arguments: {json.dumps(function_args, indent=2)}")
+                    # Log function call
+                    if self.enable_logging:
+                        self._write_log(f"FUNCTION CALL: {function_name}")
+                        self._write_log(f"Arguments: {json.dumps(function_args, indent=2, ensure_ascii=False)}")
+                        self._write_log("")
 
-                # Execute function
-                function_result = execute_function(function_name, function_args)
+                    if LLMConfig.SHOW_FUNCTION_CALLS:
+                        print(f"\n[LLM] Calling function: {function_name}")
+                        print(f"[LLM] Arguments: {json.dumps(function_args, indent=2)}")
 
-                # Log function result
-                if self.enable_logging:
-                    self._write_log(f"FUNCTION RESULT:")
-                    self._write_log(f"  Success: {function_result.get('success', False)}")
-                    self._write_log(f"  Message: {function_result.get('message', 'N/A')}")
-                    if function_result.get('data'):
-                        data_str = json.dumps(function_result['data'], indent=2, ensure_ascii=False)
-                        self._write_log(f"  Data: {data_str}")
-                    self._write_log("")
-                
-                # Add to history
-                self.conversation_history.append({
-                    "role": "assistant",
-                    "content": None,
-                    "function_call": {"name": function_name, "arguments": json.dumps(function_args)}
-                })
-                
-                self.conversation_history.append({
-                    "role": "function",
-                    "name": function_name,
-                    "content": json.dumps(function_result)
-                })
+                    # Execute function
+                    function_result = execute_function(function_name, function_args)
+                    function_results.append(function_result if function_result else {})
+
+                    # Log function result
+                    if self.enable_logging:
+                        self._write_log(f"FUNCTION RESULT:")
+                        self._write_log(f"  Success: {function_result.get('success', False)}")
+                        self._write_log(f"  Message: {function_result.get('message', 'N/A')}")
+                        if function_result.get('data'):
+                            data_str = json.dumps(function_result['data'], indent=2, ensure_ascii=False)
+                            self._write_log(f"  Data: {data_str}")
+                        self._write_log("")
+                    
+                    # Add to history
+                    self.conversation_history.append({
+                        "role": "assistant",
+                        "content": None,
+                        "tool_calls": [{
+                            "function": {"name": function_name, "arguments": json.dumps(function_args)}, 
+                            "type": call.type, 
+                            "id": call.id
+                        }]
+                    })
+                    
+                    self.conversation_history.append({
+                        "tool_call_id": call.id,
+                        "role": "tool",
+                        "type": "function_tool_output",
+                        "name": function_name,
+                        "content": json.dumps(function_result)
+                    })
                 
                 # Get final response
                 final_response = client.chat.completions.create(
                     model=LLMConfig.MODEL,
                     messages=self.conversation_history,
-                    temperature=LLMConfig.TEMPERATURE
+                    temperature=LLMConfig.TEMPERATURE,
+                    max_completion_tokens=LLMConfig.MAX_TOKENS
                 )
 
                 final_message = final_response.choices[0].message.content
@@ -830,95 +849,26 @@ class LLMController:
 
                 return {
                     "success": True,
-                    "function_called": function_name,
-                    "function_args": function_args,
-                    "function_result": function_result,
+                    "function_called": function_names,
+                    "function_args": function_args_list,
+                    "function_result": function_results,
                     "llm_response": final_message
                 }
             else:
-                # No standard function call - try manual parsing
-                assistant_message = message.content
+                # No function call at all
+                self.conversation_history.append({"role": "assistant", "content": message.content})
 
-                # Try to parse manual function call from text
-                parsed = self._parse_manual_function_call(assistant_message)
+                # Log LLM response
+                if self.enable_logging:
+                    self._write_log(f"LLM RESPONSE (no function call):")
+                    self._write_log(message.content)
+                    self._write_log("")
 
-                if parsed:
-                    # Found manual function call!
-                    function_name, function_args = parsed
-
-                    # Log manual function call
-                    if self.enable_logging:
-                        self._write_log(f"MANUAL FUNCTION CALL DETECTED: {function_name}")
-                        self._write_log(f"Arguments: {json.dumps(function_args, indent=2, ensure_ascii=False)}")
-                        self._write_log("")
-
-                    if LLMConfig.SHOW_FUNCTION_CALLS:
-                        print(f"\n[LLM] Manual function call: {function_name}")
-                        print(f"[LLM] Arguments: {json.dumps(function_args, indent=2)}")
-
-                    # Execute function
-                    function_result = execute_function(function_name, function_args)
-
-                    # Log function result
-                    if self.enable_logging:
-                        self._write_log(f"FUNCTION RESULT:")
-                        self._write_log(f"  Success: {function_result.get('success', False)}")
-                        self._write_log(f"  Message: {function_result.get('message', 'N/A')}")
-                        if function_result.get('data'):
-                            data_str = json.dumps(function_result['data'], indent=2, ensure_ascii=False)
-                            self._write_log(f"  Data: {data_str}")
-                        self._write_log("")
-
-                    # Add to history
-                    self.conversation_history.append({"role": "assistant", "content": assistant_message})
-
-                    # Create user message with function result
-                    result_message = f"Function {function_name} returned: {json.dumps(function_result)}"
-                    self.conversation_history.append({"role": "user", "content": result_message})
-
-                    # Get final response
-                    final_response = client.chat.completions.create(
-                        model=LLMConfig.MODEL,
-                        messages=self.conversation_history,
-                        temperature=LLMConfig.TEMPERATURE
-                    )
-
-                    final_message = final_response.choices[0].message.content
-
-                    # Remove <think> tags from final message
-                    import re
-                    final_message = re.sub(r'<think>.*?</think>', '', final_message, flags=re.DOTALL).strip()
-
-                    self.conversation_history.append({"role": "assistant", "content": final_message})
-
-                    # Log LLM response
-                    if self.enable_logging:
-                        self._write_log(f"LLM RESPONSE:")
-                        self._write_log(final_message)
-                        self._write_log("")
-
-                    return {
-                        "success": True,
-                        "function_called": function_name,
-                        "function_args": function_args,
-                        "function_result": function_result,
-                        "llm_response": final_message
-                    }
-                else:
-                    # No function call at all
-                    self.conversation_history.append({"role": "assistant", "content": assistant_message})
-
-                    # Log LLM response
-                    if self.enable_logging:
-                        self._write_log(f"LLM RESPONSE (no function call):")
-                        self._write_log(assistant_message)
-                        self._write_log("")
-
-                    return {
-                        "success": True,
-                        "function_called": None,
-                        "llm_response": assistant_message
-                    }
+                return {
+                    "success": True,
+                    "function_called": None,
+                    "llm_response": message.content
+                }
         
         except Exception as e:
             return {

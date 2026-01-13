@@ -10,6 +10,7 @@ Usage:
 import sys
 import argparse
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Add project root to path
 _PROJECT_ROOT = Path(__file__).parent.parent
@@ -156,6 +157,9 @@ Examples:
 
 def main():
     """Main entry point."""
+
+    # Load environment variables
+    load_dotenv()
 
     # Parse arguments
     args = parse_args()
